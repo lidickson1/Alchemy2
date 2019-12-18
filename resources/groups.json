@@ -1,0 +1,142 @@
+[
+    {
+        "name": "air",
+        "colour": [0, 255, 255]
+    },
+    {
+        "name": "earth",
+        "colour": [181, 85, 21]
+    },
+    {
+        "name": "fire",
+        "colour": [255, 28, 0]
+    },
+    {
+        "name": "water",
+        "colour": [71, 157, 255]
+    },
+    {
+        "name": "energy",
+        "colour": [220, 220, 220]
+    },
+    {
+        "name": "monsters",
+        "colour": [157, 0, 225]
+    },
+    {
+        "name": "organisms",
+        "colour": [255, 0, 159]
+    },
+    {
+        "name": "materials",
+        "colour": [255, 154, 117]
+    },
+    {
+        "name": "produce",
+        "colour": [236, 140, 0]
+    },
+    {
+        "name": "plants",
+        "colour": [0, 255, 33]
+    },
+    {
+        "name": "animals",
+        "colour": [0, 127, 14]
+    },
+    {
+        "name": "marine",
+        "colour": [127, 146, 255]
+    },
+    {
+        "name": "arthropods",
+        "colour": [132, 94, 73]
+    },
+    {
+        "name": "herpetile",
+        "colour": [182, 255, 0]
+    },
+    {
+        "name": "birds",
+        "colour": [182, 255, 255]
+    },
+    {
+        "name": "food",
+        "colour": [255, 0, 55]
+    },
+    {
+        "name": "beverage",
+        "colour": [0, 111, 181]
+    },
+    {
+        "name": "space",
+        "colour": [76, 92, 255]
+    },
+    {
+        "name": "appliances",
+        "colour": [120, 101, 186]
+    },
+    {
+        "name": "technology",
+        "colour": [105, 61, 255]
+    },
+    {
+        "name": "utilities",
+        "colour": [255, 208, 0]
+    },
+    {
+        "name": "weapons",
+        "colour": [145, 84, 46]
+    },
+    {
+        "name": "manufactured",
+        "colour": [255, 106, 0]
+    },
+    {
+        "name": "minerals",
+        "colour": [255, 255, 255]
+    },
+    {
+        "name": "structures",
+        "colour": [220, 220, 220]
+    },
+    {
+        "name": "abstract",
+        "colour": [0, 255, 190]
+    },
+    {
+        "name": "places",
+        "colour": [91, 127, 0]
+    },
+    {
+        "name": "human",
+        "colour": [255, 209, 134]
+    },
+    {
+        "name": "furniture",
+        "colour": [0, 148, 255]
+    },
+    {
+        "name": "accessories",
+        "colour": [255, 0, 255]
+    },
+    {
+        "name": "miscellaneous",
+        "colour": [255, 147, 237]
+    },
+    {
+        "name": "objects",
+        "colour": [255, 255, 0]
+    },
+    {
+        "name": "transportation",
+        "colour": [0, 247, 247]
+    },
+    {
+        "name": "activities",
+        "colour": [205, 255, 173]
+    },
+    {
+        "name": "professions",
+        "colour": [0, 74, 127]
+    }
+]

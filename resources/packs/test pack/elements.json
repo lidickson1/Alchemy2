@@ -1,0 +1,12 @@
+[
+    {
+        "name": "reggin",
+        "group": "fire",
+        "combos": [
+            {
+                "first element": "alchemy:human",
+                "second element": "alchemy:manure"
+            }
+        ]
+    }
+]

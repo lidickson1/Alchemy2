@@ -1,0 +1,352 @@
+[
+    {
+        "combos": [
+            {
+                "first elements": ["alchemy:spider", "alchemy:web"],
+                "second elements": ["alchemy:hero"]
+            }
+        ],
+        "group": "media",
+        "name": "spiderman"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:god",
+                "second element": "alchemy:energy"
+            }
+        ],
+        "group": "media",
+        "name": "chuck_norris"
+    },
+    {
+        "combos": [
+            {
+                "first elements": ["alchemy:sword", "alchemy:weapons"],
+                "second elements": ["alchemy:light", "alchemy:laser"]
+            }
+        ],
+        "group": "media",
+        "name": "lightsaber"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:warrior",
+                "second element": "lightsaber"
+            }
+        ],
+        "group": "media",
+        "name": "jedi"
+    },
+    {
+        "combos": [
+            {
+                "first elements": ["jedi"],
+                "second elements": ["alchemy:fire", "alchemy:lava"]
+            }
+        ],
+        "group": "media",
+        "name": "darth_vader"
+    },
+    {
+        "combos": [
+            {
+                "first elements": ["jedi"],
+                "second elements": ["alchemy:frog", "alchemy:swamp"]
+            }
+        ],
+        "group": "media",
+        "name": "yoda"
+    },
+    {
+        "combos": [
+            {
+                "first element": "star_wars",
+                "second element": "alchemy:robot"
+            }
+        ],
+        "group": "media",
+        "name": "R2-D2"
+    },
+    {
+        "combos": [
+            {
+                "first element": "jedi",
+                "second element": "alchemy:assassin"
+            }
+        ],
+        "group": "media",
+        "name": "sith"
+    },
+    {
+        "combos": [
+            {
+                "first element": "sith",
+                "second element": "jedi"
+            }
+        ],
+        "group": "media",
+        "name": "star_wars"
+    },
+    {
+        "combos": [
+            {
+                "first elements": ["alchemy:hero"],
+                "second elements": ["alchemy:iron", "alchemy:metal"]
+            }
+        ],
+        "group": "media",
+        "name": "iron_man"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:steamboat",
+                "second element": "alchemy:iceberg"
+            }
+        ],
+        "group": "media",
+        "name": "titanic"
+    },
+    {
+        "combos": [
+            {
+                "first elements": ["alchemy:bat"],
+                "second elements": ["alchemy:hero", "alchemy:human"]
+            }
+        ],
+        "group": "media",
+        "name": "batman"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:shark",
+                "second element": "alchemy:movie"
+            }
+        ],
+        "group": "media",
+        "name": "jaws"
+    },
+    {
+        "combos": [
+            {
+                "first elements": ["alchemy:dog"],
+                "second elements": ["alchemy:computer", "alchemy:internet"]
+            }
+        ],
+        "group": "media",
+        "name": "doge"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:city",
+                "second element": "alchemy:dinosaur"
+            }
+        ],
+        "group": "media",
+        "name": "godzilla"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:wood",
+                "second element": "alchemy:life"
+            }
+        ],
+        "group": "media",
+        "name": "pinocchio"
+    },
+    {
+        "combos": [
+            {
+                "first element": "1up",
+                "second element": "alchemy:egg"
+            }
+        ],
+        "group": "media",
+        "name": "yoshi"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:doctor",
+                "second element": "alchemy:lobster"
+            }
+        ],
+        "group": "media",
+        "name": "dr._zoidberg"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:cat",
+                "second element": "alchemy:dog"
+            }
+        ],
+        "group": "media",
+        "name": "catdog"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:park",
+                "second element": "alchemy:dinosaur"
+            }
+        ],
+        "group": "media",
+        "name": "jurassic_park"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:hero",
+                "second element": "alchemy:forest"
+            }
+        ],
+        "group": "media",
+        "name": "robin_hood"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:human",
+                "second element": "1up"
+            }
+        ],
+        "group": "media",
+        "name": "mario"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:time",
+                "second element": "alchemy:space"
+            }
+        ],
+        "group": "media",
+        "name": "tardis"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:cartoon",
+                "second element": "alchemy:japan"
+            }
+        ],
+        "group": "media",
+        "name": "anime"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:honey",
+                "second element": "alchemy:bear"
+            }
+        ],
+        "group": "media",
+        "name": "winnie_the_pooh"
+    },
+    {
+        "combos": [
+            {
+                "first elements": ["alchemy:mushroom"],
+                "second elements": ["alchemy:energy", "alchemy:life"]
+            }
+        ],
+        "group": "media",
+        "name": "1up"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:warrior",
+                "second element": "alchemy:windmill"
+            }
+        ],
+        "group": "media",
+        "name": "don_quixote"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:forest",
+                "second element": "alchemy:ghost"
+            }
+        ],
+        "group": "media",
+        "name": "totoro"
+    },
+    {
+        "combos": [
+            {
+                "first elements": ["alchemy:ninja", "alchemy:weapons"],
+                "second elements": ["alchemy:turtle"]
+            }
+        ],
+        "group": "media",
+        "name": "teenage_mutant_ninja_turtles"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:sword",
+                "second element": "alchemy:stone"
+            }
+        ],
+        "group": "media",
+        "name": "excalibur"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:gold",
+                "second element": "alchemy:robot"
+            }
+        ],
+        "group": "media",
+        "name": "C-3PO"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:book",
+                "second element": "alchemy:sex"
+            }
+        ],
+        "group": "media",
+        "name": "kama_sutra"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:werewolf",
+                "second element": "alchemy:vampire"
+            }
+        ],
+        "group": "media",
+        "name": "twilight_saga"
+    },
+    {
+        "combos": [
+            {
+                "first element": "alchemy:city",
+                "second element": "alchemy:sex"
+            }
+        ],
+        "group": "media",
+        "name": "sex_and_the_city"
+    },
+    {
+        "combos": [
+            {
+                "first elements": ["alchemy:alien", "alchemy:human"],
+                "second elements": ["alchemy:tardis"]
+            }
+        ],
+        "group": "media",
+        "name": "the_doctor"
+    }
+]

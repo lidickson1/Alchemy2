@@ -1,0 +1,53 @@
+air,0,255,255
+earth,127,51,0
+fire,255,28,0
+water,0,38,255
+energy,168,168,168
+monsters,106,0,168
+//organisms: fungi, bacteria, nasty stuff!
+organisms,219,0,95
+materials,255,154,117
+//produce: fruits and vegetables
+produce,236,140,0
+plants,0,255,33
+//animals: mammals and the generic Animal element
+animals,0,127,14
+marine,127,146,255
+//arthropods: insects and insect like creatures (eg spiders)
+arthropods,132,94,73
+//herpetile: reptiles and amphibians
+herpetile,182,255,0
+birds,182,255,255
+food,255,0,55
+beverage,0,111,181
+space,0,16,181
+//appliances: electronics that are not technology ish
+appliances,120,101,186
+technology,72,0,255
+//utilities: tools (containers, stationaries) that are not electronics
+utilities,255,208,0
+weapons,53,21,0
+//manufactured: artifical materials that are not ingredients and non-organic
+manufactured,255,106,0
+//minerals: rare crystals, gems, and minerals
+minerals,255,255,255
+//structures: artifical buildings, houses, terminals etc
+structures,64,64,64
+//abstract: things specific to one's mind (knowledge, religion)
+abstract,0,255,190
+//media: references to video games, movies, social media
+media,204,153,255
+//places: geography
+places,91,127,0
+human,255,209,134
+//furniture: objects in a household, often stationary and decorative
+furniture,0,148,255
+accessories,255,0,255
+miscellaneous,255,147,237
+//objects: big artifical objects that are not furnitures or tools
+objects,255,255,0
+transportation,0,128,128
+activities,205,255,173
+professions,0,74,127
+
+//REMOVED society: abstract ideas that are a result of social constructs

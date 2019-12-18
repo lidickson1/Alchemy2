@@ -1,0 +1,6737 @@
+[
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:tractor",
+    "c": "alchemy:belarus"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:nest",
+    "c": "alchemy:egg"
+  },
+  {
+    "a": "alchemy:life",
+    "b": "alchemy:stone",
+    "c": "alchemy:egg"
+  },
+  {
+    "a": "alchemy:ruins",
+    "b": "alchemy:mountain",
+    "c": "alchemy:machu_picchu"
+  },
+  {
+    "a": "alchemy:wheel",
+    "b": "alchemy:wheel",
+    "c": "alchemy:bicycle"
+  },
+  {
+    "a": "alchemy:potato",
+    "b": "alchemy:tools",
+    "c": "alchemy:chips"
+  },
+  {
+    "a": "alchemy:rabbit",
+    "b": "alchemy:frog",
+    "c": "alchemy:kangaroo"
+  },
+  {
+    "a": "alchemy:warrior",
+    "b": "alchemy:ninja",
+    "c": "alchemy:assassin"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:glass",
+    "c": "alchemy:building"
+  },
+  {
+    "a": "alchemy:leaf",
+    "b": "alchemy:water",
+    "c": "alchemy:tea"
+  },
+  {
+    "a": "alchemy:carrot",
+    "b": "alchemy:animal",
+    "c": "alchemy:rabbit"
+  },
+  {
+    "a": "alchemy:energy",
+    "b": "alchemy:lava",
+    "c": "alchemy:sulfur"
+  },
+  {
+    "a": "alchemy:barn",
+    "b": "alchemy:farmer",
+    "c": "alchemy:farm"
+  },
+  {
+    "a": "alchemy:air",
+    "b": "alchemy:fire",
+    "c": "alchemy:energy"
+  },
+  {
+    "a": "alchemy:wheel",
+    "b": "alchemy:wool",
+    "c": "alchemy:spinning_wheel"
+  },
+  {
+    "a": "alchemy:fondue",
+    "b": "alchemy:country",
+    "c": "alchemy:switzerland"
+  },
+  {
+    "a": "alchemy:ghost",
+    "b": "alchemy:energy",
+    "c": "alchemy:ectoplasm"
+  },
+  {
+    "a": "alchemy:mexico",
+    "b": "alchemy:seeds",
+    "c": "alchemy:cocoa"
+  },
+  {
+    "a": "alchemy:airplane",
+    "b": "alchemy:building",
+    "c": "alchemy:airport"
+  },
+  {
+    "a": "alchemy:pasta",
+    "b": "alchemy:cheese",
+    "c": "alchemy:macaroni"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:alcohol",
+    "c": "alchemy:wine"
+  },
+  {
+    "a": "alchemy:hamburger",
+    "b": "alchemy:coke",
+    "c": "alchemy:fast_food"
+  },
+  {
+    "a": "alchemy:air",
+    "b": "alchemy:air",
+    "c": "alchemy:wind"
+  },
+  {
+    "a": "alchemy:tomato",
+    "b": "alchemy:tools",
+    "c": "alchemy:ketchup"
+  },
+  {
+    "a": "alchemy:meat",
+    "b": "alchemy:salt",
+    "c": "alchemy:jerky"
+  },
+  {
+    "a": "alchemy:grove",
+    "b": "alchemy:grove",
+    "c": "alchemy:forest"
+  },
+  {
+    "a": "alchemy:sun",
+    "b": "alchemy:metal",
+    "c": "alchemy:gold"
+  },
+  {
+    "a": "alchemy:sport",
+    "b": "alchemy:club",
+    "c": "alchemy:golf"
+  },
+  {
+    "a": "alchemy:ship",
+    "b": "alchemy:sea",
+    "c": "alchemy:submarine"
+  },
+  {
+    "a": "alchemy:corpse",
+    "b": "alchemy:life",
+    "c": "alchemy:zombie"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:zombie",
+    "c": "alchemy:zombie"
+  },
+  {
+    "a": "alchemy:flag",
+    "b": "alchemy:pirate",
+    "c": "alchemy:jolly_roger"
+  },
+  {
+    "a": "alchemy:beaver",
+    "b": "alchemy:duck",
+    "c": "alchemy:platypus"
+  },
+  {
+    "a": "alchemy:sun",
+    "b": "alchemy:sea",
+    "c": "alchemy:salt"
+  },
+  {
+    "a": "alchemy:garlic",
+    "b": "alchemy:meat",
+    "c": "alchemy:salo"
+  },
+  {
+    "a": "alchemy:balloon",
+    "b": "alchemy:air",
+    "c": "alchemy:helium"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:livestock",
+    "c": "alchemy:blood"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:skis",
+    "c": "alchemy:norway"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:fire",
+    "c": "alchemy:charcoal"
+  },
+  {
+    "a": "alchemy:energy",
+    "b": "alchemy:fire",
+    "c": "alchemy:plasma"
+  },
+  {
+    "a": "alchemy:demigod",
+    "b": "alchemy:energy",
+    "c": "alchemy:god"
+  },
+  {
+    "a": "alchemy:vegetable",
+    "b": "alchemy:fire",
+    "c": "alchemy:chili"
+  },
+  {
+    "a": "alchemy:leather",
+    "b": "alchemy:horse",
+    "c": "alchemy:saddle"
+  },
+  {
+    "a": "alchemy:god",
+    "b": "alchemy:energy",
+    "c": "alchemy:chuck_norris"
+  },
+  {
+    "a": "alchemy:cart",
+    "b": "alchemy:snow",
+    "c": "alchemy:sled"
+  },
+  {
+    "a": "alchemy:lime",
+    "b": "alchemy:pressure",
+    "c": "alchemy:acid"
+  },
+  {
+    "a": "alchemy:sulfur",
+    "b": "alchemy:water",
+    "c": "alchemy:acid"
+  },
+  {
+    "a": "alchemy:can",
+    "b": "alchemy:metal",
+    "c": "alchemy:tin"
+  },
+  {
+    "a": "alchemy:dwarf",
+    "b": "alchemy:santa_claus",
+    "c": "alchemy:elf"
+  },
+  {
+    "a": "alchemy:fish",
+    "b": "alchemy:blood",
+    "c": "alchemy:piranha"
+  },
+  {
+    "a": "alchemy:satellite",
+    "b": "alchemy:tools",
+    "c": "alchemy:gps"
+  },
+  {
+    "a": "alchemy:keyboard",
+    "b": "alchemy:printer",
+    "c": "alchemy:typewriter"
+  },
+  {
+    "a": "alchemy:stone",
+    "b": "alchemy:water",
+    "c": "alchemy:sand"
+  },
+  {
+    "a": "alchemy:bread",
+    "b": "alchemy:fire",
+    "c": "alchemy:toast"
+  },
+  {
+    "a": "alchemy:electricity",
+    "b": "alchemy:metal",
+    "c": "alchemy:wire"
+  },
+  {
+    "a": "alchemy:thread",
+    "b": "alchemy:copper",
+    "c": "alchemy:wire"
+  },
+  {
+    "a": "alchemy:hockey",
+    "b": "alchemy:country",
+    "c": "alchemy:canada"
+  },
+  {
+    "a": "alchemy:plankton",
+    "b": "alchemy:stone",
+    "c": "alchemy:shell"
+  },
+  {
+    "a": "alchemy:snail",
+    "b": "alchemy:tools",
+    "c": "alchemy:shell"
+  },
+  {
+    "a": "alchemy:shuriken",
+    "b": "alchemy:human",
+    "c": "alchemy:ninja"
+  },
+  {
+    "a": "alchemy:cow",
+    "b": "alchemy:manure",
+    "c": "alchemy:methane"
+  },
+  {
+    "a": "alchemy:natural_gas",
+    "b": "alchemy:air",
+    "c": "alchemy:methane"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:chili",
+    "c": "alchemy:chile"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:sex",
+    "c": "alchemy:child"
+  },
+  {
+    "a": "alchemy:boat",
+    "b": "alchemy:combustion_engine",
+    "c": "alchemy:motorboat"
+  },
+  {
+    "a": "alchemy:wool",
+    "b": "alchemy:steel",
+    "c": "alchemy:steel_wool"
+  },
+  {
+    "a": "alchemy:angel",
+    "b": "alchemy:music",
+    "c": "alchemy:harp"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:beer",
+    "c": "alchemy:germany"
+  },
+  {
+    "a": "alchemy:thread",
+    "b": "alchemy:thread",
+    "c": "alchemy:rope"
+  },
+  {
+    "a": "alchemy:music",
+    "b": "alchemy:light_bulb",
+    "c": "alchemy:disco"
+  },
+  {
+    "a": "alchemy:petroleum",
+    "b": "alchemy:pressure",
+    "c": "alchemy:gasoline"
+  },
+  {
+    "a": "alchemy:hay",
+    "b": "alchemy:human",
+    "c": "alchemy:scarecrow"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:crown",
+    "c": "alchemy:monarch"
+  },
+  {
+    "a": "alchemy:flour",
+    "b": "alchemy:egg",
+    "c": "alchemy:pasta"
+  },
+  {
+    "a": "alchemy:france",
+    "b": "alchemy:bread",
+    "c": "alchemy:croissant"
+  },
+  {
+    "a": "alchemy:flax",
+    "b": "alchemy:tools",
+    "c": "alchemy:linen"
+  },
+  {
+    "a": "alchemy:tree",
+    "b": "alchemy:swamp",
+    "c": "alchemy:peat"
+  },
+  {
+    "a": "alchemy:gunpowder",
+    "b": "alchemy:metal",
+    "c": "alchemy:bullet"
+  },
+  {
+    "a": "alchemy:frog",
+    "b": "alchemy:earth",
+    "c": "alchemy:lizard"
+  },
+  {
+    "a": "alchemy:sport",
+    "b": "alchemy:table",
+    "c": "alchemy:billiard"
+  },
+  {
+    "a": "alchemy:glass",
+    "b": "alchemy:bacteria",
+    "c": "alchemy:petri_dish"
+  },
+  {
+    "a": "alchemy:bacteria",
+    "b": "alchemy:ammonia",
+    "c": "alchemy:nitrogen"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:horse",
+    "c": "alchemy:trojan_horse"
+  },
+  {
+    "a": "alchemy:iron",
+    "b": "alchemy:stone",
+    "c": "alchemy:magnet"
+  },
+  {
+    "a": "alchemy:fish",
+    "b": "alchemy:glass",
+    "c": "alchemy:aquarium"
+  },
+  {
+    "a": "alchemy:knife",
+    "b": "alchemy:knife",
+    "c": "alchemy:scissors"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:tools",
+    "c": "alchemy:scissors"
+  },
+  {
+    "a": "alchemy:shoes",
+    "b": "alchemy:earth",
+    "c": "alchemy:footprint"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:dragon",
+    "c": "alchemy:china"
+  },
+  {
+    "a": "alchemy:coffee_beans",
+    "b": "alchemy:water",
+    "c": "alchemy:coffee"
+  },
+  {
+    "a": "alchemy:car",
+    "b": "alchemy:air",
+    "c": "alchemy:airplane"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:human",
+    "c": "alchemy:family"
+  },
+  {
+    "a": "alchemy:sky",
+    "b": "alchemy:pressure",
+    "c": "alchemy:atmosphere"
+  },
+  {
+    "a": "alchemy:marble",
+    "b": "alchemy:geyser",
+    "c": "alchemy:fountain"
+  },
+  {
+    "a": "alchemy:statue",
+    "b": "alchemy:water",
+    "c": "alchemy:fountain"
+  },
+  {
+    "a": "alchemy:santa_claus",
+    "b": "alchemy:animal",
+    "c": "alchemy:reindeer"
+  },
+  {
+    "a": "alchemy:knowledge",
+    "b": "alchemy:idea",
+    "c": "alchemy:education"
+  },
+  {
+    "a": "alchemy:kaolin",
+    "b": "alchemy:fire",
+    "c": "alchemy:porcelain"
+  },
+  {
+    "a": "alchemy:film",
+    "b": "alchemy:light",
+    "c": "alchemy:movie"
+  },
+  {
+    "a": "alchemy:cinema",
+    "b": "alchemy:food",
+    "c": "alchemy:popcorn"
+  },
+  {
+    "a": "alchemy:dinosaur",
+    "b": "alchemy:air",
+    "c": "alchemy:pterodactyl"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:vodka",
+    "c": "alchemy:russia"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:desert",
+    "c": "alchemy:camel"
+  },
+  {
+    "a": "alchemy:electricity",
+    "b": "alchemy:glass",
+    "c": "alchemy:light_bulb"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:petroleum",
+    "c": "alchemy:saudi_arabia"
+  },
+  {
+    "a": "alchemy:justice",
+    "b": "alchemy:human",
+    "c": "alchemy:judge"
+  },
+  {
+    "a": "alchemy:space",
+    "b": "alchemy:energy",
+    "c": "alchemy:darkness"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:animal",
+    "c": "alchemy:pet"
+  },
+  {
+    "a": "alchemy:carbon_dioxide",
+    "b": "alchemy:fire",
+    "c": "alchemy:fire_extinguisher"
+  },
+  {
+    "a": "alchemy:gasoline",
+    "b": "alchemy:steam_engine",
+    "c": "alchemy:combustion_engine"
+  },
+  {
+    "a": "alchemy:bread",
+    "b": "alchemy:bacteria",
+    "c": "alchemy:yeast"
+  },
+  {
+    "a": "alchemy:stone",
+    "b": "alchemy:air",
+    "c": "alchemy:gravel"
+  },
+  {
+    "a": "alchemy:needle",
+    "b": "alchemy:animal",
+    "c": "alchemy:hedgehog"
+  },
+  {
+    "a": "alchemy:steamboat",
+    "b": "alchemy:iceberg",
+    "c": "alchemy:titanic"
+  },
+  {
+    "a": "alchemy:moon",
+    "b": "alchemy:metal",
+    "c": "alchemy:silver"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:metal",
+    "c": "alchemy:weapons"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:building",
+    "c": "alchemy:city"
+  },
+  {
+    "a": "alchemy:town",
+    "b": "alchemy:town",
+    "c": "alchemy:city"
+  },
+  {
+    "a": "alchemy:oxygen",
+    "b": "alchemy:nitrogen",
+    "c": "alchemy:air"
+  },
+  {
+    "a": "alchemy:cookie",
+    "b": "alchemy:paper",
+    "c": "alchemy:fortune_cookie"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:stone",
+    "c": "alchemy:sandstone"
+  },
+  {
+    "a": "alchemy:fabric",
+    "b": "alchemy:blood",
+    "c": "alchemy:bandage"
+  },
+  {
+    "a": "alchemy:leaf",
+    "b": "alchemy:worm",
+    "c": "alchemy:caterpillar"
+  },
+  {
+    "a": "alchemy:vegetable",
+    "b": "alchemy:earth",
+    "c": "alchemy:potato"
+  },
+  {
+    "a": "alchemy:fish",
+    "b": "alchemy:blood",
+    "c": "alchemy:shark"
+  },
+  {
+    "a": "alchemy:oxygen",
+    "b": "alchemy:alcohol",
+    "c": "alchemy:vinegar"
+  },
+  {
+    "a": "alchemy:firearm",
+    "b": "alchemy:knife",
+    "c": "alchemy:bayonet"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:water",
+    "c": "alchemy:boat"
+  },
+  {
+    "a": "alchemy:ice_cream",
+    "b": "alchemy:milk",
+    "c": "alchemy:milkshake"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:sand",
+    "c": "alchemy:sandpaper"
+  },
+  {
+    "a": "alchemy:debt",
+    "b": "alchemy:money",
+    "c": "alchemy:credit_card"
+  },
+  {
+    "a": "alchemy:computer_virus",
+    "b": "alchemy:human",
+    "c": "alchemy:hacker"
+  },
+  {
+    "a": "alchemy:broom",
+    "b": "alchemy:wizard",
+    "c": "alchemy:witch"
+  },
+  {
+    "a": "alchemy:moon",
+    "b": "alchemy:sea",
+    "c": "alchemy:tide"
+  },
+  {
+    "a": "alchemy:life",
+    "b": "alchemy:swamp",
+    "c": "alchemy:bacteria"
+  },
+  {
+    "a": "alchemy:bow",
+    "b": "alchemy:feather",
+    "c": "alchemy:arrow"
+  },
+  {
+    "a": "alchemy:livestock",
+    "b": "alchemy:grass",
+    "c": "alchemy:cow"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:metal",
+    "c": "alchemy:cage"
+  },
+  {
+    "a": "alchemy:city",
+    "b": "alchemy:water",
+    "c": "alchemy:venice"
+  },
+  {
+    "a": "alchemy:wheel",
+    "b": "alchemy:park",
+    "c": "alchemy:ferris_wheel"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:wave",
+    "c": "alchemy:surfer"
+  },
+  {
+    "a": "alchemy:sword",
+    "b": "alchemy:fish",
+    "c": "alchemy:swordfish"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:religion",
+    "c": "alchemy:law"
+  },
+  {
+    "a": "alchemy:justice",
+    "b": "alchemy:idea",
+    "c": "alchemy:law"
+  },
+  {
+    "a": "alchemy:cow",
+    "b": "alchemy:sea",
+    "c": "alchemy:manatee"
+  },
+  {
+    "a": "alchemy:hourglass",
+    "b": "alchemy:electricity",
+    "c": "alchemy:clock"
+  },
+  {
+    "a": "alchemy:flour",
+    "b": "alchemy:beetle",
+    "c": "alchemy:weevil"
+  },
+  {
+    "a": "alchemy:ice",
+    "b": "alchemy:air",
+    "c": "alchemy:snow"
+  },
+  {
+    "a": "alchemy:island",
+    "b": "alchemy:island",
+    "c": "alchemy:archipelago"
+  },
+  {
+    "a": "alchemy:uranus",
+    "b": "alchemy:metal",
+    "c": "alchemy:uranium"
+  },
+  {
+    "a": "alchemy:dam",
+    "b": "alchemy:river",
+    "c": "alchemy:lake"
+  },
+  {
+    "a": "alchemy:egg",
+    "b": "alchemy:life",
+    "c": "alchemy:chicken"
+  },
+  {
+    "a": "alchemy:wheel",
+    "b": "alchemy:snowboard",
+    "c": "alchemy:skateboard"
+  },
+  {
+    "a": "alchemy:leaf",
+    "b": "alchemy:leaf",
+    "c": "alchemy:bush"
+  },
+  {
+    "a": "alchemy:egg",
+    "b": "alchemy:sea",
+    "c": "alchemy:roe"
+  },
+  {
+    "a": "alchemy:time",
+    "b": "alchemy:fish",
+    "c": "alchemy:roe"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:transylvania",
+    "c": "alchemy:romania"
+  },
+  {
+    "a": "alchemy:clock",
+    "b": "alchemy:egg",
+    "c": "alchemy:timer"
+  },
+  {
+    "a": "alchemy:worm",
+    "b": "alchemy:earth",
+    "c": "alchemy:beetle"
+  },
+  {
+    "a": "alchemy:alcohol",
+    "b": "alchemy:water",
+    "c": "alchemy:vodka"
+  },
+  {
+    "a": "alchemy:earth",
+    "b": "alchemy:earth",
+    "c": "alchemy:land"
+  },
+  {
+    "a": "alchemy:field",
+    "b": "alchemy:grass",
+    "c": "alchemy:land"
+  },
+  {
+    "a": "alchemy:gelatin",
+    "b": "alchemy:water",
+    "c": "alchemy:jelly"
+  },
+  {
+    "a": "alchemy:statue",
+    "b": "alchemy:garden",
+    "c": "alchemy:gnome"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:fish",
+    "c": "alchemy:fishing_rod"
+  },
+  {
+    "a": "alchemy:vegetable",
+    "b": "alchemy:sulfur",
+    "c": "alchemy:garlic"
+  },
+  {
+    "a": "alchemy:grass",
+    "b": "alchemy:beetle",
+    "c": "alchemy:ant"
+  },
+  {
+    "a": "alchemy:needle",
+    "b": "alchemy:electricity",
+    "c": "alchemy:sewing_machine"
+  },
+  {
+    "a": "alchemy:lantern",
+    "b": "alchemy:electricity",
+    "c": "alchemy:lamp"
+  },
+  {
+    "a": "alchemy:light_bulb",
+    "b": "alchemy:metal",
+    "c": "alchemy:lamp"
+  },
+  {
+    "a": "alchemy:graphite",
+    "b": "alchemy:wood",
+    "c": "alchemy:pencil"
+  },
+  {
+    "a": "alchemy:sugar",
+    "b": "alchemy:seeds",
+    "c": "alchemy:beetroot"
+  },
+  {
+    "a": "alchemy:wall",
+    "b": "alchemy:tools",
+    "c": "alchemy:ladder"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:bird",
+    "c": "alchemy:hummingbird"
+  },
+  {
+    "a": "alchemy:fabric",
+    "b": "alchemy:feather",
+    "c": "alchemy:pillow"
+  },
+  {
+    "a": "alchemy:forest",
+    "b": "alchemy:rain",
+    "c": "alchemy:rainforest"
+  },
+  {
+    "a": "alchemy:brick",
+    "b": "alchemy:brick",
+    "c": "alchemy:wall"
+  },
+  {
+    "a": "alchemy:game",
+    "b": "alchemy:human",
+    "c": "alchemy:sport"
+  },
+  {
+    "a": "alchemy:ceramics",
+    "b": "alchemy:water",
+    "c": "alchemy:tub"
+  },
+  {
+    "a": "alchemy:oil",
+    "b": "alchemy:egg",
+    "c": "alchemy:mayonnaise"
+  },
+  {
+    "a": "alchemy:love",
+    "b": "alchemy:diamond",
+    "c": "alchemy:ring"
+  },
+  {
+    "a": "alchemy:knowledge",
+    "b": "alchemy:fish",
+    "c": "alchemy:octopus"
+  },
+  {
+    "a": "alchemy:luck",
+    "b": "alchemy:money",
+    "c": "alchemy:gambling"
+  },
+  {
+    "a": "alchemy:gelatin",
+    "b": "alchemy:sugar",
+    "c": "alchemy:marshmallow"
+  },
+  {
+    "a": "alchemy:cat",
+    "b": "alchemy:fish",
+    "c": "alchemy:catfish"
+  },
+  {
+    "a": "alchemy:earthquake",
+    "b": "alchemy:earth",
+    "c": "alchemy:mountain"
+  },
+  {
+    "a": "alchemy:dough",
+    "b": "alchemy:candle",
+    "c": "alchemy:cake"
+  },
+  {
+    "a": "alchemy:sugar",
+    "b": "alchemy:juice",
+    "c": "alchemy:jam"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:glasses",
+    "c": "alchemy:nerd"
+  },
+  {
+    "a": "alchemy:wool",
+    "b": "alchemy:clothes",
+    "c": "alchemy:sweater"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:disco",
+    "c": "alchemy:dance"
+  },
+  {
+    "a": "alchemy:flour",
+    "b": "alchemy:water",
+    "c": "alchemy:dough"
+  },
+  {
+    "a": "alchemy:shell",
+    "b": "alchemy:sand",
+    "c": "alchemy:pearl"
+  },
+  {
+    "a": "alchemy:electricity",
+    "b": "alchemy:storm",
+    "c": "alchemy:lightning"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:wind",
+    "c": "alchemy:dune"
+  },
+  {
+    "a": "alchemy:grass",
+    "b": "alchemy:swamp",
+    "c": "alchemy:reed"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:dust",
+    "c": "alchemy:allergy"
+  },
+  {
+    "a": "alchemy:saltpeter",
+    "b": "alchemy:sulfur",
+    "c": "alchemy:gunpowder"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:wizard",
+    "c": "alchemy:wand"
+  },
+  {
+    "a": "alchemy:metal",
+    "b": "alchemy:life",
+    "c": "alchemy:metal_golem"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:country",
+    "c": "alchemy:continent"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:bird",
+    "c": "alchemy:woodpecker"
+  },
+  {
+    "a": "alchemy:lithium",
+    "b": "alchemy:electricity",
+    "c": "alchemy:battery"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:swamp",
+    "c": "alchemy:clay"
+  },
+  {
+    "a": "alchemy:coffee",
+    "b": "alchemy:milk",
+    "c": "alchemy:latte"
+  },
+  {
+    "a": "alchemy:earthquake",
+    "b": "alchemy:sea",
+    "c": "alchemy:tsunami"
+  },
+  {
+    "a": "alchemy:river",
+    "b": "alchemy:mountain",
+    "c": "alchemy:waterfall"
+  },
+  {
+    "a": "alchemy:field",
+    "b": "alchemy:lawn_mower",
+    "c": "alchemy:tractor"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:earth",
+    "c": "alchemy:watermelon"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:light",
+    "c": "alchemy:flashlight"
+  },
+  {
+    "a": "alchemy:grave",
+    "b": "alchemy:grave",
+    "c": "alchemy:cemetery"
+  },
+  {
+    "a": "alchemy:shark",
+    "b": "alchemy:movie",
+    "c": "alchemy:jaws"
+  },
+  {
+    "a": "alchemy:balloon",
+    "b": "alchemy:combustion_engine",
+    "c": "alchemy:airship"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:mud",
+    "c": "alchemy:quicksand"
+  },
+  {
+    "a": "alchemy:law",
+    "b": "alchemy:god",
+    "c": "alchemy:religion"
+  },
+  {
+    "a": "alchemy:clock",
+    "b": "alchemy:human",
+    "c": "alchemy:watch"
+  },
+  {
+    "a": "alchemy:dust",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:chicken",
+    "b": "alchemy:egg",
+    "c": "alchemy:dilemma"
+  },
+  {
+    "a": "alchemy:clothes",
+    "b": "alchemy:knowledge",
+    "c": "alchemy:fashion"
+  },
+  {
+    "a": "alchemy:vacuum_cleaner",
+    "b": "alchemy:robot",
+    "c": "alchemy:roomba"
+  },
+  {
+    "a": "alchemy:ice",
+    "b": "alchemy:metal",
+    "c": "alchemy:fridge"
+  },
+  {
+    "a": "alchemy:light_bulb",
+    "b": "alchemy:tree",
+    "c": "alchemy:christmas_tree"
+  },
+  {
+    "a": "alchemy:pirate",
+    "b": "alchemy:vodka",
+    "c": "alchemy:rum"
+  },
+  {
+    "a": "alchemy:carbon",
+    "b": "alchemy:stone",
+    "c": "alchemy:graphite"
+  },
+  {
+    "a": "alchemy:knife",
+    "b": "alchemy:electricity",
+    "c": "alchemy:blender"
+  },
+  {
+    "a": "alchemy:wheel",
+    "b": "alchemy:water",
+    "c": "alchemy:waterwheel"
+  },
+  {
+    "a": "alchemy:cheese",
+    "b": "alchemy:animal",
+    "c": "alchemy:mouse"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:elephant",
+    "c": "alchemy:thailand"
+  },
+  {
+    "a": "alchemy:dough",
+    "b": "alchemy:ring",
+    "c": "alchemy:donut"
+  },
+  {
+    "a": "alchemy:wreath",
+    "b": "alchemy:clothes",
+    "c": "alchemy:hat"
+  },
+  {
+    "a": "alchemy:air",
+    "b": "alchemy:earth",
+    "c": "alchemy:dust"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:fire",
+    "c": "alchemy:glass"
+  },
+  {
+    "a": "alchemy:rainbow",
+    "b": "alchemy:lizard",
+    "c": "alchemy:chameleon"
+  },
+  {
+    "a": "alchemy:sugar",
+    "b": "alchemy:fire",
+    "c": "alchemy:caramel"
+  },
+  {
+    "a": "alchemy:village",
+    "b": "alchemy:village",
+    "c": "alchemy:town"
+  },
+  {
+    "a": "alchemy:lake",
+    "b": "alchemy:dinosaur",
+    "c": "alchemy:loch_ness_monster"
+  },
+  {
+    "a": "alchemy:bread",
+    "b": "alchemy:time",
+    "c": "alchemy:mold"
+  },
+  {
+    "a": "alchemy:mushroom",
+    "b": "alchemy:water",
+    "c": "alchemy:mold"
+  },
+  {
+    "a": "alchemy:museum",
+    "b": "alchemy:france",
+    "c": "alchemy:louvre_museum"
+  },
+  {
+    "a": "alchemy:city",
+    "b": "alchemy:dinosaur",
+    "c": "alchemy:godzilla"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:life",
+    "c": "alchemy:pinocchio"
+  },
+  {
+    "a": "alchemy:scarecrow",
+    "b": "alchemy:bird",
+    "c": "alchemy:crow"
+  },
+  {
+    "a": "alchemy:peat",
+    "b": "alchemy:alcohol",
+    "c": "alchemy:whiskey"
+  },
+  {
+    "a": "alchemy:lizard",
+    "b": "alchemy:swamp",
+    "c": "alchemy:crocodile"
+  },
+  {
+    "a": "alchemy:nature",
+    "b": "alchemy:expert",
+    "c": "alchemy:scientist"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:feather",
+    "c": "alchemy:book"
+  },
+  {
+    "a": "alchemy:lizard",
+    "b": "alchemy:fire",
+    "c": "alchemy:salamander"
+  },
+  {
+    "a": "alchemy:machu_picchu",
+    "b": "alchemy:country",
+    "c": "alchemy:peru"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:alcohol",
+    "c": "alchemy:perfume"
+  },
+  {
+    "a": "alchemy:wind",
+    "b": "alchemy:sea",
+    "c": "alchemy:wave"
+  },
+  {
+    "a": "alchemy:oxygen",
+    "b": "alchemy:electricity",
+    "c": "alchemy:ozone"
+  },
+  {
+    "a": "alchemy:earth",
+    "b": "alchemy:fire",
+    "c": "alchemy:lava"
+  },
+  {
+    "a": "alchemy:dough",
+    "b": "alchemy:cheese",
+    "c": "alchemy:pizza"
+  },
+  {
+    "a": "alchemy:vodka",
+    "b": "alchemy:fire",
+    "c": "alchemy:molotov_cocktail"
+  },
+  {
+    "a": "alchemy:computer",
+    "b": "alchemy:virus",
+    "c": "alchemy:computer_virus"
+  },
+  {
+    "a": "alchemy:limestone",
+    "b": "alchemy:fire",
+    "c": "alchemy:lime_material"
+  },
+  {
+    "a": "alchemy:statue",
+    "b": "alchemy:island",
+    "c": "alchemy:easter_island"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:space",
+    "c": "alchemy:space_station"
+  },
+  {
+    "a": "alchemy:corpse",
+    "b": "alchemy:time",
+    "c": "alchemy:bone"
+  },
+  {
+    "a": "alchemy:clock",
+    "b": "alchemy:sun",
+    "c": "alchemy:sundial"
+  },
+  {
+    "a": "alchemy:hive",
+    "b": "alchemy:bee",
+    "c": "alchemy:wax"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:pressure",
+    "c": "alchemy:silicon"
+  },
+  {
+    "a": "alchemy:hero",
+    "b": "alchemy:fabric",
+    "c": "alchemy:cape"
+  },
+  {
+    "a": "alchemy:1up",
+    "b": "alchemy:egg",
+    "c": "alchemy:yoshi"
+  },
+  {
+    "a": "alchemy:nitrogen",
+    "b": "alchemy:hydrogen",
+    "c": "alchemy:ammonia"
+  },
+  {
+    "a": "alchemy:nitrate",
+    "b": "alchemy:potassium",
+    "c": "alchemy:saltpeter"
+  },
+  {
+    "a": "alchemy:electricity",
+    "b": "alchemy:water",
+    "c": "alchemy:hydrogen"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:tools",
+    "c": "alchemy:axe"
+  },
+  {
+    "a": "alchemy:japan",
+    "b": "alchemy:sport",
+    "c": "alchemy:karate"
+  },
+  {
+    "a": "alchemy:doctor",
+    "b": "alchemy:lobster",
+    "c": "alchemy:dr._zoidberg"
+  },
+  {
+    "a": "alchemy:carbon_dioxide",
+    "b": "alchemy:laser",
+    "c": "alchemy:carbon"
+  },
+  {
+    "a": "alchemy:sugar",
+    "b": "alchemy:acid",
+    "c": "alchemy:carbon"
+  },
+  {
+    "a": "alchemy:egg",
+    "b": "alchemy:earth",
+    "c": "alchemy:dinosaur"
+  },
+  {
+    "a": "alchemy:lizard",
+    "b": "alchemy:time",
+    "c": "alchemy:dinosaur"
+  },
+  {
+    "a": "alchemy:flour",
+    "b": "alchemy:milk",
+    "c": "alchemy:batter"
+  },
+  {
+    "a": "alchemy:knowledge",
+    "b": "alchemy:dilemma",
+    "c": "alchemy:philosophy"
+  },
+  {
+    "a": "alchemy:cochineal",
+    "b": "alchemy:fire",
+    "c": "alchemy:carmine"
+  },
+  {
+    "a": "alchemy:sun",
+    "b": "alchemy:air",
+    "c": "alchemy:light"
+  },
+  {
+    "a": "alchemy:wire",
+    "b": "alchemy:sound",
+    "c": "alchemy:phone"
+  },
+  {
+    "a": "alchemy:medicine",
+    "b": "alchemy:bacteria",
+    "c": "alchemy:antibiotics"
+  },
+  {
+    "a": "alchemy:cocoa",
+    "b": "alchemy:sugar",
+    "c": "alchemy:chocolate"
+  },
+  {
+    "a": "alchemy:painting",
+    "b": "alchemy:human",
+    "c": "alchemy:artist"
+  },
+  {
+    "a": "alchemy:life",
+    "b": "alchemy:water",
+    "c": "alchemy:algae"
+  },
+  {
+    "a": "alchemy:transistor",
+    "b": "alchemy:transistor",
+    "c": "alchemy:microchip"
+  },
+  {
+    "a": "alchemy:glass",
+    "b": "alchemy:glass",
+    "c": "alchemy:glasses"
+  },
+  {
+    "a": "alchemy:cheese",
+    "b": "alchemy:fire",
+    "c": "alchemy:fondue"
+  },
+  {
+    "a": "alchemy:motherboard",
+    "b": "alchemy:microchip",
+    "c": "alchemy:computer"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:nerd",
+    "c": "alchemy:computer"
+  },
+  {
+    "a": "alchemy:meat",
+    "b": "alchemy:dinosaur",
+    "c": "alchemy:tyrannosaurus_rex"
+  },
+  {
+    "a": "alchemy:spider",
+    "b": "alchemy:thread",
+    "c": "alchemy:web"
+  },
+  {
+    "a": "alchemy:star",
+    "b": "alchemy:pressure",
+    "c": "alchemy:black_hole"
+  },
+  {
+    "a": "alchemy:potato",
+    "b": "alchemy:tools",
+    "c": "alchemy:fries"
+  },
+  {
+    "a": "alchemy:angel",
+    "b": "alchemy:darkness",
+    "c": "alchemy:demon"
+  },
+  {
+    "a": "alchemy:electricity",
+    "b": "alchemy:wave",
+    "c": "alchemy:radio_wave"
+  },
+  {
+    "a": "alchemy:beetle",
+    "b": "alchemy:sand",
+    "c": "alchemy:scorpion"
+  },
+  {
+    "a": "alchemy:bed",
+    "b": "alchemy:tree",
+    "c": "alchemy:hammock"
+  },
+  {
+    "a": "alchemy:bottle",
+    "b": "alchemy:wood",
+    "c": "alchemy:barrel"
+  },
+  {
+    "a": "alchemy:leather",
+    "b": "alchemy:money",
+    "c": "alchemy:wallet"
+  },
+  {
+    "a": "alchemy:table",
+    "b": "alchemy:wood",
+    "c": "alchemy:chair"
+  },
+  {
+    "a": "alchemy:berry",
+    "b": "alchemy:garden",
+    "c": "alchemy:strawberry"
+  },
+  {
+    "a": "alchemy:metal",
+    "b": "alchemy:energy",
+    "c": "alchemy:electricity"
+  },
+  {
+    "a": "alchemy:wind",
+    "b": "alchemy:wind_turbine",
+    "c": "alchemy:electricity"
+  },
+  {
+    "a": "alchemy:knife",
+    "b": "alchemy:metal",
+    "c": "alchemy:sword"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:tequila",
+    "c": "alchemy:mexico"
+  },
+  {
+    "a": "alchemy:tree",
+    "b": "alchemy:tree",
+    "c": "alchemy:grove"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:flower",
+    "c": "alchemy:garden"
+  },
+  {
+    "a": "alchemy:spinning_wheel",
+    "b": "alchemy:wool",
+    "c": "alchemy:yarn"
+  },
+  {
+    "a": "alchemy:cheese",
+    "b": "alchemy:milk",
+    "c": "alchemy:dairy"
+  },
+  {
+    "a": "alchemy:electricity",
+    "b": "alchemy:silicon",
+    "c": "alchemy:transistor"
+  },
+  {
+    "a": "alchemy:desert",
+    "b": "alchemy:water",
+    "c": "alchemy:oasis"
+  },
+  {
+    "a": "alchemy:fortune_cookie",
+    "b": "alchemy:human",
+    "c": "alchemy:luck"
+  },
+  {
+    "a": "alchemy:slug",
+    "b": "alchemy:vegetable",
+    "c": "alchemy:cucumber"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:snake",
+    "c": "alchemy:medusa"
+  },
+  {
+    "a": "alchemy:squirrel",
+    "b": "alchemy:tree",
+    "c": "alchemy:nut"
+  },
+  {
+    "a": "alchemy:steam",
+    "b": "alchemy:air",
+    "c": "alchemy:cloud"
+  },
+  {
+    "a": "alchemy:beaver",
+    "b": "alchemy:river",
+    "c": "alchemy:dam"
+  },
+  {
+    "a": "alchemy:beaver",
+    "b": "alchemy:tree",
+    "c": "alchemy:dam"
+  },
+  {
+    "a": "alchemy:beaver",
+    "b": "alchemy:wood",
+    "c": "alchemy:dam"
+  },
+  {
+    "a": "alchemy:brick",
+    "b": "alchemy:water",
+    "c": "alchemy:dam"
+  },
+  {
+    "a": "alchemy:monkey",
+    "b": "alchemy:fruit",
+    "c": "alchemy:banana"
+  },
+  {
+    "a": "alchemy:cloud",
+    "b": "alchemy:water",
+    "c": "alchemy:rain"
+  },
+  {
+    "a": "alchemy:tunnel",
+    "b": "alchemy:mountain",
+    "c": "alchemy:cave"
+  },
+  {
+    "a": "alchemy:seeds",
+    "b": "alchemy:earth",
+    "c": "alchemy:tree"
+  },
+  {
+    "a": "alchemy:fire",
+    "b": "alchemy:ice",
+    "c": "alchemy:water"
+  },
+  {
+    "a": "alchemy:hydrogen",
+    "b": "alchemy:oxygen",
+    "c": "alchemy:water"
+  },
+  {
+    "a": "alchemy:snowman",
+    "b": "alchemy:sun",
+    "c": "alchemy:water"
+  },
+  {
+    "a": "alchemy:moon",
+    "b": "alchemy:sun",
+    "c": "alchemy:eclipse"
+  },
+  {
+    "a": "alchemy:algae",
+    "b": "alchemy:swamp",
+    "c": "alchemy:moss"
+  },
+  {
+    "a": "alchemy:wheat",
+    "b": "alchemy:milk",
+    "c": "alchemy:cereal"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:energy",
+    "c": "alchemy:sugar"
+  },
+  {
+    "a": "alchemy:sugarcane",
+    "b": "alchemy:tools",
+    "c": "alchemy:sugar"
+  },
+  {
+    "a": "alchemy:oil",
+    "b": "alchemy:ash",
+    "c": "alchemy:soap"
+  },
+  {
+    "a": "alchemy:law",
+    "b": "alchemy:fun",
+    "c": "alchemy:game"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:light",
+    "c": "alchemy:lighthouse"
+  },
+  {
+    "a": "alchemy:oxygen",
+    "b": "alchemy:silicon",
+    "c": "alchemy:silica"
+  },
+  {
+    "a": "alchemy:bicycle",
+    "b": "alchemy:metal",
+    "c": "alchemy:titanium"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:death",
+    "c": "alchemy:sad"
+  },
+  {
+    "a": "alchemy:cat",
+    "b": "alchemy:dog",
+    "c": "alchemy:catdog"
+  },
+  {
+    "a": "alchemy:park",
+    "b": "alchemy:dinosaur",
+    "c": "alchemy:jurassic_park"
+  },
+  {
+    "a": "alchemy:law",
+    "b": "alchemy:human",
+    "c": "alchemy:lawyer"
+  },
+  {
+    "a": "alchemy:roller_coaster",
+    "b": "alchemy:land",
+    "c": "alchemy:park"
+  },
+  {
+    "a": "alchemy:england",
+    "b": "alchemy:sport",
+    "c": "alchemy:soccer"
+  },
+  {
+    "a": "alchemy:whey",
+    "b": "alchemy:tools",
+    "c": "alchemy:butter"
+  },
+  {
+    "a": "alchemy:motorcycle",
+    "b": "alchemy:metal",
+    "c": "alchemy:chromium"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:volcano",
+    "c": "alchemy:iceland"
+  },
+  {
+    "a": "alchemy:aluminium",
+    "b": "alchemy:oxygen",
+    "c": "alchemy:corundum"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:dwarf",
+    "c": "alchemy:dwarf_planet"
+  },
+  {
+    "a": "alchemy:leaf",
+    "b": "alchemy:tools",
+    "c": "alchemy:rake"
+  },
+  {
+    "a": "alchemy:alien",
+    "b": "alchemy:airplane",
+    "c": "alchemy:ufo"
+  },
+  {
+    "a": "alchemy:alien",
+    "b": "alchemy:rocket",
+    "c": "alchemy:ufo"
+  },
+  {
+    "a": "alchemy:alien",
+    "b": "alchemy:spaceship",
+    "c": "alchemy:ufo"
+  },
+  {
+    "a": "alchemy:basket",
+    "b": "alchemy:fabric",
+    "c": "alchemy:bag"
+  },
+  {
+    "a": "alchemy:salt",
+    "b": "alchemy:water",
+    "c": "alchemy:brine"
+  },
+  {
+    "a": "alchemy:electricity",
+    "b": "alchemy:metal_golem",
+    "c": "alchemy:robot"
+  },
+  {
+    "a": "alchemy:gunpowder",
+    "b": "alchemy:wire",
+    "c": "alchemy:dynamite"
+  },
+  {
+    "a": "alchemy:vampire",
+    "b": "alchemy:bird",
+    "c": "alchemy:bat"
+  },
+  {
+    "a": "alchemy:glass",
+    "b": "alchemy:sand",
+    "c": "alchemy:hourglass"
+  },
+  {
+    "a": "alchemy:grass",
+    "b": "alchemy:water",
+    "c": "alchemy:dew"
+  },
+  {
+    "a": "alchemy:wheat",
+    "b": "alchemy:alcohol",
+    "c": "alchemy:beer"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:tree",
+    "c": "alchemy:treehouse"
+  },
+  {
+    "a": "alchemy:money",
+    "b": "alchemy:paper",
+    "c": "alchemy:bill"
+  },
+  {
+    "a": "alchemy:batter",
+    "b": "alchemy:fire",
+    "c": "alchemy:pancake"
+  },
+  {
+    "a": "alchemy:basket",
+    "b": "alchemy:metal",
+    "c": "alchemy:bucket"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:petroleum",
+    "c": "alchemy:plastic"
+  },
+  {
+    "a": "alchemy:worm",
+    "b": "alchemy:alcohol",
+    "c": "alchemy:tequila"
+  },
+  {
+    "a": "alchemy:clock",
+    "b": "alchemy:bird",
+    "c": "alchemy:cuckoo"
+  },
+  {
+    "a": "alchemy:salo",
+    "b": "alchemy:country",
+    "c": "alchemy:ukraine"
+  },
+  {
+    "a": "alchemy:crystal_ball",
+    "b": "alchemy:snow",
+    "c": "alchemy:snow_globe"
+  },
+  {
+    "a": "alchemy:aluminium",
+    "b": "alchemy:glass",
+    "c": "alchemy:mirror"
+  },
+  {
+    "a": "alchemy:thread",
+    "b": "alchemy:pasta",
+    "c": "alchemy:spaghetti"
+  },
+  {
+    "a": "alchemy:firearm",
+    "b": "alchemy:electricity",
+    "c": "alchemy:taser"
+  },
+  {
+    "a": "alchemy:ceramics",
+    "b": "alchemy:coin",
+    "c": "alchemy:piggy_bank"
+  },
+  {
+    "a": "alchemy:plastic",
+    "b": "alchemy:water",
+    "c": "alchemy:bottle"
+  },
+  {
+    "a": "alchemy:peru",
+    "b": "alchemy:vegetable",
+    "c": "alchemy:tomato"
+  },
+  {
+    "a": "alchemy:radiation",
+    "b": "alchemy:bacteria",
+    "c": "alchemy:virus"
+  },
+  {
+    "a": "alchemy:water",
+    "b": "alchemy:water",
+    "c": "alchemy:sea"
+  },
+  {
+    "a": "alchemy:book",
+    "b": "alchemy:microchip",
+    "c": "alchemy:e-book"
+  },
+  {
+    "a": "alchemy:boat",
+    "b": "alchemy:human",
+    "c": "alchemy:sailor"
+  },
+  {
+    "a": "alchemy:moss",
+    "b": "alchemy:earth",
+    "c": "alchemy:grass"
+  },
+  {
+    "a": "alchemy:field",
+    "b": "alchemy:seeds",
+    "c": "alchemy:wheat"
+  },
+  {
+    "a": "alchemy:mountain",
+    "b": "alchemy:lava",
+    "c": "alchemy:volcano"
+  },
+  {
+    "a": "alchemy:tea",
+    "b": "alchemy:ice",
+    "c": "alchemy:iced_tea"
+  },
+  {
+    "a": "alchemy:ladder",
+    "b": "alchemy:electricity",
+    "c": "alchemy:escalator"
+  },
+  {
+    "a": "alchemy:knowledge",
+    "b": "alchemy:money",
+    "c": "alchemy:business"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:human",
+    "c": "alchemy:sex"
+  },
+  {
+    "a": "alchemy:leather",
+    "b": "alchemy:human",
+    "c": "alchemy:shoes"
+  },
+  {
+    "a": "alchemy:lightning",
+    "b": "alchemy:metal",
+    "c": "alchemy:lightning_rod"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:sun",
+    "c": "alchemy:sunflower"
+  },
+  {
+    "a": "alchemy:corpse",
+    "b": "alchemy:bird",
+    "c": "alchemy:vulture"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:energy",
+    "c": "alchemy:wizard"
+  },
+  {
+    "a": "alchemy:mountain",
+    "b": "alchemy:water",
+    "c": "alchemy:river"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:sand",
+    "c": "alchemy:desert"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:sky",
+    "c": "alchemy:kite"
+  },
+  {
+    "a": "alchemy:thread",
+    "b": "alchemy:animal",
+    "c": "alchemy:spider"
+  },
+  {
+    "a": "alchemy:pillow",
+    "b": "alchemy:wood",
+    "c": "alchemy:bed"
+  },
+  {
+    "a": "alchemy:kiwi_bird",
+    "b": "alchemy:fruit",
+    "c": "alchemy:kiwi"
+  },
+  {
+    "a": "alchemy:beetle",
+    "b": "alchemy:flower",
+    "c": "alchemy:bee"
+  },
+  {
+    "a": "alchemy:city",
+    "b": "alchemy:big_ben",
+    "c": "alchemy:london"
+  },
+  {
+    "a": "alchemy:city",
+    "b": "alchemy:movie",
+    "c": "alchemy:hollywood"
+  },
+  {
+    "a": "alchemy:mushroom",
+    "b": "alchemy:algae",
+    "c": "alchemy:lichen"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:whiskey",
+    "c": "alchemy:scotland"
+  },
+  {
+    "a": "alchemy:brine",
+    "b": "alchemy:tools",
+    "c": "alchemy:lithium"
+  },
+  {
+    "a": "alchemy:shell",
+    "b": "alchemy:stone",
+    "c": "alchemy:limestone"
+  },
+  {
+    "a": "alchemy:axe",
+    "b": "alchemy:electricity",
+    "c": "alchemy:chainsaw"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:ice",
+    "c": "alchemy:igloo"
+  },
+  {
+    "a": "alchemy:armor",
+    "b": "alchemy:animal",
+    "c": "alchemy:armadillo"
+  },
+  {
+    "a": "alchemy:egg",
+    "b": "alchemy:air",
+    "c": "alchemy:bird"
+  },
+  {
+    "a": "alchemy:plastic",
+    "b": "alchemy:tree",
+    "c": "alchemy:rubber"
+  },
+  {
+    "a": "alchemy:weapons",
+    "b": "alchemy:wood",
+    "c": "alchemy:club"
+  },
+  {
+    "a": "alchemy:cart",
+    "b": "alchemy:steam_engine",
+    "c": "alchemy:train"
+  },
+  {
+    "a": "alchemy:blender",
+    "b": "alchemy:fruit",
+    "c": "alchemy:smoothie"
+  },
+  {
+    "a": "alchemy:juice",
+    "b": "alchemy:ice",
+    "c": "alchemy:popsicle"
+  },
+  {
+    "a": "alchemy:statue",
+    "b": "alchemy:stone",
+    "c": "alchemy:marble"
+  },
+  {
+    "a": "alchemy:meat",
+    "b": "alchemy:tools",
+    "c": "alchemy:knife"
+  },
+  {
+    "a": "alchemy:steel",
+    "b": "alchemy:tools",
+    "c": "alchemy:armor"
+  },
+  {
+    "a": "alchemy:hero",
+    "b": "alchemy:forest",
+    "c": "alchemy:robin_hood"
+  },
+  {
+    "a": "alchemy:whale",
+    "b": "alchemy:earth",
+    "c": "alchemy:elephant"
+  },
+  {
+    "a": "alchemy:bank",
+    "b": "alchemy:money",
+    "c": "alchemy:debt"
+  },
+  {
+    "a": "alchemy:cloud",
+    "b": "alchemy:earth",
+    "c": "alchemy:fog"
+  },
+  {
+    "a": "alchemy:sad",
+    "b": "alchemy:water",
+    "c": "alchemy:tears"
+  },
+  {
+    "a": "alchemy:sugar",
+    "b": "alchemy:christmas_tree",
+    "c": "alchemy:candy_cane"
+  },
+  {
+    "a": "alchemy:night",
+    "b": "alchemy:day",
+    "c": "alchemy:twilight"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:acid",
+    "c": "alchemy:lemon"
+  },
+  {
+    "a": "alchemy:religion",
+    "b": "alchemy:human",
+    "c": "alchemy:sin"
+  },
+  {
+    "a": "alchemy:business",
+    "b": "alchemy:building",
+    "c": "alchemy:company"
+  },
+  {
+    "a": "alchemy:car",
+    "b": "alchemy:armor",
+    "c": "alchemy:tank"
+  },
+  {
+    "a": "alchemy:magic",
+    "b": "alchemy:water",
+    "c": "alchemy:potion"
+  },
+  {
+    "a": "alchemy:maple",
+    "b": "alchemy:tools",
+    "c": "alchemy:syrup"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:human",
+    "c": "alchemy:wreath"
+  },
+  {
+    "a": "alchemy:lion",
+    "b": "alchemy:human",
+    "c": "alchemy:sphinx"
+  },
+  {
+    "a": "alchemy:cow",
+    "b": "alchemy:human",
+    "c": "alchemy:minotaur"
+  },
+  {
+    "a": "alchemy:berry",
+    "b": "alchemy:phone",
+    "c": "alchemy:blackberry"
+  },
+  {
+    "a": "alchemy:dinosaur",
+    "b": "alchemy:water",
+    "c": "alchemy:plesiosauria"
+  },
+  {
+    "a": "alchemy:fence",
+    "b": "alchemy:door",
+    "c": "alchemy:gate"
+  },
+  {
+    "a": "alchemy:marble",
+    "b": "alchemy:glass",
+    "c": "alchemy:marble_toy"
+  },
+  {
+    "a": "alchemy:forest",
+    "b": "alchemy:mushroom",
+    "c": "alchemy:basket"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:wood",
+    "c": "alchemy:basket"
+  },
+  {
+    "a": "alchemy:knowledge",
+    "b": "alchemy:human",
+    "c": "alchemy:expert"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:stone",
+    "c": "alchemy:hut"
+  },
+  {
+    "a": "alchemy:wizard",
+    "b": "alchemy:energy",
+    "c": "alchemy:demigod"
+  },
+  {
+    "a": "alchemy:diamond",
+    "b": "alchemy:egg",
+    "c": "alchemy:faberge_egg"
+  },
+  {
+    "a": "alchemy:rainbow",
+    "b": "alchemy:glass",
+    "c": "alchemy:prism"
+  },
+  {
+    "a": "alchemy:gold",
+    "b": "alchemy:hat",
+    "c": "alchemy:crown"
+  },
+  {
+    "a": "alchemy:cloud",
+    "b": "alchemy:air",
+    "c": "alchemy:sky"
+  },
+  {
+    "a": "alchemy:vampire",
+    "b": "alchemy:town",
+    "c": "alchemy:transylvania"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:computer",
+    "c": "alchemy:printer"
+  },
+  {
+    "a": "alchemy:stone",
+    "b": "alchemy:fire",
+    "c": "alchemy:metal"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:1up",
+    "c": "alchemy:mario"
+  },
+  {
+    "a": "alchemy:medusa",
+    "b": "alchemy:human",
+    "c": "alchemy:statue"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:stone",
+    "c": "alchemy:statue"
+  },
+  {
+    "a": "alchemy:whey",
+    "b": "alchemy:tools",
+    "c": "alchemy:cream"
+  },
+  {
+    "a": "alchemy:chicken",
+    "b": "alchemy:fire",
+    "c": "alchemy:fried_chicken"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:earth",
+    "c": "alchemy:field"
+  },
+  {
+    "a": "alchemy:sport",
+    "b": "alchemy:bat",
+    "c": "alchemy:baseball"
+  },
+  {
+    "a": "alchemy:food",
+    "b": "alchemy:tools",
+    "c": "alchemy:utensils"
+  },
+  {
+    "a": "alchemy:bone",
+    "b": "alchemy:animal",
+    "c": "alchemy:dog"
+  },
+  {
+    "a": "alchemy:pirate",
+    "b": "alchemy:bird",
+    "c": "alchemy:parrot"
+  },
+  {
+    "a": "alchemy:life",
+    "b": "alchemy:dust",
+    "c": "alchemy:mite"
+  },
+  {
+    "a": "alchemy:bird",
+    "b": "alchemy:africa",
+    "c": "alchemy:ostrich"
+  },
+  {
+    "a": "alchemy:firearm",
+    "b": "alchemy:rocket",
+    "c": "alchemy:bazooka"
+  },
+  {
+    "a": "alchemy:fish",
+    "b": "alchemy:electricity",
+    "c": "alchemy:stingray"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:sea",
+    "c": "alchemy:diver"
+  },
+  {
+    "a": "alchemy:cactus",
+    "b": "alchemy:beetle",
+    "c": "alchemy:cochineal"
+  },
+  {
+    "a": "alchemy:blood",
+    "b": "alchemy:worm",
+    "c": "alchemy:leech"
+  },
+  {
+    "a": "alchemy:hut",
+    "b": "alchemy:steam",
+    "c": "alchemy:sauna"
+  },
+  {
+    "a": "alchemy:magic",
+    "b": "alchemy:human",
+    "c": "alchemy:dwarf"
+  },
+  {
+    "a": "alchemy:knife",
+    "b": "alchemy:doctor",
+    "c": "alchemy:scalpel"
+  },
+  {
+    "a": "alchemy:dish",
+    "b": "alchemy:wood",
+    "c": "alchemy:table"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:sauna",
+    "c": "alchemy:finland"
+  },
+  {
+    "a": "alchemy:corpse",
+    "b": "alchemy:electricity",
+    "c": "alchemy:frankenstein"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:tobacco",
+    "c": "alchemy:cigarette"
+  },
+  {
+    "a": "alchemy:dough",
+    "b": "alchemy:fire",
+    "c": "alchemy:bread"
+  },
+  {
+    "a": "alchemy:needle",
+    "b": "alchemy:flower",
+    "c": "alchemy:thorn"
+  },
+  {
+    "a": "alchemy:airplane",
+    "b": "alchemy:radio",
+    "c": "alchemy:radar"
+  },
+  {
+    "a": "alchemy:airplane",
+    "b": "alchemy:metal",
+    "c": "alchemy:aluminium"
+  },
+  {
+    "a": "alchemy:bird",
+    "b": "alchemy:earth",
+    "c": "alchemy:kiwi_bird"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:coke",
+    "c": "alchemy:usa"
+  },
+  {
+    "a": "alchemy:smoke",
+    "b": "alchemy:fog",
+    "c": "alchemy:smog"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:cloud",
+    "c": "alchemy:cotton"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:bird",
+    "c": "alchemy:angel"
+  },
+  {
+    "a": "alchemy:hero",
+    "b": "alchemy:fire",
+    "c": "alchemy:firefighter"
+  },
+  {
+    "a": "alchemy:soda",
+    "b": "alchemy:wine",
+    "c": "alchemy:champagne"
+  },
+  {
+    "a": "alchemy:electricity",
+    "b": "alchemy:water",
+    "c": "alchemy:oxygen"
+  },
+  {
+    "a": "alchemy:egg",
+    "b": "alchemy:sand",
+    "c": "alchemy:turtle"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:wind",
+    "c": "alchemy:windmill"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:hay",
+    "c": "alchemy:broom"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:glass",
+    "c": "alchemy:greenhouse"
+  },
+  {
+    "a": "alchemy:earth",
+    "b": "alchemy:earth",
+    "c": "alchemy:pressure"
+  },
+  {
+    "a": "alchemy:snow",
+    "b": "alchemy:elephant",
+    "c": "alchemy:mammoth"
+  },
+  {
+    "a": "alchemy:rainforest",
+    "b": "alchemy:river",
+    "c": "alchemy:amazon"
+  },
+  {
+    "a": "alchemy:food",
+    "b": "alchemy:porcelain",
+    "c": "alchemy:dish"
+  },
+  {
+    "a": "alchemy:magnet",
+    "b": "alchemy:tools",
+    "c": "alchemy:compass"
+  },
+  {
+    "a": "alchemy:lantern",
+    "b": "alchemy:ghost",
+    "c": "alchemy:genie"
+  },
+  {
+    "a": "alchemy:time",
+    "b": "alchemy:space",
+    "c": "alchemy:tardis"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:snow",
+    "c": "alchemy:skis"
+  },
+  {
+    "a": "alchemy:pressure",
+    "b": "alchemy:peat",
+    "c": "alchemy:coal"
+  },
+  {
+    "a": "alchemy:tree",
+    "b": "alchemy:fire",
+    "c": "alchemy:coal"
+  },
+  {
+    "a": "alchemy:christmas_tree",
+    "b": "alchemy:human",
+    "c": "alchemy:santa_claus"
+  },
+  {
+    "a": "alchemy:santa_claus",
+    "b": "alchemy:christmas_tree",
+    "c": "alchemy:present"
+  },
+  {
+    "a": "alchemy:banana",
+    "b": "alchemy:fire",
+    "c": "alchemy:potassium"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:sugar",
+    "c": "alchemy:candy"
+  },
+  {
+    "a": "alchemy:robin_hood",
+    "b": "alchemy:weapons",
+    "c": "alchemy:bow"
+  },
+  {
+    "a": "alchemy:spell",
+    "b": "alchemy:air",
+    "c": "alchemy:illusion"
+  },
+  {
+    "a": "alchemy:firearm",
+    "b": "alchemy:fire",
+    "c": "alchemy:flamethrower"
+  },
+  {
+    "a": "alchemy:blood",
+    "b": "alchemy:human",
+    "c": "alchemy:vampire"
+  },
+  {
+    "a": "alchemy:clay",
+    "b": "alchemy:fire",
+    "c": "alchemy:brick"
+  },
+  {
+    "a": "alchemy:star",
+    "b": "alchemy:fish",
+    "c": "alchemy:starfish"
+  },
+  {
+    "a": "alchemy:boat",
+    "b": "alchemy:steam_engine",
+    "c": "alchemy:steamboat"
+  },
+  {
+    "a": "alchemy:bull",
+    "b": "alchemy:bull",
+    "c": "alchemy:bullfighting"
+  },
+  {
+    "a": "alchemy:computer",
+    "b": "alchemy:button",
+    "c": "alchemy:keyboard"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:steel",
+    "c": "alchemy:wheel"
+  },
+  {
+    "a": "alchemy:yarn",
+    "b": "alchemy:spinning_wheel",
+    "c": "alchemy:thread"
+  },
+  {
+    "a": "alchemy:corundum",
+    "b": "alchemy:chromium",
+    "c": "alchemy:ruby"
+  },
+  {
+    "a": "alchemy:bird",
+    "b": "alchemy:fire",
+    "c": "alchemy:phoenix"
+  },
+  {
+    "a": "alchemy:light",
+    "b": "alchemy:sun",
+    "c": "alchemy:radiation"
+  },
+  {
+    "a": "alchemy:radio_wave",
+    "b": "alchemy:energy",
+    "c": "alchemy:radiation"
+  },
+  {
+    "a": "alchemy:canvas",
+    "b": "alchemy:paint",
+    "c": "alchemy:painting"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:clay",
+    "c": "alchemy:earth"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:wall",
+    "c": "alchemy:fence"
+  },
+  {
+    "a": "alchemy:pie",
+    "b": "alchemy:vegetable",
+    "c": "alchemy:pumpkin"
+  },
+  {
+    "a": "alchemy:cartoon",
+    "b": "alchemy:japan",
+    "c": "alchemy:anime"
+  },
+  {
+    "a": "alchemy:dish",
+    "b": "alchemy:vegetable",
+    "c": "alchemy:salad"
+  },
+  {
+    "a": "alchemy:airplane",
+    "b": "alchemy:moon",
+    "c": "alchemy:rocket"
+  },
+  {
+    "a": "alchemy:fireworks",
+    "b": "alchemy:sky",
+    "c": "alchemy:rocket"
+  },
+  {
+    "a": "alchemy:spaceship",
+    "b": "alchemy:satellite",
+    "c": "alchemy:rocket"
+  },
+  {
+    "a": "alchemy:rainbow",
+    "b": "alchemy:water",
+    "c": "alchemy:paint"
+  },
+  {
+    "a": "alchemy:ceramics",
+    "b": "alchemy:flower",
+    "c": "alchemy:vase"
+  },
+  {
+    "a": "alchemy:star",
+    "b": "alchemy:explosion",
+    "c": "alchemy:supernova"
+  },
+  {
+    "a": "alchemy:star",
+    "b": "alchemy:star",
+    "c": "alchemy:constellation"
+  },
+  {
+    "a": "alchemy:stone",
+    "b": "alchemy:stone",
+    "c": "alchemy:fire"
+  },
+  {
+    "a": "alchemy:algae",
+    "b": "alchemy:earth",
+    "c": "alchemy:mushroom"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:time",
+    "c": "alchemy:alcohol"
+  },
+  {
+    "a": "alchemy:yeast",
+    "b": "alchemy:sugar",
+    "c": "alchemy:alcohol"
+  },
+  {
+    "a": "alchemy:tub",
+    "b": "alchemy:fire",
+    "c": "alchemy:jacuzzi"
+  },
+  {
+    "a": "alchemy:hydrogen",
+    "b": "alchemy:oxygen",
+    "c": "alchemy:hydroxide"
+  },
+  {
+    "a": "alchemy:energy",
+    "b": "alchemy:wind",
+    "c": "alchemy:hurricane"
+  },
+  {
+    "a": "alchemy:kangaroo",
+    "b": "alchemy:country",
+    "c": "alchemy:australia"
+  },
+  {
+    "a": "alchemy:cat",
+    "b": "alchemy:animal",
+    "c": "alchemy:tiger"
+  },
+  {
+    "a": "alchemy:lion",
+    "b": "alchemy:swamp",
+    "c": "alchemy:tiger"
+  },
+  {
+    "a": "alchemy:windmill",
+    "b": "alchemy:electricity",
+    "c": "alchemy:wind_turbine"
+  },
+  {
+    "a": "alchemy:mouse",
+    "b": "alchemy:tree",
+    "c": "alchemy:squirrel"
+  },
+  {
+    "a": "alchemy:knife",
+    "b": "alchemy:star",
+    "c": "alchemy:shuriken"
+  },
+  {
+    "a": "alchemy:lizard",
+    "b": "alchemy:earth",
+    "c": "alchemy:animal"
+  },
+  {
+    "a": "alchemy:china",
+    "b": "alchemy:clay",
+    "c": "alchemy:kaolin"
+  },
+  {
+    "a": "alchemy:egg",
+    "b": "alchemy:fire",
+    "c": "alchemy:fried_egg"
+  },
+  {
+    "a": "alchemy:broom",
+    "b": "alchemy:electricity",
+    "c": "alchemy:vacuum_cleaner"
+  },
+  {
+    "a": "alchemy:livestock",
+    "b": "alchemy:grass",
+    "c": "alchemy:manure"
+  },
+  {
+    "a": "alchemy:car",
+    "b": "alchemy:house",
+    "c": "alchemy:rv"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:house",
+    "c": "alchemy:cabin"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:fish",
+    "c": "alchemy:mermaid"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:salad",
+    "c": "alchemy:greece"
+  },
+  {
+    "a": "alchemy:worm",
+    "b": "alchemy:air",
+    "c": "alchemy:butterfly"
+  },
+  {
+    "a": "alchemy:algae",
+    "b": "alchemy:fire",
+    "c": "alchemy:iodine"
+  },
+  {
+    "a": "alchemy:scissors",
+    "b": "alchemy:combustion_engine",
+    "c": "alchemy:lawn_mower"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:grass",
+    "c": "alchemy:lawn_mower"
+  },
+  {
+    "a": "alchemy:safe",
+    "b": "alchemy:tools",
+    "c": "alchemy:key"
+  },
+  {
+    "a": "alchemy:letter",
+    "b": "alchemy:internet",
+    "c": "alchemy:email"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:time",
+    "c": "alchemy:calendar"
+  },
+  {
+    "a": "alchemy:china",
+    "b": "alchemy:fabric",
+    "c": "alchemy:silk"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:clay",
+    "c": "alchemy:ceramics"
+  },
+  {
+    "a": "alchemy:wax",
+    "b": "alchemy:rainbow",
+    "c": "alchemy:crayon"
+  },
+  {
+    "a": "alchemy:energy",
+    "b": "alchemy:air",
+    "c": "alchemy:storm"
+  },
+  {
+    "a": "alchemy:night",
+    "b": "alchemy:sky",
+    "c": "alchemy:star"
+  },
+  {
+    "a": "alchemy:moon",
+    "b": "alchemy:animal",
+    "c": "alchemy:wolf"
+  },
+  {
+    "a": "alchemy:movie",
+    "b": "alchemy:child",
+    "c": "alchemy:cartoon"
+  },
+  {
+    "a": "alchemy:earth",
+    "b": "alchemy:water",
+    "c": "alchemy:swamp"
+  },
+  {
+    "a": "alchemy:seeds",
+    "b": "alchemy:water",
+    "c": "alchemy:flower"
+  },
+  {
+    "a": "alchemy:thorn",
+    "b": "alchemy:wire",
+    "c": "alchemy:barbed_wire"
+  },
+  {
+    "a": "alchemy:limestone",
+    "b": "alchemy:clay",
+    "c": "alchemy:cement"
+  },
+  {
+    "a": "alchemy:egg",
+    "b": "alchemy:water",
+    "c": "alchemy:fish"
+  },
+  {
+    "a": "alchemy:rainbow",
+    "b": "alchemy:bird",
+    "c": "alchemy:peacock"
+  },
+  {
+    "a": "alchemy:bread",
+    "b": "alchemy:dough",
+    "c": "alchemy:bun"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:tools",
+    "c": "alchemy:pulp"
+  },
+  {
+    "a": "alchemy:city",
+    "b": "alchemy:city",
+    "c": "alchemy:country"
+  },
+  {
+    "a": "alchemy:school",
+    "b": "alchemy:car",
+    "c": "alchemy:bus"
+  },
+  {
+    "a": "alchemy:manure",
+    "b": "alchemy:water",
+    "c": "alchemy:urine"
+  },
+  {
+    "a": "alchemy:tree",
+    "b": "alchemy:life",
+    "c": "alchemy:treant"
+  },
+  {
+    "a": "alchemy:glass",
+    "b": "alchemy:water",
+    "c": "alchemy:ice"
+  },
+  {
+    "a": "alchemy:honey",
+    "b": "alchemy:bear",
+    "c": "alchemy:winnie_the_pooh"
+  },
+  {
+    "a": "alchemy:pencil",
+    "b": "alchemy:wood",
+    "c": "alchemy:ruler"
+  },
+  {
+    "a": "alchemy:bicycle",
+    "b": "alchemy:combustion_engine",
+    "c": "alchemy:motorcycle"
+  },
+  {
+    "a": "alchemy:firearm",
+    "b": "alchemy:assassin",
+    "c": "alchemy:sniper"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:mercury",
+    "c": "alchemy:mercury_planet"
+  },
+  {
+    "a": "alchemy:grass",
+    "b": "alchemy:fire",
+    "c": "alchemy:tobacco"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:tree",
+    "c": "alchemy:wood"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:dam",
+    "c": "alchemy:beaver"
+  },
+  {
+    "a": "alchemy:warrior",
+    "b": "alchemy:windmill",
+    "c": "alchemy:don_quixote"
+  },
+  {
+    "a": "alchemy:present",
+    "b": "alchemy:human",
+    "c": "alchemy:surprise"
+  },
+  {
+    "a": "alchemy:lava",
+    "b": "alchemy:water",
+    "c": "alchemy:obsidian"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:life",
+    "c": "alchemy:seeds"
+  },
+  {
+    "a": "alchemy:beetroot",
+    "b": "alchemy:fire",
+    "c": "alchemy:borscht"
+  },
+  {
+    "a": "alchemy:clay",
+    "b": "alchemy:life",
+    "c": "alchemy:clay_golem"
+  },
+  {
+    "a": "alchemy:steam",
+    "b": "alchemy:earth",
+    "c": "alchemy:geyser"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:palm_tree",
+    "c": "alchemy:coconut"
+  },
+  {
+    "a": "alchemy:forest",
+    "b": "alchemy:ghost",
+    "c": "alchemy:totoro"
+  },
+  {
+    "a": "alchemy:carbon_dioxide",
+    "b": "alchemy:ice",
+    "c": "alchemy:dry_ice"
+  },
+  {
+    "a": "alchemy:mario",
+    "b": "alchemy:brick",
+    "c": "alchemy:coin"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:amazon",
+    "c": "alchemy:brazil"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:light_bulb",
+    "c": "alchemy:idea"
+  },
+  {
+    "a": "alchemy:field",
+    "b": "alchemy:fruit",
+    "c": "alchemy:vegetable"
+  },
+  {
+    "a": "alchemy:energy",
+    "b": "alchemy:sea",
+    "c": "alchemy:life"
+  },
+  {
+    "a": "alchemy:time",
+    "b": "alchemy:love",
+    "c": "alchemy:life"
+  },
+  {
+    "a": "alchemy:iphone",
+    "b": "alchemy:fruit",
+    "c": "alchemy:apple"
+  },
+  {
+    "a": "alchemy:kiwi_bird",
+    "b": "alchemy:country",
+    "c": "alchemy:new_zealand"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:rust",
+    "c": "alchemy:mars"
+  },
+  {
+    "a": "alchemy:soda",
+    "b": "alchemy:carmine",
+    "c": "alchemy:coke"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:sound",
+    "c": "alchemy:guitar"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:wind",
+    "c": "alchemy:flute"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:gold",
+    "c": "alchemy:money"
+  },
+  {
+    "a": "alchemy:beads",
+    "b": "alchemy:wood",
+    "c": "alchemy:abacus"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:potato",
+    "c": "alchemy:ireland"
+  },
+  {
+    "a": "alchemy:clock",
+    "b": "alchemy:sound",
+    "c": "alchemy:alarm_clock"
+  },
+  {
+    "a": "alchemy:lightning_rod",
+    "b": "alchemy:electricity",
+    "c": "alchemy:antenna"
+  },
+  {
+    "a": "alchemy:milk",
+    "b": "alchemy:bacteria",
+    "c": "alchemy:yogurt"
+  },
+  {
+    "a": "alchemy:dinosaur",
+    "b": "alchemy:fire",
+    "c": "alchemy:dragon"
+  },
+  {
+    "a": "alchemy:magic",
+    "b": "alchemy:egg",
+    "c": "alchemy:dragon"
+  },
+  {
+    "a": "alchemy:milk",
+    "b": "alchemy:ice",
+    "c": "alchemy:ice_cream"
+  },
+  {
+    "a": "alchemy:sword",
+    "b": "alchemy:stone",
+    "c": "alchemy:excalibur"
+  },
+  {
+    "a": "alchemy:moss",
+    "b": "alchemy:swamp",
+    "c": "alchemy:fern"
+  },
+  {
+    "a": "alchemy:vegetable",
+    "b": "alchemy:egg",
+    "c": "alchemy:eggplant"
+  },
+  {
+    "a": "alchemy:computer",
+    "b": "alchemy:berry",
+    "c": "alchemy:raspberry"
+  },
+  {
+    "a": "alchemy:abacus",
+    "b": "alchemy:electricity",
+    "c": "alchemy:calculator"
+  },
+  {
+    "a": "alchemy:light",
+    "b": "alchemy:beetle",
+    "c": "alchemy:firefly"
+  },
+  {
+    "a": "alchemy:plankton",
+    "b": "alchemy:earth",
+    "c": "alchemy:worm"
+  },
+  {
+    "a": "alchemy:money",
+    "b": "alchemy:human",
+    "c": "alchemy:work"
+  },
+  {
+    "a": "alchemy:magic",
+    "b": "alchemy:paper",
+    "c": "alchemy:scroll"
+  },
+  {
+    "a": "alchemy:gold",
+    "b": "alchemy:robot",
+    "c": "alchemy:C-3PO"
+  },
+  {
+    "a": "alchemy:soda",
+    "b": "alchemy:energy",
+    "c": "alchemy:energy_drink"
+  },
+  {
+    "a": "alchemy:warrior",
+    "b": "alchemy:lightsaber",
+    "c": "alchemy:jedi"
+  },
+  {
+    "a": "alchemy:wool",
+    "b": "alchemy:tools",
+    "c": "alchemy:fabric"
+  },
+  {
+    "a": "alchemy:snow",
+    "b": "alchemy:human",
+    "c": "alchemy:snowball"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:human",
+    "c": "alchemy:love"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:bee",
+    "c": "alchemy:hive"
+  },
+  {
+    "a": "alchemy:lizard",
+    "b": "alchemy:water",
+    "c": "alchemy:alligator"
+  },
+  {
+    "a": "alchemy:coal",
+    "b": "alchemy:metal",
+    "c": "alchemy:steel"
+  },
+  {
+    "a": "alchemy:bullfighting",
+    "b": "alchemy:country",
+    "c": "alchemy:spain"
+  },
+  {
+    "a": "alchemy:jelly",
+    "b": "alchemy:fish",
+    "c": "alchemy:jellyfish"
+  },
+  {
+    "a": "alchemy:sky",
+    "b": "alchemy:explosion",
+    "c": "alchemy:fireworks"
+  },
+  {
+    "a": "alchemy:antarctica",
+    "b": "alchemy:sky",
+    "c": "alchemy:aurora"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:metal",
+    "c": "alchemy:tools"
+  },
+  {
+    "a": "alchemy:seeds",
+    "b": "alchemy:energy",
+    "c": "alchemy:coffee_beans"
+  },
+  {
+    "a": "alchemy:egypt",
+    "b": "alchemy:seeds",
+    "c": "alchemy:flax"
+  },
+  {
+    "a": "alchemy:ash",
+    "b": "alchemy:life",
+    "c": "alchemy:ghost"
+  },
+  {
+    "a": "alchemy:cemetery",
+    "b": "alchemy:night",
+    "c": "alchemy:ghost"
+  },
+  {
+    "a": "alchemy:metal",
+    "b": "alchemy:steam",
+    "c": "alchemy:boiler"
+  },
+  {
+    "a": "alchemy:confetti",
+    "b": "alchemy:sugar",
+    "c": "alchemy:sprinkles"
+  },
+  {
+    "a": "alchemy:sport",
+    "b": "alchemy:ice",
+    "c": "alchemy:hockey"
+  },
+  {
+    "a": "alchemy:space",
+    "b": "alchemy:stone",
+    "c": "alchemy:meteoroid"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:corpse",
+    "c": "alchemy:coffin"
+  },
+  {
+    "a": "alchemy:train",
+    "b": "alchemy:mountain",
+    "c": "alchemy:roller_coaster"
+  },
+  {
+    "a": "alchemy:ship",
+    "b": "alchemy:space",
+    "c": "alchemy:spaceship"
+  },
+  {
+    "a": "alchemy:firearm",
+    "b": "alchemy:warrior",
+    "c": "alchemy:soldier"
+  },
+  {
+    "a": "alchemy:jedi",
+    "b": "alchemy:assassin",
+    "c": "alchemy:sith"
+  },
+  {
+    "a": "alchemy:wizard",
+    "b": "alchemy:energy",
+    "c": "alchemy:magic"
+  },
+  {
+    "a": "alchemy:china",
+    "b": "alchemy:bear",
+    "c": "alchemy:panda"
+  },
+  {
+    "a": "alchemy:tears",
+    "b": "alchemy:vegetable",
+    "c": "alchemy:onion"
+  },
+  {
+    "a": "alchemy:popcorn",
+    "b": "alchemy:vegetable",
+    "c": "alchemy:corn"
+  },
+  {
+    "a": "alchemy:wave",
+    "b": "alchemy:air",
+    "c": "alchemy:sound"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:bird",
+    "c": "alchemy:origami"
+  },
+  {
+    "a": "alchemy:book",
+    "b": "alchemy:sex",
+    "c": "alchemy:kama_sutra"
+  },
+  {
+    "a": "alchemy:meat",
+    "b": "alchemy:human",
+    "c": "alchemy:butcher"
+  },
+  {
+    "a": "alchemy:leather",
+    "b": "alchemy:wood",
+    "c": "alchemy:drum"
+  },
+  {
+    "a": "alchemy:atmosphere",
+    "b": "alchemy:air",
+    "c": "alchemy:space"
+  },
+  {
+    "a": "alchemy:sport",
+    "b": "alchemy:basket",
+    "c": "alchemy:basketball"
+  },
+  {
+    "a": "alchemy:egg",
+    "b": "alchemy:swamp",
+    "c": "alchemy:frog"
+  },
+  {
+    "a": "alchemy:hero",
+    "b": "alchemy:idea",
+    "c": "alchemy:justice"
+  },
+  {
+    "a": "alchemy:knowledge",
+    "b": "alchemy:magic",
+    "c": "alchemy:spell"
+  },
+  {
+    "a": "alchemy:star_wars",
+    "b": "alchemy:robot",
+    "c": "alchemy:R2-D2"
+  },
+  {
+    "a": "alchemy:sith",
+    "b": "alchemy:jedi",
+    "c": "alchemy:star_wars"
+  },
+  {
+    "a": "alchemy:werewolf",
+    "b": "alchemy:vampire",
+    "c": "alchemy:twilight_saga"
+  },
+  {
+    "a": "alchemy:energy",
+    "b": "alchemy:earth",
+    "c": "alchemy:earthquake"
+  },
+  {
+    "a": "alchemy:radiation",
+    "b": "alchemy:metal",
+    "c": "alchemy:plutonium"
+  },
+  {
+    "a": "alchemy:horse",
+    "b": "alchemy:human",
+    "c": "alchemy:centaur"
+  },
+  {
+    "a": "alchemy:city",
+    "b": "alchemy:sex",
+    "c": "alchemy:sex_and_the_city"
+  },
+  {
+    "a": "alchemy:gold",
+    "b": "alchemy:metal",
+    "c": "alchemy:safe"
+  },
+  {
+    "a": "alchemy:gold",
+    "b": "alchemy:steel",
+    "c": "alchemy:safe"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:oxygen",
+    "c": "alchemy:carbon_dioxide"
+  },
+  {
+    "a": "alchemy:yeast",
+    "b": "alchemy:sugar",
+    "c": "alchemy:carbon_dioxide"
+  },
+  {
+    "a": "alchemy:sport",
+    "b": "alchemy:ring",
+    "c": "alchemy:boxing"
+  },
+  {
+    "a": "alchemy:manure",
+    "b": "alchemy:beetle",
+    "c": "alchemy:scarab"
+  },
+  {
+    "a": "alchemy:swamp",
+    "b": "alchemy:earth",
+    "c": "alchemy:mud"
+  },
+  {
+    "a": "alchemy:whale",
+    "b": "alchemy:weapons",
+    "c": "alchemy:harpoon"
+  },
+  {
+    "a": "alchemy:cement",
+    "b": "alchemy:water",
+    "c": "alchemy:concrete"
+  },
+  {
+    "a": "alchemy:corpse",
+    "b": "alchemy:energy",
+    "c": "alchemy:death"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:grim_reaper",
+    "c": "alchemy:death"
+  },
+  {
+    "a": "alchemy:meat",
+    "b": "alchemy:fire",
+    "c": "alchemy:steak"
+  },
+  {
+    "a": "alchemy:fabric",
+    "b": "alchemy:boat",
+    "c": "alchemy:sail"
+  },
+  {
+    "a": "alchemy:glass",
+    "b": "alchemy:ash",
+    "c": "alchemy:ashtray"
+  },
+  {
+    "a": "alchemy:metal",
+    "b": "alchemy:water",
+    "c": "alchemy:mercury"
+  },
+  {
+    "a": "alchemy:worm",
+    "b": "alchemy:swamp",
+    "c": "alchemy:snake"
+  },
+  {
+    "a": "alchemy:warrior",
+    "b": "alchemy:dragon",
+    "c": "alchemy:hero"
+  },
+  {
+    "a": "alchemy:beetle",
+    "b": "alchemy:swamp",
+    "c": "alchemy:dragonfly"
+  },
+  {
+    "a": "alchemy:beetle",
+    "b": "alchemy:water",
+    "c": "alchemy:dragonfly"
+  },
+  {
+    "a": "alchemy:metal",
+    "b": "alchemy:water",
+    "c": "alchemy:rust"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:mouse",
+    "c": "alchemy:cat"
+  },
+  {
+    "a": "alchemy:pet",
+    "b": "alchemy:milk",
+    "c": "alchemy:cat"
+  },
+  {
+    "a": "alchemy:ice",
+    "b": "alchemy:sea",
+    "c": "alchemy:iceberg"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:house",
+    "c": "alchemy:village"
+  },
+  {
+    "a": "alchemy:ice",
+    "b": "alchemy:mountain",
+    "c": "alchemy:glacier"
+  },
+  {
+    "a": "alchemy:electrician",
+    "b": "alchemy:building",
+    "c": "alchemy:factory"
+  },
+  {
+    "a": "alchemy:poison",
+    "b": "alchemy:fish",
+    "c": "alchemy:pufferfish"
+  },
+  {
+    "a": "alchemy:rubber",
+    "b": "alchemy:air",
+    "c": "alchemy:balloon"
+  },
+  {
+    "a": "alchemy:alien",
+    "b": "alchemy:tardis",
+    "c": "alchemy:the_doctor"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:tardis",
+    "c": "alchemy:the_doctor"
+  },
+  {
+    "a": "alchemy:octopus",
+    "b": "alchemy:tools",
+    "c": "alchemy:ink"
+  },
+  {
+    "a": "alchemy:ash",
+    "b": "alchemy:air",
+    "c": "alchemy:smoke"
+  },
+  {
+    "a": "alchemy:lava",
+    "b": "alchemy:pressure",
+    "c": "alchemy:granite"
+  },
+  {
+    "a": "alchemy:copper",
+    "b": "alchemy:tin",
+    "c": "alchemy:bronze"
+  },
+  {
+    "a": "alchemy:sled",
+    "b": "alchemy:horse",
+    "c": "alchemy:sleigh"
+  },
+  {
+    "a": "alchemy:sled",
+    "b": "alchemy:reindeer",
+    "c": "alchemy:sleigh"
+  },
+  {
+    "a": "alchemy:sled",
+    "b": "alchemy:santa_claus",
+    "c": "alchemy:sleigh"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:sound",
+    "c": "alchemy:music"
+  },
+  {
+    "a": "alchemy:idea",
+    "b": "alchemy:sound",
+    "c": "alchemy:music"
+  },
+  {
+    "a": "alchemy:glasses",
+    "b": "alchemy:beach",
+    "c": "alchemy:sunglasses"
+  },
+  {
+    "a": "alchemy:glasses",
+    "b": "alchemy:sun",
+    "c": "alchemy:sunglasses"
+  },
+  {
+    "a": "alchemy:bread",
+    "b": "alchemy:human",
+    "c": "alchemy:baker"
+  },
+  {
+    "a": "alchemy:flour",
+    "b": "alchemy:human",
+    "c": "alchemy:baker"
+  },
+  {
+    "a": "alchemy:cat",
+    "b": "alchemy:animal",
+    "c": "alchemy:lion"
+  },
+  {
+    "a": "alchemy:monarch",
+    "b": "alchemy:animal",
+    "c": "alchemy:lion"
+  },
+  {
+    "a": "alchemy:tv",
+    "b": "alchemy:paper",
+    "c": "alchemy:newspaper"
+  },
+  {
+    "a": "alchemy:radio",
+    "b": "alchemy:paper",
+    "c": "alchemy:newspaper"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:hydrogen",
+    "c": "alchemy:jupiter"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:helium",
+    "c": "alchemy:jupiter"
+  },
+  {
+    "a": "alchemy:spider",
+    "b": "alchemy:hero",
+    "c": "alchemy:spiderman"
+  },
+  {
+    "a": "alchemy:web",
+    "b": "alchemy:hero",
+    "c": "alchemy:spiderman"
+  },
+  {
+    "a": "alchemy:pumpkin",
+    "b": "alchemy:candle",
+    "c": "alchemy:jack_o'_lantern"
+  },
+  {
+    "a": "alchemy:pumpkin",
+    "b": "alchemy:fire",
+    "c": "alchemy:jack_o'_lantern"
+  },
+  {
+    "a": "alchemy:dwarf_planet",
+    "b": "alchemy:plutonium",
+    "c": "alchemy:pluto"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:plutonium",
+    "c": "alchemy:pluto"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:knife",
+    "c": "alchemy:blood"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:livestock",
+    "c": "alchemy:blood"
+  },
+  {
+    "a": "alchemy:sword",
+    "b": "alchemy:light",
+    "c": "alchemy:lightsaber"
+  },
+  {
+    "a": "alchemy:sword",
+    "b": "alchemy:laser",
+    "c": "alchemy:lightsaber"
+  },
+  {
+    "a": "alchemy:weapons",
+    "b": "alchemy:light",
+    "c": "alchemy:lightsaber"
+  },
+  {
+    "a": "alchemy:weapons",
+    "b": "alchemy:laser",
+    "c": "alchemy:lightsaber"
+  },
+  {
+    "a": "alchemy:bird",
+    "b": "alchemy:lake",
+    "c": "alchemy:duck"
+  },
+  {
+    "a": "alchemy:bird",
+    "b": "alchemy:swamp",
+    "c": "alchemy:duck"
+  },
+  {
+    "a": "alchemy:milk",
+    "b": "alchemy:bacteria",
+    "c": "alchemy:soured_milk"
+  },
+  {
+    "a": "alchemy:milk",
+    "b": "alchemy:vinegar",
+    "c": "alchemy:soured_milk"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:time",
+    "c": "alchemy:ruins"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:time",
+    "c": "alchemy:ruins"
+  },
+  {
+    "a": "alchemy:hut",
+    "b": "alchemy:time",
+    "c": "alchemy:ruins"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:hydrogen",
+    "c": "alchemy:neptune"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:helium",
+    "c": "alchemy:neptune"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:methane",
+    "c": "alchemy:neptune"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:storm",
+    "c": "alchemy:neptune"
+  },
+  {
+    "a": "alchemy:vegetable",
+    "b": "alchemy:beads",
+    "c": "alchemy:peas"
+  },
+  {
+    "a": "alchemy:vegetable",
+    "b": "alchemy:seeds",
+    "c": "alchemy:peas"
+  },
+  {
+    "a": "alchemy:light",
+    "b": "alchemy:fire",
+    "c": "alchemy:laser"
+  },
+  {
+    "a": "alchemy:light",
+    "b": "alchemy:ruby",
+    "c": "alchemy:laser"
+  },
+  {
+    "a": "alchemy:light",
+    "b": "alchemy:diamond",
+    "c": "alchemy:laser"
+  },
+  {
+    "a": "alchemy:rocket",
+    "b": "alchemy:antenna",
+    "c": "alchemy:satellite"
+  },
+  {
+    "a": "alchemy:spaceship",
+    "b": "alchemy:antenna",
+    "c": "alchemy:satellite"
+  },
+  {
+    "a": "alchemy:fabric",
+    "b": "alchemy:rain",
+    "c": "alchemy:umbrella"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:rain",
+    "c": "alchemy:umbrella"
+  },
+  {
+    "a": "alchemy:hero",
+    "b": "alchemy:iron",
+    "c": "alchemy:iron_man"
+  },
+  {
+    "a": "alchemy:hero",
+    "b": "alchemy:metal",
+    "c": "alchemy:iron_man"
+  },
+  {
+    "a": "alchemy:fire",
+    "b": "alchemy:dynamite",
+    "c": "alchemy:explosion"
+  },
+  {
+    "a": "alchemy:fire",
+    "b": "alchemy:fire",
+    "c": "alchemy:explosion"
+  },
+  {
+    "a": "alchemy:fire",
+    "b": "alchemy:gasoline",
+    "c": "alchemy:explosion"
+  },
+  {
+    "a": "alchemy:fire",
+    "b": "alchemy:gunpowder",
+    "c": "alchemy:explosion"
+  },
+  {
+    "a": "alchemy:sky",
+    "b": "alchemy:earth",
+    "c": "alchemy:horizon"
+  },
+  {
+    "a": "alchemy:sky",
+    "b": "alchemy:sea",
+    "c": "alchemy:horizon"
+  },
+  {
+    "a": "alchemy:cart",
+    "b": "alchemy:animal",
+    "c": "alchemy:chariot"
+  },
+  {
+    "a": "alchemy:cart",
+    "b": "alchemy:horse",
+    "c": "alchemy:chariot"
+  },
+  {
+    "a": "alchemy:cigarette",
+    "b": "alchemy:human",
+    "c": "alchemy:cancer"
+  },
+  {
+    "a": "alchemy:radiation",
+    "b": "alchemy:human",
+    "c": "alchemy:cancer"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:electricity",
+    "c": "alchemy:electrician"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:wire",
+    "c": "alchemy:electrician"
+  },
+  {
+    "a": "alchemy:wheat",
+    "b": "alchemy:stone",
+    "c": "alchemy:flour"
+  },
+  {
+    "a": "alchemy:wheat",
+    "b": "alchemy:tools",
+    "c": "alchemy:flour"
+  },
+  {
+    "a": "alchemy:wheat",
+    "b": "alchemy:windmill",
+    "c": "alchemy:flour"
+  },
+  {
+    "a": "alchemy:ink",
+    "b": "alchemy:feather",
+    "c": "alchemy:pen"
+  },
+  {
+    "a": "alchemy:ink",
+    "b": "alchemy:metal",
+    "c": "alchemy:pen"
+  },
+  {
+    "a": "alchemy:ink",
+    "b": "alchemy:plastic",
+    "c": "alchemy:pen"
+  },
+  {
+    "a": "alchemy:continent",
+    "b": "alchemy:desert",
+    "c": "alchemy:africa"
+  },
+  {
+    "a": "alchemy:sandwich",
+    "b": "alchemy:beach",
+    "c": "alchemy:picnic"
+  },
+  {
+    "a": "alchemy:sandwich",
+    "b": "alchemy:grass",
+    "c": "alchemy:picnic"
+  },
+  {
+    "a": "alchemy:sandwich",
+    "b": "alchemy:park",
+    "c": "alchemy:picnic"
+  },
+  {
+    "a": "alchemy:energy_drink",
+    "b": "alchemy:animal",
+    "c": "alchemy:bull"
+  },
+  {
+    "a": "alchemy:energy_drink",
+    "b": "alchemy:cow",
+    "c": "alchemy:bull"
+  },
+  {
+    "a": "alchemy:doctor",
+    "b": "alchemy:mold",
+    "c": "alchemy:penicillin"
+  },
+  {
+    "a": "alchemy:scientist",
+    "b": "alchemy:mold",
+    "c": "alchemy:penicillin"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:sea",
+    "c": "alchemy:shark"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:water",
+    "c": "alchemy:shark"
+  },
+  {
+    "a": "alchemy:dough",
+    "b": "alchemy:apple",
+    "c": "alchemy:pie"
+  },
+  {
+    "a": "alchemy:dough",
+    "b": "alchemy:fruit",
+    "c": "alchemy:pie"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:mud",
+    "c": "alchemy:pig"
+  },
+  {
+    "a": "alchemy:livestock",
+    "b": "alchemy:mud",
+    "c": "alchemy:pig"
+  },
+  {
+    "a": "alchemy:letter",
+    "b": "alchemy:bird",
+    "c": "alchemy:pigeon"
+  },
+  {
+    "a": "alchemy:statue",
+    "b": "alchemy:bird",
+    "c": "alchemy:pigeon"
+  },
+  {
+    "a": "alchemy:time",
+    "b": "alchemy:electricity",
+    "c": "alchemy:clock"
+  },
+  {
+    "a": "alchemy:time",
+    "b": "alchemy:tools",
+    "c": "alchemy:clock"
+  },
+  {
+    "a": "alchemy:time",
+    "b": "alchemy:wheel",
+    "c": "alchemy:clock"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:coffee",
+    "c": "alchemy:cafe"
+  },
+  {
+    "a": "alchemy:hut",
+    "b": "alchemy:coffee",
+    "c": "alchemy:cafe"
+  },
+  {
+    "a": "alchemy:bird",
+    "b": "alchemy:livestock",
+    "c": "alchemy:chicken"
+  },
+  {
+    "a": "alchemy:egg",
+    "b": "alchemy:livestock",
+    "c": "alchemy:chicken"
+  },
+  {
+    "a": "alchemy:farmer",
+    "b": "alchemy:tree",
+    "c": "alchemy:fruit"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:tree",
+    "c": "alchemy:fruit"
+  },
+  {
+    "a": "alchemy:desert",
+    "b": "alchemy:storm",
+    "c": "alchemy:sandstorm"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:storm",
+    "c": "alchemy:sandstorm"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:cat",
+    "c": "alchemy:egypt"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:mummy",
+    "c": "alchemy:egypt"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:alcohol",
+    "c": "alchemy:alcoholic"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:beer",
+    "c": "alchemy:alcoholic"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:vodka",
+    "c": "alchemy:alcoholic"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:wine",
+    "c": "alchemy:alcoholic"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:clock",
+    "c": "alchemy:big_ben"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:watch",
+    "c": "alchemy:big_ben"
+  },
+  {
+    "a": "alchemy:bat",
+    "b": "alchemy:hero",
+    "c": "alchemy:batman"
+  },
+  {
+    "a": "alchemy:bat",
+    "b": "alchemy:human",
+    "c": "alchemy:batman"
+  },
+  {
+    "a": "alchemy:hospital",
+    "b": "alchemy:human",
+    "c": "alchemy:doctor"
+  },
+  {
+    "a": "alchemy:hospital",
+    "b": "alchemy:scientist",
+    "c": "alchemy:doctor"
+  },
+  {
+    "a": "alchemy:hay",
+    "b": "alchemy:metal",
+    "c": "alchemy:needle"
+  },
+  {
+    "a": "alchemy:thread",
+    "b": "alchemy:metal",
+    "c": "alchemy:needle"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:roe",
+    "c": "alchemy:caviar"
+  },
+  {
+    "a": "alchemy:salt",
+    "b": "alchemy:roe",
+    "c": "alchemy:caviar"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:sushi",
+    "c": "alchemy:japan"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:anime",
+    "c": "alchemy:japan"
+  },
+  {
+    "a": "alchemy:boat",
+    "b": "alchemy:metal",
+    "c": "alchemy:ship"
+  },
+  {
+    "a": "alchemy:boat",
+    "b": "alchemy:wood",
+    "c": "alchemy:ship"
+  },
+  {
+    "a": "alchemy:soured_milk",
+    "b": "alchemy:fire",
+    "c": "alchemy:cheese"
+  },
+  {
+    "a": "alchemy:soured_milk",
+    "b": "alchemy:time",
+    "c": "alchemy:cheese"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:tools",
+    "c": "alchemy:jam"
+  },
+  {
+    "a": "alchemy:berry",
+    "b": "alchemy:tools",
+    "c": "alchemy:jam"
+  },
+  {
+    "a": "alchemy:corundum",
+    "b": "alchemy:iron",
+    "c": "alchemy:sapphire"
+  },
+  {
+    "a": "alchemy:corundum",
+    "b": "alchemy:titanium",
+    "c": "alchemy:sapphire"
+  },
+  {
+    "a": "alchemy:day",
+    "b": "alchemy:time",
+    "c": "alchemy:night"
+  },
+  {
+    "a": "alchemy:moon",
+    "b": "alchemy:time",
+    "c": "alchemy:night"
+  },
+  {
+    "a": "alchemy:panda",
+    "b": "alchemy:grass",
+    "c": "alchemy:bamboo"
+  },
+  {
+    "a": "alchemy:panda",
+    "b": "alchemy:tree",
+    "c": "alchemy:bamboo"
+  },
+  {
+    "a": "alchemy:pencil",
+    "b": "alchemy:paper",
+    "c": "alchemy:letter"
+  },
+  {
+    "a": "alchemy:pen",
+    "b": "alchemy:paper",
+    "c": "alchemy:letter"
+  },
+  {
+    "a": "alchemy:glass",
+    "b": "alchemy:sky",
+    "c": "alchemy:telescope"
+  },
+  {
+    "a": "alchemy:mirror",
+    "b": "alchemy:sky",
+    "c": "alchemy:telescope"
+  },
+  {
+    "a": "alchemy:space",
+    "b": "alchemy:car",
+    "c": "alchemy:rover"
+  },
+  {
+    "a": "alchemy:moon",
+    "b": "alchemy:car",
+    "c": "alchemy:rover"
+  },
+  {
+    "a": "alchemy:mars",
+    "b": "alchemy:car",
+    "c": "alchemy:rover"
+  },
+  {
+    "a": "alchemy:armor",
+    "b": "alchemy:human",
+    "c": "alchemy:warrior"
+  },
+  {
+    "a": "alchemy:weapons",
+    "b": "alchemy:human",
+    "c": "alchemy:warrior"
+  },
+  {
+    "a": "alchemy:farmer",
+    "b": "alchemy:car",
+    "c": "alchemy:tractor"
+  },
+  {
+    "a": "alchemy:field",
+    "b": "alchemy:car",
+    "c": "alchemy:tractor"
+  },
+  {
+    "a": "alchemy:beach",
+    "b": "alchemy:tree",
+    "c": "alchemy:palm_tree"
+  },
+  {
+    "a": "alchemy:island",
+    "b": "alchemy:tree",
+    "c": "alchemy:palm_tree"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:mushroom",
+    "c": "alchemy:poison"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:snake",
+    "c": "alchemy:poison"
+  },
+  {
+    "a": "alchemy:meteoroid",
+    "b": "alchemy:atmosphere",
+    "c": "alchemy:meteor"
+  },
+  {
+    "a": "alchemy:meteoroid",
+    "b": "alchemy:sky",
+    "c": "alchemy:meteor"
+  },
+  {
+    "a": "alchemy:tree",
+    "b": "alchemy:bird",
+    "c": "alchemy:nest"
+  },
+  {
+    "a": "alchemy:tree",
+    "b": "alchemy:egg",
+    "c": "alchemy:nest"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:meteor",
+    "c": "alchemy:crater"
+  },
+  {
+    "a": "alchemy:land",
+    "b": "alchemy:meteor",
+    "c": "alchemy:crater"
+  },
+  {
+    "a": "alchemy:kangaroo",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:rabbit",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:lion",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:platypus",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:reindeer",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:camel",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:pet",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:hedgehog",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:bull",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:cow",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:pig",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:mouse",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:monkey",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:bear",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:sheep",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:bat",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:armadillo",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:livestock",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:elephant",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:husky",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:dog",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:mammoth",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:hamster",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:tiger",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:horse",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:squirrel",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:wolf",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:beaver",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:goat",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:panda",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:koala",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:cat",
+    "b": "alchemy:fire",
+    "c": "alchemy:ash"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:forest",
+    "c": "alchemy:castle"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:warrior",
+    "c": "alchemy:castle"
+  },
+  {
+    "a": "alchemy:dog",
+    "b": "alchemy:computer",
+    "c": "alchemy:doge"
+  },
+  {
+    "a": "alchemy:dog",
+    "b": "alchemy:internet",
+    "c": "alchemy:doge"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:tools",
+    "c": "alchemy:shovel"
+  },
+  {
+    "a": "alchemy:gravel",
+    "b": "alchemy:tools",
+    "c": "alchemy:shovel"
+  },
+  {
+    "a": "alchemy:meat",
+    "b": "alchemy:salt",
+    "c": "alchemy:ham"
+  },
+  {
+    "a": "alchemy:meat",
+    "b": "alchemy:smoke",
+    "c": "alchemy:ham"
+  },
+  {
+    "a": "alchemy:education",
+    "b": "alchemy:building",
+    "c": "alchemy:school"
+  },
+  {
+    "a": "alchemy:education",
+    "b": "alchemy:house",
+    "c": "alchemy:school"
+  },
+  {
+    "a": "alchemy:vampire",
+    "b": "alchemy:day",
+    "c": "alchemy:dust"
+  },
+  {
+    "a": "alchemy:vampire",
+    "b": "alchemy:sun",
+    "c": "alchemy:dust"
+  },
+  {
+    "a": "alchemy:snail",
+    "b": "alchemy:tools",
+    "c": "alchemy:slug"
+  },
+  {
+    "a": "alchemy:snail",
+    "b": "alchemy:worm",
+    "c": "alchemy:slug"
+  },
+  {
+    "a": "alchemy:grass",
+    "b": "alchemy:farmer",
+    "c": "alchemy:hay"
+  },
+  {
+    "a": "alchemy:grass",
+    "b": "alchemy:scythe",
+    "c": "alchemy:hay"
+  },
+  {
+    "a": "alchemy:grass",
+    "b": "alchemy:sun",
+    "c": "alchemy:hay"
+  },
+  {
+    "a": "alchemy:continent",
+    "b": "alchemy:continent",
+    "c": "alchemy:earth_planet"
+  },
+  {
+    "a": "alchemy:continent",
+    "b": "alchemy:sea",
+    "c": "alchemy:earth_planet"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:fossil",
+    "c": "alchemy:museum"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:fossil",
+    "c": "alchemy:museum"
+  },
+  {
+    "a": "alchemy:surfer",
+    "b": "alchemy:snow",
+    "c": "alchemy:snowboard"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:snow",
+    "c": "alchemy:snowboard"
+  },
+  {
+    "a": "alchemy:dragon",
+    "b": "alchemy:water",
+    "c": "alchemy:crocodile"
+  },
+  {
+    "a": "alchemy:dragon",
+    "b": "alchemy:swamp",
+    "c": "alchemy:crocodile"
+  },
+  {
+    "a": "alchemy:concrete",
+    "b": "alchemy:brick",
+    "c": "alchemy:house"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:brick",
+    "c": "alchemy:house"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:brick",
+    "c": "alchemy:house"
+  },
+  {
+    "a": "alchemy:clothes",
+    "b": "alchemy:bone",
+    "c": "alchemy:button"
+  },
+  {
+    "a": "alchemy:clothes",
+    "b": "alchemy:diamond",
+    "c": "alchemy:button"
+  },
+  {
+    "a": "alchemy:clothes",
+    "b": "alchemy:gold",
+    "c": "alchemy:button"
+  },
+  {
+    "a": "alchemy:clothes",
+    "b": "alchemy:plastic",
+    "c": "alchemy:button"
+  },
+  {
+    "a": "alchemy:juice",
+    "b": "alchemy:alcohol",
+    "c": "alchemy:cocktail"
+  },
+  {
+    "a": "alchemy:juice",
+    "b": "alchemy:vodka",
+    "c": "alchemy:cocktail"
+  },
+  {
+    "a": "alchemy:expert",
+    "b": "alchemy:tools",
+    "c": "alchemy:engineer"
+  },
+  {
+    "a": "alchemy:expert",
+    "b": "alchemy:steam_engine",
+    "c": "alchemy:engineer"
+  },
+  {
+    "a": "alchemy:expert",
+    "b": "alchemy:combustion_engine",
+    "c": "alchemy:engineer"
+  },
+  {
+    "a": "alchemy:expert",
+    "b": "alchemy:car",
+    "c": "alchemy:engineer"
+  },
+  {
+    "a": "alchemy:clock",
+    "b": "alchemy:energy",
+    "c": "alchemy:time"
+  },
+  {
+    "a": "alchemy:hourglass",
+    "b": "alchemy:energy",
+    "c": "alchemy:time"
+  },
+  {
+    "a": "alchemy:fun",
+    "b": "alchemy:human",
+    "c": "alchemy:happy"
+  },
+  {
+    "a": "alchemy:money",
+    "b": "alchemy:human",
+    "c": "alchemy:happy"
+  },
+  {
+    "a": "alchemy:corpse",
+    "b": "alchemy:air",
+    "c": "alchemy:ammonia"
+  },
+  {
+    "a": "alchemy:urine",
+    "b": "alchemy:air",
+    "c": "alchemy:ammonia"
+  },
+  {
+    "a": "alchemy:wheel",
+    "b": "alchemy:metal",
+    "c": "alchemy:cart"
+  },
+  {
+    "a": "alchemy:wheel",
+    "b": "alchemy:wood",
+    "c": "alchemy:cart"
+  },
+  {
+    "a": "alchemy:electricity",
+    "b": "alchemy:wind",
+    "c": "alchemy:fan"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:wind",
+    "c": "alchemy:fan"
+  },
+  {
+    "a": "alchemy:cheese",
+    "b": "alchemy:metal",
+    "c": "alchemy:trap"
+  },
+  {
+    "a": "alchemy:cheese",
+    "b": "alchemy:wood",
+    "c": "alchemy:trap"
+  },
+  {
+    "a": "alchemy:paint",
+    "b": "alchemy:cotton",
+    "c": "alchemy:canvas"
+  },
+  {
+    "a": "alchemy:paint",
+    "b": "alchemy:linen",
+    "c": "alchemy:canvas"
+  },
+  {
+    "a": "alchemy:cheese",
+    "b": "alchemy:sky",
+    "c": "alchemy:moon"
+  },
+  {
+    "a": "alchemy:cheese",
+    "b": "alchemy:space",
+    "c": "alchemy:moon"
+  },
+  {
+    "a": "alchemy:flashlight",
+    "b": "alchemy:electricity",
+    "c": "alchemy:light"
+  },
+  {
+    "a": "alchemy:light_bulb",
+    "b": "alchemy:electricity",
+    "c": "alchemy:light"
+  },
+  {
+    "a": "alchemy:game",
+    "b": "alchemy:paper",
+    "c": "alchemy:card"
+  },
+  {
+    "a": "alchemy:luck",
+    "b": "alchemy:paper",
+    "c": "alchemy:card"
+  },
+  {
+    "a": "alchemy:alcohol",
+    "b": "alchemy:sailor",
+    "c": "alchemy:pirate"
+  },
+  {
+    "a": "alchemy:sword",
+    "b": "alchemy:sailor",
+    "c": "alchemy:pirate"
+  },
+  {
+    "a": "alchemy:space",
+    "b": "alchemy:life",
+    "c": "alchemy:alien"
+  },
+  {
+    "a": "alchemy:star",
+    "b": "alchemy:life",
+    "c": "alchemy:alien"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:life",
+    "c": "alchemy:alien"
+  },
+  {
+    "a": "alchemy:rope",
+    "b": "alchemy:metal",
+    "c": "alchemy:chain"
+  },
+  {
+    "a": "alchemy:rope",
+    "b": "alchemy:steel",
+    "c": "alchemy:chain"
+  },
+  {
+    "a": "alchemy:fabric",
+    "b": "alchemy:child",
+    "c": "alchemy:doll"
+  },
+  {
+    "a": "alchemy:cotton",
+    "b": "alchemy:child",
+    "c": "alchemy:doll"
+  },
+  {
+    "a": "alchemy:soured_milk",
+    "b": "alchemy:fire",
+    "c": "alchemy:whey"
+  },
+  {
+    "a": "alchemy:soured_milk",
+    "b": "alchemy:time",
+    "c": "alchemy:whey"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:computer",
+    "c": "alchemy:cyborg"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:robot",
+    "c": "alchemy:cyborg"
+  },
+  {
+    "a": "alchemy:lock",
+    "b": "alchemy:house",
+    "c": "alchemy:door"
+  },
+  {
+    "a": "alchemy:lock",
+    "b": "alchemy:wood",
+    "c": "alchemy:door"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:banana",
+    "c": "alchemy:monkey"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:tree",
+    "c": "alchemy:monkey"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:plankton",
+    "c": "alchemy:whale"
+  },
+  {
+    "a": "alchemy:fish",
+    "b": "alchemy:plankton",
+    "c": "alchemy:whale"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:forest",
+    "c": "alchemy:bear"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:tree",
+    "c": "alchemy:bear"
+  },
+  {
+    "a": "alchemy:time",
+    "b": "alchemy:night",
+    "c": "alchemy:day"
+  },
+  {
+    "a": "alchemy:time",
+    "b": "alchemy:sun",
+    "c": "alchemy:day"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:london",
+    "c": "alchemy:england"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:tea",
+    "c": "alchemy:england"
+  },
+  {
+    "a": "alchemy:moon",
+    "b": "alchemy:butterfly",
+    "c": "alchemy:moth"
+  },
+  {
+    "a": "alchemy:night",
+    "b": "alchemy:butterfly",
+    "c": "alchemy:moth"
+  },
+  {
+    "a": "alchemy:land",
+    "b": "alchemy:sea",
+    "c": "alchemy:island"
+  },
+  {
+    "a": "alchemy:volcano",
+    "b": "alchemy:sea",
+    "c": "alchemy:island"
+  },
+  {
+    "a": "alchemy:light",
+    "b": "alchemy:rain",
+    "c": "alchemy:rainbow"
+  },
+  {
+    "a": "alchemy:light",
+    "b": "alchemy:storm",
+    "c": "alchemy:rainbow"
+  },
+  {
+    "a": "alchemy:fabric",
+    "b": "alchemy:cabin",
+    "c": "alchemy:tent"
+  },
+  {
+    "a": "alchemy:fabric",
+    "b": "alchemy:house",
+    "c": "alchemy:tent"
+  },
+  {
+    "a": "alchemy:fabric",
+    "b": "alchemy:hut",
+    "c": "alchemy:tent"
+  },
+  {
+    "a": "alchemy:telescope",
+    "b": "alchemy:bacteria",
+    "c": "alchemy:microscope"
+  },
+  {
+    "a": "alchemy:telescope",
+    "b": "alchemy:petri_dish",
+    "c": "alchemy:microscope"
+  },
+  {
+    "a": "alchemy:telescope",
+    "b": "alchemy:cancer",
+    "c": "alchemy:microscope"
+  },
+  {
+    "a": "alchemy:telescope",
+    "b": "alchemy:flu",
+    "c": "alchemy:microscope"
+  },
+  {
+    "a": "alchemy:telescope",
+    "b": "alchemy:virus",
+    "c": "alchemy:microscope"
+  },
+  {
+    "a": "alchemy:sick",
+    "b": "alchemy:building",
+    "c": "alchemy:hospital"
+  },
+  {
+    "a": "alchemy:sick",
+    "b": "alchemy:house",
+    "c": "alchemy:hospital"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:cloud",
+    "c": "alchemy:sheep"
+  },
+  {
+    "a": "alchemy:livestock",
+    "b": "alchemy:cloud",
+    "c": "alchemy:sheep"
+  },
+  {
+    "a": "alchemy:milk",
+    "b": "alchemy:pressure",
+    "c": "alchemy:butter"
+  },
+  {
+    "a": "alchemy:milk",
+    "b": "alchemy:tools",
+    "c": "alchemy:butter"
+  },
+  {
+    "a": "alchemy:bread",
+    "b": "alchemy:cheese",
+    "c": "alchemy:sandwich"
+  },
+  {
+    "a": "alchemy:bread",
+    "b": "alchemy:ham",
+    "c": "alchemy:sandwich"
+  },
+  {
+    "a": "alchemy:bread",
+    "b": "alchemy:meat",
+    "c": "alchemy:sandwich"
+  },
+  {
+    "a": "alchemy:juice",
+    "b": "alchemy:carbon_dioxide",
+    "c": "alchemy:soda"
+  },
+  {
+    "a": "alchemy:water",
+    "b": "alchemy:carbon_dioxide",
+    "c": "alchemy:soda"
+  },
+  {
+    "a": "alchemy:pressure",
+    "b": "alchemy:carbon",
+    "c": "alchemy:diamond"
+  },
+  {
+    "a": "alchemy:pressure",
+    "b": "alchemy:coal",
+    "c": "alchemy:diamond"
+  },
+  {
+    "a": "alchemy:time",
+    "b": "alchemy:carbon",
+    "c": "alchemy:diamond"
+  },
+  {
+    "a": "alchemy:time",
+    "b": "alchemy:coal",
+    "c": "alchemy:diamond"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:livestock",
+    "c": "alchemy:meat"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:livestock",
+    "c": "alchemy:meat"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:livestock",
+    "c": "alchemy:gelatin"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:livestock",
+    "c": "alchemy:gelatin"
+  },
+  {
+    "a": "alchemy:bun",
+    "b": "alchemy:cheese",
+    "c": "alchemy:hamburger"
+  },
+  {
+    "a": "alchemy:bun",
+    "b": "alchemy:steak",
+    "c": "alchemy:hamburger"
+  },
+  {
+    "a": "alchemy:hotel",
+    "b": "alchemy:alcoholic",
+    "c": "alchemy:bar"
+  },
+  {
+    "a": "alchemy:restaurant",
+    "b": "alchemy:alcoholic",
+    "c": "alchemy:bar"
+  },
+  {
+    "a": "alchemy:thread",
+    "b": "alchemy:glass",
+    "c": "alchemy:beads"
+  },
+  {
+    "a": "alchemy:thread",
+    "b": "alchemy:metal",
+    "c": "alchemy:beads"
+  },
+  {
+    "a": "alchemy:thread",
+    "b": "alchemy:bone",
+    "c": "alchemy:beads"
+  },
+  {
+    "a": "alchemy:thread",
+    "b": "alchemy:horn",
+    "c": "alchemy:beads"
+  },
+  {
+    "a": "alchemy:thread",
+    "b": "alchemy:wood",
+    "c": "alchemy:beads"
+  },
+  {
+    "a": "alchemy:movie",
+    "b": "alchemy:building",
+    "c": "alchemy:cinema"
+  },
+  {
+    "a": "alchemy:movie",
+    "b": "alchemy:house",
+    "c": "alchemy:cinema"
+  },
+  {
+    "a": "alchemy:book",
+    "b": "alchemy:human",
+    "c": "alchemy:knowledge"
+  },
+  {
+    "a": "alchemy:library",
+    "b": "alchemy:human",
+    "c": "alchemy:knowledge"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:cow",
+    "c": "alchemy:milk"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:goat",
+    "c": "alchemy:milk"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:cow",
+    "c": "alchemy:milk"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:goat",
+    "c": "alchemy:milk"
+  },
+  {
+    "a": "alchemy:justice",
+    "b": "alchemy:building",
+    "c": "alchemy:court"
+  },
+  {
+    "a": "alchemy:justice",
+    "b": "alchemy:house",
+    "c": "alchemy:court"
+  },
+  {
+    "a": "alchemy:law",
+    "b": "alchemy:building",
+    "c": "alchemy:court"
+  },
+  {
+    "a": "alchemy:law",
+    "b": "alchemy:house",
+    "c": "alchemy:court"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:electricity",
+    "c": "alchemy:corpse"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:fire",
+    "c": "alchemy:corpse"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:grim_reaper",
+    "c": "alchemy:corpse"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:poison",
+    "c": "alchemy:corpse"
+  },
+  {
+    "a": "alchemy:cucumber",
+    "b": "alchemy:brine",
+    "c": "alchemy:pickle"
+  },
+  {
+    "a": "alchemy:cucumber",
+    "b": "alchemy:vinegar",
+    "c": "alchemy:pickle"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:ice",
+    "c": "alchemy:greenland"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:snow",
+    "c": "alchemy:greenland"
+  },
+  {
+    "a": "alchemy:star",
+    "b": "alchemy:building",
+    "c": "alchemy:hotel"
+  },
+  {
+    "a": "alchemy:star",
+    "b": "alchemy:house",
+    "c": "alchemy:hotel"
+  },
+  {
+    "a": "alchemy:knowledge",
+    "b": "alchemy:bacteria",
+    "c": "alchemy:medicine"
+  },
+  {
+    "a": "alchemy:knowledge",
+    "b": "alchemy:virus",
+    "c": "alchemy:medicine"
+  },
+  {
+    "a": "alchemy:bacteria",
+    "b": "alchemy:air",
+    "c": "alchemy:flu"
+  },
+  {
+    "a": "alchemy:bacteria",
+    "b": "alchemy:bird",
+    "c": "alchemy:flu"
+  },
+  {
+    "a": "alchemy:bacteria",
+    "b": "alchemy:pig",
+    "c": "alchemy:flu"
+  },
+  {
+    "a": "alchemy:ice",
+    "b": "alchemy:bird",
+    "c": "alchemy:penguin"
+  },
+  {
+    "a": "alchemy:snow",
+    "b": "alchemy:bird",
+    "c": "alchemy:penguin"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:farmer",
+    "c": "alchemy:livestock"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:human",
+    "c": "alchemy:livestock"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:champagne",
+    "c": "alchemy:france"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:wine",
+    "c": "alchemy:france"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:sea",
+    "c": "alchemy:dolphin"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:water",
+    "c": "alchemy:dolphin"
+  },
+  {
+    "a": "alchemy:continent",
+    "b": "alchemy:continent",
+    "c": "alchemy:planet"
+  },
+  {
+    "a": "alchemy:sea",
+    "b": "alchemy:continent",
+    "c": "alchemy:planet"
+  },
+  {
+    "a": "alchemy:berry",
+    "b": "alchemy:wine",
+    "c": "alchemy:grape"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:wine",
+    "c": "alchemy:grape"
+  },
+  {
+    "a": "alchemy:grape",
+    "b": "alchemy:fern",
+    "c": "alchemy:vines"
+  },
+  {
+    "a": "alchemy:grape",
+    "b": "alchemy:grass",
+    "c": "alchemy:vines"
+  },
+  {
+    "a": "alchemy:grape",
+    "b": "alchemy:tree",
+    "c": "alchemy:vines"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:cow",
+    "c": "alchemy:india"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:kama_sutra",
+    "c": "alchemy:india"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:lava",
+    "c": "alchemy:venus"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:volcano",
+    "c": "alchemy:venus"
+  },
+  {
+    "a": "alchemy:bacteria",
+    "b": "alchemy:sea",
+    "c": "alchemy:plankton"
+  },
+  {
+    "a": "alchemy:bacteria",
+    "b": "alchemy:water",
+    "c": "alchemy:plankton"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:life",
+    "c": "alchemy:human"
+  },
+  {
+    "a": "alchemy:clay_golem",
+    "b": "alchemy:life",
+    "c": "alchemy:human"
+  },
+  {
+    "a": "alchemy:fossil",
+    "b": "alchemy:pressure",
+    "c": "alchemy:natural_gas"
+  },
+  {
+    "a": "alchemy:fossil",
+    "b": "alchemy:time",
+    "c": "alchemy:natural_gas"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:door",
+    "c": "alchemy:wreath"
+  },
+  {
+    "a": "alchemy:leaf",
+    "b": "alchemy:door",
+    "c": "alchemy:wreath"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:sea",
+    "c": "alchemy:beach"
+  },
+  {
+    "a": "alchemy:sand",
+    "b": "alchemy:water",
+    "c": "alchemy:beach"
+  },
+  {
+    "a": "alchemy:desert",
+    "b": "alchemy:grave",
+    "c": "alchemy:pyramid"
+  },
+  {
+    "a": "alchemy:desert",
+    "b": "alchemy:sandstone",
+    "c": "alchemy:pyramid"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:farm",
+    "c": "alchemy:farmer"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:field",
+    "c": "alchemy:farmer"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:seeds",
+    "c": "alchemy:farmer"
+  },
+  {
+    "a": "alchemy:clothes_iron",
+    "b": "alchemy:metal",
+    "c": "alchemy:iron"
+  },
+  {
+    "a": "alchemy:iron_man",
+    "b": "alchemy:metal",
+    "c": "alchemy:iron"
+  },
+  {
+    "a": "alchemy:train",
+    "b": "alchemy:mountain",
+    "c": "alchemy:tunnel"
+  },
+  {
+    "a": "alchemy:car",
+    "b": "alchemy:mountain",
+    "c": "alchemy:tunnel"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:bird",
+    "c": "alchemy:feather"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:bird",
+    "c": "alchemy:feather"
+  },
+  {
+    "a": "alchemy:dog",
+    "b": "alchemy:ice",
+    "c": "alchemy:husky"
+  },
+  {
+    "a": "alchemy:dog",
+    "b": "alchemy:snow",
+    "c": "alchemy:husky"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:bacteria",
+    "c": "alchemy:sick"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:flu",
+    "c": "alchemy:sick"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:rain",
+    "c": "alchemy:sick"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:space",
+    "c": "alchemy:astronaut"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:space_station",
+    "c": "alchemy:astronaut"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:swamp",
+    "c": "alchemy:water_lily"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:water",
+    "c": "alchemy:water_lily"
+  },
+  {
+    "a": "alchemy:key",
+    "b": "alchemy:tools",
+    "c": "alchemy:lock"
+  },
+  {
+    "a": "alchemy:key",
+    "b": "alchemy:metal",
+    "c": "alchemy:lock"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:cemetery",
+    "c": "alchemy:fear"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:ghost",
+    "c": "alchemy:fear"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:vampire",
+    "c": "alchemy:fear"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:werewolf",
+    "c": "alchemy:fear"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:zombie",
+    "c": "alchemy:fear"
+  },
+  {
+    "a": "alchemy:baker",
+    "b": "alchemy:house",
+    "c": "alchemy:bakery"
+  },
+  {
+    "a": "alchemy:bread",
+    "b": "alchemy:house",
+    "c": "alchemy:bakery"
+  },
+  {
+    "a": "alchemy:bread",
+    "b": "alchemy:sugar",
+    "c": "alchemy:cookie"
+  },
+  {
+    "a": "alchemy:dough",
+    "b": "alchemy:sugar",
+    "c": "alchemy:cookie"
+  },
+  {
+    "a": "alchemy:metal",
+    "b": "alchemy:sound",
+    "c": "alchemy:bell"
+  },
+  {
+    "a": "alchemy:bronze",
+    "b": "alchemy:sound",
+    "c": "alchemy:bell"
+  },
+  {
+    "a": "alchemy:bullet",
+    "b": "alchemy:weapons",
+    "c": "alchemy:firearm"
+  },
+  {
+    "a": "alchemy:gunpowder",
+    "b": "alchemy:weapons",
+    "c": "alchemy:firearm"
+  },
+  {
+    "a": "alchemy:wolf",
+    "b": "alchemy:human",
+    "c": "alchemy:dog"
+  },
+  {
+    "a": "alchemy:wolf",
+    "b": "alchemy:pet",
+    "c": "alchemy:dog"
+  },
+  {
+    "a": "alchemy:smoke",
+    "b": "alchemy:rain",
+    "c": "alchemy:acid_rain"
+  },
+  {
+    "a": "alchemy:smog",
+    "b": "alchemy:rain",
+    "c": "alchemy:acid_rain"
+  },
+  {
+    "a": "alchemy:acid",
+    "b": "alchemy:rain",
+    "c": "alchemy:acid_rain"
+  },
+  {
+    "a": "alchemy:book",
+    "b": "alchemy:building",
+    "c": "alchemy:library"
+  },
+  {
+    "a": "alchemy:book",
+    "b": "alchemy:house",
+    "c": "alchemy:library"
+  },
+  {
+    "a": "alchemy:film",
+    "b": "alchemy:tools",
+    "c": "alchemy:camera"
+  },
+  {
+    "a": "alchemy:movie",
+    "b": "alchemy:tools",
+    "c": "alchemy:camera"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:earth",
+    "c": "alchemy:map"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:earth_planet",
+    "c": "alchemy:map"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:city",
+    "c": "alchemy:map"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:country",
+    "c": "alchemy:map"
+  },
+  {
+    "a": "alchemy:paper",
+    "b": "alchemy:town",
+    "c": "alchemy:map"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:pasta",
+    "c": "alchemy:italy"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:pizza",
+    "c": "alchemy:italy"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:venice",
+    "c": "alchemy:italy"
+  },
+  {
+    "a": "alchemy:food",
+    "b": "alchemy:building",
+    "c": "alchemy:restaurant"
+  },
+  {
+    "a": "alchemy:food",
+    "b": "alchemy:house",
+    "c": "alchemy:restaurant"
+  },
+  {
+    "a": "alchemy:jedi",
+    "b": "alchemy:fire",
+    "c": "alchemy:darth_vader"
+  },
+  {
+    "a": "alchemy:jedi",
+    "b": "alchemy:lava",
+    "c": "alchemy:darth_vader"
+  },
+  {
+    "a": "alchemy:glass",
+    "b": "alchemy:fire",
+    "c": "alchemy:lantern"
+  },
+  {
+    "a": "alchemy:glass",
+    "b": "alchemy:oil",
+    "c": "alchemy:lantern"
+  },
+  {
+    "a": "alchemy:pig",
+    "b": "alchemy:fire",
+    "c": "alchemy:bacon"
+  },
+  {
+    "a": "alchemy:pig",
+    "b": "alchemy:meat",
+    "c": "alchemy:bacon"
+  },
+  {
+    "a": "alchemy:wax",
+    "b": "alchemy:fire",
+    "c": "alchemy:candle"
+  },
+  {
+    "a": "alchemy:wax",
+    "b": "alchemy:thread",
+    "c": "alchemy:candle"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:game",
+    "c": "alchemy:fun"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:park",
+    "c": "alchemy:fun"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:sex",
+    "c": "alchemy:fun"
+  },
+  {
+    "a": "alchemy:snow",
+    "b": "alchemy:carrot",
+    "c": "alchemy:snowman"
+  },
+  {
+    "a": "alchemy:snow",
+    "b": "alchemy:human",
+    "c": "alchemy:snowman"
+  },
+  {
+    "a": "alchemy:snowball",
+    "b": "alchemy:carrot",
+    "c": "alchemy:snowman"
+  },
+  {
+    "a": "alchemy:snowball",
+    "b": "alchemy:human",
+    "c": "alchemy:snowman"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:card",
+    "c": "alchemy:casino"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:luck",
+    "c": "alchemy:casino"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:money",
+    "c": "alchemy:casino"
+  },
+  {
+    "a": "alchemy:alcoholic",
+    "b": "alchemy:alcohol",
+    "c": "alchemy:anger"
+  },
+  {
+    "a": "alchemy:alcoholic",
+    "b": "alchemy:beer",
+    "c": "alchemy:anger"
+  },
+  {
+    "a": "alchemy:alcoholic",
+    "b": "alchemy:vodka",
+    "c": "alchemy:anger"
+  },
+  {
+    "a": "alchemy:alcoholic",
+    "b": "alchemy:wine",
+    "c": "alchemy:anger"
+  },
+  {
+    "a": "alchemy:bamboo",
+    "b": "alchemy:swamp",
+    "c": "alchemy:sugarcane"
+  },
+  {
+    "a": "alchemy:grass",
+    "b": "alchemy:swamp",
+    "c": "alchemy:sugarcane"
+  },
+  {
+    "a": "alchemy:antenna",
+    "b": "alchemy:radio_wave",
+    "c": "alchemy:radio"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:radio_wave",
+    "c": "alchemy:radio"
+  },
+  {
+    "a": "alchemy:lamp",
+    "b": "alchemy:lava",
+    "c": "alchemy:lava_lamp"
+  },
+  {
+    "a": "alchemy:lantern",
+    "b": "alchemy:lava",
+    "c": "alchemy:lava_lamp"
+  },
+  {
+    "a": "alchemy:fish",
+    "b": "alchemy:algae",
+    "c": "alchemy:sushi"
+  },
+  {
+    "a": "alchemy:roe",
+    "b": "alchemy:algae",
+    "c": "alchemy:sushi"
+  },
+  {
+    "a": "alchemy:fossil",
+    "b": "alchemy:pressure",
+    "c": "alchemy:petroleum"
+  },
+  {
+    "a": "alchemy:fossil",
+    "b": "alchemy:time",
+    "c": "alchemy:petroleum"
+  },
+  {
+    "a": "alchemy:nitrate",
+    "b": "alchemy:gelatin",
+    "c": "alchemy:film"
+  },
+  {
+    "a": "alchemy:silver",
+    "b": "alchemy:gelatin",
+    "c": "alchemy:film"
+  },
+  {
+    "a": "alchemy:ice",
+    "b": "alchemy:desert",
+    "c": "alchemy:antarctica"
+  },
+  {
+    "a": "alchemy:ice",
+    "b": "alchemy:continent",
+    "c": "alchemy:antarctica"
+  },
+  {
+    "a": "alchemy:snow",
+    "b": "alchemy:desert",
+    "c": "alchemy:antarctica"
+  },
+  {
+    "a": "alchemy:snow",
+    "b": "alchemy:continent",
+    "c": "alchemy:antarctica"
+  },
+  {
+    "a": "alchemy:cow",
+    "b": "alchemy:tools",
+    "c": "alchemy:horn"
+  },
+  {
+    "a": "alchemy:minotaur",
+    "b": "alchemy:tools",
+    "c": "alchemy:horn"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:hydrogen",
+    "c": "alchemy:uranus"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:helium",
+    "c": "alchemy:uranus"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:methane",
+    "c": "alchemy:uranus"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:pressure",
+    "c": "alchemy:oil"
+  },
+  {
+    "a": "alchemy:sunflower",
+    "b": "alchemy:pressure",
+    "c": "alchemy:oil"
+  },
+  {
+    "a": "alchemy:vegetable",
+    "b": "alchemy:pressure",
+    "c": "alchemy:oil"
+  },
+  {
+    "a": "alchemy:scythe",
+    "b": "alchemy:death",
+    "c": "alchemy:grim_reaper"
+  },
+  {
+    "a": "alchemy:scythe",
+    "b": "alchemy:human",
+    "c": "alchemy:grim_reaper"
+  },
+  {
+    "a": "alchemy:knife",
+    "b": "alchemy:paper",
+    "c": "alchemy:confetti"
+  },
+  {
+    "a": "alchemy:scissors",
+    "b": "alchemy:paper",
+    "c": "alchemy:confetti"
+  },
+  {
+    "a": "alchemy:earth_planet",
+    "b": "alchemy:air",
+    "c": "alchemy:nature"
+  },
+  {
+    "a": "alchemy:earth_planet",
+    "b": "alchemy:earth",
+    "c": "alchemy:nature"
+  },
+  {
+    "a": "alchemy:earth_planet",
+    "b": "alchemy:fire",
+    "c": "alchemy:nature"
+  },
+  {
+    "a": "alchemy:earth_planet",
+    "b": "alchemy:water",
+    "c": "alchemy:nature"
+  },
+  {
+    "a": "alchemy:earth_planet",
+    "b": "alchemy:life",
+    "c": "alchemy:nature"
+  },
+  {
+    "a": "alchemy:earth_planet",
+    "b": "alchemy:energy",
+    "c": "alchemy:nature"
+  },
+  {
+    "a": "alchemy:canada",
+    "b": "alchemy:leaf",
+    "c": "alchemy:maple"
+  },
+  {
+    "a": "alchemy:canada",
+    "b": "alchemy:tree",
+    "c": "alchemy:maple"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:hydrogen",
+    "c": "alchemy:saturn"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:helium",
+    "c": "alchemy:saturn"
+  },
+  {
+    "a": "alchemy:planet",
+    "b": "alchemy:ring",
+    "c": "alchemy:saturn"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:goat",
+    "c": "alchemy:cashmere"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:goat",
+    "c": "alchemy:cashmere"
+  },
+  {
+    "a": "alchemy:wool",
+    "b": "alchemy:goat",
+    "c": "alchemy:cashmere"
+  },
+  {
+    "a": "alchemy:corpse",
+    "b": "alchemy:pyramid",
+    "c": "alchemy:mummy"
+  },
+  {
+    "a": "alchemy:corpse",
+    "b": "alchemy:paper",
+    "c": "alchemy:mummy"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:gold",
+    "c": "alchemy:bank"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:safe",
+    "c": "alchemy:bank"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:gold",
+    "c": "alchemy:bank"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:safe",
+    "c": "alchemy:bank"
+  },
+  {
+    "a": "alchemy:mouse",
+    "b": "alchemy:pet",
+    "c": "alchemy:hamster"
+  },
+  {
+    "a": "alchemy:mouse",
+    "b": "alchemy:wheel",
+    "c": "alchemy:hamster"
+  },
+  {
+    "a": "alchemy:jedi",
+    "b": "alchemy:frog",
+    "c": "alchemy:yoda"
+  },
+  {
+    "a": "alchemy:jedi",
+    "b": "alchemy:swamp",
+    "c": "alchemy:yoda"
+  },
+  {
+    "a": "alchemy:rain",
+    "b": "alchemy:rain",
+    "c": "alchemy:flood"
+  },
+  {
+    "a": "alchemy:rain",
+    "b": "alchemy:time",
+    "c": "alchemy:flood"
+  },
+  {
+    "a": "alchemy:coal",
+    "b": "alchemy:boiler",
+    "c": "alchemy:steam_engine"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:boiler",
+    "c": "alchemy:steam_engine"
+  },
+  {
+    "a": "alchemy:wheel",
+    "b": "alchemy:boiler",
+    "c": "alchemy:steam_engine"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:hay",
+    "c": "alchemy:horse"
+  },
+  {
+    "a": "alchemy:livestock",
+    "b": "alchemy:hay",
+    "c": "alchemy:horse"
+  },
+  {
+    "a": "alchemy:aluminium",
+    "b": "alchemy:silica",
+    "c": "alchemy:kaolin"
+  },
+  {
+    "a": "alchemy:hydroxide",
+    "b": "alchemy:silica",
+    "c": "alchemy:kaolin"
+  },
+  {
+    "a": "alchemy:river",
+    "b": "alchemy:metal",
+    "c": "alchemy:bridge"
+  },
+  {
+    "a": "alchemy:river",
+    "b": "alchemy:wood",
+    "c": "alchemy:bridge"
+  },
+  {
+    "a": "alchemy:knife",
+    "b": "alchemy:grass",
+    "c": "alchemy:scythe"
+  },
+  {
+    "a": "alchemy:knife",
+    "b": "alchemy:wheat",
+    "c": "alchemy:scythe"
+  },
+  {
+    "a": "alchemy:sky",
+    "b": "alchemy:plasma",
+    "c": "alchemy:sun"
+  },
+  {
+    "a": "alchemy:space",
+    "b": "alchemy:plasma",
+    "c": "alchemy:sun"
+  },
+  {
+    "a": "alchemy:tree",
+    "b": "alchemy:desert",
+    "c": "alchemy:cactus"
+  },
+  {
+    "a": "alchemy:tree",
+    "b": "alchemy:sand",
+    "c": "alchemy:cactus"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:desert",
+    "c": "alchemy:cactus"
+  },
+  {
+    "a": "alchemy:flower",
+    "b": "alchemy:sand",
+    "c": "alchemy:cactus"
+  },
+  {
+    "a": "alchemy:metal",
+    "b": "alchemy:boiler",
+    "c": "alchemy:copper"
+  },
+  {
+    "a": "alchemy:metal",
+    "b": "alchemy:coin",
+    "c": "alchemy:copper"
+  },
+  {
+    "a": "alchemy:metal",
+    "b": "alchemy:wire",
+    "c": "alchemy:copper"
+  },
+  {
+    "a": "alchemy:snow",
+    "b": "alchemy:storm",
+    "c": "alchemy:blizzard"
+  },
+  {
+    "a": "alchemy:snow",
+    "b": "alchemy:wind",
+    "c": "alchemy:blizzard"
+  },
+  {
+    "a": "alchemy:dog",
+    "b": "alchemy:animal",
+    "c": "alchemy:wolf"
+  },
+  {
+    "a": "alchemy:dog",
+    "b": "alchemy:forest",
+    "c": "alchemy:wolf"
+  },
+  {
+    "a": "alchemy:safe",
+    "b": "alchemy:clothes",
+    "c": "alchemy:closet"
+  },
+  {
+    "a": "alchemy:wood",
+    "b": "alchemy:clothes",
+    "c": "alchemy:closet"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:bush",
+    "c": "alchemy:berry"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:grass",
+    "c": "alchemy:berry"
+  },
+  {
+    "a": "alchemy:human",
+    "b": "alchemy:sheep",
+    "c": "alchemy:wool"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:sheep",
+    "c": "alchemy:wool"
+  },
+  {
+    "a": "alchemy:radio",
+    "b": "alchemy:computer",
+    "c": "alchemy:tv"
+  },
+  {
+    "a": "alchemy:radio",
+    "b": "alchemy:light_bulb",
+    "c": "alchemy:tv"
+  },
+  {
+    "a": "alchemy:ship",
+    "b": "alchemy:gunpowder",
+    "c": "alchemy:cannon"
+  },
+  {
+    "a": "alchemy:ship",
+    "b": "alchemy:weapons",
+    "c": "alchemy:cannon"
+  },
+  {
+    "a": "alchemy:mushroom",
+    "b": "alchemy:energy",
+    "c": "alchemy:1up"
+  },
+  {
+    "a": "alchemy:mushroom",
+    "b": "alchemy:life",
+    "c": "alchemy:1up"
+  },
+  {
+    "a": "alchemy:hay",
+    "b": "alchemy:house",
+    "c": "alchemy:barn"
+  },
+  {
+    "a": "alchemy:livestock",
+    "b": "alchemy:house",
+    "c": "alchemy:barn"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:alcoholic",
+    "c": "alchemy:tavern"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:alcoholic",
+    "c": "alchemy:tavern"
+  },
+  {
+    "a": "alchemy:witch",
+    "b": "alchemy:glass",
+    "c": "alchemy:crystal_ball"
+  },
+  {
+    "a": "alchemy:wizard",
+    "b": "alchemy:glass",
+    "c": "alchemy:crystal_ball"
+  },
+  {
+    "a": "alchemy:scorpion",
+    "b": "alchemy:sea",
+    "c": "alchemy:lobster"
+  },
+  {
+    "a": "alchemy:scorpion",
+    "b": "alchemy:water",
+    "c": "alchemy:lobster"
+  },
+  {
+    "a": "alchemy:shoes",
+    "b": "alchemy:horse",
+    "c": "alchemy:horseshoe"
+  },
+  {
+    "a": "alchemy:iron",
+    "b": "alchemy:horse",
+    "c": "alchemy:horseshoe"
+  },
+  {
+    "a": "alchemy:glasses",
+    "b": "alchemy:explosion",
+    "c": "alchemy:goggles"
+  },
+  {
+    "a": "alchemy:glasses",
+    "b": "alchemy:snow",
+    "c": "alchemy:goggles"
+  },
+  {
+    "a": "alchemy:glasses",
+    "b": "alchemy:water",
+    "c": "alchemy:goggles"
+  },
+  {
+    "a": "alchemy:computer",
+    "b": "alchemy:computer",
+    "c": "alchemy:internet"
+  },
+  {
+    "a": "alchemy:computer",
+    "b": "alchemy:web",
+    "c": "alchemy:internet"
+  },
+  {
+    "a": "alchemy:copper",
+    "b": "alchemy:money",
+    "c": "alchemy:coin"
+  },
+  {
+    "a": "alchemy:nickel",
+    "b": "alchemy:money",
+    "c": "alchemy:coin"
+  },
+  {
+    "a": "alchemy:nitrogen",
+    "b": "alchemy:bacteria",
+    "c": "alchemy:nitrate"
+  },
+  {
+    "a": "alchemy:nitrogen",
+    "b": "alchemy:oxygen",
+    "c": "alchemy:nitrate"
+  },
+  {
+    "a": "alchemy:ninja",
+    "b": "alchemy:turtle",
+    "c": "alchemy:teenage_mutant_ninja_turtles"
+  },
+  {
+    "a": "alchemy:weapons",
+    "b": "alchemy:turtle",
+    "c": "alchemy:teenage_mutant_ninja_turtles"
+  },
+  {
+    "a": "alchemy:bee",
+    "b": "alchemy:flower",
+    "c": "alchemy:honey"
+  },
+  {
+    "a": "alchemy:bee",
+    "b": "alchemy:hive",
+    "c": "alchemy:honey"
+  },
+  {
+    "a": "alchemy:bee",
+    "b": "alchemy:tree",
+    "c": "alchemy:honey"
+  },
+  {
+    "a": "alchemy:metal",
+    "b": "alchemy:coin",
+    "c": "alchemy:nickel"
+  },
+  {
+    "a": "alchemy:metal",
+    "b": "alchemy:meteoroid",
+    "c": "alchemy:nickel"
+  },
+  {
+    "a": "alchemy:lemon",
+    "b": "alchemy:juice",
+    "c": "alchemy:lemonade"
+  },
+  {
+    "a": "alchemy:lemon",
+    "b": "alchemy:water",
+    "c": "alchemy:lemonade"
+  },
+  {
+    "a": "alchemy:lemon",
+    "b": "alchemy:tools",
+    "c": "alchemy:lemonade"
+  },
+  {
+    "a": "alchemy:lava",
+    "b": "alchemy:air",
+    "c": "alchemy:stone"
+  },
+  {
+    "a": "alchemy:lava",
+    "b": "alchemy:water",
+    "c": "alchemy:stone"
+  },
+  {
+    "a": "alchemy:bird",
+    "b": "alchemy:beach",
+    "c": "alchemy:seagull"
+  },
+  {
+    "a": "alchemy:bird",
+    "b": "alchemy:sea",
+    "c": "alchemy:seagull"
+  },
+  {
+    "a": "alchemy:snow",
+    "b": "alchemy:earthquake",
+    "c": "alchemy:avalanche"
+  },
+  {
+    "a": "alchemy:snow",
+    "b": "alchemy:energy",
+    "c": "alchemy:avalanche"
+  },
+  {
+    "a": "alchemy:corpse",
+    "b": "alchemy:human",
+    "c": "alchemy:disgust"
+  },
+  {
+    "a": "alchemy:manure",
+    "b": "alchemy:human",
+    "c": "alchemy:disgust"
+  },
+  {
+    "a": "alchemy:urine",
+    "b": "alchemy:human",
+    "c": "alchemy:disgust"
+  },
+  {
+    "a": "alchemy:storm",
+    "b": "alchemy:sea",
+    "c": "alchemy:typhoon"
+  },
+  {
+    "a": "alchemy:storm",
+    "b": "alchemy:water",
+    "c": "alchemy:typhoon"
+  },
+  {
+    "a": "alchemy:bacteria",
+    "b": "alchemy:earth",
+    "c": "alchemy:worm"
+  },
+  {
+    "a": "alchemy:bacteria",
+    "b": "alchemy:swamp",
+    "c": "alchemy:worm"
+  },
+  {
+    "a": "alchemy:animal",
+    "b": "alchemy:mountain",
+    "c": "alchemy:goat"
+  },
+  {
+    "a": "alchemy:livestock",
+    "b": "alchemy:mountain",
+    "c": "alchemy:goat"
+  },
+  {
+    "a": "alchemy:phone",
+    "b": "alchemy:apple",
+    "c": "alchemy:iphone"
+  },
+  {
+    "a": "alchemy:phone",
+    "b": "alchemy:glass",
+    "c": "alchemy:iphone"
+  },
+  {
+    "a": "alchemy:salad",
+    "b": "alchemy:vegetable",
+    "c": "alchemy:lettuce"
+  },
+  {
+    "a": "alchemy:hamburger",
+    "b": "alchemy:vegetable",
+    "c": "alchemy:lettuce"
+  },
+  {
+    "a": "alchemy:sandwich",
+    "b": "alchemy:vegetable",
+    "c": "alchemy:lettuce"
+  },
+  {
+    "a": "alchemy:cow",
+    "b": "alchemy:human",
+    "c": "alchemy:leather"
+  },
+  {
+    "a": "alchemy:cow",
+    "b": "alchemy:tools",
+    "c": "alchemy:leather"
+  },
+  {
+    "a": "alchemy:dragon",
+    "b": "alchemy:water",
+    "c": "alchemy:alligator"
+  },
+  {
+    "a": "alchemy:dragon",
+    "b": "alchemy:swamp",
+    "c": "alchemy:alligator"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:cotton",
+    "c": "alchemy:flag"
+  },
+  {
+    "a": "alchemy:country",
+    "b": "alchemy:fabric",
+    "c": "alchemy:flag"
+  },
+  {
+    "a": "alchemy:constellation",
+    "b": "alchemy:wizard",
+    "c": "alchemy:astrology"
+  },
+  {
+    "a": "alchemy:star",
+    "b": "alchemy:wizard",
+    "c": "alchemy:astrology"
+  },
+  {
+    "a": "alchemy:plutonium",
+    "b": "alchemy:weapons",
+    "c": "alchemy:nuclear_weapon"
+  },
+  {
+    "a": "alchemy:uranium",
+    "b": "alchemy:weapons",
+    "c": "alchemy:nuclear_weapon"
+  },
+  {
+    "a": "alchemy:clothes",
+    "b": "alchemy:iron",
+    "c": "alchemy:clothes_iron"
+  },
+  {
+    "a": "alchemy:clothes",
+    "b": "alchemy:tools",
+    "c": "alchemy:clothes_iron"
+  },
+  {
+    "a": "alchemy:tree",
+    "b": "alchemy:storm",
+    "c": "alchemy:leaf"
+  },
+  {
+    "a": "alchemy:tree",
+    "b": "alchemy:wind",
+    "c": "alchemy:leaf"
+  },
+  {
+    "a": "alchemy:berry",
+    "b": "alchemy:pressure",
+    "c": "alchemy:juice"
+  },
+  {
+    "a": "alchemy:berry",
+    "b": "alchemy:water",
+    "c": "alchemy:juice"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:pressure",
+    "c": "alchemy:juice"
+  },
+  {
+    "a": "alchemy:fruit",
+    "b": "alchemy:water",
+    "c": "alchemy:juice"
+  },
+  {
+    "a": "alchemy:shell",
+    "b": "alchemy:worm",
+    "c": "alchemy:snail"
+  },
+  {
+    "a": "alchemy:shell",
+    "b": "alchemy:slug",
+    "c": "alchemy:snail"
+  },
+  {
+    "a": "alchemy:vampire",
+    "b": "alchemy:animal",
+    "c": "alchemy:werewolf"
+  },
+  {
+    "a": "alchemy:vampire",
+    "b": "alchemy:wolf",
+    "c": "alchemy:werewolf"
+  },
+  {
+    "a": "alchemy:night",
+    "b": "alchemy:bird",
+    "c": "alchemy:owl"
+  },
+  {
+    "a": "alchemy:wizard",
+    "b": "alchemy:bird",
+    "c": "alchemy:owl"
+  },
+  {
+    "a": "alchemy:star",
+    "b": "alchemy:moon",
+    "c": "alchemy:space"
+  },
+  {
+    "a": "alchemy:star",
+    "b": "alchemy:sky",
+    "c": "alchemy:space"
+  },
+  {
+    "a": "alchemy:bear",
+    "b": "alchemy:tree",
+    "c": "alchemy:koala"
+  },
+  {
+    "a": "alchemy:bear",
+    "b": "alchemy:australia",
+    "c": "alchemy:koala"
+  },
+  {
+    "a": "alchemy:dinosaur",
+    "b": "alchemy:earth",
+    "c": "alchemy:fossil"
+  },
+  {
+    "a": "alchemy:dinosaur",
+    "b": "alchemy:stone",
+    "c": "alchemy:fossil"
+  },
+  {
+    "a": "alchemy:dinosaur",
+    "b": "alchemy:time",
+    "c": "alchemy:fossil"
+  },
+  {
+    "a": "alchemy:leaf",
+    "b": "alchemy:night",
+    "c": "alchemy:carbon_dioxide"
+  },
+  {
+    "a": "alchemy:tree",
+    "b": "alchemy:night",
+    "c": "alchemy:carbon_dioxide"
+  },
+  {
+    "a": "alchemy:car",
+    "b": "alchemy:snow",
+    "c": "alchemy:snowmobile"
+  },
+  {
+    "a": "alchemy:motorcycle",
+    "b": "alchemy:snow",
+    "c": "alchemy:snowmobile"
+  },
+  {
+    "a": "alchemy:snake",
+    "b": "alchemy:electricity",
+    "c": "alchemy:eel"
+  },
+  {
+    "a": "alchemy:fish",
+    "b": "alchemy:electricity",
+    "c": "alchemy:eel"
+  },
+  {
+    "a": "alchemy:fence",
+    "b": "alchemy:bush",
+    "c": "alchemy:hedge"
+  },
+  {
+    "a": "alchemy:fence",
+    "b": "alchemy:leaf",
+    "c": "alchemy:hedge"
+  },
+  {
+    "a": "alchemy:soda",
+    "b": "alchemy:metal",
+    "c": "alchemy:can"
+  },
+  {
+    "a": "alchemy:soda",
+    "b": "alchemy:steel",
+    "c": "alchemy:can"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:pulp",
+    "c": "alchemy:paper"
+  },
+  {
+    "a": "alchemy:tools",
+    "b": "alchemy:reed",
+    "c": "alchemy:paper"
+  },
+  {
+    "a": "alchemy:cart",
+    "b": "alchemy:combustion_engine",
+    "c": "alchemy:car"
+  },
+  {
+    "a": "alchemy:cart",
+    "b": "alchemy:gasoline",
+    "c": "alchemy:car"
+  },
+  {
+    "a": "alchemy:air",
+    "b": "alchemy:water",
+    "c": "alchemy:steam"
+  },
+  {
+    "a": "alchemy:fire",
+    "b": "alchemy:water",
+    "c": "alchemy:steam"
+  },
+  {
+    "a": "alchemy:building",
+    "b": "alchemy:animal",
+    "c": "alchemy:zoo"
+  },
+  {
+    "a": "alchemy:house",
+    "b": "alchemy:animal",
+    "c": "alchemy:zoo"
+  },
+  {
+    "a": "alchemy:coffin",
+    "b": "alchemy:earth",
+    "c": "alchemy:grave"
+  },
+  {
+    "a": "alchemy:coffin",
+    "b": "alchemy:stone",
+    "c": "alchemy:grave"
+  },
+  {
+    "a": "alchemy:acid",
+    "b": "alchemy:fruit",
+    "c": "alchemy:lime"
+  },
+  {
+    "a": "alchemy:limestone",
+    "b": "alchemy:fruit",
+    "c": "alchemy:lime"
+  },
+  {
+    "a": "alchemy:cigarette",
+    "b": "alchemy:fire",
+    "c": "alchemy:smoke"
+  },
+  {
+    "a": "alchemy:tobacco",
+    "b": "alchemy:fire",
+    "c": "alchemy:smoke"
+  },
+  {
+    "a": "alchemy:ice",
+    "b": "alchemy:cloud",
+    "c": "alchemy:hail"
+  },
+  {
+    "a": "alchemy:ice",
+    "b": "alchemy:rain",
+    "c": "alchemy:hail"
+  },
+  {
+    "a": "alchemy:chocolate",
+    "b": "alchemy:water",
+    "c": "alchemy:hot_chocolate"
+  },
+  {
+    "a": "alchemy:chocolate",
+    "b": "alchemy:fire",
+    "c": "alchemy:hot_chocolate"
+  },
+  {
+    "a": "alchemy:manure",
+    "b": "alchemy:tools",
+    "c": "alchemy:fertilizer"
+  },
+  {
+    "a": "alchemy:peat",
+    "b": "alchemy:tools",
+    "c": "alchemy:fertilizer"
+  },
+  {
+    "a": "alchemy:fabric",
+    "b": "alchemy:human",
+    "c": "alchemy:clothes"
+  },
+  {
+    "a": "alchemy:fabric",
+    "b": "alchemy:tools",
+    "c": "alchemy:clothes"
+  },
+  {
+    "a": "alchemy:snowman",
+    "b": "alchemy:sun",
+    "c": "alchemy:carrot"
+  },
+  {
+    "a": "alchemy:snowman",
+    "b": "alchemy:vegetable",
+    "c": "alchemy:carrot"
+  }
+]

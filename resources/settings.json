@@ -1,0 +1,11 @@
+{
+    "volume": 0.43079588,
+    "music": false,
+    "fullscreen": true,
+    "group colour": true,
+    "sound": false,
+    "loaded packs": [
+        "Test Pack",
+        "Alchemy"
+    ]
+}
