@@ -24,9 +24,6 @@ public class Element extends Button implements Comparable<Element> {
     public static final int HEIGHT = SIZE + 30;
     private static final int GAP = 30;
     private static final int ALPHA_CHANGE = 10;
-    private static final int UNRESTRICTED = 0;
-    private static final int RESTRICTED = 1;
-    private static final int SETS = 2;
     private static final int FAILED_TIME = 500;
     private static final int MULTI_MAX = 7; //maximum elements that can be multi-selected
 
@@ -96,8 +93,8 @@ public class Element extends Button implements Comparable<Element> {
     }
 
     public static void loadElements(JSONArray array, Pack pack) {
-        ArrayList<ImmutableTriple<String, Integer, JSONObject>> permutations = new ArrayList<>();
-        ArrayList<ImmutableTriple<String, Integer, JSONObject>> removes = new ArrayList<>();
+        ArrayList<ImmutableTriple<String, Permutation, JSONObject>> permutations = new ArrayList<>();
+        ArrayList<ImmutableTriple<String, Permutation, JSONObject>> removes = new ArrayList<>();
         @SuppressWarnings("SpellCheckingInspection") ArrayList<ImmutablePair<String, JSONArray>> removeMultis = new ArrayList<>(); //remove combos with multiple ingredients
 
         for (int i = 0; i < array.size(); i++) {
@@ -134,14 +131,14 @@ public class Element extends Button implements Comparable<Element> {
                             removeCombo(element, pack.getNamespacedName(combo.getString("first element")), pack.getNamespacedName(combo.getString("second element")));
                         } else if (combo.hasKey("elements")) {
                             if (combo.hasKey("paired") && combo.getBoolean("paired")) {
-                                removes.add(new ImmutableTriple<>(element, UNRESTRICTED, combo));
+                                removes.add(new ImmutableTriple<>(element, Permutation.UNRESTRICTED, combo));
                             } else {
                                 removeMultis.add(new ImmutablePair<>(element, combo.getJSONArray("elements")));
                             }
                         } else if (combo.hasKey("first elements")) {
-                            removes.add(new ImmutableTriple<>(element, RESTRICTED, combo));
+                            removes.add(new ImmutableTriple<>(element, Permutation.RESTRICTED, combo));
                         } else {
-                            removes.add(new ImmutableTriple<>(element, SETS, combo));
+                            removes.add(new ImmutableTriple<>(element, Permutation.SETS, combo));
                         }
                     }
                     main.loading.removeCombo();
@@ -176,7 +173,7 @@ public class Element extends Button implements Comparable<Element> {
                         main.comboList.add(new Combo(element, pack.getNamespacedName(combo.getString("first element")), pack.getNamespacedName(combo.getString("second element"))));
                     } else if (combo.hasKey("elements")) {
                         if (combo.hasKey("paired") && combo.getBoolean("paired")) {
-                            permutations.add(new ImmutableTriple<>(element, UNRESTRICTED, combo));
+                            permutations.add(new ImmutableTriple<>(element, Permutation.UNRESTRICTED, combo));
                         } else {
                             JSONArray elements = combo.getJSONArray("elements");
                             ArrayList<String> list = processTags(elements, pack);
@@ -187,9 +184,9 @@ public class Element extends Button implements Comparable<Element> {
                             main.multiComboList.get(element).add(list);
                         }
                     } else if (combo.hasKey("first elements")) {
-                        permutations.add(new ImmutableTriple<>(element, RESTRICTED, combo));
+                        permutations.add(new ImmutableTriple<>(element, Permutation.RESTRICTED, combo));
                     } else {
-                        permutations.add(new ImmutableTriple<>(element, SETS, combo));
+                        permutations.add(new ImmutableTriple<>(element, Permutation.SETS, combo));
                     }
                 }
             }
@@ -198,20 +195,18 @@ public class Element extends Button implements Comparable<Element> {
         }
 
         //this is done separately because all elements must be loaded first for tag: and group: to work
-        for (ImmutableTriple<String, Integer, JSONObject> triple : permutations) {
-            int type = triple.middle;
+        for (ImmutableTriple<String, Permutation, JSONObject> triple : permutations) {
             JSONObject combo = triple.right;
-            ArrayList<ImmutablePair<String, String>> combos = processPermutations(type, combo, pack);
+            ArrayList<ImmutablePair<String, String>> combos = processPermutations(triple.middle, combo, pack);
             for (ImmutablePair<String, String> pair : combos) {
                 main.comboList.add(new Combo(triple.left, pair.left, pair.right));
             }
         }
 
-        for (ImmutableTriple<String, Integer, JSONObject> triple : removes) {
+        for (ImmutableTriple<String, Permutation, JSONObject> triple : removes) {
             String element = triple.left;
-            int type = triple.middle;
             JSONObject combo = triple.right;
-            ArrayList<ImmutablePair<String, String>> combos = processPermutations(type, combo, pack);
+            ArrayList<ImmutablePair<String, String>> combos = processPermutations(triple.middle, combo, pack);
             for (ImmutablePair<String, String> pair : combos) {
                 removeCombo(element, pair.left, pair.right);
             }
@@ -252,9 +247,15 @@ public class Element extends Button implements Comparable<Element> {
         main.comboList.removeIf(t -> (a.equals(t.getA()) && b.equals(t.getB()) || (a.equals(t.getB()) && b.equals(t.getA())) && element.equals(t.getElement())));
     }
 
-    private static ArrayList<ImmutablePair<String, String>> processPermutations(int type, JSONObject combo, Pack pack) {
+    private enum Permutation {
+        UNRESTRICTED,
+        RESTRICTED,
+        SETS
+    }
+
+    private static ArrayList<ImmutablePair<String, String>> processPermutations(Permutation permutation, JSONObject combo, Pack pack) {
         ArrayList<ImmutablePair<String, String>> combos = new ArrayList<>();
-        if (type == UNRESTRICTED) {
+        if (permutation == Permutation.UNRESTRICTED) {
             JSONArray elementsArray = combo.getJSONArray("elements");
             ArrayList<String> elements = processTags(elementsArray, pack);
             for (String a : elements) {
@@ -264,7 +265,7 @@ public class Element extends Button implements Comparable<Element> {
                     }
                 }
             }
-        } else if (type == RESTRICTED) {
+        } else if (permutation == Permutation.RESTRICTED) {
             JSONArray firstArray = combo.getJSONArray("first elements");
             JSONArray secondArray = combo.getJSONArray("second elements");
             ArrayList<String> firstElements = processTags(firstArray, pack);
@@ -276,7 +277,7 @@ public class Element extends Button implements Comparable<Element> {
                     }
                 }
             }
-        } else if (type == SETS) {
+        } else if (permutation == Permutation.SETS) {
             JSONArray firstArray = combo.getJSONArray("first set");
             JSONArray secondArray = combo.getJSONArray("second set");
             ArrayList<String> firstElements = processTags(firstArray, pack);
