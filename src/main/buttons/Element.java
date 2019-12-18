@@ -2,7 +2,6 @@ package main.buttons;
 
 import com.sun.istack.internal.Nullable;
 import main.Combo;
-import main.buttons.arrows.Arrow;
 import main.rooms.ElementRoom;
 import main.rooms.Game;
 import org.apache.commons.collections4.CollectionUtils;

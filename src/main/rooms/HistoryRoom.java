@@ -1,7 +1,7 @@
 package main.rooms;
 
+import main.buttons.Arrow;
 import main.buttons.Element;
-import main.buttons.arrows.Arrow;
 import main.buttons.iconbuttons.Exit;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import processing.core.PImage;

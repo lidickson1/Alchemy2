@@ -1,6 +1,4 @@
-package main.buttons.arrows;
-
-import main.buttons.Button;
+package main.buttons;
 
 public abstract class Arrow extends Button {
 

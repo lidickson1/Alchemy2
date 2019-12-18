@@ -1,9 +1,9 @@
 package main.rooms;
 
 import main.Combo;
+import main.buttons.Arrow;
 import main.buttons.Element;
 import main.buttons.Group;
-import main.buttons.arrows.Arrow;
 import main.buttons.iconbuttons.Exit;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.MutableTriple;

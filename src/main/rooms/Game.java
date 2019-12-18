@@ -1,10 +1,6 @@
 package main.rooms;
 
-import main.buttons.Element;
-import main.buttons.Group;
-import main.buttons.Pane;
-import main.buttons.SaveFile;
-import main.buttons.arrows.Arrow;
+import main.buttons.*;
 import main.buttons.iconbuttons.Exit;
 import main.buttons.iconbuttons.IconButton;
 import main.buttons.iconbuttons.Save;
