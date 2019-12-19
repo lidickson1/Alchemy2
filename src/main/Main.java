@@ -107,6 +107,7 @@ public class Main extends PApplet {
 
     public void setup() {
         this.icon = this.loadImage("resources/images/icon.png");
+        this.icon.resize(128, 128);
 
         this.surface.setTitle("Alchemy");
         this.surface.setIcon(this.icon);

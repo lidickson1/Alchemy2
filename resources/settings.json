@@ -1,7 +1,7 @@
 {
     "volume": 0.43079588,
     "music": false,
-    "fullscreen": true,
+    "fullscreen": false,
     "group colour": true,
     "sound": false,
     "loaded packs": ["Alchemy"]

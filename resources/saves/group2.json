@@ -1,5 +1,5 @@
 {
-    "last modified": "2019-12-17 23:11",
+    "last modified": "2019-12-19 14:57",
     "elements": [
         "alchemy:anger",
         "alchemy:astrology",
@@ -71,7 +71,6 @@
         "alchemy:hail",
         "alchemy:helium",
         "alchemy:horizon",
-        "alchemy:hurricane",
         "alchemy:hydrogen",
         "alchemy:methane",
         "alchemy:nitrogen",
@@ -85,7 +84,6 @@
         "alchemy:snow",
         "alchemy:steam",
         "alchemy:storm",
-        "alchemy:typhoon",
         "alchemy:wind",
         "alchemy:animal",
         "alchemy:armadillo",
@@ -122,7 +120,6 @@
         "alchemy:wolf",
         "alchemy:alarm_clock",
         "alchemy:blender",
-        "alchemy:boiler",
         "alchemy:clock",
         "alchemy:clothes_iron",
         "alchemy:fan",
@@ -209,10 +206,9 @@
         "alchemy:metal",
         "alchemy:mountain",
         "alchemy:mud",
-        "alchemy:obsidian",
+        "alchemy:ore",
         "alchemy:pearl",
         "alchemy:peat",
-        "alchemy:quicksand",
         "alchemy:rust",
         "alchemy:sand",
         "alchemy:sandstone",
@@ -429,8 +425,6 @@
         "alchemy:wheat",
         "alchemy:whey",
         "alchemy:wool",
-        "alchemy:cartoon",
-        "alchemy:movie",
         "alchemy:aluminium",
         "alchemy:bronze",
         "alchemy:chromium",
@@ -456,6 +450,7 @@
         "alchemy:bill",
         "alchemy:book",
         "alchemy:card",
+        "alchemy:cartoon",
         "alchemy:cigarette",
         "alchemy:coin",
         "alchemy:confetti",
@@ -469,6 +464,7 @@
         "alchemy:horseshoe",
         "alchemy:letter",
         "alchemy:marble_toy",
+        "alchemy:movie",
         "alchemy:newspaper",
         "alchemy:origami",
         "alchemy:present",
@@ -476,7 +472,6 @@
         "alchemy:wallet",
         "alchemy:wand",
         "alchemy:centaur",
-        "alchemy:clay_golem",
         "alchemy:demon",
         "alchemy:dragon",
         "alchemy:ectoplasm",
@@ -881,5 +876,5 @@
         "alchemy:trap",
         "alchemy:weapons"
     ],
-    "hint time": "PT-15M-22.155S"
+    "hint time": "PT-16M-5.148S"
 }

@@ -287,6 +287,11 @@ public class ElementRoom extends Room {
 
     private ArrayList<ImmutableTriple<Element, Element, Element>> getCreationTriples() {
         ArrayList<ImmutableTriple<Element, Element, Element>> list = new ArrayList<>();
+        //when the element cannot be created, return an empty list
+        if (creationTotalPages == 0) {
+            creationPageNumber = 0;
+            return list;
+        }
         if (creationPageNumber >= creationTotalPages) {
             creationPageNumber = creationTotalPages - 1;
         }
@@ -300,6 +305,11 @@ public class ElementRoom extends Room {
 
     private ArrayList<ImmutableTriple<Element, Element, Element>> getUsedTriples() {
         ArrayList<ImmutableTriple<Element, Element, Element>> list = new ArrayList<>();
+        //when the element has no uses, return an empty list
+        if (usedTotalPages == 0) {
+            usedPageNumber = 0;
+            return list;
+        }
         if (usedPageNumber >= usedTotalPages) {
             usedPageNumber = usedTotalPages - 1;
         }

@@ -147,8 +147,8 @@
     {
         "combos": [
             {
-                "first element": "energy",
-                "second element": "lava"
+                "first elements": ["tools"],
+                "second elements": ["lava", "volcano"]
             }
         ],
         "group": "fire",
@@ -289,7 +289,7 @@
         "combos": [
             {
                 "first element": "air",
-                "second element": "air"
+                "second element": "pressure"
             }
         ],
         "group": "air",
@@ -652,7 +652,7 @@
         "combos": [
             {
                 "first element": "electricity",
-                "second element": "metal"
+                "second element": "plastic"
             },
             {
                 "first element": "thread",
@@ -1586,8 +1586,8 @@
     {
         "combos": [
             {
-                "first element": "life",
-                "second element": "swamp"
+                "first elements": ["life"],
+                "second elements": ["mud", "swamp"]
             }
         ],
         "group": "organisms",
@@ -2177,7 +2177,7 @@
         "combos": [
             {
                 "first elements": ["country"],
-                "second elements": ["sushi","anime"]
+                "second elements": ["sushi", "anime"]
             }
         ],
         "group": "places",
@@ -2248,7 +2248,7 @@
         "combos": [
             {
                 "first element": "earthquake",
-                "second element": "earth"
+                "second element": "land"
             }
         ],
         "group": "earth",
@@ -2491,8 +2491,8 @@
     {
         "combos": [
             {
-                "first element": "sand",
-                "second element": "swamp"
+                "first elements": ["sand"],
+                "second elements": ["swamp", "mud"]
             }
         ],
         "group": "earth",
@@ -2601,16 +2601,6 @@
         ],
         "group": "water",
         "name": "poison"
-    },
-    {
-        "combos": [
-            {
-                "first element": "sand",
-                "second element": "mud"
-            }
-        ],
-        "group": "earth",
-        "name": "quicksand"
     },
     {
         "combos": [
@@ -3249,8 +3239,7 @@
     {
         "combos": [
             {
-                "first element": "sand",
-                "second element": "pressure"
+                "elements": ["carbon","silica","fire"]
             }
         ],
         "group": "minerals",
@@ -3525,8 +3514,8 @@
     {
         "combos": [
             {
-                "first element": "life",
-                "second element": "water"
+                "first elements": ["life"],
+                "second elements": ["water", "swamp"]
             }
         ],
         "group": "plants",
@@ -4145,8 +4134,8 @@
     {
         "combos": [
             {
-                "first element": "oxygen",
-                "second element": "silicon"
+                "first element": "sand",
+                "second element": "tools"
             }
         ],
         "group": "minerals",
@@ -5252,7 +5241,7 @@
         "combos": [
             {
                 "first element": "whale",
-                "second element": "earth"
+                "second element": "land"
             }
         ],
         "group": "animals",
@@ -5271,8 +5260,8 @@
     {
         "combos": [
             {
-                "first element": "cloud",
-                "second element": "earth"
+                "first elements": ["cloud"],
+                "second elements": ["earth", "land"]
             }
         ],
         "group": "air",
@@ -5382,8 +5371,8 @@
     {
         "combos": [
             {
-                "first elements": ["animal", "clay_golem"],
-                "second elements": ["life"]
+                "first elements": ["animal"],
+                "second elements": ["life", "time"]
             }
         ],
         "group": "human",
@@ -5746,8 +5735,8 @@
     {
         "combos": [
             {
-                "first element": "stone",
-                "second element": "fire"
+                "first elements": ["ore"],
+                "second elements": ["fire", "tools"]
             }
         ],
         "group": "earth",
@@ -6363,8 +6352,8 @@
     {
         "combos": [
             {
-                "first element": "earth",
-                "second element": "earth"
+                "first element": "air",
+                "second element": "air"
             }
         ],
         "group": "energy",
@@ -6940,16 +6929,6 @@
     {
         "combos": [
             {
-                "first element": "energy",
-                "second element": "wind"
-            }
-        ],
-        "group": "air",
-        "name": "hurricane"
-    },
-    {
-        "combos": [
-            {
                 "first element": "kangaroo",
                 "second element": "country"
             }
@@ -6985,8 +6964,8 @@
     {
         "combos": [
             {
-                "first elements": ["coal", "tools", "wheel"],
-                "second elements": ["boiler"]
+                "first elements": ["tools", "wheel"],
+                "second elements": ["steam"]
             }
         ],
         "group": "utilities",
@@ -7035,8 +7014,8 @@
     {
         "combos": [
             {
-                "first element": "lizard",
-                "second element": "earth"
+                "first element": "life",
+                "second element": "land"
             }
         ],
         "group": "animals",
@@ -7181,7 +7160,7 @@
         "combos": [
             {
                 "first elements": ["metal"],
-                "second elements": ["boiler", "coin", "wire"]
+                "second elements": ["coin", "wire"]
             }
         ],
         "group": "minerals",
@@ -7338,7 +7317,7 @@
     {
         "combos": [
             {
-                "first element": "earth",
+                "first element": "mud",
                 "second element": "water"
             }
         ],
@@ -7618,16 +7597,6 @@
     {
         "combos": [
             {
-                "first element": "lava",
-                "second element": "water"
-            }
-        ],
-        "group": "earth",
-        "name": "obsidian"
-    },
-    {
-        "combos": [
-            {
                 "first element": "sand",
                 "second element": "life"
             }
@@ -7654,16 +7623,6 @@
         ],
         "group": "food",
         "name": "borscht"
-    },
-    {
-        "combos": [
-            {
-                "first element": "clay",
-                "second element": "life"
-            }
-        ],
-        "group": "monsters",
-        "name": "clay_golem"
     },
     {
         "combos": [
@@ -7883,6 +7842,16 @@
     {
         "combos": [
             {
+                "first elements": ["lava"],
+                "second elements": ["air", "water"]
+            }
+        ],
+        "group": "earth",
+        "name": "ore"
+    },
+    {
+        "combos": [
+            {
                 "first element": "wood",
                 "second element": "sound"
             }
@@ -8024,16 +7993,6 @@
         ],
         "group": "plants",
         "name": "fern"
-    },
-    {
-        "combos": [
-            {
-                "first elements": ["storm"],
-                "second elements": ["sea", "water"]
-            }
-        ],
-        "group": "air",
-        "name": "typhoon"
     },
     {
         "combos": [
@@ -8327,16 +8286,6 @@
         ],
         "group": "monsters",
         "name": "ghost"
-    },
-    {
-        "combos": [
-            {
-                "first element": "metal",
-                "second element": "steam"
-            }
-        ],
-        "group": "appliances",
-        "name": "boiler"
     },
     {
         "combos": [
@@ -8637,7 +8586,7 @@
         "combos": [
             {
                 "first element": "energy",
-                "second element": "earth"
+                "second element": "land"
             }
         ],
         "group": "earth",
@@ -8728,7 +8677,7 @@
     {
         "combos": [
             {
-                "first element": "swamp",
+                "first element": "water",
                 "second element": "earth"
             }
         ],
