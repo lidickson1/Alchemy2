@@ -41,10 +41,12 @@ public class Menu extends Room {
     @Override
     public void draw() {
         // draw objects that are specific to menu
-        main.image(background, 0, 0, main.screenWidth, main.screenHeight);
+        //main.image(background, 0, 0, main.screenWidth, main.screenHeight);
+        main.fill(0);
+        main.rect(0,0,main.screenWidth, main.screenHeight);
         main.textFont(titleFont, 220);
         main.textAlign(PConstants.CENTER, PConstants.TOP);
-        main.fill(0);
+        main.fill(255);
         main.text(main.getLanguageSelected().getLocalizedString("menu", "alchemy"), main.screenWidth / 2F, 20);
 
         int y = 340;

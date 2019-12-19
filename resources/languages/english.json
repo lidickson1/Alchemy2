@@ -39,7 +39,8 @@
         "time remaining": "Time remaining until hint is available",
         "element hint": "Reveals an element that can be created",
         "hints": "Hints",
-        "group hint": "Selects two groups in which a new element can be created"
+        "group hint": "Selects two groups in which a new element can be created",
+        "all discovered": "You have discovered all possible elements!"
     },
     "elements": {
         "alchemy": {
@@ -937,6 +938,7 @@
     },
     "misc": {
         "warning": "Warning",
-        "error": "Error"
+        "error": "Error",
+        "information": "Information"
     }
 }

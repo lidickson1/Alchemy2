@@ -420,7 +420,10 @@ public class Game extends Room {
             } else if (main.keyCode == PConstants.RIGHT) {
                 this.groupRightArrow.clicked();
             } else if (main.keyCode == PConstants.UP) {
-                main.hintRoom.getElementHint();
+                try {
+                    main.hintRoom.getElementHint();
+                } catch (Hint.NoHintAvailable ignored) {
+                }
             }
         } else if (main.key == 'c') {
             for (String element : main.elements.keySet()) {

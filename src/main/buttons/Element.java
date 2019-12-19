@@ -408,21 +408,17 @@ public class Element extends Button implements Comparable<Element> {
 
         int x = Group.groupSelectedX + Group.SIZE + Group.GAP;
         int y = Group.groupSelectedAY;
+        ArrayList<Element> elements;
         if (Group.getGroupSelectedA() != null) {
             totalPagesA = (int) Math.ceil((float) main.game.getDiscovered().get(Group.getGroupSelectedA()).size() / maxElements);
-            //after screen resizing, it's possible that page number changes
-            if (pageNumberA >= totalPagesA) {
-                pageNumberA = totalPagesA - 1;
-            }
-            for (int i = pageNumberA * maxElements; i < (pageNumberA + 1) * maxElements; i++) {
-                if (i < elementsA.size()) {
-                    elementsA.get(i).updateAlpha();
-                    elementsA.get(i).draw(x, y);
-                    x += SIZE + GAP;
-                    if ((i + 1) % elementCountX == 0) {
-                        x = Group.groupSelectedX + Group.SIZE + Group.GAP;
-                        y += HEIGHT + 16;
-                    }
+            elements = getElementsA();
+            for (int i = 0; i < elements.size(); i++) {
+                elements.get(i).updateAlpha();
+                elements.get(i).draw(x, y);
+                x += SIZE + GAP;
+                if ((i + 1) % elementCountX == 0) {
+                    x = Group.groupSelectedX + Group.SIZE + Group.GAP;
+                    y += HEIGHT + 16;
                 }
             }
         }
@@ -431,19 +427,14 @@ public class Element extends Button implements Comparable<Element> {
         y = Group.groupSelectedBY;
         if (Group.getGroupSelectedB() != null) {
             totalPagesB = (int) Math.ceil((float) main.game.getDiscovered().get(Group.getGroupSelectedB()).size() / maxElements);
-            //after screen resizing, it's possible that page number changes
-            if (pageNumberB >= totalPagesB) {
-                pageNumberB = totalPagesB - 1;
-            }
-            for (int i = pageNumberB * maxElements; i < (pageNumberB + 1) * maxElements; i++) {
-                if (i < elementsB.size()) {
-                    elementsB.get(i).updateAlpha();
-                    elementsB.get(i).draw(x, y);
-                    x += SIZE + GAP;
-                    if ((i + 1) % elementCountX == 0) {
-                        x = Group.groupSelectedX + Group.SIZE + Group.GAP;
-                        y += HEIGHT + 16;
-                    }
+            elements = getElementsB();
+            for (int i = 0; i < elements.size(); i++) {
+                elements.get(i).updateAlpha();
+                elements.get(i).draw(x, y);
+                x += SIZE + GAP;
+                if ((i + 1) % elementCountX == 0) {
+                    x = Group.groupSelectedX + Group.SIZE + Group.GAP;
+                    y += HEIGHT + 16;
                 }
             }
         }
@@ -812,11 +803,32 @@ public class Element extends Button implements Comparable<Element> {
         return element;
     }
 
+    //this only returns visible elements (i.e. those on the current page)
     public static ArrayList<Element> getElementsA() {
-        return elementsA;
+        //after screen resizing, it's possible that page number changes
+        if (pageNumberA >= totalPagesA) {
+            pageNumberA = totalPagesA - 1;
+        }
+        ArrayList<Element> elements = new ArrayList<>();
+        for (int i = pageNumberA * maxElements; i < (pageNumberA + 1) * maxElements; i++) {
+            if (i < elementsA.size()) {
+                elements.add(elementsA.get(i));
+            }
+        }
+        return elements;
     }
 
     public static ArrayList<Element> getElementsB() {
-        return elementsB;
+        //after screen resizing, it's possible that page number changes
+        if (pageNumberB >= totalPagesB) {
+            pageNumberB = totalPagesB - 1;
+        }
+        ArrayList<Element> elements = new ArrayList<>();
+        for (int i = pageNumberB * maxElements; i < (pageNumberB + 1) * maxElements; i++) {
+            if (i < elementsB.size()) {
+                elements.add(elementsB.get(i));
+            }
+        }
+        return elements;
     }
 }

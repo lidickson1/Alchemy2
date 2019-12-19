@@ -116,10 +116,10 @@ public class Main extends PApplet {
         PSurfaceAWT.SmoothCanvas sc = (PSurfaceAWT.SmoothCanvas) this.getSurface().getNative();
         this.jFrame = (JFrame) sc.getFrame();
         this.jFrame.setMinimumSize(new Dimension(1280, 720));
-        if (this.settings.getBoolean("fullscreen")) {
-            //technically it's not maximized because the window icon is still 1 rectangle
-            this.jFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
-        }
+//        if (this.settings.getBoolean("fullscreen")) {
+//            //technically it's not maximized because the window icon is still 1 rectangle
+//            this.jFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
+//        }
         //so the window doesn't appear to be a bit off-screen
         this.jFrame.setLocationRelativeTo(null);
 

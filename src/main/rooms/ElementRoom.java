@@ -210,15 +210,11 @@ public class ElementRoom extends Room {
         creationTotalPages = (int) Math.ceil((float) this.creation.size() / max);
         usedTotalPages = (int) Math.ceil((float) this.used.size() / max);
 
-        if (usedPageNumber >= usedTotalPages) {
-            usedPageNumber = usedTotalPages - 1;
-        }
-
         ArrayList<ImmutableTriple<Element, Element, Element>> triples = this.getCreationTriples();
         for (int i = 0; i < triples.size(); i++) {
             ImmutableTriple<Element, Element, Element> triple = triples.get(i);
             x = start;
-            if (i > 0 && this.creation.get(i - 1).right == null && triple.left != null) {
+            if (i > 0 && triples.get(i - 1).right == null && triple.left != null) {
                 main.image(plus, x - Element.SIZE - GAP, y);
             }
             if (triple.left != null) {
@@ -256,7 +252,7 @@ public class ElementRoom extends Room {
         for (int i = 0; i < triples.size(); i++) {
             ImmutableTriple<Element, Element, Element> triple = triples.get(i);
             x = start;
-            if (i > 0 && this.used.get(i - 1).right == null && triple.left != null) {
+            if (i > 0 && triples.get(i - 1).right == null && triple.left != null) {
                 main.image(plus, x - Element.SIZE - GAP, y);
             }
             if (triple.left != null) {

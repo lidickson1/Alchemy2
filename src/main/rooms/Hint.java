@@ -7,6 +7,7 @@ import main.buttons.iconbuttons.Exit;
 import main.buttons.iconbuttons.IconButton;
 import processing.core.PConstants;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -20,18 +21,30 @@ public class Hint extends Room {
         this.elementHint = new IconButton("resources/images/element_hint_button.png") {
             @Override
             public void clicked() {
-                Hint.this.getElementHint();
-                main.game.resetHint();
+                try {
+                    Hint.this.getElementHint();
+                    main.game.resetHint();
+                } catch (NoHintAvailable noHintAvailable) {
+                    Hint.this.showDialog();
+                }
             }
         };
         this.groupHint = new IconButton("resources/images/group_hint_button.png") {
             @Override
             public void clicked() {
-                Hint.this.getGroupHint();
-                main.game.resetHint();
+                try {
+                    Hint.this.getGroupHint();
+                    main.game.resetHint();
+                } catch (NoHintAvailable noHintAvailable) {
+                    Hint.this.showDialog();
+                }
             }
         };
         this.exit = new Exit();
+    }
+
+    private void showDialog() {
+        JOptionPane.showMessageDialog(null, main.getLanguageSelected().getLocalizedString("hint","all discovered"), main.getLanguageSelected().getLocalizedString("misc", "information"), JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
@@ -75,7 +88,7 @@ public class Hint extends Room {
     }
 
     //TODO: this is not private for debug reasons
-    void getElementHint() {
+    void getElementHint() throws NoHintAvailable {
         ArrayList<String> possibleElements = new ArrayList<>();
         for (Combo combo : main.comboList) {
             if (!main.game.isDiscovered(combo.getElement()) && main.game.isDiscovered(combo.getA()) && main.game.isDiscovered(combo.getB())) {
@@ -99,21 +112,35 @@ public class Hint extends Room {
                 }
             }
         }
+
+        if (possibleElements.size() == 0) {
+            throw new NoHintAvailable();
+        }
+
         Collections.shuffle(possibleElements);
         main.game.setHintElement(Element.getElement(possibleElements.get(0)));
         main.switchRoom(main.game);
     }
 
-    private void getGroupHint() {
+    private void getGroupHint() throws NoHintAvailable {
         ArrayList<Combo> possibleCombos = new ArrayList<>();
         for (Combo combo : main.comboList) {
             if (!main.game.isDiscovered(combo.getElement()) && main.game.isDiscovered(combo.getA()) && main.game.isDiscovered(combo.getB())) {
                 possibleCombos.add(combo);
             }
         }
+
+        if (possibleCombos.size() == 0) {
+            throw new NoHintAvailable();
+        }
+
         Collections.shuffle(possibleCombos);
         Group.setHintGroups(main.elements.get(possibleCombos.get(0).getA()), main.elements.get(possibleCombos.get(0).getB()));
         main.switchRoom(main.game);
+    }
+
+    static class NoHintAvailable extends Exception {
+
     }
 
 }
