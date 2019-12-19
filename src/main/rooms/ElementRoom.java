@@ -16,7 +16,7 @@ import java.util.Objects;
 public class ElementRoom extends Room {
 
     private static final int GAP = 30;
-    private static final int MAX = 5;
+    //private static final int MAX = 5;
     private static PImage plus;
     private static PImage equal;
 
@@ -24,6 +24,7 @@ public class ElementRoom extends Room {
     private static int creationTotalPages;
     private static int usedPageNumber;
     private static int usedTotalPages;
+    private static int max;
 
     private Arrow creationLeftArrow;
     private Arrow creationRightArrow;
@@ -150,9 +151,8 @@ public class ElementRoom extends Room {
         }
 
         creationPageNumber = 0;
-        creationTotalPages = (int) Math.ceil((float) this.creation.size() / MAX);
         usedPageNumber = 0;
-        usedTotalPages = (int) Math.ceil((float) this.used.size() / MAX);
+
     }
 
     private ArrayList<ImmutableTriple<Element, Element, Element>> toTriples(Element element, ArrayList<String> elements) {
@@ -202,36 +202,44 @@ public class ElementRoom extends Room {
         main.textSize(20);
         main.text(main.getLanguageSelected().getLocalizedString("information", "creation"), x, y);
 
+        y += 40;
+        max = Math.floorDiv(main.screenHeight - y - 40 - Arrow.SIZE, Element.HEIGHT + GAP);
         int length = Element.SIZE + GAP + plus.width + GAP + Element.SIZE + GAP + equal.width + GAP + Element.SIZE;
         int start = x - length / 2;
-        y += 40;
-        for (int i = creationPageNumber * MAX; i < (creationPageNumber + 1) * MAX; i++) {
-            if (i < this.creation.size()) {
-                ImmutableTriple<Element, Element, Element> triple = this.creation.get(i);
-                x = start;
-                if (i > 0 && this.creation.get(i - 1).right == null && triple.left != null) {
-                    main.image(plus, x - Element.SIZE - GAP, y);
-                }
-                if (triple.left != null) {
-                    triple.left.draw(x, y);
-                }
-                x += Element.SIZE + GAP;
-                main.image(plus, x, y);
-                x += plus.width + GAP;
-                triple.middle.draw(x, y);
-                x += Element.SIZE + GAP;
-                if (triple.right != null) {
-                    main.image(equal, x, y);
-                    x += equal.width + GAP;
-                    triple.right.draw(x, y);
-                }
-                y += Element.HEIGHT + GAP;
+
+        creationTotalPages = (int) Math.ceil((float) this.creation.size() / max);
+        usedTotalPages = (int) Math.ceil((float) this.used.size() / max);
+
+        if (usedPageNumber >= usedTotalPages) {
+            usedPageNumber = usedTotalPages - 1;
+        }
+
+        ArrayList<ImmutableTriple<Element, Element, Element>> triples = this.getCreationTriples();
+        for (int i = 0; i < triples.size(); i++) {
+            ImmutableTriple<Element, Element, Element> triple = triples.get(i);
+            x = start;
+            if (i > 0 && this.creation.get(i - 1).right == null && triple.left != null) {
+                main.image(plus, x - Element.SIZE - GAP, y);
             }
+            if (triple.left != null) {
+                triple.left.draw(x, y);
+            }
+            x += Element.SIZE + GAP;
+            main.image(plus, x, y);
+            x += plus.width + GAP;
+            triple.middle.draw(x, y);
+            x += Element.SIZE + GAP;
+            if (triple.right != null) {
+                main.image(equal, x, y);
+                x += equal.width + GAP;
+                triple.right.draw(x, y);
+            }
+            y += Element.HEIGHT + GAP;
         }
 
         //ensures that the button is always drawn at the bottom, even when there are not enough triples
         x = start;
-        y = Group.GROUP_Y + Element.HEIGHT + 40 + 40 + (Element.HEIGHT + GAP) * MAX;
+        y = Group.GROUP_Y + Element.HEIGHT + 40 + 40 + (Element.HEIGHT + GAP) * max;
         this.creationLeftArrow.draw(x, y);
         this.creationRightArrow.draw(x + length - Arrow.SIZE, y);
 
@@ -244,34 +252,33 @@ public class ElementRoom extends Room {
 
         start += main.screenWidth / 2;
         y += 40;
-        for (int i = usedPageNumber * MAX; i < (usedPageNumber + 1) * MAX; i++) {
-            if (i < this.used.size()) {
-                ImmutableTriple<Element, Element, Element> triple = this.used.get(i);
-                x = start;
-                if (i > 0 && this.used.get(i - 1).right == null && triple.left != null) {
-                    main.image(plus, x - Element.SIZE - GAP, y);
-                }
-                if (triple.left != null) {
-                    triple.left.draw(x, y);
-                }
-                x += Element.SIZE + GAP;
-                main.image(plus, x, y);
-                x += plus.width + GAP;
-                triple.middle.draw(x, y);
-                x += Element.SIZE + GAP;
-                if (triple.right != null) {
-                    main.image(equal, x, y);
-                    x += equal.width + GAP;
-                    triple.right.draw(x, y);
-                }
-                y += Element.HEIGHT + GAP;
+        triples = this.getUsedTriples();
+        for (int i = 0; i < triples.size(); i++) {
+            ImmutableTriple<Element, Element, Element> triple = triples.get(i);
+            x = start;
+            if (i > 0 && this.used.get(i - 1).right == null && triple.left != null) {
+                main.image(plus, x - Element.SIZE - GAP, y);
             }
+            if (triple.left != null) {
+                triple.left.draw(x, y);
+            }
+            x += Element.SIZE + GAP;
+            main.image(plus, x, y);
+            x += plus.width + GAP;
+            triple.middle.draw(x, y);
+            x += Element.SIZE + GAP;
+            if (triple.right != null) {
+                main.image(equal, x, y);
+                x += equal.width + GAP;
+                triple.right.draw(x, y);
+            }
+            y += Element.HEIGHT + GAP;
         }
 
         Element.drawTooltip();
 
         x = start;
-        y = Group.GROUP_Y + Element.HEIGHT + 40 + 40 + (Element.HEIGHT + GAP) * MAX;
+        y = Group.GROUP_Y + Element.HEIGHT + 40 + 40 + (Element.HEIGHT + GAP) * max;
         this.usedLeftArrow.draw(x, y);
         this.usedRightArrow.draw(x + length - Arrow.SIZE, y);
 
@@ -282,6 +289,32 @@ public class ElementRoom extends Room {
         this.element = element;
     }
 
+    private ArrayList<ImmutableTriple<Element, Element, Element>> getCreationTriples() {
+        ArrayList<ImmutableTriple<Element, Element, Element>> list = new ArrayList<>();
+        if (creationPageNumber >= creationTotalPages) {
+            creationPageNumber = creationTotalPages - 1;
+        }
+        for (int i = creationPageNumber * max; i < (creationPageNumber + 1) * max; i++) {
+            if (i < this.creation.size()) {
+                list.add(this.creation.get(i));
+            }
+        }
+        return list;
+    }
+
+    private ArrayList<ImmutableTriple<Element, Element, Element>> getUsedTriples() {
+        ArrayList<ImmutableTriple<Element, Element, Element>> list = new ArrayList<>();
+        if (usedPageNumber >= usedTotalPages) {
+            usedPageNumber = usedTotalPages - 1;
+        }
+        for (int i = usedPageNumber * max; i < (usedPageNumber + 1) * max; i++) {
+            if (i < this.used.size()) {
+                list.add(this.used.get(i));
+            }
+        }
+        return list;
+    }
+
     @Override
     public void mousePressed() {
         this.creationLeftArrow.mousePressed();
@@ -290,29 +323,23 @@ public class ElementRoom extends Room {
         this.usedRightArrow.mousePressed();
         this.exit.mousePressed();
 
-        for (int i = creationPageNumber * MAX; i < (creationPageNumber + 1) * MAX; i++) {
-            if (i < this.creation.size()) {
-                ImmutableTriple<Element, Element, Element> triple = this.creation.get(i);
-                if (triple.left != null) {
-                    triple.left.mousePressed();
-                }
-                triple.middle.mousePressed();
-                if (triple.right != null) {
-                    triple.right.mousePressed();
-                }
+        for (ImmutableTriple<Element, Element, Element> triple : this.getCreationTriples()) {
+            if (triple.left != null) {
+                triple.left.mousePressed();
+            }
+            triple.middle.mousePressed();
+            if (triple.right != null) {
+                triple.right.mousePressed();
             }
         }
 
-        for (int i = usedPageNumber * MAX; i < (usedPageNumber + 1) * MAX; i++) {
-            if (i < this.used.size()) {
-                ImmutableTriple<Element, Element, Element> triple = this.used.get(i);
-                if (triple.left != null) {
-                    triple.left.mousePressed();
-                }
-                triple.middle.mousePressed();
-                if (triple.right != null) {
-                    triple.right.mousePressed();
-                }
+        for (ImmutableTriple<Element, Element, Element> triple : this.getUsedTriples()) {
+            if (triple.left != null) {
+                triple.left.mousePressed();
+            }
+            triple.middle.mousePressed();
+            if (triple.right != null) {
+                triple.right.mousePressed();
             }
         }
     }
