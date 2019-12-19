@@ -235,12 +235,12 @@ public class Game extends Room {
         this.elementBDownArrow.draw(main.screenWidth - 20 - Arrow.SIZE, Group.groupSelectedBY * 2 - Group.GAP - Arrow.SIZE - Group.GROUP_Y);
 
         if (this.success.isActive()) {
-            this.success.draw(main.screenWidth / 2 - this.success.getWidth() / 2, main.screenHeight / 2 - this.success.getHeight() / 2);
+            this.success.draw(main.screenWidth / 2F - this.success.getWidth() / 2F, main.screenHeight / 2F - this.success.getHeight() / 2F);
             Element.drawCreatedElements();
         }
 
         if (this.hint.isActive()) {
-            this.hint.draw(main.screenWidth / 2 - this.hint.getWidth() / 2, main.screenHeight / 2 - this.hint.getHeight() / 2);
+            this.hint.draw(main.screenWidth / 2F - this.hint.getWidth() / 2F, main.screenHeight / 2F - this.hint.getHeight() / 2F);
             Element.drawHintElement(this.hintElement);
         }
 

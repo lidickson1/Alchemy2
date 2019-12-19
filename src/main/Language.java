@@ -1,5 +1,6 @@
 package main;
 
+import main.buttons.Element;
 import org.apache.commons.io.FilenameUtils;
 import processing.data.JSONObject;
 
@@ -50,6 +51,15 @@ public class Language extends Entity {
                 }
             }
         }
+    }
+
+    //finds and removes unused element names, default english only
+    public static void validateEnglish() {
+        Language language = getLanguage("english");
+        assert language != null;
+        JSONObject object = language.json.getJSONObject("elements").getJSONObject("alchemy");
+        object.keys().removeIf(e -> Element.getElement("alchemy:" + e) == null);
+        main.saveJSONObject(language.json, "resources/languages/english.json","indent=4");
     }
 
 }

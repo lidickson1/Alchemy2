@@ -114,19 +114,19 @@ public class Loading extends Room {
         // Loading screen
         main.fill(0);
         main.rect(0, 0, main.screenWidth, main.screenHeight);
-        main.image(main.getIcon(), main.screenWidth / 2 - main.getIcon().width / 2, main.screenHeight / 2F - main.getIcon().height / 2F - 90);
+        main.image(main.getIcon(), main.screenWidth / 2F - main.getIcon().width / 2F, main.screenHeight / 2F - main.getIcon().height / 2F - 90);
 
         final int width = 900;
         main.noFill();
         main.stroke(255);
-        main.rect(main.screenWidth / 2 - 450, main.screenHeight / 2 + 50, width, 10);
+        main.rect(main.screenWidth / 2F - 450, main.screenHeight / 2F + 50, width, 10);
         main.fill(255);
         main.noStroke();
         int length = Math.round(((float) this.progress.get() / this.total) * width);
-        main.rect(main.screenWidth / 2 - 450, main.screenHeight / 2 + 50, length, 10);
+        main.rect(main.screenWidth / 2F - 450, main.screenHeight / 2F + 50, length, 10);
         main.textAlign(PConstants.CENTER);
 
-        main.text(this.splashText, main.screenWidth / 2, main.screenHeight / 2 + 100);
+        main.text(this.splashText, main.screenWidth / 2F, main.screenHeight / 2F + 100);
 
         if (this.total > 0 && this.progress.get() >= this.total) {
             //generate atlases, this can only be executed when all images are loaded
@@ -135,6 +135,7 @@ public class Loading extends Room {
                     pack.generateAtlas();
                 }
             }
+            //Language.validateEnglish();
             main.switchRoom(main.menu);
         }
     }

@@ -181,7 +181,7 @@ public class Main extends PApplet {
 
                     this.backgroundMusic.play();
                     try {
-                        Thread.sleep((long) this.backgroundMusic.length());
+                        Thread.sleep(this.backgroundMusic.length());
                     } catch (InterruptedException ignored) {
                         this.backgroundMusic.close();
                         this.backgroundMusic.unmute();

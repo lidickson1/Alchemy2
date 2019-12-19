@@ -87,6 +87,16 @@
     {
         "combos": [
             {
+                "first element": "cartoon",
+                "second element": "japan"
+            }
+        ],
+        "group": "miscellaneous",
+        "name": "anime"
+    },
+    {
+        "combos": [
+            {
                 "first element": "house",
                 "second element": "glass"
             }
@@ -2166,8 +2176,8 @@
     {
         "combos": [
             {
-                "first element": "country",
-                "second element": "sushi"
+                "first elements": ["country"],
+                "second elements": ["sushi","anime"]
             }
         ],
         "group": "places",

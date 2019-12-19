@@ -232,16 +232,6 @@
     {
         "combos": [
             {
-                "first element": "alchemy:cartoon",
-                "second element": "alchemy:japan"
-            }
-        ],
-        "group": "media",
-        "name": "anime"
-    },
-    {
-        "combos": [
-            {
                 "first element": "alchemy:honey",
                 "second element": "alchemy:bear"
             }

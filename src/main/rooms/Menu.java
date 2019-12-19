@@ -45,21 +45,21 @@ public class Menu extends Room {
         main.textFont(titleFont, 220);
         main.textAlign(PConstants.CENTER, PConstants.TOP);
         main.fill(0);
-        main.text(main.getLanguageSelected().getLocalizedString("menu", "alchemy"), main.screenWidth / 2, 20);
+        main.text(main.getLanguageSelected().getLocalizedString("menu", "alchemy"), main.screenWidth / 2F, 20);
 
         int y = 340;
         final int gap = 10;
 
-        this.loadGame.draw(main.screenWidth / 2 - MenuButton.WIDTH / 2, y);
+        this.loadGame.draw(main.screenWidth / 2F - MenuButton.WIDTH / 2F, y);
         y += MenuButton.HEIGHT + gap;
 
-        this.newGame.draw(main.screenWidth / 2 - MenuButton.WIDTH / 2, y);
+        this.newGame.draw(main.screenWidth / 2F - MenuButton.WIDTH / 2F, y);
         y += MenuButton.HEIGHT + gap;
 
-        this.packs.draw(main.screenWidth / 2 - MenuButton.WIDTH / 2, y);
+        this.packs.draw(main.screenWidth / 2F - MenuButton.WIDTH / 2F, y);
         y += MenuButton.HEIGHT + gap;
 
-        this.achievements.draw(main.screenWidth / 2 - MenuButton.WIDTH / 2, y);
+        this.achievements.draw(main.screenWidth / 2F - MenuButton.WIDTH / 2F, y);
 
         this.settings.draw(30, main.screenHeight - 30 - IconButton.SIZE);
     }

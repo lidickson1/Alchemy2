@@ -40,7 +40,7 @@ public class LoadGame extends Room {
 
         int y = 120;
         for (SaveFile saveFile : this.saveFiles) {
-            saveFile.draw(main.screenWidth / 2 - saveFile.getWidth() / 2, y);
+            saveFile.draw(main.screenWidth / 2F - saveFile.getWidth() / 2F, y);
             y += saveFile.getHeight();
         }
 

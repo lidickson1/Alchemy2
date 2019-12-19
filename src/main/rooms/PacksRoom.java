@@ -96,7 +96,7 @@ public class PacksRoom extends Room {
         main.textSize(24);
         main.textAlign(PConstants.CENTER, PConstants.CENTER);
         main.fill(255);
-        main.text(main.getLanguageSelected().getLocalizedString("packs", "unloaded packs"), x + LongButton.WIDTH / 2, y);
+        main.text(main.getLanguageSelected().getLocalizedString("packs", "unloaded packs"), x + LongButton.WIDTH / 2F, y);
 
         y += 40;
 
@@ -111,7 +111,7 @@ public class PacksRoom extends Room {
         main.textSize(24);
         main.textAlign(PConstants.CENTER, PConstants.CENTER);
         main.fill(255);
-        main.text(main.getLanguageSelected().getLocalizedString("packs", "loaded packs"), x + LongButton.WIDTH / 2, y);
+        main.text(main.getLanguageSelected().getLocalizedString("packs", "loaded packs"), x + LongButton.WIDTH / 2F, y);
 
         y += 40;
 
@@ -151,7 +151,7 @@ public class PacksRoom extends Room {
         this.exit.mousePressed();
     }
 
-    public void save() {
+    private void save() {
         JSONArray array = new JSONArray();
         for (Pack pack : this.loadedPacks) {
             array.append(pack.getName());

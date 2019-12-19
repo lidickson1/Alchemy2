@@ -16,7 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 
-public class Compressor {
+class Compressor {
 
     //TODO: add description and remove
 

@@ -22,7 +22,7 @@ public abstract class Room extends Entity {
         main.textSize(40);
         main.textAlign(PConstants.CENTER, PConstants.CENTER);
         main.fill(255);
-        main.text(main.getLanguageSelected().getLocalizedString(section, key), main.screenWidth / 2, 60);
+        main.text(main.getLanguageSelected().getLocalizedString(section, key), main.screenWidth / 2F, 60);
     }
 
     public abstract void setup();

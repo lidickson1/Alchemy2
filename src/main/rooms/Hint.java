@@ -46,11 +46,11 @@ public class Hint extends Room {
         main.fill(255);
         main.textAlign(PConstants.CENTER);
         main.textSize(30);
-        main.text(main.getLanguageSelected().getLocalizedString("hint", "time remaining"), main.screenWidth / 2, 250);
-        main.text(main.game.getTimeString(), main.screenWidth / 2, 300);
+        main.text(main.getLanguageSelected().getLocalizedString("hint", "time remaining"), main.screenWidth / 2F, 250);
+        main.text(main.game.getTimeString(), main.screenWidth / 2F, 300);
 
         final int gap = 300;
-        final float width = (main.screenWidth - gap * 3) / 2;
+        final float width = (main.screenWidth - gap * 3) / 2F;
         main.textLeading(20);
         main.textSize(20);
 

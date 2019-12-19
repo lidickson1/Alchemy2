@@ -22,7 +22,7 @@ public class MenuButton extends Button {
         main.setFontSize(this.name, 32, WIDTH - gap * 2);
         main.fill(0);
         main.textAlign(PConstants.CENTER, PConstants.CENTER);
-        main.text(main.getLanguageSelected().getLocalizedString("menu", this.name), this.getX() + WIDTH / 2F, this.getY() + HEIGHT / 2 - 4);
+        main.text(main.getLanguageSelected().getLocalizedString("menu", this.name), this.getX() + WIDTH / 2F, this.getY() + HEIGHT / 2F - 4);
     }
 
 }

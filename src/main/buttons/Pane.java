@@ -25,7 +25,7 @@ public abstract class Pane extends Button {
         main.fill(255);
         main.textAlign(PConstants.CENTER, PConstants.CENTER);
         main.textSize(20);
-        main.text(this.getText(), main.screenWidth / 2, this.getY() + 30);
+        main.text(this.getText(), main.screenWidth / 2F, this.getY() + 30);
     }
 
     protected abstract String getText();

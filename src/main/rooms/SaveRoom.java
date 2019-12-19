@@ -44,14 +44,14 @@ public class SaveRoom extends Room {
         this.drawTitle("save", "save game");
 
         main.textSize(20);
-        main.text(main.getLanguageSelected().getLocalizedString("save", "enter name"), main.screenWidth / 2, main.screenHeight / 2 - 60);
+        main.text(main.getLanguageSelected().getLocalizedString("save", "enter name"), main.screenWidth / 2F, main.screenHeight / 2F - 60);
 
         this.textField.moveTo(main.screenWidth / 2F - this.textField.getWidth() / 2, main.screenHeight / 2F - this.textField.getHeight() / 2);
         this.textField.draw();
 
         if (!this.text.equals("")) {
             main.textSize(20);
-            main.text(main.getLanguageSelected().getLocalizedString("save", this.text), main.screenWidth / 2, main.screenHeight / 2 + 60);
+            main.text(main.getLanguageSelected().getLocalizedString("save", this.text), main.screenWidth / 2F, main.screenHeight / 2F + 60);
         }
 
         main.stroke(255);

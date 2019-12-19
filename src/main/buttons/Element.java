@@ -234,10 +234,10 @@ public class Element extends Button implements Comparable<Element> {
 
     private static void validateCombos() {
         for (Combo combo : main.comboList) {
-            if (!main.elements.keySet().contains(combo.getA())) {
+            if (!main.elements.containsKey(combo.getA())) {
                 System.err.println("Error with combo: " + combo.getA() + " doesn't exist!");
             }
-            if (!main.elements.keySet().contains(combo.getB())) {
+            if (!main.elements.containsKey(combo.getB())) {
                 System.err.println("Error with combo: " + combo.getB() + " doesn't exist!");
             }
         }
@@ -492,7 +492,7 @@ public class Element extends Button implements Comparable<Element> {
         int length = (SIZE + GAP) * elementsCreated.size() - GAP;
         int x = main.screenWidth / 2 - length / 2;
         for (Element element : elementsCreated) {
-            element.draw(x, main.screenHeight / 2 - SIZE / 2);
+            element.draw(x, main.screenHeight / 2F - SIZE / 2F);
             x += SIZE + GAP;
         }
         drawTooltip();
@@ -500,7 +500,7 @@ public class Element extends Button implements Comparable<Element> {
 
     public static void drawHintElement(Element element) {
         touching = null;
-        element.draw(main.screenWidth / 2 - Element.SIZE / 2, main.screenHeight / 2 - Element.SIZE / 2);
+        element.draw(main.screenWidth / 2F - Element.SIZE / 2F, main.screenHeight / 2F - Element.SIZE / 2F);
         drawTooltip();
     }
 
