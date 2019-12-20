@@ -1,6 +1,7 @@
 package main.rooms;
 
 import main.Generation;
+import main.Language;
 import main.buttons.Element;
 import main.buttons.Group;
 import main.buttons.Pack;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 public class Loading extends Room {
 
     private static final boolean GENERATE_ATLAS = false;
-    private static final boolean PRINT_GENERATIONS = true;
+    private static final boolean PRINT_GENERATIONS = false;
 
     private AtomicInteger progress;
     private int total;
@@ -32,7 +33,7 @@ public class Loading extends Room {
         this.progress = new AtomicInteger(0);
         this.total = 0;
 
-        main.packsRoom.setup();
+        main.packsRoom.setup(); //reads the pack list
 
         main.elements.clear();
         main.groups.clear();
@@ -72,6 +73,10 @@ public class Loading extends Room {
                 if (pack.hasAtlas()) {
                     pack.loadAtlas();
                 }
+
+                pack.loadLanguages();
+                //TODO: this to read from settings
+                Language.setLanguageSelected("english");
             }
 
             if (PRINT_GENERATIONS) {

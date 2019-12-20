@@ -1,5 +1,6 @@
 package main.rooms;
 
+import main.Language;
 import main.buttons.*;
 import main.buttons.iconbuttons.Exit;
 import main.buttons.iconbuttons.IconButton;
@@ -47,13 +48,13 @@ public class Game extends Room {
         this.success = new Pane() {
             @Override
             protected String getText() {
-                return main.getLanguageSelected().getLocalizedString("game", "you created");
+                return Language.getLanguageSelected().getLocalizedString("game", "you created");
             }
         };
         this.hint = new Pane() {
             @Override
             protected String getText() {
-                return main.getLanguageSelected().getLocalizedString("game", "element hint");
+                return Language.getLanguageSelected().getLocalizedString("game", "element hint");
             }
         };
         this.save = new Save();
@@ -170,13 +171,10 @@ public class Game extends Room {
 
             if (this.saveFile == null) {
                 //new game
-                try {
-                    this.addElement("alchemy:air");
-                    this.addElement("alchemy:earth");
-                    this.addElement("alchemy:fire");
-                    this.addElement("alchemy:water");
-                } catch (NoElementException e) {
-                    System.err.println("Error: Starting elements could not be added");
+                for (Pack pack : main.packsRoom.getLoadedPacks()) {
+                    for (Element element : pack.getStartingElements()) {
+                        this.addElement(element);
+                    }
                 }
                 this.hintTime = LocalDateTime.now().plusMinutes(3);
             } else {
@@ -187,6 +185,7 @@ public class Game extends Room {
                     } catch (NoElementException e) {
                         System.err.println("Error: " + array.getString(i) + " could not be loaded from save!");
                         main.loadGame.failed();
+                        return;
                     }
                 }
                 this.hintTime = this.saveFile.getJson().hasKey("hint time") ? LocalDateTime.now().plus(Duration.parse(this.saveFile.getJson().getString("hint time"))) : LocalDateTime.now().plusMinutes(3);
@@ -200,7 +199,7 @@ public class Game extends Room {
 
     public void exitGame() {
         if (this.saveFile != null && this.saveFile.getJson().getJSONArray("elements").size() < this.getNumberOfElements()) {
-            int result = JOptionPane.showConfirmDialog(null, main.getLanguageSelected().getLocalizedString("game", "not saved"), main.getLanguageSelected().getLocalizedString("misc", "warning"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+            int result = JOptionPane.showConfirmDialog(null, Language.getLanguageSelected().getLocalizedString("game", "not saved"), Language.getLanguageSelected().getLocalizedString("misc", "warning"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
             if (result == JOptionPane.CANCEL_OPTION) {
                 return;
             }
@@ -218,9 +217,9 @@ public class Game extends Room {
 
         main.fill(255);
         main.textAlign(PConstants.LEFT, PConstants.TOP);
-        main.text(main.getLanguageSelected().getLocalizedString("game", "elements") + ": " + this.getNumberOfElements() + getGap() +
-                main.getLanguageSelected().getLocalizedString("game", "groups") + ": " + this.discovered.keySet().size() + getGap() +
-                main.getLanguageSelected().getLocalizedString("game", "hint timer") + ": " + this.getTimeString(), 0, 2);
+        main.text(Language.getLanguageSelected().getLocalizedString("game", "elements") + ": " + this.getNumberOfElements() + getGap() +
+                Language.getLanguageSelected().getLocalizedString("game", "groups") + ": " + this.discovered.keySet().size() + getGap() +
+                Language.getLanguageSelected().getLocalizedString("game", "hint timer") + ": " + this.getTimeString(), 0, 2);
 
         Group.drawGroups();
         Element.drawElements();

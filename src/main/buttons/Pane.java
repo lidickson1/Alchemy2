@@ -16,6 +16,8 @@ public abstract class Pane extends Button {
         this.setY(y);
 
         this.drawButton();
+
+        //no overlay if mouse in bounds
     }
 
     @Override

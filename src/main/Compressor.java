@@ -18,7 +18,7 @@ import java.nio.file.Files;
 
 class Compressor {
 
-    //TODO: add description and remove
+    //TODO: add description and remove and when there's no combos
 
     private static FormatPreservingEncryption formatPreservingEncryption;
 

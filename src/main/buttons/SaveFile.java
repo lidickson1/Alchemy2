@@ -1,5 +1,6 @@
 package main.buttons;
 
+import main.Language;
 import processing.core.PConstants;
 import processing.data.JSONObject;
 
@@ -36,7 +37,7 @@ public class SaveFile extends LongButton {
 
         main.textAlign(PConstants.RIGHT, PConstants.CENTER);
         main.fill(120);
-        main.text(main.getLanguageSelected().getLocalizedString("load game", "last modified") + ": " + this.json.getString("last modified"), this.getX() + WIDTH - 10, this.getY() + 28);
+        main.text(Language.getLanguageSelected().getLocalizedString("load game", "last modified") + ": " + this.json.getString("last modified"), this.getX() + WIDTH - 10, this.getY() + 28);
     }
 
     @Override

@@ -14,10 +14,6 @@ public abstract class LongButton extends Button implements Comparable<LongButton
         main.stroke(255);
         main.noFill();
         main.rect(this.getX(), this.getY(), WIDTH, HEIGHT);
-
-//        main.textAlign(PConstants.RIGHT, PConstants.CENTER);
-//        main.fill(120);
-//        main.text(main.getLanguageSelected().getLocalizedString("load game", "last modified") + ": " + this.json.getString("last modified"), this.getX() + WIDTH - 10, this.getY() + 28);
     }
 
 }

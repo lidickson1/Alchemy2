@@ -47,7 +47,6 @@ public class Group extends Button implements Comparable<Group> {
 
     private Group(JSONObject json, Pack pack) {
         super(SIZE, SIZE);
-        //super(SIZE, SIZE, pack.getName().equals("Alchemy") ? "resources/groups/alchemy/" + json.getString("name") + ".png" : pack.getPath() + "/groups/" + pack.getNamespace() + "/" + json.getString("name") + ".png");
 
         this.pack = pack;
         this.name = pack.getNamespacedName(json.getString("name"));

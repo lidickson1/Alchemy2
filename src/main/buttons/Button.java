@@ -2,11 +2,13 @@ package main.buttons;
 
 import ddf.minim.AudioPlayer;
 import main.Entity;
+import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Button extends Entity {
 
     public static AudioPlayer click;
+    private static final int ALPHA = 80;
 
     private float x;
     private float y;
@@ -15,6 +17,8 @@ public class Button extends Entity {
     private int height;
 
     private PImage image;
+    protected PImage tintedImage;
+    boolean tintOverlay = true;
 
     private boolean disabled = false;
 
@@ -37,6 +41,7 @@ public class Button extends Entity {
         this.image = image;
     }
 
+    //using getImage() here so it's easier to implement ToggleButton
     public void draw(float x, float y) {
         this.x = x;
         this.y = y;
@@ -44,14 +49,50 @@ public class Button extends Entity {
         this.drawButton();
 
         if (this.inBounds()) {
-            main.noStroke();
-            if (this.disabled) {
-                main.fill(255, 0, 0, 80);
+            if (this.tintOverlay && this.getImage() != null) {
+                this.getTintedImage();
+                if (this.disabled) {
+                    main.tint(255,0,0,ALPHA);
+                }
+                main.image(this.tintedImage, this.getX(), this.getY());
+                main.tint(255);
             } else {
-                main.fill(255, 80);
+                main.noStroke();
+                if (this.disabled) {
+                    main.fill(255, 0, 0, ALPHA);
+                } else {
+                    main.fill(255, ALPHA);
+                }
+                main.rect(x, y, this.width, this.height);
             }
-            main.rect(x, y, this.width, this.height);
         }
+
+        this.postDraw();
+    }
+
+    protected void getTintedImage() {
+        if (this.tintedImage == null) {
+            this.tintedImage = brightenImage(this.image);
+        }
+    }
+
+    protected static PImage brightenImage(PImage image) {
+        PImage tintedImage = image.copy();
+        for (int i = 0;i < tintedImage.pixels.length;i++) {
+            float r = main.red(tintedImage.pixels[i]);
+            float g = main.green(tintedImage.pixels[i]);
+            float b = main.blue(tintedImage.pixels[i]);
+            float a = main.alpha(tintedImage.pixels[i]);
+            r = PApplet.constrain(r + ALPHA - 30, 0, 255);
+            g = PApplet.constrain(g + ALPHA - 30, 0, 255);
+            b = PApplet.constrain(b + ALPHA - 30, 0, 255);
+            tintedImage.pixels[i] = main.color(r, g, b, a);
+        }
+        return tintedImage;
+    }
+
+    protected void postDraw() {
+
     }
 
     protected void draw() {
@@ -72,8 +113,9 @@ public class Button extends Entity {
 
     }
 
+    //using getImage() here so it's easier to implement ToggleButton
     protected void drawButton() {
-        main.image(this.image, this.x, this.y);
+        main.image(this.getImage(), this.x, this.y);
     }
 
     protected boolean inBounds() {
@@ -100,11 +142,11 @@ public class Button extends Entity {
         this.y += y;
     }
 
-    protected void setX(float x) {
+    void setX(float x) {
         this.x = x;
     }
 
-    protected void setY(float y) {
+    void setY(float y) {
         this.y = y;
     }
 

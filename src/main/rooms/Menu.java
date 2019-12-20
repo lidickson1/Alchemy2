@@ -1,5 +1,6 @@
 package main.rooms;
 
+import main.Language;
 import main.buttons.iconbuttons.IconButton;
 import main.buttons.menubuttons.LoadGameButton;
 import main.buttons.menubuttons.MenuButton;
@@ -47,7 +48,7 @@ public class Menu extends Room {
         main.textFont(titleFont, 220);
         main.textAlign(PConstants.CENTER, PConstants.TOP);
         main.fill(255);
-        main.text(main.getLanguageSelected().getLocalizedString("menu", "alchemy"), main.screenWidth / 2F, 20);
+        main.text(Language.getLanguageSelected().getLocalizedString("menu", "alchemy"), main.screenWidth / 2F, 20);
 
         int y = 340;
         final int gap = 10;

@@ -56,9 +56,6 @@ public class Main extends PApplet {
 
     private JSONObject settings;
 
-    private Language languageSelected;
-    private ArrayList<Language> languages = new ArrayList<>();
-
     public HashMap<Group, HashSet<Element>> groups = new HashMap<>();
     public HashMap<String, Group> elements = new HashMap<>();
     public HashSet<Combo> comboList = new HashSet<>();
@@ -153,9 +150,6 @@ public class Main extends PApplet {
                 BorderFactory.createLineBorder(Color.WHITE, 1),
                 BorderFactory.createEmptyBorder(5, 10, 5, 10))));
 
-        Language.loadLanguages(this.languages);
-        this.languageSelected = Language.getLanguage("english");
-
         //TODO: make this dynamic?
         ArrayList<String> musicNames = new ArrayList<>(Arrays.asList("Angel Share", "Dreamer", "Easy Lemon", "Frozen Star", "Handbook - Spirits", "Immersed"));
 
@@ -215,14 +209,6 @@ public class Main extends PApplet {
         } else {
             return min + value * (max - min);
         }
-    }
-
-    ArrayList<Language> getLanguages() {
-        return this.languages;
-    }
-
-    public Language getLanguageSelected() {
-        return this.languageSelected;
     }
 
     public PImage getIcon() {
@@ -288,7 +274,7 @@ public class Main extends PApplet {
     }
 
     public void showError(String message) {
-        JOptionPane.showMessageDialog(null, message, this.getLanguageSelected().getLocalizedString("misc", "error"), JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, Language.getLanguageSelected().getLocalizedString("misc", "error"), JOptionPane.ERROR_MESSAGE);
     }
 
 }

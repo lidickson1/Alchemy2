@@ -2,6 +2,7 @@ package main.buttons;
 
 import com.sun.istack.internal.Nullable;
 import main.Combo;
+import main.Language;
 import main.rooms.ElementRoom;
 import main.rooms.Game;
 import org.apache.commons.collections4.CollectionUtils;
@@ -62,6 +63,7 @@ public class Element extends Button implements Comparable<Element> {
         this.name = name;
         this.group = group;
         this.pack = pack;
+        this.tintOverlay = false;
     }
 
     //copy constructor
@@ -75,6 +77,7 @@ public class Element extends Button implements Comparable<Element> {
         this.description = description;
         this.alpha = alpha;
         this.alphaChange = alphaChange;
+        this.tintOverlay = false;
     }
 
     public static void reset() {
@@ -147,7 +150,7 @@ public class Element extends Button implements Comparable<Element> {
                 Group group = Group.getGroup(pack.getNamespacedName(object.getString("group")));
                 Element e = new Element(element, group, pack);
                 if (group == null) {
-                    System.err.println("Error: " + pack.getNamespacedName(object.getString("group")) + " not found!");
+                    System.err.println("Error: Group " + pack.getNamespacedName(object.getString("group")) + " not found!");
                     main.loading.elementFailed();
                     continue;
                 }
@@ -166,27 +169,29 @@ public class Element extends Button implements Comparable<Element> {
                     }
                 }
 
-                JSONArray combos = object.getJSONArray("combos");
-                for (int j = 0; j < combos.size(); j++) {
-                    JSONObject combo = combos.getJSONObject(j);
-                    if (combo.hasKey("first element")) {
-                        main.comboList.add(new Combo(element, pack.getNamespacedName(combo.getString("first element")), pack.getNamespacedName(combo.getString("second element"))));
-                    } else if (combo.hasKey("elements")) {
-                        if (combo.hasKey("paired") && combo.getBoolean("paired")) {
-                            permutations.add(new ImmutableTriple<>(element, Permutation.UNRESTRICTED, combo));
-                        } else {
-                            JSONArray elements = combo.getJSONArray("elements");
-                            ArrayList<String> list = processTags(elements, pack);
-                            list.sort(String::compareTo); //this makes removing easier
-                            if (!main.multiComboList.containsKey(element)) {
-                                main.multiComboList.put(element, new ArrayList<>());
+                if (object.hasKey("combos")) {
+                    JSONArray combos = object.getJSONArray("combos");
+                    for (int j = 0; j < combos.size(); j++) {
+                        JSONObject combo = combos.getJSONObject(j);
+                        if (combo.hasKey("first element")) {
+                            main.comboList.add(new Combo(element, pack.getNamespacedName(combo.getString("first element")), pack.getNamespacedName(combo.getString("second element"))));
+                        } else if (combo.hasKey("elements")) {
+                            if (combo.hasKey("paired") && combo.getBoolean("paired")) {
+                                permutations.add(new ImmutableTriple<>(element, Permutation.UNRESTRICTED, combo));
+                            } else {
+                                JSONArray elements = combo.getJSONArray("elements");
+                                ArrayList<String> list = processTags(elements, pack);
+                                list.sort(String::compareTo); //this makes removing easier
+                                if (!main.multiComboList.containsKey(element)) {
+                                    main.multiComboList.put(element, new ArrayList<>());
+                                }
+                                main.multiComboList.get(element).add(list);
                             }
-                            main.multiComboList.get(element).add(list);
+                        } else if (combo.hasKey("first elements")) {
+                            permutations.add(new ImmutableTriple<>(element, Permutation.RESTRICTED, combo));
+                        } else {
+                            permutations.add(new ImmutableTriple<>(element, Permutation.SETS, combo));
                         }
-                    } else if (combo.hasKey("first elements")) {
-                        permutations.add(new ImmutableTriple<>(element, Permutation.RESTRICTED, combo));
-                    } else {
-                        permutations.add(new ImmutableTriple<>(element, Permutation.SETS, combo));
                     }
                 }
             }
@@ -337,7 +342,7 @@ public class Element extends Button implements Comparable<Element> {
         this.getImage().resize(SIZE, SIZE);
     }
 
-    public void loadImage(PImage image) {
+    void loadImage(PImage image) {
         this.setImage(image);
         this.getImage().resize(SIZE, SIZE);
     }
@@ -508,7 +513,7 @@ public class Element extends Button implements Comparable<Element> {
     }
 
     private String getDisplayName() {
-        String displayName = main.getLanguageSelected().getElementLocalizedString(this.getNamespace(), this.getID());
+        String displayName = Language.getLanguageSelected().getElementLocalizedString(this.getNamespace(), this.getID());
         return displayName == null ? this.name : displayName;
     }
 

@@ -1,5 +1,6 @@
 package main.rooms;
 
+import main.Language;
 import main.Slider;
 import main.buttons.iconbuttons.Exit;
 import main.buttons.iconbuttons.ToggleButton;
@@ -57,7 +58,7 @@ public class SettingsRoom extends Room {
         this.drawTitle("settings", "settings");
 
         main.textSize(20);
-        main.text(main.getLanguageSelected().getLocalizedString("settings", "volume"), main.screenWidth / 2, 200);
+        main.text(Language.getLanguageSelected().getLocalizedString("settings", "volume"), main.screenWidth / 2F, 200);
 
         this.slider.moveTo(main.screenWidth / 2F - this.slider.getWidth() / 2, 220);
         this.slider.draw();

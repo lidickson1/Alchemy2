@@ -1,5 +1,6 @@
 package main.buttons.menubuttons;
 
+import main.Language;
 import main.buttons.Button;
 import processing.core.PConstants;
 
@@ -16,13 +17,12 @@ public class MenuButton extends Button {
     }
 
     @Override
-    protected void drawButton() {
+    protected void postDraw() {
         final int gap = 10;
-        main.image(this.getImage(), this.getX(), this.getY());
         main.setFontSize(this.name, 32, WIDTH - gap * 2);
         main.fill(0);
         main.textAlign(PConstants.CENTER, PConstants.CENTER);
-        main.text(main.getLanguageSelected().getLocalizedString("menu", this.name), this.getX() + WIDTH / 2F, this.getY() + HEIGHT / 2F - 4);
+        main.text(Language.getLanguageSelected().getLocalizedString("menu", this.name), this.getX() + WIDTH / 2F, this.getY() + HEIGHT / 2F - 4);
     }
 
 }

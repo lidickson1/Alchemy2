@@ -1,6 +1,7 @@
 package main.rooms;
 
 import main.Combo;
+import main.Language;
 import main.buttons.Arrow;
 import main.buttons.Element;
 import main.buttons.Group;
@@ -200,7 +201,7 @@ public class ElementRoom extends Room {
         main.textAlign(PConstants.CENTER);
         main.fill(255);
         main.textSize(20);
-        main.text(main.getLanguageSelected().getLocalizedString("information", "creation"), x, y);
+        main.text(Language.getLanguageSelected().getLocalizedString("information", "creation"), x, y);
 
         y += 40;
         max = Math.floorDiv(main.screenHeight - y - 40 - Arrow.SIZE, Element.HEIGHT + GAP);
@@ -244,7 +245,7 @@ public class ElementRoom extends Room {
         main.textAlign(PConstants.CENTER);
         main.fill(255);
         main.textSize(20);
-        main.text(main.getLanguageSelected().getLocalizedString("information", "used to create"), x, y);
+        main.text(Language.getLanguageSelected().getLocalizedString("information", "used to create"), x, y);
 
         start += main.screenWidth / 2;
         y += 40;

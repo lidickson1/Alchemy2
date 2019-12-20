@@ -1,9 +1,11 @@
 package main.buttons;
 
+import main.Language;
 import org.apache.commons.lang3.StringUtils;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
+import processing.data.JSONArray;
 import processing.data.JSONObject;
 
 import java.io.File;
@@ -35,6 +37,13 @@ public class Pack extends LongButton {
         this.json.setString("name", "Alchemy");
         this.json.setString("namespace", "alchemy");
         this.json.setString("author", "God");
+
+        JSONArray array = new JSONArray();
+        array.append("alchemy:air");
+        array.append("alchemy:earth");
+        array.append("alchemy:fire");
+        array.append("alchemy:water");
+        this.json.setJSONArray("starting elements", array);
 
         this.icon = main.loadImage("resources/images/icon.png");
         this.icon.resize(HEIGHT, HEIGHT);
@@ -84,6 +93,10 @@ public class Pack extends LongButton {
         } catch (FileNotFoundException ignored) {
         }
         main.loading.updateProgress();
+    }
+
+    public void loadLanguages() {
+        Language.loadLanguages(this.getName().equals("Alchemy") ? "resources/languages" : this.path + "/languages");
     }
 
     private int getPackElementsSize() {
@@ -159,7 +172,7 @@ public class Pack extends LongButton {
 
         main.textAlign(PConstants.LEFT, PConstants.CENTER);
         main.fill(120);
-        main.text(main.getLanguageSelected().getLocalizedString("packs", "by") + ": " + this.json.getString("author"), this.getX() + HEIGHT + 10, this.getY() + HEIGHT - 26);
+        main.text(Language.getLanguageSelected().getLocalizedString("packs", "by") + ": " + this.json.getString("author"), this.getX() + HEIGHT + 10, this.getY() + HEIGHT - 26);
     }
 
     @Override
@@ -208,6 +221,24 @@ public class Pack extends LongButton {
             }
         }
         return null;
+    }
+
+    public ArrayList<Element> getStartingElements() {
+        ArrayList<Element> list = new ArrayList<>();
+        if (this.json.isNull("starting elements")) {
+            return list;
+        }
+        JSONArray array = this.json.getJSONArray("starting elements");
+        for (int i = 0; i < array.size(); i++) {
+            String name = this.getNamespacedName(array.getString(i));
+            Element element = Element.getElement(name);
+            if (element == null) {
+                System.err.println("Error when loading starting elements: " + name + " not found!");
+            } else {
+                list.add(element);
+            }
+        }
+        return list;
     }
 
 }

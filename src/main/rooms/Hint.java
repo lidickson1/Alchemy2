@@ -1,6 +1,7 @@
 package main.rooms;
 
 import main.Combo;
+import main.Language;
 import main.buttons.Element;
 import main.buttons.Group;
 import main.buttons.iconbuttons.Exit;
@@ -44,7 +45,7 @@ public class Hint extends Room {
     }
 
     private void showDialog() {
-        JOptionPane.showMessageDialog(null, main.getLanguageSelected().getLocalizedString("hint","all discovered"), main.getLanguageSelected().getLocalizedString("misc", "information"), JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, Language.getLanguageSelected().getLocalizedString("hint","all discovered"), Language.getLanguageSelected().getLocalizedString("misc", "information"), JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
@@ -59,7 +60,7 @@ public class Hint extends Room {
         main.fill(255);
         main.textAlign(PConstants.CENTER);
         main.textSize(30);
-        main.text(main.getLanguageSelected().getLocalizedString("hint", "time remaining"), main.screenWidth / 2F, 250);
+        main.text(Language.getLanguageSelected().getLocalizedString("hint", "time remaining"), main.screenWidth / 2F, 250);
         main.text(main.game.getTimeString(), main.screenWidth / 2F, 300);
 
         final int gap = 300;
@@ -68,12 +69,12 @@ public class Hint extends Room {
         main.textSize(20);
 
         main.fill(255);
-        main.text(main.getLanguageSelected().getLocalizedString("hint", "element hint"), main.screenWidth / 2F - gap / 2F - width / 2, 500);
+        main.text(Language.getLanguageSelected().getLocalizedString("hint", "element hint"), main.screenWidth / 2F - gap / 2F - width / 2, 500);
         this.elementHint.draw(main.screenWidth / 2F - gap / 2F - width / 2 - IconButton.SIZE / 2F, 530);
         this.elementHint.setDisabled(!main.game.isHintReady());
 
         main.fill(255); //need to reset colour because button in bounds cause colour change
-        main.text(main.getLanguageSelected().getLocalizedString("hint", "group hint"), main.screenWidth / 2F + gap / 2F + width / 2, 500);
+        main.text(Language.getLanguageSelected().getLocalizedString("hint", "group hint"), main.screenWidth / 2F + gap / 2F + width / 2, 500);
         this.groupHint.draw(main.screenWidth / 2F + gap / 2F + width / 2 - IconButton.SIZE / 2F, 530);
         this.groupHint.setDisabled(!main.game.isHintReady());
 

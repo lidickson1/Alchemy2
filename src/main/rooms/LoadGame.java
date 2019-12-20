@@ -1,5 +1,6 @@
 package main.rooms;
 
+import main.Language;
 import main.Main;
 import main.buttons.SaveFile;
 import main.buttons.iconbuttons.Exit;
@@ -57,7 +58,7 @@ public class LoadGame extends Room {
         }
 
         if (this.failed) {
-            main.showError(main.getLanguageSelected().getLocalizedString("load game", "elements not loaded"));
+            main.showError(Language.getLanguageSelected().getLocalizedString("load game", "elements not loaded"));
             main.switchRoom(main.loadGame);
         }
 

@@ -1,5 +1,6 @@
 package main.rooms;
 
+import main.Language;
 import main.TextField;
 import main.buttons.iconbuttons.Exit;
 import main.buttons.iconbuttons.Save;
@@ -44,19 +45,19 @@ public class SaveRoom extends Room {
         this.drawTitle("save", "save game");
 
         main.textSize(20);
-        main.text(main.getLanguageSelected().getLocalizedString("save", "enter name"), main.screenWidth / 2F, main.screenHeight / 2F - 60);
+        main.text(Language.getLanguageSelected().getLocalizedString("save", "enter name"), main.screenWidth / 2F, main.screenHeight / 2F - 60);
 
         this.textField.moveTo(main.screenWidth / 2F - this.textField.getWidth() / 2, main.screenHeight / 2F - this.textField.getHeight() / 2);
         this.textField.draw();
 
         if (!this.text.equals("")) {
             main.textSize(20);
-            main.text(main.getLanguageSelected().getLocalizedString("save", this.text), main.screenWidth / 2F, main.screenHeight / 2F + 60);
+            main.text(Language.getLanguageSelected().getLocalizedString("save", this.text), main.screenWidth / 2F, main.screenHeight / 2F + 60);
         }
 
         main.stroke(255);
         main.noFill();
-        main.rect(this.textField.getX(), this.textField.getY(), this.textField.getWidth(), this.textField.getHeight());
+        main.rect(this.textField.getX(), this.textField.getY(), this.textField.getWidth(), this.textField.getHeight() + 1);
 
         this.save.draw(main.screenWidth / 2F - 15 - this.save.getWidth(), main.screenHeight - 30 - this.save.getHeight());
         this.exit.draw(main.screenWidth / 2F + 15, main.screenHeight - 30 - this.exit.getHeight());

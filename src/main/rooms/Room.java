@@ -1,18 +1,11 @@
 package main.rooms;
 
 import main.Entity;
+import main.Language;
 import processing.core.PConstants;
 import processing.core.PImage;
 
 public abstract class Room extends Entity {
-
-    static PImage background;
-
-    Room() {
-        if (background == null) {
-            background = main.loadImage("resources/images/background.png");
-        }
-    }
 
     void drawTitle(String section, String key) {
         main.noStroke();
@@ -22,7 +15,7 @@ public abstract class Room extends Entity {
         main.textSize(40);
         main.textAlign(PConstants.CENTER, PConstants.CENTER);
         main.fill(255);
-        main.text(main.getLanguageSelected().getLocalizedString(section, key), main.screenWidth / 2F, 60);
+        main.text(Language.getLanguageSelected().getLocalizedString(section, key), main.screenWidth / 2F, 60);
     }
 
     public abstract void setup();
