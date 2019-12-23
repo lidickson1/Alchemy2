@@ -187,7 +187,7 @@ public class Pack extends LongButton {
 
     //process namespace and illegal names
     //returns null if it is an invalid name
-    String getNamespacedName(String name) {
+    public String getNamespacedName(String name) {
         //TODO: illegal names or if there is a ":" but it's not in the format or a:b or a:tag/group:b
         int count = StringUtils.countMatches(name, ":");
         if (count == 0) {

@@ -6,16 +6,11 @@ import main.rooms.ElementRoom;
 import main.rooms.Game;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.ImmutableTriple;
 import processing.core.PConstants;
 import processing.core.PImage;
-import processing.data.JSONArray;
-import processing.data.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.ListIterator;
 
 public class Element extends Button implements Comparable<Element> {
 
@@ -54,7 +49,7 @@ public class Element extends Button implements Comparable<Element> {
     private int alpha = 255;
     private int alphaChange;
 
-    private Element(String name, Group group, Pack pack) {
+    public Element(String name, Group group, Pack pack) {
         super(SIZE, HEIGHT);
 
         this.name = name;
@@ -92,320 +87,6 @@ public class Element extends Button implements Comparable<Element> {
         return this.name.compareTo(o.name);
     }
 
-    public static void loadElements(JSONArray array, Pack pack) {
-        ArrayList<ImmutableTriple<String, Permutation, JSONObject>> permutations = new ArrayList<>();
-        ArrayList<ImmutableTriple<RandomCombo, Permutation, JSONObject>> randomPermutations = new ArrayList<>();
-        ArrayList<ImmutableTriple<String, Permutation, JSONObject>> removes = new ArrayList<>();
-        @SuppressWarnings("SpellCheckingInspection") ArrayList<ImmutablePair<String, JSONArray>> removeMultis = new ArrayList<>(); //remove combos with multiple ingredients
-
-        for (int i = 0; i < array.size(); i++) {
-            JSONObject object = array.getJSONObject(i);
-            String element = pack.getNamespacedName(object.getString("name"));
-
-            if (object.hasKey("remove")) {
-                String remove = object.getString("remove");
-                //noinspection IfCanBeSwitch
-                if (remove.equals("all")) {
-                    main.comboList.clear();
-                    main.randomCombos.clear();
-                    main.loading.removeAllElements(); //this needs to be called first or else we can't determine how much progress to remove
-                    for (HashSet<Element> list : main.groups.values()) {
-                        list.clear();
-                    }
-                    main.elements.clear();
-                } else if (remove.equals("element")) {
-                    //remove all combos of an element
-                    String elementName = pack.getNamespacedName(object.getString("element"));
-                    main.comboList.removeIf(e -> e.getElement().equals(elementName));
-                    for (RandomCombo randomCombo : main.randomCombos) {
-                        randomCombo.removeElement(elementName);
-                    }
-                    Element element1 = Element.getElement(elementName);
-                    if (element1 != null) {
-                        main.groups.get(element1.group).remove(element1);
-                        main.elements.remove(elementName);
-                        main.loading.removeElement();
-                    } else {
-                        System.err.println(elementName + " could not be removed!");
-                    }
-                } else if (remove.equals("combo")) {
-                    JSONArray combos = object.getJSONArray("combos");
-                    for (int j = 0; j < combos.size(); j++) {
-                        JSONObject combo = combos.getJSONObject(j);
-                        if (combo.hasKey("first element")) {
-                            removeCombo(element, pack.getNamespacedName(combo.getString("first element")), pack.getNamespacedName(combo.getString("second element")));
-                        } else if (combo.hasKey("elements")) {
-                            if (combo.hasKey("paired") && combo.getBoolean("paired")) {
-                                removes.add(new ImmutableTriple<>(element, Permutation.UNRESTRICTED, combo));
-                            } else {
-                                removeMultis.add(new ImmutablePair<>(element, combo.getJSONArray("elements")));
-                            }
-                        } else if (combo.hasKey("first elements")) {
-                            removes.add(new ImmutableTriple<>(element, Permutation.RESTRICTED, combo));
-                        } else {
-                            removes.add(new ImmutableTriple<>(element, Permutation.SETS, combo));
-                        }
-                    }
-                    main.loading.removeCombo();
-                }
-                //TODO: remove random
-            } else if (object.hasKey("combo") && object.hasKey("result")) {
-                //random
-                RandomCombo randomCombo = new RandomCombo(object.getJSONArray("result"));
-                JSONObject combo = object.getJSONObject("combo");
-                if (combo.hasKey("first element")) {
-                    NormalCombo combo1 = new NormalCombo(element, pack.getNamespacedName(combo.getString("first element")), pack.getNamespacedName(combo.getString("second element")));
-                    if (combo.hasKey("amount")) {
-                        combo1.setAmount(combo.getInt("amount"));
-                    }
-                    randomCombo.addCombo(combo1);
-                } else if (combo.hasKey("elements")) {
-                    if (combo.hasKey("paired") && combo.getBoolean("paired")) {
-                        randomPermutations.add(new ImmutableTriple<>(randomCombo, Permutation.UNRESTRICTED, combo));
-                    } else {
-                        JSONArray elements = combo.getJSONArray("elements");
-                        ArrayList<String> list = processTags(elements, pack);
-                        MultiCombo multiCombo = new MultiCombo(element, list);
-                        int count = combo.hasKey("amount") ? combo.getInt("amount") : 1;
-                        multiCombo.setAmount(count);
-                        randomCombo.addCombo(multiCombo);
-                    }
-                } else if (combo.hasKey("first elements")) {
-                    randomPermutations.add(new ImmutableTriple<>(randomCombo, Permutation.RESTRICTED, combo));
-                } else {
-                    randomPermutations.add(new ImmutableTriple<>(randomCombo, Permutation.SETS, combo));
-                }
-                main.randomCombos.add(randomCombo);
-                main.loading.randomCombo();
-            } else {
-                Group group = Group.getGroup(pack.getNamespacedName(object.getString("group")));
-                Element e = new Element(element, group, pack);
-                if (group == null) {
-                    System.err.println("Error: Group " + pack.getNamespacedName(object.getString("group")) + " not found!");
-                    main.loading.elementFailed();
-                    continue;
-                }
-
-                //element might exist because we allow existing elements to be modified
-                if (main.elements.containsKey(element)) {
-                    e = Element.getElement(element);
-                    assert e != null;
-                    main.loading.modifyElement();
-                } else {
-                    main.groups.get(group).add(e);
-                    main.elements.put(element, group);
-                }
-
-                if (object.hasKey("description")) {
-                    e.description = object.getString("description");
-                }
-
-                if (object.hasKey("tags")) {
-                    JSONArray tags = object.getJSONArray("tags");
-                    for (int j = 0; j < tags.size(); j++) {
-                        //tags are namespaced too!
-                        e.tags.add(pack.getNamespacedName(tags.getString(j)));
-                    }
-                }
-
-                if (object.hasKey("combos")) {
-                    JSONArray combos = object.getJSONArray("combos");
-                    for (int j = 0; j < combos.size(); j++) {
-                        JSONObject combo = combos.getJSONObject(j);
-                        if (combo.hasKey("first element")) {
-                            NormalCombo combo1 = new NormalCombo(element, pack.getNamespacedName(combo.getString("first element")), pack.getNamespacedName(combo.getString("second element")));
-                            if (combo.hasKey("amount")) {
-                                combo1.setAmount(combo.getInt("amount"));
-                            }
-                            main.comboList.add(combo1);
-                        } else if (combo.hasKey("elements")) {
-                            if (combo.hasKey("paired") && combo.getBoolean("paired")) {
-                                permutations.add(new ImmutableTriple<>(element, Permutation.UNRESTRICTED, combo));
-                            } else {
-                                JSONArray elements = combo.getJSONArray("elements");
-                                ArrayList<String> list = processTags(elements, pack);
-                                MultiCombo multiCombo = new MultiCombo(element, list);
-                                int count = combo.hasKey("amount") ? combo.getInt("amount") : 1;
-                                multiCombo.setAmount(count);
-                                main.comboList.add(multiCombo);
-                            }
-                        } else if (combo.hasKey("first elements")) {
-                            permutations.add(new ImmutableTriple<>(element, Permutation.RESTRICTED, combo));
-                        } else {
-                            permutations.add(new ImmutableTriple<>(element, Permutation.SETS, combo));
-                        }
-                    }
-                }
-            }
-
-            main.loading.updateProgress();
-        }
-
-        //this is done separately because all elements must be loaded first for tag: and group: to work
-        for (ImmutableTriple<String, Permutation, JSONObject> triple : permutations) {
-            JSONObject combo = triple.right;
-            ArrayList<ImmutablePair<String, String>> combos = processPermutations(triple.middle, combo, pack);
-            for (ImmutablePair<String, String> pair : combos) {
-                NormalCombo combo1 = new NormalCombo(triple.left, pair.left, pair.right);
-                if (combo.hasKey("amount")) {
-                    combo1.setAmount(combo.getInt("amount"));
-                }
-                main.comboList.add(combo1);
-            }
-        }
-
-        for (ImmutableTriple<RandomCombo, Permutation, JSONObject> triple : randomPermutations) {
-            JSONObject combo = triple.right;
-            ArrayList<ImmutablePair<String, String>> combos = processPermutations(triple.middle, combo, pack);
-            for (ImmutablePair<String, String> pair : combos) {
-                NormalCombo combo1 = new NormalCombo(null, pair.left, pair.right);
-                if (combo.hasKey("amount")) {
-                    combo1.setAmount(combo.getInt("amount"));
-                }
-                triple.left.addCombo(combo1);
-            }
-        }
-
-        for (ImmutableTriple<String, Permutation, JSONObject> triple : removes) {
-            String element = triple.left;
-            JSONObject combo = triple.right;
-            ArrayList<ImmutablePair<String, String>> combos = processPermutations(triple.middle, combo, pack);
-            for (ImmutablePair<String, String> pair : combos) {
-                removeCombo(element, pair.left, pair.right);
-            }
-        }
-
-        for (ImmutablePair<String, JSONArray> pair : removeMultis) {
-            ArrayList<String> list = processTags(pair.right, pack);
-            list.sort(String::compareTo);
-            main.comboList.removeIf(e -> (e instanceof MultiCombo) && CollectionUtils.isEqualCollection(list, e.getIngredients()));
-        }
-
-        validateCombos();
-
-        //output combos to file
-//        JSONArray comboArray = new JSONArray();
-//        for (ImmutableTriple<String, String, String> triple : main.comboList) {
-//            JSONObject object = new JSONObject();
-//            object.setString("a", triple.left);
-//            object.setString("b", triple.middle);
-//            object.setString("c", triple.right);
-//            comboArray.append(object);
-//        }
-//        main.saveJSONArray(comboArray, "combos.json");
-    }
-
-    //TODO: validate MultiCombo
-    private static void validateCombos() {
-        for (Combo combo : main.comboList) {
-            if (combo instanceof NormalCombo) {
-                NormalCombo normalCombo = (NormalCombo) combo;
-                if (!main.elements.containsKey(normalCombo.getA())) {
-                    System.err.println("Error with combo: " + normalCombo.getA() + " doesn't exist!");
-                }
-                if (!main.elements.containsKey(normalCombo.getB())) {
-                    System.err.println("Error with combo: " + normalCombo.getB() + " doesn't exist!");
-                }
-            }
-        }
-    }
-
-    private static void removeCombo(String element, String a, String b) {
-        main.comboList.removeIf((e) -> {
-            if (!(e instanceof NormalCombo)) {
-                return false;
-            }
-
-            NormalCombo normalCombo = (NormalCombo) e;
-            return (normalCombo.getA().equals(a) && normalCombo.getB().equals(b)) || (normalCombo.getA().equals(b) && normalCombo.getB().equals(a)) && normalCombo.getElement().equals(element);
-        });
-    }
-
-    private enum Permutation {
-        UNRESTRICTED,
-        RESTRICTED,
-        SETS
-    }
-
-    private static ArrayList<ImmutablePair<String, String>> processPermutations(Permutation permutation, JSONObject combo, Pack pack) {
-        ArrayList<ImmutablePair<String, String>> combos = new ArrayList<>();
-        if (permutation == Permutation.UNRESTRICTED) {
-            JSONArray elementsArray = combo.getJSONArray("elements");
-            ArrayList<String> elements = processTags(elementsArray, pack);
-            for (String a : elements) {
-                for (String b : elements) {
-                    if (!containsPair(a, b, combos) && !containsPair(b, a, combos) && !a.equals(b)) {
-                        combos.add(new ImmutablePair<>(a, b));
-                    }
-                }
-            }
-        } else if (permutation == Permutation.RESTRICTED) {
-            JSONArray firstArray = combo.getJSONArray("first elements");
-            JSONArray secondArray = combo.getJSONArray("second elements");
-            ArrayList<String> firstElements = processTags(firstArray, pack);
-            ArrayList<String> secondElements = processTags(secondArray, pack);
-            for (String a : firstElements) {
-                for (String b : secondElements) {
-                    if (!containsPair(a, b, combos)) {
-                        combos.add(new ImmutablePair<>(a, b));
-                    }
-                }
-            }
-        } else if (permutation == Permutation.SETS) {
-            JSONArray firstArray = combo.getJSONArray("first set");
-            JSONArray secondArray = combo.getJSONArray("second set");
-            ArrayList<String> firstElements = processTags(firstArray, pack);
-            ArrayList<String> secondElements = processTags(secondArray, pack);
-            for (int i = 0; i < firstElements.size(); i++) {
-                String a = firstElements.get(i);
-                String b = secondElements.get(i);
-                if (!containsPair(a, b, combos)) {
-                    combos.add(new ImmutablePair<>(a, b));
-                }
-            }
-        }
-        return combos;
-    }
-
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private static boolean containsPair(String a, String b, ArrayList<ImmutablePair<String, String>> list) {
-        for (ImmutablePair p : list) {
-            if (p.left.equals(a) && p.right.equals(b)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static ArrayList<String> processTags(JSONArray array, Pack pack) {
-        ArrayList<String> list = new ArrayList<>();
-        for (int i = 0; i < array.size(); i++) {
-            list.add(pack.getNamespacedName(array.getString(i)));
-        }
-        ListIterator<String> iterator = list.listIterator();
-        while (iterator.hasNext()) {
-            String string = iterator.next();
-            if (string.contains("tag:")) {
-                iterator.remove();
-                String tag = string.replace("tag:", "");
-                for (Group group : main.groups.keySet()) {
-                    for (Element element : main.groups.get(group)) {
-                        if (element.tags.contains(tag)) {
-                            iterator.add(element.name);
-                        }
-                    }
-                }
-            } else if (string.contains("group:")) {
-                iterator.remove();
-                String group = string.replace("group:", "");
-                for (Element element : main.groups.get(Group.getGroup(group))) {
-                    iterator.add(element.name);
-                }
-            }
-        }
-        return list;
-    }
-
     private void loadImage(String path) {
         this.setImage(main.loadImage(path));
         this.getImage().resize(SIZE, SIZE);
@@ -414,6 +95,18 @@ public class Element extends Button implements Comparable<Element> {
     void loadImage(PImage image) {
         this.setImage(image);
         this.getImage().resize(SIZE, SIZE);
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void addTag(String tag) {
+        this.tags.add(tag);
+    }
+
+    public ArrayList<String> getTags() {
+        return this.tags;
     }
 
     //making it public

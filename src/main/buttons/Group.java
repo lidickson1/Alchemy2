@@ -140,7 +140,7 @@ public class Group extends Button implements Comparable<Group> {
         }
     }
 
-    static Group getGroup(String name) {
+    public static Group getGroup(String name) {
         for (Group group : main.groups.keySet()) {
             if (group.name.equals(name)) {
                 return group;

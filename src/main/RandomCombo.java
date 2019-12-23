@@ -10,6 +10,7 @@ import processing.data.JSONArray;
 import processing.data.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -18,7 +19,7 @@ public class RandomCombo extends Entity {
     private EnumeratedDistribution<ArrayList<String>> elements;
     private ArrayList<Combo> combos = new ArrayList<>();
 
-    public RandomCombo(JSONArray array) {
+    RandomCombo(JSONArray array) {
         ArrayList<Pair<ArrayList<String>, Double>> list = new ArrayList<>();
         for (int i = 0; i < array.size(); i++) {
             JSONObject jsonObject = array.getJSONObject(i);
@@ -222,6 +223,18 @@ public class RandomCombo extends Entity {
             }
         }
         return list;
+    }
+
+    public void removeCombo(String a, String b) {
+        this.removeCombo(new ArrayList<>(Arrays.asList(a, b)));
+    }
+
+    public void removeCombo(ArrayList<String> ingredients) {
+        this.combos.removeIf(e -> CollectionUtils.isEqualCollection(e.getIngredients(), ingredients));
+    }
+
+    public boolean isEmpty() {
+        return this.combos.size() == 0;
     }
 
 }

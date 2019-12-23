@@ -5,4 +5,5 @@ example.bson
 src/META-INF
 .idea
 generation.txt
-packs
+resources/packs
+resources/saves

@@ -2,6 +2,7 @@ package main.rooms;
 
 import main.Generation;
 import main.Language;
+import main.LoadElements;
 import main.buttons.Element;
 import main.buttons.Group;
 import main.buttons.Pack;
@@ -68,7 +69,7 @@ public class Loading extends Room {
                 }
 
                 Group.loadGroups(groupsArray, pack);
-                Element.loadElements(elementsArray, pack);
+                LoadElements.loadElements(elementsArray, pack);
 
                 if (pack.hasAtlas()) {
                     pack.loadAtlas();
