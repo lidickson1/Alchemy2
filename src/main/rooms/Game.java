@@ -1,12 +1,13 @@
 package main.rooms;
 
+import main.Combo;
 import main.Language;
 import main.buttons.*;
 import main.buttons.iconbuttons.Exit;
 import main.buttons.iconbuttons.IconButton;
 import main.buttons.iconbuttons.Save;
 import main.exceptions.NoElementException;
-import org.apache.commons.lang3.tuple.ImmutableTriple;
+import org.apache.commons.collections4.CollectionUtils;
 import processing.core.PConstants;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
@@ -16,12 +17,13 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.TreeMap;
 
 public class Game extends Room {
 
     private TreeMap<Group, ArrayList<Element>> discovered = new TreeMap<>(Group::compareTo);
-    private ArrayList<ImmutableTriple<Element, Element, Element>> history = new ArrayList<>();
+    private ArrayList<Combo> history = new ArrayList<>();
 
     private SaveFile saveFile;
 
@@ -31,6 +33,7 @@ public class Game extends Room {
     private Exit exit;
     private IconButton historyButton;
     private IconButton hintButton;
+    private IconButton undoButton;
 
     private Arrow groupLeftArrow;
     private Arrow groupRightArrow;
@@ -43,6 +46,8 @@ public class Game extends Room {
 
     private boolean gameLoaded = false;
     private Element hintElement;
+
+    public String mode;
 
     public Game() {
         this.success = new Pane() {
@@ -91,7 +96,7 @@ public class Game extends Room {
         this.elementAUpArrow = new Arrow(Arrow.UP) {
             @Override
             protected boolean canDraw() {
-                return Group.getGroupSelectedA() != null && Element.pageNumberA > 0;
+                return Group.groupSelectedA != null && Element.pageNumberA > 0;
             }
 
             @Override
@@ -105,7 +110,7 @@ public class Game extends Room {
         this.elementADownArrow = new Arrow(Arrow.DOWN) {
             @Override
             protected boolean canDraw() {
-                return Group.getGroupSelectedA() != null && Element.pageNumberA < Element.totalPagesA - 1;
+                return Group.groupSelectedA != null && Element.pageNumberA < Element.totalPagesA - 1;
             }
 
             @Override
@@ -119,7 +124,7 @@ public class Game extends Room {
         this.elementBUpArrow = new Arrow(Arrow.UP) {
             @Override
             protected boolean canDraw() {
-                return Group.getGroupSelectedB() != null && Element.pageNumberB > 0;
+                return Group.groupSelectedB != null && Element.pageNumberB > 0;
             }
 
             @Override
@@ -133,7 +138,7 @@ public class Game extends Room {
         this.elementBDownArrow = new Arrow(Arrow.DOWN) {
             @Override
             protected boolean canDraw() {
-                return Group.getGroupSelectedB() != null && Element.pageNumberB < Element.totalPagesB - 1;
+                return Group.groupSelectedB != null && Element.pageNumberB < Element.totalPagesB - 1;
             }
 
             @Override
@@ -157,6 +162,13 @@ public class Game extends Room {
                 main.switchRoom(main.hintRoom);
             }
         };
+
+        this.undoButton = new IconButton("resources/images/undo_button.png") {
+            @Override
+            public void clicked() {
+                Game.this.undo();
+            }
+        };
     }
 
     @Override
@@ -169,8 +181,8 @@ public class Game extends Room {
             Group.reset();
             Element.reset();
 
-            if (this.saveFile == null) {
-                //new game
+            if (this.saveFile == null) { //new game
+                this.mode = "normal";
                 for (Pack pack : main.packsRoom.getLoadedPacks()) {
                     for (Element element : pack.getStartingElements()) {
                         this.addElement(element);
@@ -178,6 +190,7 @@ public class Game extends Room {
                 }
                 this.hintTime = LocalDateTime.now().plusMinutes(3);
             } else {
+                this.mode = this.saveFile.getJson().hasKey("mode") ? this.saveFile.getJson().getString("mode") : "normal";
                 JSONArray array = this.saveFile.getJson().getJSONArray("elements");
                 for (int i = 0; i < array.size(); i++) {
                     try {
@@ -256,6 +269,9 @@ public class Game extends Room {
             this.save.draw(x - (IconButton.SIZE + IconButton.GAP), y);
             this.historyButton.draw(x - (IconButton.SIZE + IconButton.GAP) * 2, y);
             this.hintButton.draw(x - (IconButton.SIZE + IconButton.GAP) * 3, y);
+            if (this.mode.equals("puzzle")) {
+                this.undoButton.draw(x - (IconButton.SIZE + IconButton.GAP) * 4, y);
+            }
         }
     }
 
@@ -331,7 +347,7 @@ public class Game extends Room {
         this.addElement(element);
     }
 
-    boolean isDiscovered(String element) {
+    public boolean isDiscovered(String element) {
         Group group = main.elements.get(element);
         if (!this.discovered.containsKey(group)) {
             return false;
@@ -344,7 +360,7 @@ public class Game extends Room {
         return false;
     }
 
-    public ArrayList<ImmutableTriple<Element, Element, Element>> getHistory() {
+    public ArrayList<Combo> getHistory() {
         return this.history;
     }
 
@@ -352,14 +368,68 @@ public class Game extends Room {
         return this.discovered;
     }
 
+    private void undo() {
+        if (this.history.size() > 0) {
+            ArrayList<String> ingredients = this.history.get(this.history.size() - 1).getIngredients();
+            ArrayList<String> created = new ArrayList<>();
+            //we need to get all combos that had the same ingredients, because the same ingredients can trigger multiple combos
+            for (int i = this.history.size() - 1; i >= 0; i--) {
+                Combo combo = this.history.get(i);
+                if (CollectionUtils.isEqualCollection(ingredients, combo.getIngredients())) {
+                    for (int j = 0;j < combo.getAmount();j++) {
+                        created.add(combo.getElement());
+                    }
+                } else {
+                    break;
+                }
+            }
+            for (String ingredient : ingredients) {
+                try {
+                    this.addElement(ingredient);
+                } catch (NoElementException ignored) {
+                }
+            }
+            for (String element : created) {
+                this.removeElement(element);
+            }
+            Element.updateA();
+            Element.updateB();
+        }
+    }
+
     public void addElement(Element element) {
         Group group = element.getGroup();
-        if (!this.discovered.containsKey(group)) {
-            this.discovered.put(group, new ArrayList<>(Collections.singletonList(element)));
-        } else if (!this.discovered.get(group).contains(element)) { //TODO: remove this check for puzzle mode
-            this.discovered.get(group).add(element);
+        boolean addElement = false;
+        if (this.mode.equals("normal")) {
+            addElement = !this.discovered.containsKey(group) || !this.discovered.get(group).contains(element);
+        } else if (this.mode.equals("puzzle")) {
+            addElement = true;
+        }
+        if (addElement) {
+            if (!this.discovered.containsKey(group)) {
+                this.discovered.put(group, new ArrayList<>(Collections.singletonList(element)));
+            } else {
+                this.discovered.get(group).add(element);
+            }
         }
         this.discovered.get(group).sort(Element::compareTo);
+    }
+
+    //direct Element objects cannot be used because they are copies
+    public void removeElement(String string) {
+        Group group = main.elements.get(string);
+        //using iterator here because we are only removing one occurrence
+        Iterator<Element> iterator = this.discovered.get(group).iterator();
+        while (iterator.hasNext()) {
+            Element element = iterator.next();
+            if (element.getName().equals(string)) {
+                iterator.remove();
+                break;
+            }
+        }
+        if (this.discovered.get(group).size() == 0) {
+            this.discovered.remove(group);
+        }
     }
 
     @Override
@@ -368,6 +438,7 @@ public class Game extends Room {
         this.save.mousePressed();
         this.historyButton.mousePressed();
         this.hintButton.mousePressed();
+        this.undoButton.mousePressed();
 
         this.groupLeftArrow.mousePressed();
         this.groupRightArrow.mousePressed();
@@ -382,15 +453,15 @@ public class Game extends Room {
                 group.mousePressed();
             }
 
-            if (Group.getGroupSelectedA() != null) {
-                Group.getGroupSelectedA().mousePressed();
+            if (Group.groupSelectedA != null) {
+                Group.groupSelectedA.mousePressed();
                 for (Element element : Element.getElementsA()) {
                     element.mousePressed();
                 }
             }
 
-            if (Group.getGroupSelectedB() != null) {
-                Group.getGroupSelectedB().mousePressed();
+            if (Group.groupSelectedB != null) {
+                Group.groupSelectedB.mousePressed();
                 for (Element element : Element.getElementsB()) {
                     element.mousePressed();
                 }

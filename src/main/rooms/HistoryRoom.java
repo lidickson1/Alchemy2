@@ -1,15 +1,17 @@
 package main.rooms;
 
+import main.Combo;
 import main.buttons.Arrow;
 import main.buttons.Element;
 import main.buttons.iconbuttons.Exit;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import processing.core.PImage;
 
+import java.util.ArrayList;
+
 public class HistoryRoom extends Room {
 
     private static final int GAP = 30;
-    private static final int MAX = 6;
     private static PImage plus;
     private static PImage equal;
 
@@ -19,6 +21,8 @@ public class HistoryRoom extends Room {
     private Exit exit;
     private Arrow leftArrow;
     private Arrow rightArrow;
+
+    private ArrayList<ImmutableTriple<Element, Element, Element>> triples = new ArrayList<>();
 
     public HistoryRoom() {
         this.exit = new Exit();
@@ -61,7 +65,11 @@ public class HistoryRoom extends Room {
         }
 
         pageNumber = 0;
-        totalPages = (int) Math.ceil((float) main.game.getHistory().size() / MAX);
+
+        this.triples.clear();
+        for (Combo combo : main.game.getHistory()) {
+            this.triples.addAll(combo.toTriples());
+        }
     }
 
     @Override
@@ -71,11 +79,19 @@ public class HistoryRoom extends Room {
         int length = Element.SIZE + GAP + plus.width + GAP + Element.SIZE + GAP + equal.width + GAP + Element.SIZE;
         int x;
         int y = 150;
-        for (int i = pageNumber * MAX; i < (pageNumber + 1) * MAX; i++) {
-            if (i < main.game.getHistory().size()) {
-                ImmutableTriple<Element, Element, Element> triple = main.game.getHistory().get(i);
+        int max = Math.floorDiv(main.screenHeight - y - 40 - Arrow.SIZE, Element.HEIGHT + GAP);
+        totalPages = (int) Math.ceil((float) this.triples.size() / max);
+        if (totalPages == 0) {
+            pageNumber = 0;
+        } else if (pageNumber >= totalPages) {
+            pageNumber = totalPages - 1;
+        }
+
+        for (int i = pageNumber * max; i < (pageNumber + 1) * max; i++) {
+            if (i < this.triples.size()) {
+                ImmutableTriple<Element, Element, Element> triple = this.triples.get(i);
                 x = main.screenWidth / 2 - length / 2;
-                if (i > 0 && main.game.getHistory().get(i - 1).right == null && triple.left != null) {
+                if (i > 0 && this.triples.get(i - 1).right == null && triple.left != null) {
                     main.image(plus, x - Element.SIZE - GAP, y);
                 }
                 if (triple.left != null) {

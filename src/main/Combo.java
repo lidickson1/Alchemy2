@@ -1,26 +1,40 @@
 package main;
 
-public class Combo {
+import main.buttons.Element;
+import org.apache.commons.lang3.tuple.ImmutableTriple;
+
+import java.util.ArrayList;
+
+public abstract class Combo extends Entity {
 
     private String element;
-    private String a;
-    private String b;
+    private int amount = 1;
 
-    public Combo(String element, String a, String b) {
+    Combo(String element) {
         this.element = element;
-        this.a = a;
-        this.b = b;
     }
 
     public String getElement() {
         return this.element;
     }
 
-    public String getA() {
-        return this.a;
+    public int getAmount() {
+        return this.amount;
     }
 
-    public String getB() {
-        return this.b;
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public abstract boolean canCreate();
+
+    public abstract ArrayList<ImmutableTriple<Element, Element, Element>> toTriples();
+
+    public abstract ArrayList<String> getIngredients();
+
+    public abstract boolean ingredientsDiscovered();
+
+    public void setElement(String element) {
+        this.element = element;
     }
 }

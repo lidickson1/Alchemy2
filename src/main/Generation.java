@@ -2,14 +2,11 @@ package main;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Scanner;
 
 public class Generation {
 
-    public static void generate(HashSet<String> elements, HashSet<Combo> combos, HashMap<String, ArrayList<ArrayList<String>>> multicombos) {
+    public static void generate(HashSet<String> elements, HashSet<Combo> combos) {
         HashSet<String> discovered = new HashSet<>();
 
         discovered.add("alchemy:air");
@@ -24,27 +21,29 @@ public class Generation {
                 printWriter.println("Generation: " + generation);
                 HashSet<String> created = new HashSet<>(); //elements just created in this generation
                 for (Combo combo : combos) {
-                    if (!discovered.contains(combo.getElement()) && discovered.contains(combo.getA()) && discovered.contains(combo.getB())) {
-                        created.add(combo.getElement());
-                    }
-                }
-                for (String key : multicombos.keySet()) {
-                    if (!discovered.contains(key)) {
-                        for (ArrayList<String> list : multicombos.get(key)) {
+                    //cannot use canCreate here because we are not using main.game.discovered
+                    if (!discovered.contains(combo.getElement())) {
+                        if (combo instanceof NormalCombo) {
+                            NormalCombo normalCombo = (NormalCombo) combo;
+                            if (!discovered.contains(normalCombo.getElement()) && discovered.contains(normalCombo.getA()) && discovered.contains(normalCombo.getB())) {
+                                created.add(normalCombo.getElement());
+                            }
+                        } else if (combo instanceof MultiCombo) {
+                            MultiCombo multiCombo = (MultiCombo) combo;
                             boolean flag = true;
-                            for (String element : list) {
-                                if (!discovered.contains(element)) {
+                            for (String ingredient : multiCombo.getIngredients()) {
+                                if (!discovered.contains(ingredient)) {
                                     flag = false;
                                     break;
                                 }
                             }
                             if (flag) {
-                                created.add(key);
-                                break;
+                                discovered.add(multiCombo.getElement());
                             }
                         }
                     }
                 }
+
                 printWriter.println(String.join(", ", created));
                 discovered.addAll(created);
                 generation++;

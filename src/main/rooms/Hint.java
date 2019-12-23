@@ -2,6 +2,8 @@ package main.rooms;
 
 import main.Combo;
 import main.Language;
+import main.NormalCombo;
+import main.RandomCombo;
 import main.buttons.Element;
 import main.buttons.Group;
 import main.buttons.iconbuttons.Exit;
@@ -92,25 +94,13 @@ public class Hint extends Room {
     void getElementHint() throws NoHintAvailable {
         ArrayList<String> possibleElements = new ArrayList<>();
         for (Combo combo : main.comboList) {
-            if (!main.game.isDiscovered(combo.getElement()) && main.game.isDiscovered(combo.getA()) && main.game.isDiscovered(combo.getB())) {
+            if (combo.canCreate()) {
                 possibleElements.add(combo.getElement());
             }
         }
-        for (String key : main.multiComboList.keySet()) {
-            if (!main.game.isDiscovered(key)) {
-                for (ArrayList<String> list : main.multiComboList.get(key)) {
-                    boolean discovered = true;
-                    for (String element : list) {
-                        if (!main.game.isDiscovered(element)) {
-                            discovered = false;
-                            break;
-                        }
-                    }
-                    if (discovered) {
-                        possibleElements.add(key);
-                        break;
-                    }
-                }
+        for (RandomCombo randomCombo : main.randomCombos) {
+            if (randomCombo.canCreate()) {
+                possibleElements.addAll(randomCombo.getAllResults());
             }
         }
 
@@ -123,11 +113,17 @@ public class Hint extends Room {
         main.switchRoom(main.game);
     }
 
+    //TODO: MultiCombo with ingredients that just happen to only be in 2 groups
     private void getGroupHint() throws NoHintAvailable {
-        ArrayList<Combo> possibleCombos = new ArrayList<>();
+        ArrayList<NormalCombo> possibleCombos = new ArrayList<>();
         for (Combo combo : main.comboList) {
-            if (!main.game.isDiscovered(combo.getElement()) && main.game.isDiscovered(combo.getA()) && main.game.isDiscovered(combo.getB())) {
-                possibleCombos.add(combo);
+            if (combo instanceof NormalCombo && combo.canCreate()) {
+                possibleCombos.add((NormalCombo) combo);
+            }
+        }
+        for (RandomCombo randomCombo : main.randomCombos) {
+            if (randomCombo.canCreate()) {
+                possibleCombos.addAll(randomCombo.getCanCreate());
             }
         }
 

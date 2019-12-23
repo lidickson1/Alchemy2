@@ -2,7 +2,10 @@
     "volume": 0.43079588,
     "music": false,
     "fullscreen": false,
-    "group colour": true,
+    "group colour": false,
     "sound": false,
-    "loaded packs": ["Alchemy"]
+    "loaded packs": [
+        "Test Pack",
+        "Alchemy"
+    ]
 }

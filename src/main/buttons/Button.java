@@ -9,6 +9,7 @@ public class Button extends Entity {
 
     public static AudioPlayer click;
     private static final int ALPHA = 80;
+    private static PImage error;
 
     private float x;
     private float y;
@@ -30,6 +31,10 @@ public class Button extends Entity {
         this(width, height);
         this.image = image;
         this.image.resize(width, height);
+        if (this.image == null) {
+            this.image = error.copy();
+            this.image.resize(this.width, this.height);
+        }
     }
 
     Button(int width, int height) {
@@ -37,8 +42,16 @@ public class Button extends Entity {
         this.height = height;
     }
 
+    public static void setErrorImage() {
+        error = main.loadImage("resources/images/error.png");
+    }
+
     void setImage(PImage image) {
         this.image = image;
+        if (this.image == null) {
+            this.image = error.copy();
+            this.image.resize(this.width, this.height);
+        }
     }
 
     //using getImage() here so it's easier to implement ToggleButton
@@ -158,16 +171,8 @@ public class Button extends Entity {
         return this.height;
     }
 
-    protected void setWidth(int width) {
-        this.width = width;
-    }
-
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
-    }
-
-    protected boolean isDisabled() {
-        return this.disabled;
     }
 
 }

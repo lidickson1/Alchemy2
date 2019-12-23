@@ -29,8 +29,8 @@ public class Group extends Button implements Comparable<Group> {
     public static int groupSelectedAY;
     public static int groupSelectedBY;
 
-    private static Group groupSelectedA;
-    private static Group groupSelectedB;
+    public static Group groupSelectedA;
+    public static Group groupSelectedB;
 
     private static float deltaX;
     private static float deltaY;
@@ -276,12 +276,13 @@ public class Group extends Button implements Comparable<Group> {
         return this.colour;
     }
 
-    public static Group getGroupSelectedA() {
-        return groupSelectedA;
-    }
-
-    public static Group getGroupSelectedB() {
-        return groupSelectedB;
+    boolean exists() {
+        for (Group group : main.game.getDiscovered().keySet()) {
+            if (group.name.equals(this.name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Group deepCopy() {

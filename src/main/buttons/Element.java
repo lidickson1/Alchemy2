@@ -1,14 +1,12 @@
 package main.buttons;
 
 import com.sun.istack.internal.Nullable;
-import main.Combo;
-import main.Language;
+import main.*;
 import main.rooms.ElementRoom;
 import main.rooms.Game;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
-import org.apache.commons.lang3.tuple.MutableTriple;
 import processing.core.PConstants;
 import processing.core.PImage;
 import processing.data.JSONArray;
@@ -26,7 +24,6 @@ public class Element extends Button implements Comparable<Element> {
     private static final int GAP = 30;
     private static final int ALPHA_CHANGE = 10;
     private static final int FAILED_TIME = 500;
-    private static final int MULTI_MAX = 7; //maximum elements that can be multi-selected
 
     private static int maxElements;
 
@@ -97,6 +94,7 @@ public class Element extends Button implements Comparable<Element> {
 
     public static void loadElements(JSONArray array, Pack pack) {
         ArrayList<ImmutableTriple<String, Permutation, JSONObject>> permutations = new ArrayList<>();
+        ArrayList<ImmutableTriple<RandomCombo, Permutation, JSONObject>> randomPermutations = new ArrayList<>();
         ArrayList<ImmutableTriple<String, Permutation, JSONObject>> removes = new ArrayList<>();
         @SuppressWarnings("SpellCheckingInspection") ArrayList<ImmutablePair<String, JSONArray>> removeMultis = new ArrayList<>(); //remove combos with multiple ingredients
 
@@ -106,8 +104,10 @@ public class Element extends Button implements Comparable<Element> {
 
             if (object.hasKey("remove")) {
                 String remove = object.getString("remove");
+                //noinspection IfCanBeSwitch
                 if (remove.equals("all")) {
                     main.comboList.clear();
+                    main.randomCombos.clear();
                     main.loading.removeAllElements(); //this needs to be called first or else we can't determine how much progress to remove
                     for (HashSet<Element> list : main.groups.values()) {
                         list.clear();
@@ -117,7 +117,9 @@ public class Element extends Button implements Comparable<Element> {
                     //remove all combos of an element
                     String elementName = pack.getNamespacedName(object.getString("element"));
                     main.comboList.removeIf(e -> e.getElement().equals(elementName));
-                    main.multiComboList.remove(elementName);
+                    for (RandomCombo randomCombo : main.randomCombos) {
+                        randomCombo.removeElement(elementName);
+                    }
                     Element element1 = Element.getElement(elementName);
                     if (element1 != null) {
                         main.groups.get(element1.group).remove(element1);
@@ -126,7 +128,7 @@ public class Element extends Button implements Comparable<Element> {
                     } else {
                         System.err.println(elementName + " could not be removed!");
                     }
-                } else {
+                } else if (remove.equals("combo")) {
                     JSONArray combos = object.getJSONArray("combos");
                     for (int j = 0; j < combos.size(); j++) {
                         JSONObject combo = combos.getJSONObject(j);
@@ -146,6 +148,35 @@ public class Element extends Button implements Comparable<Element> {
                     }
                     main.loading.removeCombo();
                 }
+                //TODO: remove random
+            } else if (object.hasKey("combo") && object.hasKey("result")) {
+                //random
+                RandomCombo randomCombo = new RandomCombo(object.getJSONArray("result"));
+                JSONObject combo = object.getJSONObject("combo");
+                if (combo.hasKey("first element")) {
+                    NormalCombo combo1 = new NormalCombo(element, pack.getNamespacedName(combo.getString("first element")), pack.getNamespacedName(combo.getString("second element")));
+                    if (combo.hasKey("amount")) {
+                        combo1.setAmount(combo.getInt("amount"));
+                    }
+                    randomCombo.addCombo(combo1);
+                } else if (combo.hasKey("elements")) {
+                    if (combo.hasKey("paired") && combo.getBoolean("paired")) {
+                        randomPermutations.add(new ImmutableTriple<>(randomCombo, Permutation.UNRESTRICTED, combo));
+                    } else {
+                        JSONArray elements = combo.getJSONArray("elements");
+                        ArrayList<String> list = processTags(elements, pack);
+                        MultiCombo multiCombo = new MultiCombo(element, list);
+                        int count = combo.hasKey("amount") ? combo.getInt("amount") : 1;
+                        multiCombo.setAmount(count);
+                        randomCombo.addCombo(multiCombo);
+                    }
+                } else if (combo.hasKey("first elements")) {
+                    randomPermutations.add(new ImmutableTriple<>(randomCombo, Permutation.RESTRICTED, combo));
+                } else {
+                    randomPermutations.add(new ImmutableTriple<>(randomCombo, Permutation.SETS, combo));
+                }
+                main.randomCombos.add(randomCombo);
+                main.loading.randomCombo();
             } else {
                 Group group = Group.getGroup(pack.getNamespacedName(object.getString("group")));
                 Element e = new Element(element, group, pack);
@@ -154,8 +185,16 @@ public class Element extends Button implements Comparable<Element> {
                     main.loading.elementFailed();
                     continue;
                 }
-                main.groups.get(group).add(e);
-                main.elements.put(element, group);
+
+                //element might exist because we allow existing elements to be modified
+                if (main.elements.containsKey(element)) {
+                    e = Element.getElement(element);
+                    assert e != null;
+                    main.loading.modifyElement();
+                } else {
+                    main.groups.get(group).add(e);
+                    main.elements.put(element, group);
+                }
 
                 if (object.hasKey("description")) {
                     e.description = object.getString("description");
@@ -174,18 +213,21 @@ public class Element extends Button implements Comparable<Element> {
                     for (int j = 0; j < combos.size(); j++) {
                         JSONObject combo = combos.getJSONObject(j);
                         if (combo.hasKey("first element")) {
-                            main.comboList.add(new Combo(element, pack.getNamespacedName(combo.getString("first element")), pack.getNamespacedName(combo.getString("second element"))));
+                            NormalCombo combo1 = new NormalCombo(element, pack.getNamespacedName(combo.getString("first element")), pack.getNamespacedName(combo.getString("second element")));
+                            if (combo.hasKey("amount")) {
+                                combo1.setAmount(combo.getInt("amount"));
+                            }
+                            main.comboList.add(combo1);
                         } else if (combo.hasKey("elements")) {
                             if (combo.hasKey("paired") && combo.getBoolean("paired")) {
                                 permutations.add(new ImmutableTriple<>(element, Permutation.UNRESTRICTED, combo));
                             } else {
                                 JSONArray elements = combo.getJSONArray("elements");
                                 ArrayList<String> list = processTags(elements, pack);
-                                list.sort(String::compareTo); //this makes removing easier
-                                if (!main.multiComboList.containsKey(element)) {
-                                    main.multiComboList.put(element, new ArrayList<>());
-                                }
-                                main.multiComboList.get(element).add(list);
+                                MultiCombo multiCombo = new MultiCombo(element, list);
+                                int count = combo.hasKey("amount") ? combo.getInt("amount") : 1;
+                                multiCombo.setAmount(count);
+                                main.comboList.add(multiCombo);
                             }
                         } else if (combo.hasKey("first elements")) {
                             permutations.add(new ImmutableTriple<>(element, Permutation.RESTRICTED, combo));
@@ -204,7 +246,23 @@ public class Element extends Button implements Comparable<Element> {
             JSONObject combo = triple.right;
             ArrayList<ImmutablePair<String, String>> combos = processPermutations(triple.middle, combo, pack);
             for (ImmutablePair<String, String> pair : combos) {
-                main.comboList.add(new Combo(triple.left, pair.left, pair.right));
+                NormalCombo combo1 = new NormalCombo(triple.left, pair.left, pair.right);
+                if (combo.hasKey("amount")) {
+                    combo1.setAmount(combo.getInt("amount"));
+                }
+                main.comboList.add(combo1);
+            }
+        }
+
+        for (ImmutableTriple<RandomCombo, Permutation, JSONObject> triple : randomPermutations) {
+            JSONObject combo = triple.right;
+            ArrayList<ImmutablePair<String, String>> combos = processPermutations(triple.middle, combo, pack);
+            for (ImmutablePair<String, String> pair : combos) {
+                NormalCombo combo1 = new NormalCombo(null, pair.left, pair.right);
+                if (combo.hasKey("amount")) {
+                    combo1.setAmount(combo.getInt("amount"));
+                }
+                triple.left.addCombo(combo1);
             }
         }
 
@@ -220,7 +278,7 @@ public class Element extends Button implements Comparable<Element> {
         for (ImmutablePair<String, JSONArray> pair : removeMultis) {
             ArrayList<String> list = processTags(pair.right, pack);
             list.sort(String::compareTo);
-            main.multiComboList.get(pair.left).removeIf(e -> CollectionUtils.isEqualCollection(list, e));
+            main.comboList.removeIf(e -> (e instanceof MultiCombo) && CollectionUtils.isEqualCollection(list, e.getIngredients()));
         }
 
         validateCombos();
@@ -237,19 +295,30 @@ public class Element extends Button implements Comparable<Element> {
 //        main.saveJSONArray(comboArray, "combos.json");
     }
 
+    //TODO: validate MultiCombo
     private static void validateCombos() {
         for (Combo combo : main.comboList) {
-            if (!main.elements.containsKey(combo.getA())) {
-                System.err.println("Error with combo: " + combo.getA() + " doesn't exist!");
-            }
-            if (!main.elements.containsKey(combo.getB())) {
-                System.err.println("Error with combo: " + combo.getB() + " doesn't exist!");
+            if (combo instanceof NormalCombo) {
+                NormalCombo normalCombo = (NormalCombo) combo;
+                if (!main.elements.containsKey(normalCombo.getA())) {
+                    System.err.println("Error with combo: " + normalCombo.getA() + " doesn't exist!");
+                }
+                if (!main.elements.containsKey(normalCombo.getB())) {
+                    System.err.println("Error with combo: " + normalCombo.getB() + " doesn't exist!");
+                }
             }
         }
     }
 
     private static void removeCombo(String element, String a, String b) {
-        main.comboList.removeIf(t -> (a.equals(t.getA()) && b.equals(t.getB()) || (a.equals(t.getB()) && b.equals(t.getA())) && element.equals(t.getElement())));
+        main.comboList.removeIf((e) -> {
+            if (!(e instanceof NormalCombo)) {
+                return false;
+            }
+
+            NormalCombo normalCombo = (NormalCombo) e;
+            return (normalCombo.getA().equals(a) && normalCombo.getB().equals(b)) || (normalCombo.getA().equals(b) && normalCombo.getB().equals(a)) && normalCombo.getElement().equals(element);
+        });
     }
 
     private enum Permutation {
@@ -347,6 +416,7 @@ public class Element extends Button implements Comparable<Element> {
         this.getImage().resize(SIZE, SIZE);
     }
 
+    //making it public
     @Override
     public PImage getImage() {
         return super.getImage();
@@ -371,6 +441,10 @@ public class Element extends Button implements Comparable<Element> {
                             break;
                         }
                     }
+                }
+
+                if (element.getImage() == null) {
+                    element.setImage(null);
                 }
 
                 main.loading.updateProgress();
@@ -414,8 +488,8 @@ public class Element extends Button implements Comparable<Element> {
         int x = Group.groupSelectedX + Group.SIZE + Group.GAP;
         int y = Group.groupSelectedAY;
         ArrayList<Element> elements;
-        if (Group.getGroupSelectedA() != null) {
-            totalPagesA = (int) Math.ceil((float) main.game.getDiscovered().get(Group.getGroupSelectedA()).size() / maxElements);
+        if (Group.groupSelectedA != null) {
+            totalPagesA = (int) Math.ceil((float) main.game.getDiscovered().get(Group.groupSelectedA).size() / maxElements);
             elements = getElementsA();
             for (int i = 0; i < elements.size(); i++) {
                 elements.get(i).updateAlpha();
@@ -430,8 +504,8 @@ public class Element extends Button implements Comparable<Element> {
 
         x = Group.groupSelectedX + Group.SIZE + Group.GAP;
         y = Group.groupSelectedBY;
-        if (Group.getGroupSelectedB() != null) {
-            totalPagesB = (int) Math.ceil((float) main.game.getDiscovered().get(Group.getGroupSelectedB()).size() / maxElements);
+        if (Group.groupSelectedB != null) {
+            totalPagesB = (int) Math.ceil((float) main.game.getDiscovered().get(Group.groupSelectedB).size() / maxElements);
             elements = getElementsB();
             for (int i = 0; i < elements.size(); i++) {
                 elements.get(i).updateAlpha();
@@ -607,40 +681,40 @@ public class Element extends Button implements Comparable<Element> {
         for (Element element : elementsSelected) {
             elementsSelectedString.add(element.name);
         }
-        elementsSelectedString.sort(String::compareTo);
 
         elementsCreated.clear();
-        for (String key : main.multiComboList.keySet()) {
-            for (ArrayList<String> list : main.multiComboList.get(key)) {
-                if (CollectionUtils.isEqualCollection(list, elementsSelectedString)) {
-                    elementsCreated.add(Element.getElement(key));
+        for (Combo combo : main.comboList) {
+            if (combo instanceof MultiCombo) {
+                MultiCombo multiCombo = (MultiCombo) combo;
+                if (CollectionUtils.isEqualCollection(multiCombo.getIngredients(), elementsSelectedString)) {
+                    for (int i = 0; i < multiCombo.getAmount(); i++) {
+                        elementsCreated.add(Element.getElement(multiCombo.getElement()));
+                    }
+                    main.game.getHistory().add(multiCombo);
+                }
+            }
+        }
+
+        for (RandomCombo randomCombo : main.randomCombos) {
+            MultiCombo multiCombo = randomCombo.canCreate(elementsSelectedString);
+            if (multiCombo != null) {
+                ArrayList<Element> randomElements = randomCombo.getElements();
+                elementsCreated.addAll(randomElements);
+                for (Element element : randomElements) {
+                    main.game.getHistory().add(new MultiCombo(element.name, multiCombo.getIngredients()));
                 }
             }
         }
 
         if (elementsCreated.size() > 0) {
             for (Element element : elementsCreated) {
-                //check if it's already discovered
-                if (!main.game.getDiscovered().containsKey(element.group) || !main.game.getDiscovered().get(element.group).contains(element)) {
-                    main.game.addElement(element);
-                }
+                main.game.addElement(element);
+            }
 
-                //add to history
-                int counter = elementsSelected.size();
-                do {
-                    MutableTriple<Element, Element, Element> triple;
-                    if (counter >= 2) {
-                        triple = new MutableTriple<>(elementsSelected.get(elementsSelected.size() - counter), elementsSelected.get(elementsSelected.size() - counter + 1), null);
-                        counter -= 2;
-                    } else {
-                        triple = new MutableTriple<>(null, elementsSelected.get(elementsSelected.size() - 1), null);
-                        counter--;
-                    }
-                    if (counter == 0) {
-                        triple.right = element;
-                    }
-                    main.game.getHistory().add(new ImmutableTriple<>(triple.left, triple.middle, triple.right));
-                } while (counter > 0);
+            if (main.game.mode.equals("puzzle")) {
+                for (Element element : elementsSelected) {
+                    main.game.removeElement(element.name);
+                }
             }
 
             //need to update because affected groups might be already selected
@@ -659,21 +733,38 @@ public class Element extends Button implements Comparable<Element> {
             //check for combos
             elementsCreated.clear();
             for (Combo combo : main.comboList) {
-                if ((combo.getA().equals(elementSelectedA.name) && combo.getB().equals(elementSelectedB.name)) || (combo.getA().equals(elementSelectedB.name) && combo.getB().equals(elementSelectedA.name))) {
-                    elementsCreated.add(Element.getElement(combo.getElement()));
+                if (combo instanceof NormalCombo) {
+                    NormalCombo normalCombo = (NormalCombo) combo;
+                    if ((normalCombo.getA().equals(elementSelectedA.name) && normalCombo.getB().equals(elementSelectedB.name)) || (normalCombo.getA().equals(elementSelectedB.name) && normalCombo.getB().equals(elementSelectedA.name))) {
+                        for (int i = 0; i < combo.getAmount(); i++) {
+                            elementsCreated.add(Element.getElement(combo.getElement()));
+                        }
+                        main.game.getHistory().add(normalCombo);
+                    }
+                }
+            }
+
+            for (RandomCombo randomCombo : main.randomCombos) {
+                NormalCombo normalCombo = randomCombo.canCreate(elementSelectedA, elementSelectedB);
+                if (normalCombo != null) {
+                    ArrayList<Element> randomElements = randomCombo.getElements();
+                    elementsCreated.addAll(randomElements);
+                    for (Element element : randomElements) {
+                        main.game.getHistory().add(new NormalCombo(element.name, normalCombo.getA(), normalCombo.getB()));
+                    }
                 }
             }
 
             if (elementsCreated.size() > 0) {
 
                 for (Element element : elementsCreated) {
-                    //check if it's already discovered
-                    if (!main.game.getDiscovered().containsKey(element.group) || !main.game.getDiscovered().get(element.group).contains(element)) {
-                        main.game.addElement(element);
-                    }
+                    //element adding conditions has been refactored into the method
+                    main.game.addElement(element);
+                }
 
-                    //add to history
-                    main.game.getHistory().add(new ImmutableTriple<>(elementSelectedA, elementSelectedB, element));
+                if (main.game.mode.equals("puzzle")) {
+                    main.game.removeElement(elementSelectedA.name);
+                    main.game.removeElement(elementSelectedB.name);
                 }
 
                 //need to update because affected groups might be already selected
@@ -720,59 +811,65 @@ public class Element extends Button implements Comparable<Element> {
         main.tint(255, this.alpha);
     }
 
-    private static void updateA() {
+    public static void updateA() {
         elementsA.clear();
-        if (Group.getGroupSelectedA() != null) {
-            for (Element element : main.game.getDiscovered().get(Group.getGroupSelectedA())) {
-                elementsA.add(element.deepCopy(Group.getGroupSelectedA(), 255, 0));
+        //group might be gone if we are in puzzle mode
+        if (Group.groupSelectedA != null && Group.groupSelectedA.exists()) {
+            for (Element element : main.game.getDiscovered().get(Group.groupSelectedA)) {
+                elementsA.add(element.deepCopy(Group.groupSelectedA, 255, 0));
             }
+        } else {
+            Group.groupSelectedA = null;
         }
     }
 
     static void resetA() {
         pageNumberA = 0;
         elementsA.clear();
-        for (int i = 0; i < main.game.getDiscovered().get(Group.getGroupSelectedA()).size(); i++) {
-            Element element = main.game.getDiscovered().get(Group.getGroupSelectedA()).get(i);
+        for (int i = 0; i < main.game.getDiscovered().get(Group.groupSelectedA).size(); i++) {
+            Element element = main.game.getDiscovered().get(Group.groupSelectedA).get(i);
             if (i < maxElements) {
-                elementsA.add(element.deepCopy(Group.getGroupSelectedA(), 0, ALPHA_CHANGE));
+                elementsA.add(element.deepCopy(Group.groupSelectedA, 0, ALPHA_CHANGE));
             } else {
                 //elements that are not on the first page don't need to fade in
-                elementsA.add(element.deepCopy(Group.getGroupSelectedA(), 255, 0));
+                elementsA.add(element.deepCopy(Group.groupSelectedA, 255, 0));
             }
         }
-        totalPagesA = (int) Math.ceil((float) main.game.getDiscovered().get(Group.getGroupSelectedA()).size() / maxElements);
+        totalPagesA = (int) Math.ceil((float) main.game.getDiscovered().get(Group.groupSelectedA).size() / maxElements);
     }
 
-    private static void updateB() {
+    public static void updateB() {
         elementsB.clear();
-        if (Group.getGroupSelectedB() != null) {
-            for (Element element : main.game.getDiscovered().get(Group.getGroupSelectedB())) {
-                elementsB.add(element.deepCopy(Group.getGroupSelectedB(), 255, 0));
+        //group might be gone if we are in puzzle mode
+        if (Group.groupSelectedB != null && Group.groupSelectedB.exists()) {
+            for (Element element : main.game.getDiscovered().get(Group.groupSelectedB)) {
+                elementsB.add(element.deepCopy(Group.groupSelectedB, 255, 0));
             }
+        } else {
+            Group.groupSelectedB = null;
         }
     }
 
     static void resetB() {
         pageNumberB = 0;
         elementsB.clear();
-        for (int i = 0; i < main.game.getDiscovered().get(Group.getGroupSelectedB()).size(); i++) {
-            Element element = main.game.getDiscovered().get(Group.getGroupSelectedB()).get(i);
+        for (int i = 0; i < main.game.getDiscovered().get(Group.groupSelectedB).size(); i++) {
+            Element element = main.game.getDiscovered().get(Group.groupSelectedB).get(i);
             if (i < maxElements) {
-                elementsB.add(element.deepCopy(Group.getGroupSelectedB(), 0, ALPHA_CHANGE));
+                elementsB.add(element.deepCopy(Group.groupSelectedB, 0, ALPHA_CHANGE));
             } else {
                 //elements that are not on the first page don't need to fade in
-                elementsB.add(element.deepCopy(Group.getGroupSelectedB(), 255, 0));
+                elementsB.add(element.deepCopy(Group.groupSelectedB, 255, 0));
             }
         }
-        totalPagesB = (int) Math.ceil((float) main.game.getDiscovered().get(Group.getGroupSelectedB()).size() / maxElements);
+        totalPagesB = (int) Math.ceil((float) main.game.getDiscovered().get(Group.groupSelectedB).size() / maxElements);
     }
 
     static void hidePagesA() {
         //this is necessary because the first element clicked can be from group B
-        if (elementSelectedA != null && elementSelectedA.group == Group.getGroupSelectedA()) {
+        if (elementSelectedA != null && elementSelectedA.group == Group.groupSelectedA) {
             elementSelectedA = null;
-        } else if (elementSelectedB != null && elementSelectedB.group == Group.getGroupSelectedA()) {
+        } else if (elementSelectedB != null && elementSelectedB.group == Group.groupSelectedA) {
             elementSelectedB = null;
         }
         for (Element element : elementsA) {
@@ -781,9 +878,9 @@ public class Element extends Button implements Comparable<Element> {
     }
 
     static void hidePagesB() {
-        if (elementSelectedA != null && elementSelectedA.group == Group.getGroupSelectedB()) {
+        if (elementSelectedA != null && elementSelectedA.group == Group.groupSelectedB) {
             elementSelectedA = null;
-        } else if (elementSelectedB != null && elementSelectedB.group == Group.getGroupSelectedB()) {
+        } else if (elementSelectedB != null && elementSelectedB.group == Group.groupSelectedB) {
             elementSelectedB = null;
         }
         for (Element element : elementsB) {

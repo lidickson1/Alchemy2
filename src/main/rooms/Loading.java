@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class Loading extends Room {
 
     private static final boolean GENERATE_ATLAS = false;
-    private static final boolean PRINT_GENERATIONS = false;
+    private static final boolean PRINT_GENERATIONS = true;
 
     private AtomicInteger progress;
     private int total;
@@ -38,7 +38,7 @@ public class Loading extends Room {
         main.elements.clear();
         main.groups.clear();
         main.comboList.clear();
-        main.multiComboList.clear();
+        main.randomCombos.clear();
 
         //packs are loaded from bottom to top, for loop in reverse
         Thread thread = new Thread(() -> {
@@ -84,7 +84,7 @@ public class Loading extends Room {
                 for (HashSet<Element> list : main.groups.values()) {
                     set.addAll(list.stream().map(Element::getName).collect(Collectors.toList()));
                 }
-                Generation.generate(set, main.comboList, main.multiComboList);
+                Generation.generate(set, main.comboList);
             }
 
             //textures are loaded here, after we have defined all of the elements
@@ -208,6 +208,16 @@ public class Loading extends Room {
         for (Group group : main.groups.keySet()) {
             this.total -= main.groups.get(group).size();
         }
+        this.checkEverythingFailed();
+    }
+
+    public void randomCombo() {
+        this.total--;
+        this.checkEverythingFailed();
+    }
+
+    public void modifyElement() {
+        this.total--;
         this.checkEverythingFailed();
     }
 

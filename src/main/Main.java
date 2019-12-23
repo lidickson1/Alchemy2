@@ -59,7 +59,7 @@ public class Main extends PApplet {
     public HashMap<Group, HashSet<Element>> groups = new HashMap<>();
     public HashMap<String, Group> elements = new HashMap<>();
     public HashSet<Combo> comboList = new HashSet<>();
-    public HashMap<String, ArrayList<ArrayList<String>>> multiComboList = new HashMap<>();
+    public HashSet<RandomCombo> randomCombos = new HashSet<>();
 
     public static void main(String[] args) {
         PApplet.main("main.Main");
@@ -109,6 +109,8 @@ public class Main extends PApplet {
         this.surface.setTitle("Alchemy");
         this.surface.setIcon(this.icon);
         this.surface.setResizable(true);
+
+        Button.setErrorImage();
 
         //set minimum size
         PSurfaceAWT.SmoothCanvas sc = (PSurfaceAWT.SmoothCanvas) this.getSurface().getNative();

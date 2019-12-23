@@ -1,18 +1,15 @@
 package main.rooms;
 
-import main.Combo;
-import main.Language;
+import main.*;
 import main.buttons.Arrow;
 import main.buttons.Element;
 import main.buttons.Group;
 import main.buttons.iconbuttons.Exit;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
-import org.apache.commons.lang3.tuple.MutableTriple;
 import processing.core.PConstants;
 import processing.core.PImage;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class ElementRoom extends Room {
 
@@ -108,72 +105,43 @@ public class ElementRoom extends Room {
             equal = main.loadImage("resources/images/equal.png");
         }
 
-        //TODO: make deep copies! or else in bounds method will fuck up
+        //making deep copies or else in bounds method will fuck up
         this.creation.clear();
         this.used.clear();
+        //no else ifs because the element can be both
         for (Combo combo : main.comboList) {
-            if (combo.getElement().equals(this.element.getName()) && main.game.isDiscovered(combo.getA()) && main.game.isDiscovered(combo.getB())) {
-                this.creation.add(new ImmutableTriple<>(
-                        Objects.requireNonNull(Element.getElement(combo.getA())).deepCopy(),
-                        Objects.requireNonNull(Element.getElement(combo.getB())).deepCopy(),
-                        Objects.requireNonNull(Element.getElement(combo.getElement())).deepCopy()
-                ));
-            } else if ((combo.getA().equals(this.element.getName()) || combo.getB().equals(this.element.getName())) && main.game.isDiscovered(combo.getA()) && main.game.isDiscovered(combo.getB()) && main.game.isDiscovered(combo.getElement())) {
-                //ingredients must be discovered too
-                this.used.add(new ImmutableTriple<>(
-                        Objects.requireNonNull(Element.getElement(combo.getA())).deepCopy(),
-                        Objects.requireNonNull(Element.getElement(combo.getB())).deepCopy(),
-                        Objects.requireNonNull(Element.getElement(combo.getElement())).deepCopy()
-                ));
-            }
-        }
-
-        if (main.multiComboList.containsKey(this.element.getName())) {
-            for (ArrayList<String> list : main.multiComboList.get(this.element.getName())) {
-                this.creation.addAll(this.toTriples(this.element, list));
-            }
-        }
-
-        for (String key : main.multiComboList.keySet()) {
-            for (ArrayList<String> list : main.multiComboList.get(key)) {
-                if (list.contains(this.element.getName())) {
-                    boolean allDiscovered = true;
-                    for (String element : list) {
-                        if (!main.game.isDiscovered(element)) {
-                            allDiscovered = false;
-                            break;
-                        }
-                    }
-                    if (allDiscovered) {
-                        this.used.addAll(this.toTriples(Element.getElement(key), list));
-                    }
+            if (combo instanceof NormalCombo) {
+                NormalCombo normalCombo = (NormalCombo) combo;
+                if (normalCombo.getElement().equals(this.element.getName()) && combo.ingredientsDiscovered()) {
+                    this.creation.addAll(normalCombo.toTriples());
                 }
+                if ((normalCombo.getA().equals(this.element.getName()) || normalCombo.getB().equals(this.element.getName())) && combo.ingredientsDiscovered() && main.game.isDiscovered(normalCombo.getElement())) {
+                    //ingredients must be discovered too
+                    this.used.addAll(normalCombo.toTriples());
+                }
+            } else if (combo instanceof MultiCombo) {
+                MultiCombo multiCombo = (MultiCombo) combo;
+                if (multiCombo.getElement().equals(this.element.getName()) && combo.ingredientsDiscovered()) {
+                    this.creation.addAll(multiCombo.toTriples());
+                }
+                if (multiCombo.getIngredients().contains(this.element.getName()) && combo.ingredientsDiscovered() && main.game.isDiscovered(multiCombo.getElement())) {
+                    this.used.addAll(multiCombo.toTriples());
+                }
+            }
+        }
+
+        for (RandomCombo combo : main.randomCombos) {
+            if (combo.isResult(this.element.getName())) {
+                this.creation.addAll(combo.toCreationTriples(this.element));
+            }
+            if (combo.isIngredient(this.element.getName())) {
+                this.used.addAll(combo.toUsedTriples(this.element));
             }
         }
 
         creationPageNumber = 0;
         usedPageNumber = 0;
 
-    }
-
-    private ArrayList<ImmutableTriple<Element, Element, Element>> toTriples(Element element, ArrayList<String> elements) {
-        ArrayList<ImmutableTriple<Element, Element, Element>> list = new ArrayList<>();
-        int counter = elements.size();
-        do {
-            MutableTriple<Element, Element, Element> triple;
-            if (counter >= 2) {
-                triple = new MutableTriple<>(Element.getElement(elements.get(elements.size() - counter)), Element.getElement(elements.get(elements.size() - counter + 1)), null);
-                counter -= 2;
-            } else {
-                triple = new MutableTriple<>(null, Element.getElement(elements.get(elements.size() - 1)), null);
-                counter--;
-            }
-            if (counter == 0) {
-                triple.right = element;
-            }
-            list.add(new ImmutableTriple<>(triple.left, triple.middle, triple.right));
-        } while (counter > 0);
-        return list;
     }
 
     @Override
