@@ -2,15 +2,21 @@ package main.buttons;
 
 import com.sun.istack.internal.Nullable;
 import main.*;
+import main.combos.Combo;
+import main.combos.MultiCombo;
+import main.combos.NormalCombo;
+import main.combos.RandomCombo;
 import main.rooms.ElementRoom;
 import main.rooms.Game;
+import main.variations.ComboVariation;
+import main.variations.Variation;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PConstants;
 import processing.core.PImage;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Element extends Button implements Comparable<Element> {
 
@@ -46,6 +52,7 @@ public class Element extends Button implements Comparable<Element> {
     private String description;
     private Pack pack;
     private boolean persistent;
+    private Variation variation;
 
     private int alpha = 255;
     private int alphaChange;
@@ -60,17 +67,18 @@ public class Element extends Button implements Comparable<Element> {
     }
 
     //copy constructor
-    private Element(String name, Group group, Pack pack, ArrayList<String> tags, String description, boolean persistent, int alpha, int alphaChange) {
+    public Element(Element other) {
         super(SIZE, HEIGHT);
-
-        this.name = name;
-        this.group = group;
-        this.pack = pack;
-        this.tags = tags;
-        this.description = description;
-        this.persistent = persistent;
-        this.alpha = alpha;
-        this.alphaChange = alphaChange;
+        this.name = other.name;
+        this.group = other.group;
+        this.tags = other.tags;
+        this.description = other.description;
+        this.pack = other.pack;
+        this.persistent = other.persistent;
+        this.variation = other.variation;
+        this.alpha = other.alpha;
+        this.alphaChange = other.alphaChange;
+        //noinspection IncompleteCopyConstructor
         this.tintOverlay = false;
     }
 
@@ -89,13 +97,28 @@ public class Element extends Button implements Comparable<Element> {
         return this.name.compareTo(o.name);
     }
 
-    private void loadImage(String path) {
-        this.setImage(main.loadImage(path));
-        this.getImage().resize(SIZE, SIZE);
+    //file name without extension
+    public PImage getImage(String fileName) {
+        //check if a pack has the image, from top to bottom
+        for (Pack pack : main.packsRoom.getLoadedPacks()) {
+            if (pack.getName().equals("Alchemy") && this.pack.getName().equals("Alchemy")) {
+                //if the element is of the default pack and we are in the default pack right now, load default location
+                return main.loadImage("resources/elements/alchemy/" + this.group.getID() + "/" + fileName + ".png");
+            } else {
+                String packPath = pack.getPath() + "/elements/" + this.group.getPack().getNamespace() + "/" + this.group.getID() + "/" + fileName + ".png";
+                if (new File(packPath).exists()) {
+                    return main.loadImage(packPath);
+                }
+            }
+        }
+
+        return null;
     }
 
-    void loadImage(PImage image) {
-        this.setImage(image);
+    @Override
+    void setImage(PImage image) {
+        //so there are 2 resizing going on here
+        super.setImage(image);
         this.getImage().resize(SIZE, SIZE);
     }
 
@@ -111,35 +134,18 @@ public class Element extends Button implements Comparable<Element> {
         return this.tags;
     }
 
-    //making it public
-    @Override
-    public PImage getImage() {
-        return super.getImage();
+    public void setVariation(Variation variation) {
+        this.variation = variation;
     }
 
-    //TODO: maybe we can just use Element.group?
-    public static void loadImage(ArrayList<ImmutablePair<Element, Group>> elements) {
+    public static void loadImage(ArrayList<Element> elements) {
         Thread thread = new Thread(() -> {
-            for (ImmutablePair<Element, Group> pair : elements) {
-                Element element = pair.left;
-                Group group = pair.right;
-                //check if a pack has the image, from top to bottom
-                for (Pack pack : main.packsRoom.getLoadedPacks()) {
-                    if (pack.getName().equals("Alchemy") && element.pack.getName().equals("Alchemy")) {
-                        //if the element is of the default pack and we are in the default pack right now, load default location
-                        element.loadImage("resources/elements/alchemy/" + group.getID() + "/" + element.getID() + ".png");
-                        break;
-                    } else {
-                        String packPath = pack.getPath() + "/elements/" + group.getPack().getNamespace() + "/" + group.getID() + "/" + element.getID() + ".png";
-                        if (new File(packPath).exists()) {
-                            element.loadImage(packPath);
-                            break;
-                        }
-                    }
-                }
+            for (Element element : elements) {
+                //load original image
+                element.setImage(element.getImage(element.getID()));
 
-                if (element.getImage() == null) {
-                    element.setImage(null);
+                if (element.variation != null) {
+                    element.variation.loadImages();
                 }
 
                 main.loading.updateProgress();
@@ -406,8 +412,12 @@ public class Element extends Button implements Comparable<Element> {
             if (combo instanceof MultiCombo) {
                 MultiCombo multiCombo = (MultiCombo) combo;
                 if (CollectionUtils.isEqualCollection(multiCombo.getIngredients(), elementsSelectedString)) {
+                    Element element = Element.getElement(multiCombo.getElement());
+                    if (Objects.requireNonNull(element).variation instanceof ComboVariation) {
+                        ((ComboVariation) element.variation).setCurrentImage(multiCombo);
+                    }
                     for (int i = 0; i < multiCombo.getAmount(); i++) {
-                        elementsCreated.add(Element.getElement(multiCombo.getElement()));
+                        elementsCreated.add(element.deepCopy());
                     }
                     main.game.getHistory().add(multiCombo);
                 }
@@ -420,6 +430,9 @@ public class Element extends Button implements Comparable<Element> {
                 ArrayList<Element> randomElements = randomCombo.getElements();
                 elementsCreated.addAll(randomElements);
                 for (Element element : randomElements) {
+                    if (element.variation instanceof ComboVariation) {
+                        ((ComboVariation) element.variation).setCurrentImage(multiCombo);
+                    }
                     main.game.getHistory().add(new MultiCombo(element.name, multiCombo.getIngredients()));
                 }
             }
@@ -457,8 +470,12 @@ public class Element extends Button implements Comparable<Element> {
                 if (combo instanceof NormalCombo) {
                     NormalCombo normalCombo = (NormalCombo) combo;
                     if ((normalCombo.getA().equals(elementSelectedA.name) && normalCombo.getB().equals(elementSelectedB.name)) || (normalCombo.getA().equals(elementSelectedB.name) && normalCombo.getB().equals(elementSelectedA.name))) {
+                        Element element = Element.getElement(normalCombo.getElement());
+                        if (Objects.requireNonNull(element).variation instanceof ComboVariation) {
+                            ((ComboVariation) element.variation).setCurrentImage(normalCombo);
+                        }
                         for (int i = 0; i < combo.getAmount(); i++) {
-                            elementsCreated.add(Element.getElement(combo.getElement()));
+                            elementsCreated.add(element.deepCopy());
                         }
                         main.game.getHistory().add(normalCombo);
                     }
@@ -471,6 +488,9 @@ public class Element extends Button implements Comparable<Element> {
                     ArrayList<Element> randomElements = randomCombo.getElements();
                     elementsCreated.addAll(randomElements);
                     for (Element element : randomElements) {
+                        if (element.variation instanceof ComboVariation) {
+                            ((ComboVariation) element.variation).setCurrentImage(normalCombo);
+                        }
                         main.game.getHistory().add(new NormalCombo(element.name, normalCombo.getA(), normalCombo.getB()));
                     }
                 }
@@ -615,18 +635,18 @@ public class Element extends Button implements Comparable<Element> {
 
     @SuppressWarnings("SameParameterValue")
     private Element deepCopy(Group group, int alpha, int alphaChange) {
-        Element element = new Element(this.name, group, this.pack, this.tags, this.description, this.persistent, alpha, alphaChange);
-        element.setX(this.getX());
-        element.setY(this.getY());
-        element.setImage(this.getImage());
+        Element element = this.deepCopy();
+        element.group = group;
+        element.alpha = alpha;
+        element.alphaChange = alphaChange;
         return element;
     }
 
     public Element deepCopy() {
-        Element element = new Element(this.name, this.group, this.pack, this.tags, this.description, this.persistent, this.alpha, this.alphaChange);
+        Element element = new Element(this);
         element.setX(this.getX());
         element.setY(this.getY());
-        element.setImage(this.getImage());
+        element.setImage(this.variation == null ? this.getImage() : this.variation.getImage());
         return element;
     }
 

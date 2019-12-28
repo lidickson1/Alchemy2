@@ -83,7 +83,7 @@ public class Pack extends LongButton {
                 String name = scanner.nextLine();
                 Element element = Element.getElement(name);
                 assert element != null;
-                element.loadImage(atlas.get(x, y, Element.SIZE, Element.SIZE));
+                element.setImage(atlas.get(x, y, Element.SIZE, Element.SIZE));
                 x += Element.SIZE;
                 if (x >= atlas.width) {
                     x = 0;

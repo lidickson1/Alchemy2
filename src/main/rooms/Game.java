@@ -1,6 +1,6 @@
 package main.rooms;
 
-import main.Combo;
+import main.combos.Combo;
 import main.Language;
 import main.buttons.*;
 import main.buttons.iconbuttons.Exit;
@@ -405,9 +405,9 @@ public class Game extends Room {
         Group group = element.getGroup();
         boolean addElement = false;
         if (this.mode.equals("normal")) {
-            addElement = !this.discovered.containsKey(group) || !this.discovered.get(group).contains(element);
+            addElement = !this.discovered.containsKey(group) || !this.isDiscovered(element.getName());
         } else if (this.mode.equals("puzzle")) {
-            addElement = !(element.isPersistent() && this.discovered.containsKey(group) && this.discovered.get(group).contains(element));
+            addElement = !(element.isPersistent() && this.discovered.containsKey(group) && this.isDiscovered(element.getName()));
         }
         if (addElement) {
             if (!this.discovered.containsKey(group)) {

@@ -1,11 +1,13 @@
 package main.rooms;
 
-import com.sun.org.apache.xpath.internal.operations.Mult;
 import main.*;
 import main.buttons.Element;
 import main.buttons.Group;
 import main.buttons.iconbuttons.Exit;
 import main.buttons.iconbuttons.IconButton;
+import main.combos.Combo;
+import main.combos.NormalCombo;
+import main.combos.RandomCombo;
 import processing.core.PConstants;
 
 import javax.swing.*;

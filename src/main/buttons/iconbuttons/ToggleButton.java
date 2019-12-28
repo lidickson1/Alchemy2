@@ -24,7 +24,7 @@ public class ToggleButton extends IconButton {
     }
 
     @Override
-    protected PImage getImage() {
+    public PImage getImage() {
         return this.toggled ? this.onImage : this.offImage;
     }
 

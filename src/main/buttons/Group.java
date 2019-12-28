@@ -1,7 +1,6 @@
 package main.buttons;
 
 import processing.core.PApplet;
-import processing.core.PImage;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
 
@@ -68,18 +67,6 @@ public class Group extends Button implements Comparable<Group> {
             }
         }
         this.getImage().resize(SIZE, SIZE);
-    }
-
-    //copy constructor
-    private Group(String name, PImage image, Pack pack, int colour, int alpha, int alphaChange, boolean done) {
-        super(SIZE, SIZE, image);
-
-        this.name = name;
-        this.pack = pack;
-        this.colour = colour;
-        this.alpha = alpha;
-        this.alphaChange = alphaChange;
-        this.done = done;
     }
 
     public String getName() {
@@ -285,11 +272,17 @@ public class Group extends Button implements Comparable<Group> {
         return false;
     }
 
-    private Group deepCopy() {
-        Group clone = new Group(this.name, this.getImage(), this.pack, this.colour, this.alpha, this.alphaChange, this.done);
-        clone.setX(this.getX());
-        clone.setY(this.getY());
-        return clone;
+    public Group(Group other) {
+        super(SIZE, SIZE);
+        this.colour = other.colour;
+        this.alpha = other.alpha;
+        this.alphaChange = other.alphaChange;
+        this.done = other.done;
+        this.name = other.name;
+        this.pack = other.pack;
+        this.setX(other.getX());
+        this.setY(other.getY());
+        this.setImage(other.getImage());
     }
 
     @Override
@@ -298,7 +291,7 @@ public class Group extends Button implements Comparable<Group> {
             if (!this.isSelected()) {
                 //the two blocks of code should be identical
                 if (groupSelectedA == null) {
-                    groupSelectedA = this.deepCopy();
+                    groupSelectedA = new Group(this);
                     moving = true;
                     deltaX = groupSelectedX - groupSelectedA.getX();
                     deltaY = groupSelectedAY - groupSelectedA.getY();
@@ -306,7 +299,7 @@ public class Group extends Button implements Comparable<Group> {
                     groupSelectedA.alphaChange = ALPHA_CHANGE;
                     Element.resetA();
                 } else if (groupSelectedB == null) {
-                    groupSelectedB = this.deepCopy();
+                    groupSelectedB = new Group(this);
                     moving = true;
                     deltaX = groupSelectedX - groupSelectedB.getX();
                     deltaY = groupSelectedBY - groupSelectedB.getY();
@@ -327,8 +320,8 @@ public class Group extends Button implements Comparable<Group> {
     }
 
     public static void setHintGroups(Group a, Group b) {
-        groupSelectedA = a.deepCopy();
-        groupSelectedB = b.deepCopy();
+        groupSelectedA = new Group(a);
+        groupSelectedB = new Group(b);
         Element.resetA();
         Element.resetB();
     }

@@ -1,5 +1,6 @@
-package main;
+package main.combos;
 
+import main.Entity;
 import main.buttons.Element;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 
@@ -22,7 +23,7 @@ public abstract class Combo extends Entity {
         return this.amount;
     }
 
-    void setAmount(int amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 

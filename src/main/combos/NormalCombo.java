@@ -1,4 +1,4 @@
-package main;
+package main.combos;
 
 import main.buttons.Element;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
@@ -50,4 +50,17 @@ public class NormalCombo extends Combo {
         return this.canCreate();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof NormalCombo)) {
+            return false;
+        }
+        NormalCombo normalCombo = (NormalCombo) obj;
+        return (this.a.equals(normalCombo.a) && this.b.equals(normalCombo.b)) || (this.a.equals(normalCombo.b) || this.b.equals(normalCombo.a));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getElement(), this.a, this.b);
+    }
 }

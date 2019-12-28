@@ -1,6 +1,6 @@
 package main.rooms;
 
-import main.Combo;
+import main.combos.Combo;
 import main.buttons.Arrow;
 import main.buttons.Element;
 import main.buttons.iconbuttons.Exit;

@@ -2,6 +2,9 @@ package main;
 
 import main.buttons.Element;
 import main.buttons.Pack;
+import main.combos.Combo;
+import main.combos.MultiCombo;
+import main.combos.NormalCombo;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

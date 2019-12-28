@@ -135,7 +135,7 @@ public class Button extends Entity {
         return main.mouseX >= this.x && main.mouseX < this.x + this.width && main.mouseY >= this.y && main.mouseY < this.y + this.height;
     }
 
-    protected PImage getImage() {
+    public PImage getImage() {
         return this.image;
     }
 

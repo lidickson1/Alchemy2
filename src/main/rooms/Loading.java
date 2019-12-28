@@ -6,7 +6,6 @@ import main.LoadElements;
 import main.buttons.Element;
 import main.buttons.Group;
 import main.buttons.Pack;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PConstants;
 import processing.data.JSONArray;
 
@@ -90,7 +89,7 @@ public class Loading extends Room {
 
             //textures are loaded here, after we have defined all of the elements
             final int size = 50; //size of each buffer
-            ArrayList<ImmutablePair<Element, Group>> buffer = new ArrayList<>();
+            ArrayList<Element> buffer = new ArrayList<>();
             int index = 0;
             for (Group group : main.groups.keySet()) {
                 for (Element element : main.groups.get(group)) {
@@ -99,7 +98,7 @@ public class Loading extends Room {
                             Element.loadImage(buffer);
                             buffer = new ArrayList<>();
                         }
-                        buffer.add(new ImmutablePair<>(element, group));
+                        buffer.add(element);
                         index++;
                     }
                 }

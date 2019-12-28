@@ -1,5 +1,6 @@
-package main;
+package main.combos;
 
+import main.Entity;
 import main.buttons.Element;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
@@ -19,7 +20,7 @@ public class RandomCombo extends Entity {
     private EnumeratedDistribution<ArrayList<String>> elements;
     private ArrayList<Combo> combos = new ArrayList<>();
 
-    RandomCombo(JSONArray array) {
+    public RandomCombo(JSONArray array) {
         ArrayList<Pair<ArrayList<String>, Double>> list = new ArrayList<>();
         for (int i = 0; i < array.size(); i++) {
             JSONObject jsonObject = array.getJSONObject(i);
@@ -50,13 +51,13 @@ public class RandomCombo extends Entity {
         this.elements = new EnumeratedDistribution<>(list);
     }
 
-    void removeElement(String element) {
+    public void removeElement(String element) {
         for (Pair<ArrayList<String>, Double> pair : this.elements.getPmf()) {
             pair.getKey().remove(element);
         }
     }
 
-    void addCombo(Combo combo) {
+    public void addCombo(Combo combo) {
         this.combos.add(combo);
     }
 
@@ -108,7 +109,7 @@ public class RandomCombo extends Entity {
         ArrayList<Element> elements = new ArrayList<>();
         ArrayList<String> list = this.elements.sample();
         for (String string : list) {
-            elements.add(Element.getElement(string));
+            elements.add(Objects.requireNonNull(Element.getElement(string)).deepCopy());
         }
         return elements;
     }
@@ -234,15 +235,15 @@ public class RandomCombo extends Entity {
         return list;
     }
 
-    void removeCombo(String a, String b) {
+    public void removeCombo(String a, String b) {
         this.removeCombo(new ArrayList<>(Arrays.asList(a, b)));
     }
 
-    void removeCombo(ArrayList<String> ingredients) {
+    public void removeCombo(ArrayList<String> ingredients) {
         this.combos.removeIf(e -> CollectionUtils.isEqualCollection(e.getIngredients(), ingredients));
     }
 
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return this.combos.size() == 0;
     }
 

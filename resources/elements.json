@@ -1035,7 +1035,21 @@
             }
         ],
         "group": "air",
-        "name": "horizon"
+        "name": "horizon",
+        "variation": {
+            "type": "combo",
+            "textures": [
+                {
+                    "combos": [
+                        {
+                            "first element": "sky",
+                            "second element": "sea"
+                        }
+                    ],
+                    "texture": "horizon_sea"
+                }
+            ]
+        }
     },
     {
         "combos": [
@@ -3239,7 +3253,7 @@
     {
         "combos": [
             {
-                "elements": ["carbon","silica","fire"]
+                "elements": ["carbon", "silica", "fire"]
             }
         ],
         "group": "minerals",
@@ -5838,7 +5852,16 @@
             }
         ],
         "group": "animals",
-        "name": "dog"
+        "name": "dog",
+        "variation": {
+            "type": "random",
+            "textures": [
+                {
+                    "weight": "0.5",
+                    "texture": "dog_emmy"
+                }
+            ]
+        }
     },
     {
         "combos": [

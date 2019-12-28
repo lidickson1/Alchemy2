@@ -6,6 +6,8 @@ import g4p_controls.G4P;
 import main.buttons.Button;
 import main.buttons.Element;
 import main.buttons.Group;
+import main.combos.Combo;
+import main.combos.RandomCombo;
 import main.rooms.Menu;
 import main.rooms.*;
 import processing.awt.PSurfaceAWT;

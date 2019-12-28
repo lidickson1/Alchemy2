@@ -1,7 +1,8 @@
-package main;
+package main.combos;
 
 import main.buttons.Element;
 import main.buttons.Group;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.MutableTriple;
 
@@ -73,5 +74,19 @@ public class MultiCombo extends Combo {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof MultiCombo)) {
+            return false;
+        }
+        MultiCombo multiCombo = (MultiCombo) obj;
+        return CollectionUtils.isEqualCollection(this.ingredients, multiCombo.ingredients);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getElement(), this.ingredients);
     }
 }

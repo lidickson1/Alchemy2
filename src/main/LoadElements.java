@@ -3,6 +3,11 @@ package main;
 import main.buttons.Element;
 import main.buttons.Group;
 import main.buttons.Pack;
+import main.combos.Combo;
+import main.combos.MultiCombo;
+import main.combos.NormalCombo;
+import main.combos.RandomCombo;
+import main.variations.Variation;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.data.JSONArray;
@@ -150,6 +155,10 @@ public class LoadElements extends Entity {
                     }
                 }
 
+                if (object.hasKey("variation")) {
+                    e.setVariation(Variation.getVariation(object.getJSONObject("variation"), e));
+                }
+
                 if (object.hasKey("combos")) {
                     JSONArray combos = object.getJSONArray("combos");
                     for (int j = 0; j < combos.size(); j++) {
@@ -260,6 +269,44 @@ public class LoadElements extends Entity {
         } else {
             permutations.add(new Permutation(element, PermutationType.SETS, combo, remove, randomCombo));
         }
+    }
+
+    //use this method to parse combos if it is used after all combos are loaded
+    public static ArrayList<Combo> getCombo(JSONObject combo, Element element) {
+        ArrayList<Combo> list = new ArrayList<>();
+        Permutation permutation = null;
+        MultiPermutation multiPermutation = null;
+        if (combo.hasKey("first element")) {
+            list.add(new NormalCombo(element.getName(), pack.getNamespacedName(combo.getString("first element")), pack.getNamespacedName(combo.getString("second element"))));
+        } else if (combo.hasKey("elements")) {
+            if (combo.hasKey("paired") && combo.getBoolean("paired")) {
+                permutation = new Permutation(element.getName(), PermutationType.UNRESTRICTED, combo, false, null);
+            } else {
+                multiPermutation = new MultiPermutation(element.getName(), combo, false, null);
+            }
+        } else if (combo.hasKey("first elements")) {
+            permutation = new Permutation(element.getName(), PermutationType.RESTRICTED, combo, false, null);
+        } else {
+            permutation = new Permutation(element.getName(), PermutationType.SETS, combo, false, null);
+        }
+        if (permutation != null) {
+            ArrayList<ImmutablePair<String, String>> combos = processPermutations(permutation.permutationType, permutation.json, pack);
+            for (ImmutablePair<String, String> pair : combos) {
+                NormalCombo normalCombo = new NormalCombo(permutation.element, pair.left, pair.right);
+                int count = permutation.json.hasKey("amount") ? permutation.json.getInt("amount") : 1;
+                normalCombo.setAmount(count);
+                list.add(normalCombo);
+            }
+        }
+        if (multiPermutation != null) {
+            JSONArray elements = multiPermutation.json.getJSONArray("elements");
+            ArrayList<String> ingredients = processTags(elements, pack);
+            MultiCombo multiCombo = new MultiCombo(multiPermutation.element, ingredients);
+            int count = multiPermutation.json.hasKey("amount") ? multiPermutation.json.getInt("amount") : 1;
+            multiCombo.setAmount(count);
+            list.add(multiCombo);
+        }
+        return list;
     }
 
     //TODO: validate MultiCombo
