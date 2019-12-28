@@ -77,16 +77,6 @@
     {
         "combos": [
             {
-                "first element": "warrior",
-                "second element": "ninja"
-            }
-        ],
-        "group": "professions",
-        "name": "assassin"
-    },
-    {
-        "combos": [
-            {
                 "first element": "cartoon",
                 "second element": "japan"
             }
@@ -577,16 +567,6 @@
         ],
         "group": "minerals",
         "name": "tin"
-    },
-    {
-        "combos": [
-            {
-                "first element": "dwarf",
-                "second element": "santa_claus"
-            }
-        ],
-        "group": "human",
-        "name": "elf"
     },
     {
         "combos": [
@@ -2329,7 +2309,7 @@
                 "second element": "sand"
             }
         ],
-        "group": "earth",
+        "group": "miscellaneous",
         "name": "pearl"
     },
     {
@@ -2455,22 +2435,24 @@
     {
         "combos": [
             {
-                "first element": "metal",
-                "second element": "life"
-            }
-        ],
-        "group": "monsters",
-        "name": "metal_golem"
-    },
-    {
-        "combos": [
-            {
                 "first element": "country",
                 "second element": "country"
             }
         ],
         "group": "places",
-        "name": "continent"
+        "name": "continent",
+        "variation": {
+            "type": "animation",
+            "textures": [
+                "continent_0",
+                "continent_1",
+                "continent_2",
+                "continent_3",
+                "continent_4",
+                "continent_5",
+                "antarctica"
+            ]
+        }
     },
     {
         "combos": [
@@ -3037,8 +3019,8 @@
     {
         "combos": [
             {
-                "first element": "nature",
-                "second element": "expert"
+                "first element": "science",
+                "second element": "human"
             }
         ],
         "group": "professions",
@@ -3224,21 +3206,6 @@
         ],
         "group": "objects",
         "name": "sundial"
-    },
-    {
-        "combos": [
-            {
-                "first elements": ["expert"],
-                "second elements": [
-                    "tools",
-                    "steam_engine",
-                    "combustion_engine",
-                    "car"
-                ]
-            }
-        ],
-        "group": "professions",
-        "name": "engineer"
     },
     {
         "combos": [
@@ -3579,7 +3546,7 @@
         "combos": [
             {
                 "first element": "motherboard",
-                "second element": "microchip"
+                "second element": "hard_drive"
             }
         ],
         "group": "technology",
@@ -3632,7 +3599,7 @@
                 "second element": "darkness"
             }
         ],
-        "group": "monsters",
+        "group": "human",
         "name": "demon"
     },
     {
@@ -4417,8 +4384,8 @@
     {
         "combos": [
             {
-                "first element": "electricity",
-                "second element": "metal_golem"
+                "first element": "tools",
+                "second element": "computer"
             }
         ],
         "group": "technology",
@@ -4870,16 +4837,6 @@
         ],
         "group": "organisms",
         "name": "flu"
-    },
-    {
-        "combos": [
-            {
-                "first element": "lightning",
-                "second element": "metal"
-            }
-        ],
-        "group": "appliances",
-        "name": "lightning_rod"
     },
     {
         "combos": [
@@ -5583,16 +5540,6 @@
     {
         "combos": [
             {
-                "first element": "knowledge",
-                "second element": "human"
-            }
-        ],
-        "group": "professions",
-        "name": "expert"
-    },
-    {
-        "combos": [
-            {
                 "first elements": ["dog"],
                 "second elements": ["ice", "snow"]
             }
@@ -6255,8 +6202,8 @@
     {
         "combos": [
             {
-                "first elements": ["antenna", "tools"],
-                "second elements": ["radio_wave"]
+                "first elements": ["antenna"],
+                "second elements": ["sound", "music", "motherboard"]
             }
         ],
         "group": "technology",
@@ -6389,7 +6336,7 @@
                 "second elements": ["gelatin"]
             }
         ],
-        "group": "technology",
+        "group": "miscellaneous",
         "name": "film"
     },
     {
@@ -6469,7 +6416,7 @@
                 "second element": "ghost"
             }
         ],
-        "group": "monsters",
+        "group": "human",
         "name": "genie"
     },
     {
@@ -6655,23 +6602,6 @@
         ],
         "group": "miscellaneous",
         "name": "confetti"
-    },
-    {
-        "combos": [
-            {
-                "first elements": ["earth_planet"],
-                "second elements": [
-                    "air",
-                    "earth",
-                    "fire",
-                    "water",
-                    "life",
-                    "energy"
-                ]
-            }
-        ],
-        "group": "abstract",
-        "name": "nature"
     },
     {
         "combos": [
@@ -6883,7 +6813,24 @@
             }
         ],
         "group": "space",
-        "name": "constellation"
+        "name": "constellation",
+        "variation": {
+            "type": "month",
+            "textures": [
+                "constellation_0",
+                "constellation_1",
+                "constellation_2",
+                "constellation_3",
+                "constellation_4",
+                "constellation_5",
+                "constellation_6",
+                "constellation_7",
+                "constellation_8",
+                "constellation_9",
+                "constellation_10",
+                "constellation_11"
+            ]
+        }
     },
     {
         "combos": [
@@ -7490,16 +7437,6 @@
     {
         "combos": [
             {
-                "first element": "tree",
-                "second element": "life"
-            }
-        ],
-        "group": "monsters",
-        "name": "treant"
-    },
-    {
-        "combos": [
-            {
                 "first element": "glass",
                 "second element": "water"
             }
@@ -7526,16 +7463,6 @@
         ],
         "group": "transportation",
         "name": "motorcycle"
-    },
-    {
-        "combos": [
-            {
-                "first element": "firearm",
-                "second element": "assassin"
-            }
-        ],
-        "group": "professions",
-        "name": "sniper"
     },
     {
         "combos": [
@@ -7966,8 +7893,8 @@
     {
         "combos": [
             {
-                "first element": "lightning_rod",
-                "second element": "electricity"
+                "first elements": ["radio_wave"],
+                "second elements": ["tools", "copper", "metal"]
             }
         ],
         "group": "technology",
@@ -9100,6 +9027,45 @@
             {
                 "first element": "country",
                 "second element": "sport"
+            }
+        ]
+    },
+    {
+        "name": "hard_drive",
+        "group": "technology",
+        "combos": [
+            {
+                "first element": "book",
+                "second element": "magnet"
+            }
+        ]
+    },
+    {
+        "name": "society",
+        "group": "human",
+        "combos": [
+            {
+                "first elements": ["human", "family"],
+                "second elements": ["village", "town", "city", "country"]
+            }
+        ]
+    },
+    {
+        "name": "mathematics",
+        "group": "abstract",
+        "combos": [
+            {
+                "first elements": ["knowledge"],
+                "second elements": ["abacus", "calculator"]
+            }
+        ]
+    },
+    {
+        "name": "science",
+        "group": "abstract",
+        "combos": [
+            {
+                "elements": ["earth_planet", "life", "society", "mathematics"]
             }
         ]
     }

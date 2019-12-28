@@ -9,7 +9,7 @@ public class Button extends Entity {
 
     public static AudioPlayer click;
     private static final int ALPHA = 80;
-    private static PImage error;
+    static PImage error;
 
     private float x;
     private float y;

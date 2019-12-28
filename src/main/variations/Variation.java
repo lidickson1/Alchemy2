@@ -26,6 +26,12 @@ public abstract class Variation extends Entity {
                 return new RandomVariation(json, element);
             case "combo":
                 return new ComboVariation(json, element);
+            case "month":
+                return new MonthVariation(json, element);
+            case "week":
+                return new WeekVariation(json, element);
+            case "animation":
+                return new AnimationVariation(json, element);
             default:
                 return null;
         }

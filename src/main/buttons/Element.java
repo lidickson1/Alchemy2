@@ -8,6 +8,7 @@ import main.combos.NormalCombo;
 import main.combos.RandomCombo;
 import main.rooms.ElementRoom;
 import main.rooms.Game;
+import main.variations.AnimationVariation;
 import main.variations.ComboVariation;
 import main.variations.Variation;
 import org.apache.commons.collections4.CollectionUtils;
@@ -103,11 +104,16 @@ public class Element extends Button implements Comparable<Element> {
         for (Pack pack : main.packsRoom.getLoadedPacks()) {
             if (pack.getName().equals("Alchemy") && this.pack.getName().equals("Alchemy")) {
                 //if the element is of the default pack and we are in the default pack right now, load default location
-                return main.loadImage("resources/elements/alchemy/" + this.group.getID() + "/" + fileName + ".png");
+                String defaultPath = "resources/elements/alchemy/" + this.group.getID() + "/" + fileName + ".png";
+                PImage image = new File(defaultPath).exists() ? main.loadImage(defaultPath) : error.copy();
+                image.resize(SIZE, SIZE);
+                return image;
             } else {
                 String packPath = pack.getPath() + "/elements/" + this.group.getPack().getNamespace() + "/" + this.group.getID() + "/" + fileName + ".png";
                 if (new File(packPath).exists()) {
-                    return main.loadImage(packPath);
+                    PImage image =  main.loadImage(packPath);
+                    image.resize(SIZE, SIZE);
+                    return image;
                 }
             }
         }
@@ -310,7 +316,7 @@ public class Element extends Button implements Comparable<Element> {
 
     @Override
     protected void drawButton() {
-        main.image(this.getImage(), this.getX(), this.getY());
+        main.image(this.variation instanceof AnimationVariation ? this.variation.getImage() : this.getImage(), this.getX(), this.getY());
         main.fill(main.getSettings().getBoolean("group colour") ? this.group.getColour() : 255, this.alpha);
         main.textAlign(PConstants.CENTER);
 
