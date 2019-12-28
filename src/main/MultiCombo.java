@@ -1,10 +1,12 @@
 package main;
 
 import main.buttons.Element;
+import main.buttons.Group;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.MutableTriple;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class MultiCombo extends Combo {
@@ -60,5 +62,16 @@ public class MultiCombo extends Combo {
             list.add(new ImmutableTriple<>(triple.left, triple.middle, triple.right));
         } while (counter > 0);
         return list;
+    }
+
+    public boolean ingredientsInTwoGroups() {
+        HashSet<Group> groups = new HashSet<>();
+        for (String element : this.ingredients) {
+            groups.add(main.elements.get(element));
+            if (groups.size() > 2) {
+                return false;
+            }
+        }
+        return true;
     }
 }

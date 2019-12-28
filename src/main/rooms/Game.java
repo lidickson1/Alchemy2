@@ -15,10 +15,7 @@ import processing.data.JSONObject;
 import javax.swing.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Game extends Room {
 
@@ -373,7 +370,8 @@ public class Game extends Room {
             ArrayList<String> ingredients = this.history.get(this.history.size() - 1).getIngredients();
             ArrayList<String> created = new ArrayList<>();
             //we need to get all combos that had the same ingredients, because the same ingredients can trigger multiple combos
-            for (int i = this.history.size() - 1; i >= 0; i--) {
+            int i;
+            for (i = this.history.size() - 1; i >= 0; i--) {
                 Combo combo = this.history.get(i);
                 if (CollectionUtils.isEqualCollection(ingredients, combo.getIngredients())) {
                     for (int j = 0;j < combo.getAmount();j++) {
@@ -383,10 +381,16 @@ public class Game extends Room {
                     break;
                 }
             }
+            //remove from history
+            for (int j = this.history.size() - 1;j > i;j--) {
+                this.history.remove(this.history.size() - 1);
+            }
             for (String ingredient : ingredients) {
-                try {
-                    this.addElement(ingredient);
-                } catch (NoElementException ignored) {
+                if (!Objects.requireNonNull(Element.getElement(ingredient)).isPersistent()) {
+                    try {
+                        this.addElement(ingredient);
+                    } catch (NoElementException ignored) {
+                    }
                 }
             }
             for (String element : created) {
@@ -403,7 +407,7 @@ public class Game extends Room {
         if (this.mode.equals("normal")) {
             addElement = !this.discovered.containsKey(group) || !this.discovered.get(group).contains(element);
         } else if (this.mode.equals("puzzle")) {
-            addElement = true;
+            addElement = !(element.isPersistent() && this.discovered.containsKey(group) && this.discovered.get(group).contains(element));
         }
         if (addElement) {
             if (!this.discovered.containsKey(group)) {

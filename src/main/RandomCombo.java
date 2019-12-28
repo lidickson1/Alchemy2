@@ -50,13 +50,13 @@ public class RandomCombo extends Entity {
         this.elements = new EnumeratedDistribution<>(list);
     }
 
-    public void removeElement(String element) {
+    void removeElement(String element) {
         for (Pair<ArrayList<String>, Double> pair : this.elements.getPmf()) {
             pair.getKey().remove(element);
         }
     }
 
-    public void addCombo(Combo combo) {
+    void addCombo(Combo combo) {
         this.combos.add(combo);
     }
 
@@ -125,6 +125,15 @@ public class RandomCombo extends Entity {
                 if (multiCombo.getIngredients().contains(element)) {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    public boolean notAllResultsDiscovered() {
+        for (String element : this.getAllResults()) {
+            if (!main.game.isDiscovered(element)) {
+                return true;
             }
         }
         return false;
@@ -225,15 +234,15 @@ public class RandomCombo extends Entity {
         return list;
     }
 
-    public void removeCombo(String a, String b) {
+    void removeCombo(String a, String b) {
         this.removeCombo(new ArrayList<>(Arrays.asList(a, b)));
     }
 
-    public void removeCombo(ArrayList<String> ingredients) {
+    void removeCombo(ArrayList<String> ingredients) {
         this.combos.removeIf(e -> CollectionUtils.isEqualCollection(e.getIngredients(), ingredients));
     }
 
-    public boolean isEmpty() {
+    boolean isEmpty() {
         return this.combos.size() == 0;
     }
 

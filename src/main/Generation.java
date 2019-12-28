@@ -1,18 +1,22 @@
 package main;
 
+import main.buttons.Element;
+import main.buttons.Pack;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.HashSet;
 
-public class Generation {
+public class Generation extends Entity {
 
     public static void generate(HashSet<String> elements, HashSet<Combo> combos) {
         HashSet<String> discovered = new HashSet<>();
 
-        discovered.add("alchemy:air");
-        discovered.add("alchemy:earth");
-        discovered.add("alchemy:fire");
-        discovered.add("alchemy:water");
+        for (Pack pack : main.packsRoom.getLoadedPacks()) {
+            for (Element element : pack.getStartingElements()) {
+                discovered.add(element.getName());
+            }
+        }
 
         try {
             PrintWriter printWriter = new PrintWriter("generation.txt");
@@ -23,13 +27,15 @@ public class Generation {
                 for (Combo combo : combos) {
                     //cannot use canCreate here because we are not using main.game.discovered
                     if (!discovered.contains(combo.getElement())) {
+                        //checking if all ingredients are discovered
                         if (combo instanceof NormalCombo) {
                             NormalCombo normalCombo = (NormalCombo) combo;
-                            if (!discovered.contains(normalCombo.getElement()) && discovered.contains(normalCombo.getA()) && discovered.contains(normalCombo.getB())) {
+                            if (discovered.contains(normalCombo.getA()) && discovered.contains(normalCombo.getB())) {
                                 created.add(normalCombo.getElement());
                             }
                         } else if (combo instanceof MultiCombo) {
                             MultiCombo multiCombo = (MultiCombo) combo;
+                            //here I cannot use ingredientsDiscovered because that uses main.game.discovered which is not what we want
                             boolean flag = true;
                             for (String ingredient : multiCombo.getIngredients()) {
                                 if (!discovered.contains(ingredient)) {
@@ -48,7 +54,7 @@ public class Generation {
                 discovered.addAll(created);
                 generation++;
 
-                //nothing was created in this generation, but we are not done yet, this means there's an error
+                //if nothing was created in this generation but we are not done yet, that means there's an error
                 if (created.size() == 0 && discovered.size() < elements.size()) {
                     HashSet<String> missing = new HashSet<>();
                     for (String element : elements) {

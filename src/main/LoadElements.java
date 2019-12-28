@@ -8,10 +8,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.ListIterator;
+import java.util.*;
 
 public class LoadElements extends Entity {
 
@@ -135,6 +132,10 @@ public class LoadElements extends Entity {
                 } else {
                     main.groups.get(group).add(e);
                     main.elements.put(element, group);
+                }
+
+                if (object.hasKey("persistent")) {
+                    e.setPersistent(object.getBoolean("persistent"));
                 }
 
                 if (object.hasKey("description")) {
@@ -263,14 +264,23 @@ public class LoadElements extends Entity {
 
     //TODO: validate MultiCombo
     private static void validateCombos() {
-        for (Combo combo : main.comboList) {
+        Iterator<Combo> iterator = main.comboList.iterator();
+        while (iterator.hasNext()) {
+            Combo combo = iterator.next();
             if (combo instanceof NormalCombo) {
                 NormalCombo normalCombo = (NormalCombo) combo;
-                if (!main.elements.containsKey(normalCombo.getA())) {
-                    System.err.println("Error with combo: " + normalCombo.getA() + " doesn't exist!");
-                }
-                if (!main.elements.containsKey(normalCombo.getB())) {
-                    System.err.println("Error with combo: " + normalCombo.getB() + " doesn't exist!");
+                if (!main.elements.containsKey(normalCombo.getA()) || !main.elements.containsKey(normalCombo.getB()) || !main.elements.containsKey(normalCombo.getElement())) {
+                    System.err.println("Error with combo: ");
+                    if (!main.elements.containsKey(normalCombo.getA())) {
+                        System.err.println(normalCombo.getA() + " doesn't exist!");
+                    }
+                    if (!main.elements.containsKey(normalCombo.getB())) {
+                        System.err.println(normalCombo.getB() + " doesn't exist!");
+                    }
+                    if (!main.elements.containsKey(normalCombo.getElement())) {
+                        System.err.println(normalCombo.getElement() + " doesn't exist!");
+                    }
+                    iterator.remove();
                 }
             }
         }

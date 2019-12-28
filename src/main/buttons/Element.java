@@ -45,6 +45,7 @@ public class Element extends Button implements Comparable<Element> {
     private ArrayList<String> tags = new ArrayList<>();
     private String description;
     private Pack pack;
+    private boolean persistent;
 
     private int alpha = 255;
     private int alphaChange;
@@ -59,7 +60,7 @@ public class Element extends Button implements Comparable<Element> {
     }
 
     //copy constructor
-    private Element(String name, Group group, Pack pack, ArrayList<String> tags, String description, int alpha, int alphaChange) {
+    private Element(String name, Group group, Pack pack, ArrayList<String> tags, String description, boolean persistent, int alpha, int alphaChange) {
         super(SIZE, HEIGHT);
 
         this.name = name;
@@ -67,6 +68,7 @@ public class Element extends Button implements Comparable<Element> {
         this.pack = pack;
         this.tags = tags;
         this.description = description;
+        this.persistent = persistent;
         this.alpha = alpha;
         this.alphaChange = alphaChange;
         this.tintOverlay = false;
@@ -279,6 +281,14 @@ public class Element extends Button implements Comparable<Element> {
         return this.name.split(":")[1];
     }
 
+    public void setPersistent(boolean persistent) {
+        this.persistent = persistent;
+    }
+
+    public boolean isPersistent() {
+        return this.persistent;
+    }
+
     private String getDisplayName() {
         String displayName = Language.getLanguageSelected().getElementLocalizedString(this.getNamespace(), this.getID());
         return displayName == null ? this.name : displayName;
@@ -343,6 +353,10 @@ public class Element extends Button implements Comparable<Element> {
                             elementSelectedB = null;
 
                             elementsSelected.add(this.deepCopy(this.group, this.alpha, 0));
+                            if (main.game.mode.equals("puzzle")) {
+                                //can't select the same element multiple times, or else it will be duping
+                                this.setDisabled(true);
+                            }
                         }
                     } else {
                         //deselect
@@ -370,6 +384,18 @@ public class Element extends Button implements Comparable<Element> {
     }
 
     public static void checkForMultiCombos() {
+        //reset disabled
+        if (Group.groupSelectedA != null) {
+            for (Element element : elementsA) {
+                element.setDisabled(false);
+            }
+        }
+        if (Group.groupSelectedB != null) {
+            for (Element element : elementsB) {
+                element.setDisabled(false);
+            }
+        }
+
         ArrayList<String> elementsSelectedString = new ArrayList<>();
         for (Element element : elementsSelected) {
             elementsSelectedString.add(element.name);
@@ -406,7 +432,9 @@ public class Element extends Button implements Comparable<Element> {
 
             if (main.game.mode.equals("puzzle")) {
                 for (Element element : elementsSelected) {
-                    main.game.removeElement(element.name);
+                    if (!element.persistent) {
+                        main.game.removeElement(element.name);
+                    }
                 }
             }
 
@@ -456,8 +484,12 @@ public class Element extends Button implements Comparable<Element> {
                 }
 
                 if (main.game.mode.equals("puzzle")) {
-                    main.game.removeElement(elementSelectedA.name);
-                    main.game.removeElement(elementSelectedB.name);
+                    if (!elementSelectedA.persistent) {
+                        main.game.removeElement(elementSelectedA.name);
+                    }
+                    if (!elementSelectedB.persistent) {
+                        main.game.removeElement(elementSelectedB.name);
+                    }
                 }
 
                 //need to update because affected groups might be already selected
@@ -583,7 +615,7 @@ public class Element extends Button implements Comparable<Element> {
 
     @SuppressWarnings("SameParameterValue")
     private Element deepCopy(Group group, int alpha, int alphaChange) {
-        Element element = new Element(this.name, group, this.pack, this.tags, this.description, alpha, alphaChange);
+        Element element = new Element(this.name, group, this.pack, this.tags, this.description, this.persistent, alpha, alphaChange);
         element.setX(this.getX());
         element.setY(this.getY());
         element.setImage(this.getImage());
@@ -591,7 +623,7 @@ public class Element extends Button implements Comparable<Element> {
     }
 
     public Element deepCopy() {
-        Element element = new Element(this.name, this.group, this.pack, this.tags, this.description, this.alpha, this.alphaChange);
+        Element element = new Element(this.name, this.group, this.pack, this.tags, this.description, this.persistent, this.alpha, this.alphaChange);
         element.setX(this.getX());
         element.setY(this.getY());
         element.setImage(this.getImage());

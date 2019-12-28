@@ -4,8 +4,5 @@
     "fullscreen": false,
     "group colour": false,
     "sound": false,
-    "loaded packs": [
-        "Test Pack",
-        "Alchemy"
-    ]
+    "loaded packs": ["Alchemy"]
 }

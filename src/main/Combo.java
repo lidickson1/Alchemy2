@@ -22,7 +22,7 @@ public abstract class Combo extends Entity {
         return this.amount;
     }
 
-    public void setAmount(int amount) {
+    void setAmount(int amount) {
         this.amount = amount;
     }
 

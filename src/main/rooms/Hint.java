@@ -1,9 +1,7 @@
 package main.rooms;
 
-import main.Combo;
-import main.Language;
-import main.NormalCombo;
-import main.RandomCombo;
+import com.sun.org.apache.xpath.internal.operations.Mult;
+import main.*;
 import main.buttons.Element;
 import main.buttons.Group;
 import main.buttons.iconbuttons.Exit;
@@ -13,6 +11,7 @@ import processing.core.PConstants;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 public class Hint extends Room {
 
@@ -94,13 +93,15 @@ public class Hint extends Room {
     void getElementHint() throws NoHintAvailable {
         ArrayList<String> possibleElements = new ArrayList<>();
         for (Combo combo : main.comboList) {
-            if (combo.canCreate()) {
+            if (combo.canCreate() && !main.game.isDiscovered(combo.getElement())) {
                 possibleElements.add(combo.getElement());
             }
         }
         for (RandomCombo randomCombo : main.randomCombos) {
             if (randomCombo.canCreate()) {
-                possibleElements.addAll(randomCombo.getAllResults());
+                HashSet<String> elements = randomCombo.getAllResults();
+                elements.removeIf(e -> main.game.isDiscovered(e));
+                possibleElements.addAll(elements);
             }
         }
 
@@ -117,12 +118,12 @@ public class Hint extends Room {
     private void getGroupHint() throws NoHintAvailable {
         ArrayList<NormalCombo> possibleCombos = new ArrayList<>();
         for (Combo combo : main.comboList) {
-            if (combo instanceof NormalCombo && combo.canCreate()) {
+            if (combo instanceof NormalCombo && combo.canCreate() && !main.game.isDiscovered(combo.getElement())) {
                 possibleCombos.add((NormalCombo) combo);
             }
         }
         for (RandomCombo randomCombo : main.randomCombos) {
-            if (randomCombo.canCreate()) {
+            if (randomCombo.canCreate() && randomCombo.notAllResultsDiscovered()) {
                 possibleCombos.addAll(randomCombo.getCanCreate());
             }
         }
