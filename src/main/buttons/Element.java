@@ -10,6 +10,7 @@ import main.rooms.ElementRoom;
 import main.rooms.Game;
 import main.variations.AnimationVariation;
 import main.variations.ComboVariation;
+import main.variations.RandomVariation;
 import main.variations.Variation;
 import org.apache.commons.collections4.CollectionUtils;
 import processing.core.PConstants;
@@ -111,7 +112,7 @@ public class Element extends Button implements Comparable<Element> {
             } else {
                 String packPath = pack.getPath() + "/elements/" + this.group.getPack().getNamespace() + "/" + this.group.getID() + "/" + fileName + ".png";
                 if (new File(packPath).exists()) {
-                    PImage image =  main.loadImage(packPath);
+                    PImage image = main.loadImage(packPath);
                     image.resize(SIZE, SIZE);
                     return image;
                 }
@@ -302,6 +303,17 @@ public class Element extends Button implements Comparable<Element> {
     }
 
     private String getDisplayName() {
+        if (this.variation != null) {
+            String variationName;
+            if (this.variation instanceof RandomVariation) {
+                variationName = Language.getLanguageSelected().getElementLocalizedString(this.getNamespace(), ((RandomVariation) this.variation).getName(this.getImage()));
+            } else {
+                variationName = Language.getLanguageSelected().getElementLocalizedString(this.getNamespace(), this.variation.getName());
+            }
+            if (variationName != null) {
+                return variationName;
+            }
+        }
         String displayName = Language.getLanguageSelected().getElementLocalizedString(this.getNamespace(), this.getID());
         return displayName == null ? this.name : displayName;
     }
@@ -541,6 +553,10 @@ public class Element extends Button implements Comparable<Element> {
 
     public static ArrayList<Element> getElementsSelected() {
         return elementsSelected;
+    }
+
+    public Pack getPack() {
+        return this.pack;
     }
 
     private void updateAlpha() {

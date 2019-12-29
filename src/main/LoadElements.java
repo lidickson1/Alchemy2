@@ -80,13 +80,40 @@ public class LoadElements extends Entity {
                 String remove = object.getString("remove");
                 //noinspection IfCanBeSwitch
                 if (remove.equals("all")) {
+                    ArrayList<Element> exceptElements = new ArrayList<>();
+                    ArrayList<Combo> exceptCombos = new ArrayList<>();
+                    ArrayList<RandomCombo> exceptRandom = new ArrayList<>();
+                    if (object.hasKey("except")) {
+                        JSONArray array1 = object.getJSONArray("except");
+                        for (int j = 0;j < array1.size();j++) {
+                            Element element1 = Element.getElement(array1.getString(j));
+                            if (element1 != null) {
+                                exceptElements.add(element1);
+                                for (Combo combo : main.comboList) {
+                                    if (combo.contains(element1.getName())) {
+                                        exceptCombos.add(combo);
+                                    }
+                                }
+                                for (RandomCombo randomCombo : main.randomCombos) {
+                                    if (randomCombo.contains(element1.getName())) {
+                                        exceptRandom.add(randomCombo);
+                                    }
+                                }
+                            }
+                        }
+                    }
                     main.comboList.clear();
+                    main.comboList.addAll(exceptCombos);
                     main.randomCombos.clear();
-                    main.loading.removeAllElements(); //this needs to be called first or else we can't determine how much progress to remove
+                    main.randomCombos.addAll(exceptRandom);
+                    main.loading.removeAllElements(exceptElements.size()); //this needs to be called first or else we can't determine how much progress to remove
                     for (HashSet<Element> list : main.groups.values()) {
-                        list.clear();
+                        list.removeIf(e -> !exceptElements.contains(e));
                     }
                     main.elements.clear();
+                    for (Element element1 : exceptElements) {
+                        main.elements.put(element1.getName(), element1.getGroup());
+                    }
                 } else if (remove.equals("element")) {
                     //remove all combos of an element
                     String elementName = pack.getNamespacedName(object.getString("element"));
@@ -277,7 +304,7 @@ public class LoadElements extends Entity {
         Permutation permutation = null;
         MultiPermutation multiPermutation = null;
         if (combo.hasKey("first element")) {
-            list.add(new NormalCombo(element.getName(), pack.getNamespacedName(combo.getString("first element")), pack.getNamespacedName(combo.getString("second element"))));
+            list.add(new NormalCombo(element.getName(), element.getPack().getNamespacedName(combo.getString("first element")), element.getPack().getNamespacedName(combo.getString("second element"))));
         } else if (combo.hasKey("elements")) {
             if (combo.hasKey("paired") && combo.getBoolean("paired")) {
                 permutation = new Permutation(element.getName(), PermutationType.UNRESTRICTED, combo, false, null);
@@ -290,7 +317,7 @@ public class LoadElements extends Entity {
             permutation = new Permutation(element.getName(), PermutationType.SETS, combo, false, null);
         }
         if (permutation != null) {
-            ArrayList<ImmutablePair<String, String>> combos = processPermutations(permutation.permutationType, permutation.json, pack);
+            ArrayList<ImmutablePair<String, String>> combos = processPermutations(permutation.permutationType, permutation.json, element.getPack());
             for (ImmutablePair<String, String> pair : combos) {
                 NormalCombo normalCombo = new NormalCombo(permutation.element, pair.left, pair.right);
                 int count = permutation.json.hasKey("amount") ? permutation.json.getInt("amount") : 1;
@@ -300,7 +327,7 @@ public class LoadElements extends Entity {
         }
         if (multiPermutation != null) {
             JSONArray elements = multiPermutation.json.getJSONArray("elements");
-            ArrayList<String> ingredients = processTags(elements, pack);
+            ArrayList<String> ingredients = processTags(elements, element.getPack());
             MultiCombo multiCombo = new MultiCombo(multiPermutation.element, ingredients);
             int count = multiPermutation.json.hasKey("amount") ? multiPermutation.json.getInt("amount") : 1;
             multiCombo.setAmount(count);
@@ -385,8 +412,8 @@ public class LoadElements extends Entity {
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private static boolean containsPair(String a, String b, ArrayList<ImmutablePair<String, String>> list) {
-        for (ImmutablePair p : list) {
-            if (p.left.equals(a) && p.right.equals(b)) {
+        for (ImmutablePair<String, String> p : list) {
+            if ((p.left.equals(a) && p.right.equals(b)) || (p.left.equals(b) && p.right.equals(a))) {
                 return true;
             }
         }

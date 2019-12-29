@@ -16,9 +16,17 @@ public abstract class Variation extends Entity {
         //can't load images in the constructor because it won't be in the image threading process
     }
 
-    public abstract PImage getImage();
+    public PImage getImage() {
+        return this.getImageAndName().getImage();
+    }
 
     public abstract void loadImages();
+
+    public String getName() {
+        return this.getImageAndName().getName();
+    }
+
+    public abstract ImageAndName getImageAndName();
 
     public static Variation getVariation(JSONObject json, Element element) {
         switch (json.getString("type")) {
@@ -32,8 +40,29 @@ public abstract class Variation extends Entity {
                 return new WeekVariation(json, element);
             case "animation":
                 return new AnimationVariation(json, element);
+            case "inherit":
+                return new InheritVariation(json, element);
             default:
                 return null;
+        }
+    }
+
+    static class ImageAndName {
+
+        private PImage image;
+        private String name;
+
+        public ImageAndName(PImage image, String name) {
+            this.image = image;
+            this.name = name;
+        }
+
+        PImage getImage() {
+            return this.image;
+        }
+
+        String getName() {
+            return this.name;
         }
     }
 

@@ -171,13 +171,14 @@ public class Loading extends Room {
         this.checkEverythingFailed();
     }
 
-    public void removeAllElements() {
+    public void removeAllElements(int except) {
         //remove its counter from total (json loading is successful, no need to load image)
         this.total--;
         for (HashSet<Element> list : main.groups.values()) {
             //we only subtract 1 for each because the json loading is already done, only need to remove the progress for loading the images
             this.total -= list.size();
         }
+        this.total += except;
         this.checkEverythingFailed();
     }
 

@@ -40,7 +40,7 @@ public class Language extends Entity {
     public String getElementLocalizedString(String namespace, String id) {
         try {
             return this.json.getJSONObject("elements").getJSONObject(namespace).getString(id);
-        } catch (NullPointerException ignored) {
+        } catch (RuntimeException ignored) {
         }
         return null;
     }

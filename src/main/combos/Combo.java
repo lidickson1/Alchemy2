@@ -38,4 +38,6 @@ public abstract class Combo extends Entity {
     public void setElement(String element) {
         this.element = element;
     }
+
+    public abstract boolean contains(String element);
 }

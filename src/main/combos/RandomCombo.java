@@ -247,4 +247,13 @@ public class RandomCombo extends Entity {
         return this.combos.size() == 0;
     }
 
+    public boolean contains(String element) {
+        for (Combo combo : this.combos) {
+            if (combo.contains(element)) {
+                return true;
+            }
+        }
+        return this.getAllResults().contains(element);
+    }
+
 }

@@ -51,6 +51,11 @@ public class NormalCombo extends Combo {
     }
 
     @Override
+    public boolean contains(String element) {
+        return this.a.equals(element) || this.b.equals(element) || this.getElement().equals(element);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof NormalCombo)) {
             return false;

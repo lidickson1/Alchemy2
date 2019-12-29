@@ -5302,16 +5302,6 @@
     {
         "combos": [
             {
-                "first element": "religion",
-                "second element": "human"
-            }
-        ],
-        "group": "abstract",
-        "name": "sin"
-    },
-    {
-        "combos": [
-            {
                 "first elements": ["bacteria"],
                 "second elements": ["sea", "water"]
             }
@@ -6332,8 +6322,10 @@
     {
         "combos": [
             {
-                "first elements": ["nitrate", "silver"],
-                "second elements": ["gelatin"]
+                "elements": ["iodine", "silver", "gelatin"]
+            },
+            {
+                "elements": ["nitrate", "silver", "gelatin"]
             }
         ],
         "group": "miscellaneous",
@@ -9066,6 +9058,16 @@
         "combos": [
             {
                 "elements": ["earth_planet", "life", "society", "mathematics"]
+            }
+        ]
+    },
+    {
+        "name": "church",
+        "group": "structures",
+        "combos": [
+            {
+                "first elements": ["religion"],
+                "second elements": ["house", "building"]
             }
         ]
     }

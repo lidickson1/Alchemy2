@@ -12,26 +12,21 @@ import java.util.ArrayList;
 
 public class ComboVariation extends Variation {
 
-    private ArrayList<ImmutablePair<Combo, PImage>> pairs = new ArrayList<>();
-    private PImage currentImage;
+    private ArrayList<ImmutablePair<Combo, ImageAndName>> pairs = new ArrayList<>();
+    private ImageAndName current;
 
     ComboVariation(JSONObject json, Element element) {
         super(json, element);
     }
 
-    @Override
-    public PImage getImage() {
-        return this.currentImage;
-    }
-
     public void setCurrentImage(Combo combo) {
-        for (ImmutablePair<Combo, PImage> pair : this.pairs) {
+        for (ImmutablePair<Combo, ImageAndName> pair : this.pairs) {
             if (combo.equals(pair.left)) {
-                this.currentImage = pair.right;
+                this.current = pair.right;
                 return;
             }
         }
-        this.currentImage = this.element.getImage();
+        this.current = null;
     }
 
     @Override
@@ -45,10 +40,16 @@ public class ComboVariation extends Variation {
             for (int j = 0;j < comboArray.size();j++) {
                 ArrayList<Combo> combos = LoadElements.getCombo(comboArray.getJSONObject(j), this.element);
                 for (Combo combo : combos) {
-                    this.pairs.add(new ImmutablePair<>(combo, image));
+                    this.pairs.add(new ImmutablePair<>(combo, new ImageAndName(image, object.getString("name"))));
                 }
             }
         }
-        this.currentImage = this.element.getImage();
+        this.current = null;
     }
+
+    @Override
+    public ImageAndName getImageAndName() {
+        return this.current;
+    }
+
 }

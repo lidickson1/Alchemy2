@@ -4,5 +4,8 @@
     "fullscreen": false,
     "group colour": false,
     "sound": false,
-    "loaded packs": ["Alchemy"]
+    "loaded packs": [
+        "Island Survival",
+        "Alchemy"
+    ]
 }

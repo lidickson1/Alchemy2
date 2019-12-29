@@ -36,6 +36,11 @@ public class MultiCombo extends Combo {
     }
 
     @Override
+    public boolean contains(String element) {
+        return this.ingredients.contains(element) || this.getElement().equals(element);
+    }
+
+    @Override
     public boolean canCreate() {
         return this.ingredientsDiscovered();
     }
