@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class Loading extends Room {
 
     private static final boolean GENERATE_ATLAS = false;
-    private static final boolean PRINT_GENERATIONS = true;
+    private static final boolean PRINT_GENERATIONS = false;
 
     private AtomicInteger progress;
     private int total;
@@ -93,7 +93,7 @@ public class Loading extends Room {
             int index = 0;
             for (Group group : main.groups.keySet()) {
                 for (Element element : main.groups.get(group)) {
-                    if (element.getImage() == null) { //some images might already be loaded from an atlas
+                    if (element.getImage() == null || element.getVariation() != null) { //some images might already be loaded from an atlas
                         if (index != 0 && index % size == 0) {
                             Element.loadImage(buffer);
                             buffer = new ArrayList<>();

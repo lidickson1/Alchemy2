@@ -20,7 +20,7 @@ public class Language extends Entity {
         this.id = id;
     }
 
-    private static Language getLanguage(String id) {
+    public static Language getLanguage(String id) {
         for (Language language : languages) {
             if (language.id.equals(id)) {
                 return language;
@@ -81,6 +81,10 @@ public class Language extends Entity {
                 original.put(key, object.get(key));
             }
         }
+    }
+
+    public JSONObject getJson() {
+        return this.json;
     }
 
     //finds and removes unused element names, default english only

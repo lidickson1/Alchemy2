@@ -2,6 +2,7 @@ package main.buttons;
 
 import main.Language;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
@@ -11,15 +12,15 @@ import processing.data.JSONObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.util.*;
 
 public class Pack extends LongButton {
 
     private String path;
     private JSONObject json;
     private PImage icon;
+    private JSONObject englishJson;
+    private HashMap<String, PImage> atlasMap = new HashMap<>();
 
     public Pack(String path, JSONObject json) {
         super();
@@ -28,6 +29,10 @@ public class Pack extends LongButton {
         this.json = json;
         this.icon = main.loadImage(path + "/icon.png");
         this.icon.resize(HEIGHT - 1, HEIGHT - 1);
+
+        if (this.json.hasKey("auto english") && this.json.getBoolean("auto english")) {
+            this.englishJson = main.loadJSONObject(path + "/languages/english.json");
+        }
     }
 
     public Pack() {
@@ -73,17 +78,27 @@ public class Pack extends LongButton {
         return new File(this.getAtlasImagePath()).exists() && new File(this.getAtlasTextPath()).exists();
     }
 
+    public PImage getAtlasImage(String path) {
+        return this.atlasMap.getOrDefault(path, null);
+    }
+
     public void loadAtlas() {
         try {
             PImage atlas = main.loadImage(this.getAtlasImagePath());
             Scanner scanner = new Scanner(new File(this.getAtlasTextPath()));
             int x = 0;
             int y = 0;
+            this.atlasMap.clear();
             while (scanner.hasNextLine()) {
                 String name = scanner.nextLine();
-                Element element = Element.getElement(name);
-                assert element != null;
-                element.setImage(atlas.get(x, y, Element.SIZE, Element.SIZE));
+                int count = StringUtils.countMatches(name, ":");
+                if (count == 1) {
+                    Element element = Element.getElement(name);
+                    assert element != null;
+                    element.setImage(atlas.get(x, y, Element.SIZE, Element.SIZE));
+                } else {
+                    this.atlasMap.put(name, atlas.get(x, y, Element.SIZE, Element.SIZE));
+                }
                 x += Element.SIZE;
                 if (x >= atlas.width) {
                     x = 0;
@@ -99,46 +114,42 @@ public class Pack extends LongButton {
         Language.loadLanguages(this.getName().equals("Alchemy") ? "resources/languages" : this.path + "/languages");
     }
 
-    private int getPackElementsSize() {
-        int count = 0;
+    private ArrayList<ImmutablePair<PImage, String>> getPairs() {
+        ArrayList<ImmutablePair<PImage, String>> list = new ArrayList<>();
         for (HashSet<Element> elements : main.groups.values()) {
             for (Element element : elements) {
                 if (element.isInPack(this)) {
-                    count++;
+                    list.addAll(element.getImages());
                 }
             }
         }
-        return count;
+        return list;
     }
 
     public void generateAtlas() {
         if (!this.hasAtlas()) {
             try {
-                int width = (int) Math.round(Math.sqrt(this.getPackElementsSize()));
-                int height = (int) Math.ceil((double) this.getPackElementsSize() / width);
+                ArrayList<ImmutablePair<PImage, String>> pairs = this.getPairs();
+                int width = (int) Math.round(Math.sqrt(pairs.size()));
+                int height = (int) Math.ceil((double) pairs.size() / width);
+                if (width == 0 || height == 0) {
+                    return; //this could happen if a pack removes elements!
+                }
                 PGraphics graphics = main.createGraphics(width * Element.SIZE, height * Element.SIZE);
                 PrintWriter printWriter = new PrintWriter(this.getAtlasTextPath());
-                ArrayList<Element> elements = new ArrayList<>();
-                for (HashSet<Element> set : main.groups.values()) {
-                    for (Element element : set) {
-                        if (element.isInPack(this)) {
-                            elements.add(element);
-                        }
-                    }
-                }
                 graphics.beginDraw();
                 int index = 0;
                 for (int i = 0; i < height; i++) {
                     for (int j = 0; j < width; j++) {
-                        Element element = elements.get(index);
-                        printWriter.println(element.getName());
-                        graphics.image(element.getImage(), j * Element.SIZE, i * Element.SIZE);
+                        ImmutablePair<PImage, String> pair = pairs.get(index);
+                        printWriter.println(pair.right);
+                        graphics.image(pair.left, j * Element.SIZE, i * Element.SIZE);
                         index++;
-                        if (index >= elements.size()) {
+                        if (index >= pairs.size()) {
                             break;
                         }
                     }
-                    if (index >= elements.size()) {
+                    if (index >= pairs.size()) {
                         break;
                     }
                 }
@@ -239,6 +250,15 @@ public class Pack extends LongButton {
             }
         }
         return list;
+    }
+
+    public void generateEnglish(String element) {
+        if (this.englishJson != null) {
+            String name = StringUtils.capitalize(element.replace("_"," "));
+            this.englishJson.getJSONObject("elements").getJSONObject(this.getNamespace()).put(element, name);
+            Objects.requireNonNull(Language.getLanguage("english")).getJson().getJSONObject("elements").getJSONObject(this.getNamespace()).put(element, name);
+            main.saveJSONObject(this.englishJson, this.path + "/languages/english.json", "indent=4");
+        }
     }
 
 }

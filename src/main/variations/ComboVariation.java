@@ -34,13 +34,11 @@ public class ComboVariation extends Variation {
         JSONArray array = this.json.getJSONArray("textures");
         for (int i = 0; i < array.size(); i++) {
             JSONObject object = array.getJSONObject(i);
-            PImage image = this.element.getImage(object.getString("texture"));
-            image.resize(Element.SIZE, Element.SIZE);
             JSONArray comboArray = object.getJSONArray("combos");
             for (int j = 0;j < comboArray.size();j++) {
                 ArrayList<Combo> combos = LoadElements.getCombo(comboArray.getJSONObject(j), this.element);
                 for (Combo combo : combos) {
-                    this.pairs.add(new ImmutablePair<>(combo, new ImageAndName(image, object.getString("name"))));
+                    this.pairs.add(new ImmutablePair<>(combo, new ImageAndName(object.getString("texture"), object.getString("name"))));
                 }
             }
         }
@@ -50,6 +48,17 @@ public class ComboVariation extends Variation {
     @Override
     public ImageAndName getImageAndName() {
         return this.current;
+    }
+
+    @Override
+    public ArrayList<ImmutablePair<PImage, String>> getImages() {
+        ArrayList<ImmutablePair<PImage, String>> list = new ArrayList<>();
+        for (ImmutablePair<Combo, ImageAndName> pair : this.pairs) {
+            if (pair.right.hasImage()) {
+                list.add(pair.right.toPair());
+            }
+        }
+        return list;
     }
 
 }

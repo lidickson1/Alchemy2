@@ -1,7 +1,7 @@
 package main.buttons;
 
 import com.sun.istack.internal.Nullable;
-import main.*;
+import main.Language;
 import main.combos.Combo;
 import main.combos.MultiCombo;
 import main.combos.NormalCombo;
@@ -13,6 +13,8 @@ import main.variations.ComboVariation;
 import main.variations.RandomVariation;
 import main.variations.Variation;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PConstants;
 import processing.core.PImage;
 
@@ -103,14 +105,20 @@ public class Element extends Button implements Comparable<Element> {
     public PImage getImage(String fileName) {
         //check if a pack has the image, from top to bottom
         for (Pack pack : main.packsRoom.getLoadedPacks()) {
+            //check for atlas first
+            if (pack.getAtlasImage(fileName) != null) {
+                return pack.getAtlasImage(fileName);
+            }
+            //fileName could be in the form of pack:element:variation because of variations
+            String id = StringUtils.countMatches(fileName, ":") == 2 ? fileName.split(":")[2] : fileName;
             if (pack.getName().equals("Alchemy") && this.pack.getName().equals("Alchemy")) {
                 //if the element is of the default pack and we are in the default pack right now, load default location
-                String defaultPath = "resources/elements/alchemy/" + this.group.getID() + "/" + fileName + ".png";
-                PImage image = new File(defaultPath).exists() ? main.loadImage(defaultPath) : error.copy();
+                String defaultPath = "resources/elements/alchemy/" + this.group.getID() + "/" + id + ".png";
+                PImage image = new File(defaultPath).exists() ? main.loadImage(defaultPath) : error;
                 image.resize(SIZE, SIZE);
                 return image;
             } else {
-                String packPath = pack.getPath() + "/elements/" + this.group.getPack().getNamespace() + "/" + this.group.getID() + "/" + fileName + ".png";
+                String packPath = pack.getPath() + "/elements/" + this.group.getPack().getNamespace() + "/" + this.group.getID() + "/" + id + ".png";
                 if (new File(packPath).exists()) {
                     PImage image = main.loadImage(packPath);
                     image.resize(SIZE, SIZE);
@@ -145,11 +153,17 @@ public class Element extends Button implements Comparable<Element> {
         this.variation = variation;
     }
 
+    public Variation getVariation() {
+        return this.variation;
+    }
+
     public static void loadImage(ArrayList<Element> elements) {
         Thread thread = new Thread(() -> {
             for (Element element : elements) {
                 //load original image
-                element.setImage(element.getImage(element.getID()));
+                if (element.getImage() == null) {
+                    element.setImage(element.getImage(element.getID()));
+                }
 
                 if (element.variation != null) {
                     element.variation.loadImages();
@@ -315,6 +329,10 @@ public class Element extends Button implements Comparable<Element> {
             }
         }
         String displayName = Language.getLanguageSelected().getElementLocalizedString(this.getNamespace(), this.getID());
+        //TODO
+        if (displayName == null) {
+            this.pack.generateEnglish(this.getID());
+        }
         return displayName == null ? this.name : displayName;
     }
 
@@ -361,6 +379,17 @@ public class Element extends Button implements Comparable<Element> {
 
     private static boolean failed() {
         return time != -1 && main.millis() - time <= FAILED_TIME;
+    }
+
+    public ArrayList<ImmutablePair<PImage, String>> getImages() {
+        ArrayList<ImmutablePair<PImage, String>> list = new ArrayList<>();
+        if (this.getImage() != null && this.getImage() != error) {
+            list.add(new ImmutablePair<>(this.getImage(), this.getName()));
+        }
+        if (this.variation != null) {
+            list.addAll(this.variation.getImages());
+        }
+        return list;
     }
 
     @Override
@@ -668,7 +697,16 @@ public class Element extends Button implements Comparable<Element> {
         Element element = new Element(this);
         element.setX(this.getX());
         element.setY(this.getY());
-        element.setImage(this.variation == null ? this.getImage() : this.variation.getImage());
+        if (this.variation != null) {
+            PImage image = this.variation.getImage(); //need to only call this once because Random Variation will give different images
+            if (image != null) {
+                element.setImage(image);
+            } else {
+                element.setImage(this.getImage());
+            }
+        } else {
+            element.setImage(this.getImage());
+        }
         return element;
     }
 

@@ -1,8 +1,11 @@
 package main.variations;
 
 import main.buttons.Element;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PImage;
 import processing.data.JSONObject;
+
+import java.util.ArrayList;
 
 public class InheritVariation extends Variation {
 
@@ -14,7 +17,7 @@ public class InheritVariation extends Variation {
     public PImage getImage() {
         Element element = Element.getElement(this.json.getString("texture"));
         if (element == null) {
-            return this.element.getImage().copy();
+            return null;
         } else {
             return element.getImage();
         }
@@ -33,5 +36,11 @@ public class InheritVariation extends Variation {
     @Override
     public ImageAndName getImageAndName() {
         return null;
+    }
+
+    @Override
+    public ArrayList<ImmutablePair<PImage, String>> getImages() {
+        //since this uses pre-existing textures, no need to add it to atlas
+        return new ArrayList<>();
     }
 }
