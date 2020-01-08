@@ -229,7 +229,7 @@ public class Game extends Room {
         main.textAlign(PConstants.LEFT, PConstants.TOP);
         main.text(Language.getLanguageSelected().getLocalizedString("game", "elements") + ": " + this.getNumberOfElements() + getGap() +
                 Language.getLanguageSelected().getLocalizedString("game", "groups") + ": " + this.discovered.keySet().size() + getGap() +
-                Language.getLanguageSelected().getLocalizedString("game", "hint timer") + ": " + this.getTimeString(), 0, 2);
+                Language.getLanguageSelected().getLocalizedString("game", "hint timer") + ": " + this.getTimeString(), 10, 10);
 
         Group.drawGroups();
         Element.drawElements();

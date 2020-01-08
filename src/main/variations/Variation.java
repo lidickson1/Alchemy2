@@ -92,6 +92,9 @@ public abstract class Variation extends Entity {
                 this.path = Variation.this.element.getName() + ":" + this.path;
             }
             this.image = Variation.this.element.getImage(this.path);
+            if (this.image == Button.error) {
+                this.image = null;
+            }
             if (this.image != null) {
                 this.image.resize(Element.SIZE, Element.SIZE);
             }
@@ -106,9 +109,8 @@ public abstract class Variation extends Entity {
             return this.name;
         }
 
-        //for atlas
         boolean hasImage() {
-            return this.image != null && this.image != Button.error;
+            return this.image != null;
         }
 
         //for atlas

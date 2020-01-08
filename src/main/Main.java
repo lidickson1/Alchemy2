@@ -20,6 +20,7 @@ import processing.data.JSONObject;
 import javax.swing.*;
 import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -261,6 +262,8 @@ public class Main extends PApplet {
         //prevents application from closing when esc key is pressed
         if (this.key == 27) {
             this.key = 0;
+        } else if (this.key == CODED && this.keyCode == KeyEvent.VK_F2) {
+            this.saveFrame("screenshot.png");
         }
         this.room.keyPressed();
     }

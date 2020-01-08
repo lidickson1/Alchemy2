@@ -26,7 +26,7 @@ public class ComboVariation extends Variation {
                 return;
             }
         }
-        this.current = null;
+        this.current = new ImageAndName(null, null);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ComboVariation extends Variation {
                 }
             }
         }
-        this.current = null;
+        this.current = new ImageAndName(null, null);
     }
 
     @Override

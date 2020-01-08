@@ -1,11 +1,8 @@
 {
     "volume": 0.43079588,
     "music": false,
-    "fullscreen": false,
+    "fullscreen": true,
     "group colour": false,
     "sound": false,
-    "loaded packs": [
-        "Island Survival",
-        "Alchemy"
-    ]
+    "loaded packs": ["Alchemy"]
 }
