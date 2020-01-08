@@ -7,4 +7,4 @@ You need to have Java (JRE) installed on your computer. You can do so by visitin
 
 ## Screenshots
 
-![](https://cdn.discordapp.com/attachments/269226485951234068/599306873681739779/alchemy1.png)
+![](https://cdn.discordapp.com/attachments/269226485951234068/664307072564985876/screenshot.png)
