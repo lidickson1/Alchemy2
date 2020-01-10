@@ -1,6 +1,7 @@
 package main.variations;
 
 import main.buttons.Element;
+import main.variations.appearances.Appearance;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PImage;
 import processing.data.JSONObject;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 public class MonthVariation extends Variation {
 
-    private ImageAndName[] images = new ImageAndName[12];
+    private Appearance[] images = new Appearance[12];
 
     MonthVariation(JSONObject json, Element element) {
         super(json, element);
@@ -18,7 +19,7 @@ public class MonthVariation extends Variation {
 
     @Override
     public void loadImages() {
-        ArrayList<ImageAndName> imageAndNames = this.loadImageAndNames();
+        ArrayList<Appearance> imageAndNames = this.loadAppearances();
         for (int i = 0;i < 12;i++) {
             if (i < imageAndNames.size()) {
                 this.images[i] = imageAndNames.get(i);
@@ -29,17 +30,15 @@ public class MonthVariation extends Variation {
     }
 
     @Override
-    public ImageAndName getImageAndName() {
+    public Appearance getAppearance() {
         return this.images[LocalDateTime.now().getMonthValue() - 1];
     }
 
     @Override
-    public ArrayList<ImmutablePair<PImage, String>> getImages() {
+    public ArrayList<ImmutablePair<PImage, String>> getPairs() {
         ArrayList<ImmutablePair<PImage, String>> list = new ArrayList<>();
-        for (ImageAndName imageAndName : this.images) {
-            if (imageAndName.hasImage()) {
-                list.add(imageAndName.toPair());
-            }
+        for (Appearance appearance : this.images) {
+            list.addAll(appearance.getPairs());
         }
         return list;
     }

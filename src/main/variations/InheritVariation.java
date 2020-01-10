@@ -1,12 +1,14 @@
 package main.variations;
 
 import main.buttons.Element;
+import main.variations.appearances.Appearance;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PImage;
 import processing.data.JSONObject;
 
 import java.util.ArrayList;
 
+//TODO: what if I want to inherit an animated texture?
 public class InheritVariation extends Variation {
 
     InheritVariation(JSONObject json, Element element) {
@@ -34,12 +36,12 @@ public class InheritVariation extends Variation {
     }
 
     @Override
-    public ImageAndName getImageAndName() {
+    public Appearance getAppearance() {
         return null;
     }
 
     @Override
-    public ArrayList<ImmutablePair<PImage, String>> getImages() {
+    public ArrayList<ImmutablePair<PImage, String>> getPairs() {
         //since this uses pre-existing textures, no need to add it to atlas
         return new ArrayList<>();
     }

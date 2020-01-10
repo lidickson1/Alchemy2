@@ -1,9 +1,8 @@
 package main.variations;
 
 import main.Entity;
-import main.buttons.Button;
 import main.buttons.Element;
-import org.apache.commons.lang3.StringUtils;
+import main.variations.appearances.Appearance;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PImage;
 import processing.data.JSONArray;
@@ -23,43 +22,39 @@ public abstract class Variation extends Entity {
     }
 
     public PImage getImage() {
-        return this.getImageAndName().getImage();
+        PImage image = this.getAppearance().getImage();
+        return image == null ? this.element.getImage() : image;
     }
 
     public abstract void loadImages();
 
-    public String getName() {
-        return this.getImageAndName().getName();
+    public Element getElement() {
+        return this.element;
     }
 
-    ArrayList<ImageAndName> loadImageAndNames() {
-        ArrayList<ImageAndName> list = new ArrayList<>();
+    public String getName() {
+        return this.getAppearance().getName();
+    }
+
+    ArrayList<Appearance> loadAppearances() {
+        ArrayList<Appearance> list = new ArrayList<>();
         JSONArray textures = this.json.getJSONArray("textures");
-        JSONArray names = this.json.getJSONArray("names");
-        if (textures == null && names == null) {
-            System.err.println("Error with variation for " + this.element.getName());
-            list.add(new ImageAndName(null, null));
-            return list;
-        }
-        int texturesSize = textures == null ? 0 : textures.size();
-        int namesSize = names == null ? 0 : names.size();
-        for (int i = 0; i < Math.max(texturesSize, namesSize); i++) {
-            String name = null;
-            if (names != null && i < namesSize) {
-                name = names.getString(i);
+        for (int i = 0; i < textures.size(); i++) {
+            Object object = textures.get(i);
+            if (object instanceof String) {
+                JSONObject json = new JSONObject();
+                json.put("texture", object);
+                list.add(Appearance.getAppearance(this, json));
+            } else {
+                list.add(Appearance.getAppearance(this, (JSONObject) object));
             }
-            String image = null;
-            if (textures != null && i < texturesSize) {
-                image = textures.getString(i);
-            }
-            list.add(new ImageAndName(image, name));
         }
         return list;
     }
 
-    public abstract ImageAndName getImageAndName();
+    public abstract Appearance getAppearance();
 
-    public abstract ArrayList<ImmutablePair<PImage, String>> getImages();
+    public abstract ArrayList<ImmutablePair<PImage, String>> getPairs();
 
     public static Variation getVariation(JSONObject json, Element element) {
         switch (json.getString("type")) {
@@ -71,51 +66,10 @@ public abstract class Variation extends Entity {
                 return new MonthVariation(json, element);
             case "week":
                 return new WeekVariation(json, element);
-            case "animation":
-                return new AnimationVariation(json, element);
             case "inherit":
                 return new InheritVariation(json, element);
             default:
                 return null;
-        }
-    }
-
-    class ImageAndName {
-
-        private PImage image;
-        private String path;
-        private String name;
-
-        public ImageAndName(String path, String name) {
-            this.path = path;
-            if (StringUtils.countMatches(this.path, ":") < 2) {
-                this.path = Variation.this.element.getName() + ":" + this.path;
-            }
-            this.image = Variation.this.element.getImage(this.path);
-            if (this.image == Button.error) {
-                this.image = null;
-            }
-            if (this.image != null) {
-                this.image.resize(Element.SIZE, Element.SIZE);
-            }
-            this.name = name;
-        }
-
-        PImage getImage() {
-            return this.image;
-        }
-
-        String getName() {
-            return this.name;
-        }
-
-        boolean hasImage() {
-            return this.image != null;
-        }
-
-        //for atlas
-        ImmutablePair<PImage, String> toPair() {
-            return new ImmutablePair<>(this.image, Variation.this.element.getName() + ":" + this.path);
         }
     }
 

@@ -3,6 +3,7 @@ package main.buttons;
 import main.Language;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.text.WordUtils;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
@@ -254,7 +255,7 @@ public class Pack extends LongButton {
 
     public void generateEnglish(String element) {
         if (this.englishJson != null) {
-            String name = StringUtils.capitalize(element.replace("_"," "));
+            String name = WordUtils.capitalize(element.replace("_"," "));
             this.englishJson.getJSONObject("elements").getJSONObject(this.getNamespace()).put(element, name);
             Objects.requireNonNull(Language.getLanguage("english")).getJson().getJSONObject("elements").getJSONObject(this.getNamespace()).put(element, name);
             main.saveJSONObject(this.englishJson, this.path + "/languages/english.json", "indent=4");

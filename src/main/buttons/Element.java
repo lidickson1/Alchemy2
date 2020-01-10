@@ -8,10 +8,10 @@ import main.combos.NormalCombo;
 import main.combos.RandomCombo;
 import main.rooms.ElementRoom;
 import main.rooms.Game;
-import main.variations.AnimationVariation;
 import main.variations.ComboVariation;
 import main.variations.RandomVariation;
 import main.variations.Variation;
+import main.variations.appearances.Appearance;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -57,6 +57,7 @@ public class Element extends Button implements Comparable<Element> {
     private Pack pack;
     private boolean persistent;
     private Variation variation;
+    private Appearance randomAppearance;
 
     private int alpha = 255;
     private int alphaChange;
@@ -84,6 +85,7 @@ public class Element extends Button implements Comparable<Element> {
         this.alphaChange = other.alphaChange;
         //noinspection IncompleteCopyConstructor
         this.tintOverlay = false;
+        this.randomAppearance = other.randomAppearance;
     }
 
     public static void reset() {
@@ -128,6 +130,15 @@ public class Element extends Button implements Comparable<Element> {
         }
 
         return null;
+    }
+
+    public PImage getImageWithoutFallback(String fileName) {
+        PImage image = this.getImage(fileName);
+        if (image == Button.error) {
+            return null;
+        } else {
+            return image;
+        }
     }
 
     @Override
@@ -320,7 +331,7 @@ public class Element extends Button implements Comparable<Element> {
         if (this.variation != null) {
             String variationName;
             if (this.variation instanceof RandomVariation) {
-                variationName = Language.getLanguageSelected().getElementLocalizedString(this.getNamespace(), ((RandomVariation) this.variation).getName(this.getImage()));
+                variationName = Language.getLanguageSelected().getElementLocalizedString(this.getNamespace(), this.randomAppearance.getName());
             } else {
                 variationName = Language.getLanguageSelected().getElementLocalizedString(this.getNamespace(), this.variation.getName());
             }
@@ -346,7 +357,15 @@ public class Element extends Button implements Comparable<Element> {
 
     @Override
     protected void drawButton() {
-        main.image(this.variation instanceof AnimationVariation ? this.variation.getImage() : this.getImage(), this.getX(), this.getY());
+        PImage image = null;
+        if (this.variation != null) {
+            image = this.variation instanceof RandomVariation ? this.randomAppearance.getImage() : this.variation.getImage();
+        }
+        //random appearance might return null
+        if (image == null) {
+            image = this.getImage();
+        }
+        main.image(image, this.getX(), this.getY());
         main.fill(main.getSettings().getBoolean("group colour") ? this.group.getColour() : 255, this.alpha);
         main.textAlign(PConstants.CENTER);
 
@@ -387,7 +406,7 @@ public class Element extends Button implements Comparable<Element> {
             list.add(new ImmutablePair<>(this.getImage(), this.getName()));
         }
         if (this.variation != null) {
-            list.addAll(this.variation.getImages());
+            list.addAll(this.variation.getPairs());
         }
         return list;
     }
@@ -697,16 +716,10 @@ public class Element extends Button implements Comparable<Element> {
         Element element = new Element(this);
         element.setX(this.getX());
         element.setY(this.getY());
-        if (this.variation != null) {
-            PImage image = this.variation.getImage(); //need to only call this once because Random Variation will give different images
-            if (image != null) {
-                element.setImage(image);
-            } else {
-                element.setImage(this.getImage());
-            }
-        } else {
-            element.setImage(this.getImage());
+        if (this.variation instanceof RandomVariation) {
+            element.randomAppearance = this.variation.getAppearance();
         }
+        element.setImage(this.getImage());
         return element;
     }
 
