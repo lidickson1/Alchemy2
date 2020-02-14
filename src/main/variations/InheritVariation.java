@@ -1,6 +1,7 @@
 package main.variations;
 
 import main.buttons.Element;
+import main.buttons.Pack;
 import main.variations.appearances.Appearance;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PImage;
@@ -8,21 +9,22 @@ import processing.data.JSONObject;
 
 import java.util.ArrayList;
 
-//TODO: what if I want to inherit an animated texture?
 public class InheritVariation extends Variation {
 
-    InheritVariation(JSONObject json, Element element) {
+    private Pack pack;
+
+    InheritVariation(JSONObject json, Element element, Pack pack) {
         super(json, element);
+        this.pack = pack;
+    }
+
+    private Element getInheritedElement() {
+        return Element.getElement(this.pack.getNamespacedName(this.json.getString("texture")));
     }
 
     @Override
     public PImage getImage() {
-        Element element = Element.getElement(this.json.getString("texture"));
-        if (element == null) {
-            return null;
-        } else {
-            return element.getImage();
-        }
+        return this.getInheritedElement().getDrawnImage();
     }
 
     @Override
@@ -32,7 +34,11 @@ public class InheritVariation extends Variation {
 
     @Override
     public String getName() {
-        return null;
+        if (this.getInheritedElement().getVariation() != null) {
+            return this.getInheritedElement().getVariation().getName();
+        } else {
+            return null;
+        }
     }
 
     @Override

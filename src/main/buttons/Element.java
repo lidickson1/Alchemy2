@@ -355,8 +355,7 @@ public class Element extends Button implements Comparable<Element> {
         return displayName + "...";
     }
 
-    @Override
-    protected void drawButton() {
+    public PImage getDrawnImage() {
         PImage image = null;
         if (this.variation != null) {
             image = this.variation instanceof RandomVariation ? this.randomAppearance.getImage() : this.variation.getImage();
@@ -365,7 +364,12 @@ public class Element extends Button implements Comparable<Element> {
         if (image == null) {
             image = this.getImage();
         }
-        main.image(image, this.getX(), this.getY());
+        return image;
+    }
+
+    @Override
+    protected void drawButton() {
+        main.image(this.getDrawnImage(), this.getX(), this.getY());
         main.fill(main.getSettings().getBoolean("group colour") ? this.group.getColour() : 255, this.alpha);
         main.textAlign(PConstants.CENTER);
 

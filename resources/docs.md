@@ -199,7 +199,7 @@ Variations are used to dynamically change an element's texture and/or it's displ
 }
 ```
 
-This variation is used to display an animation for the element's texture.
+Since animations are already supported in other variations, this variation should only be used when the functionality of other variations are not needed.
 
 `textures` is an array of strings, which are the file names of the frames of the animation. The order they are listed in will be the order displayed in the animation. The files must be in the same folder as the element's default texture (you can learn more about textures here).
 
@@ -222,6 +222,17 @@ This variation is used to display an animation for the element's texture.
             ],
             "texture": "horizon_sea",
             "name": "name"
+        },
+        {
+            "combos": [
+                {
+                    "first element": "sky",
+                    "second element": "sky"
+                }
+            ],
+            "textures": ["horizon_sea", "air"],
+            "time": 1000,
+            "names": ["name", "name for air"]
         }
     ]
 }
@@ -229,7 +240,7 @@ This variation is used to display an animation for the element's texture.
 
 This variation is used to change the element's texture when a specified combination occurs. In this example, the `horizon_sea` texture is used when `sky` and `sea` are combined.
 
-`textures` is an array of objects, with each object specifying the combinations needed and the corresponding texture.
+`textures` is an array of objects, with each object specifying the combinations needed and the corresponding texture or animation.
 
 `combos` is an array of combination objects which are covered in more detail [here](#combinations).
 
@@ -257,8 +268,8 @@ There are 2 types of date variations currently available: month and week.
     "type": "month",
     "textures": [
         "constellation_0",
-        "constellation_1",
-        "constellation_2",
+        { "texture": "constellation_1" },
+        { "textures": ["constellation_2_0", "constellation_2_1"] },
         "constellation_3",
         "constellation_4",
         "constellation_5",
@@ -273,15 +284,15 @@ There are 2 types of date variations currently available: month and week.
 }
 ```
 
-The month variation allows separate textures for every month. Since there are 12 months in a year, there should be 12 file names in the `textures` array. The first texture will be for January, the second texture for February and so on.
+The month variation allows separate textures or animations for every month. Since there are 12 months in a year, there should be 12 file names in the `textures` array. The first texture will be for January, the second texture for February and so on.
 
 ```json
 {
     "type": "week",
     "textures": [
         "image1",
-        "image2",
-        "image3",
+        { "texture": "image2" },
+        { "textures": ["image3", "image3_1"] },
         "image4",
         "image5",
         "image6",
@@ -291,7 +302,7 @@ The month variation allows separate textures for every month. Since there are 12
 }
 ```
 
-The week variation allows separate textures for every day of the week. Since there are 7 days in a week, there should be 7 file names in the `textures` array. The first texture will be for Monday, the second texture for Tuesday and so on.
+The week variation allows separate textures or animations for every day of the week. Since there are 7 days in a week, there should be 7 file names in the `textures` array. The first texture will be for Monday, the second texture for Tuesday and so on.
 
 `names` is an optional array of strings which are the unlocalized names for the corresponding month/week texture. If no name is specified, or if there's an error, the default name will be used instead.
 
@@ -302,15 +313,20 @@ The week variation allows separate textures for every day of the week. Since the
     "type": "random",
     "textures": [
         {
-            "weight": "0.5",
+            "weight": "0.25",
             "texture": "dog_emmy",
             "name": "optional_name"
+        },
+        {
+            "weight": "0.5",
+            "textures": ["dog_albert", "dog_foo"],
+            "time": 200
         }
     ]
 }
 ```
 
-The variation is useful when you want to change the texture based on chance. The `textures` array hold a list of objects, which specifies the probability of the texture being chosen, and the file name. The sum of all of the `weight`s should be between 0 and 1. If it isn't, the results will not be as expected. The remaining probability (in this example 0.5) will be the probability of the default texture being used.
+The variation is useful when you want to change the texture based on chance. The `textures` array hold a list of objects, which specifies the probability of the texture or animation being chosen, and the file name. The sum of all of the `weight`s should be between 0 and 1. If it isn't, the results will not be as expected. The remaining probability (in this example 0.5) will be the probability of the default texture being used.
 
 `name` is an optional string which is the unlocalized name for that texture.
 

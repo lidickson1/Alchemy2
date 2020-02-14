@@ -9,16 +9,17 @@ import processing.data.JSONObject;
 
 import java.util.ArrayList;
 
-class Animation extends Appearance {
+public class Animation extends Appearance {
 
     private ArrayList<PImage> images = new ArrayList<>();
     private int time; //time between frames
     private int lastTime;
     private int index;
     private ArrayList<String> paths = new ArrayList<>();
+    private ArrayList<String> names = new ArrayList<>();
 
-    public Animation(Variation variation, JSONObject json, String name) {
-        super(variation, name);
+    public Animation(Variation variation, JSONObject json) {
+        super(variation);
         JSONArray textures = json.getJSONArray("textures");
         for (int i = 0;i < textures.size();i++) {
             String path = textures.getString(i);
@@ -28,7 +29,20 @@ class Animation extends Appearance {
             this.paths.add(path);
             this.images.add(this.getVariation().getElement().getImage(path));
         }
+        JSONArray names = json.getJSONArray("names");
+        if (names != null) {
+            for (int i = 0; i < textures.size(); i++) {
+                if (i < names.size()) {
+                    this.names.add(names.getString(i));
+                }
+            }
+        }
         this.time = json.hasKey("time") ? json.getInt("time") : 1000;
+    }
+
+    @Override
+    public String getName() {
+        return this.index < this.names.size() ? this.names.get(this.index) : null;
     }
 
     @Override

@@ -2,6 +2,7 @@ package main.variations;
 
 import main.Entity;
 import main.buttons.Element;
+import main.buttons.Pack;
 import main.variations.appearances.Appearance;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PImage;
@@ -56,7 +57,7 @@ public abstract class Variation extends Entity {
 
     public abstract ArrayList<ImmutablePair<PImage, String>> getPairs();
 
-    public static Variation getVariation(JSONObject json, Element element) {
+    public static Variation getVariation(JSONObject json, Element element, Pack pack) {
         switch (json.getString("type")) {
             case "random":
                 return new RandomVariation(json, element);
@@ -67,7 +68,9 @@ public abstract class Variation extends Entity {
             case "week":
                 return new WeekVariation(json, element);
             case "inherit":
-                return new InheritVariation(json, element);
+                return new InheritVariation(json, element, pack);
+            case "animation":
+                return new AnimationVariation(json, element);
             default:
                 return null;
         }

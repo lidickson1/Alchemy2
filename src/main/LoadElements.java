@@ -183,7 +183,7 @@ public class LoadElements extends Entity {
                 }
 
                 if (object.hasKey("variation")) {
-                    e.setVariation(Variation.getVariation(object.getJSONObject("variation"), e));
+                    e.setVariation(Variation.getVariation(object.getJSONObject("variation"), e, pack));
                 }
 
                 if (object.hasKey("combos")) {
