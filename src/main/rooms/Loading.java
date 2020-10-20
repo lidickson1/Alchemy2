@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class Loading extends Room {
 
     private static final boolean GENERATE_ATLAS = false;
-    private static final boolean PRINT_GENERATIONS = false;
+    private static final boolean PRINT_GENERATIONS = true;
 
     private AtomicInteger progress;
     private int total;

@@ -19,25 +19,25 @@ import java.util.*;
 
 public class Game extends Room {
 
-    private TreeMap<Group, ArrayList<Element>> discovered = new TreeMap<>(Group::compareTo);
-    private ArrayList<Combo> history = new ArrayList<>();
+    private final TreeMap<Group, ArrayList<Element>> discovered = new TreeMap<>(Group::compareTo);
+    private final ArrayList<Combo> history = new ArrayList<>();
 
     private SaveFile saveFile;
 
-    private Pane success;
-    private Pane hint;
-    private Save save;
-    private Exit exit;
-    private IconButton historyButton;
-    private IconButton hintButton;
-    private IconButton undoButton;
+    private final Pane success;
+    private final Pane hint;
+    private final Save save;
+    private final Exit exit;
+    private final IconButton historyButton;
+    private final IconButton hintButton;
+    private final IconButton undoButton;
 
-    private Arrow groupLeftArrow;
-    private Arrow groupRightArrow;
-    private Arrow elementAUpArrow;
-    private Arrow elementADownArrow;
-    private Arrow elementBUpArrow;
-    private Arrow elementBDownArrow;
+    private final Arrow groupLeftArrow;
+    private final Arrow groupRightArrow;
+    private final Arrow elementAUpArrow;
+    private final Arrow elementADownArrow;
+    private final Arrow elementBUpArrow;
+    private final Arrow elementBDownArrow;
 
     private LocalDateTime hintTime; //time of next hint
 
@@ -180,10 +180,12 @@ public class Game extends Room {
 
             if (this.saveFile == null) { //new game
                 this.mode = "normal";
+                ArrayList<Element> elements = new ArrayList<>();
                 for (Pack pack : main.packsRoom.getLoadedPacks()) {
-                    for (Element element : pack.getStartingElements()) {
-                        this.addElement(element);
-                    }
+                    pack.getStartingElements(elements);
+                }
+                for (Element element : elements) {
+                    this.addElement(element);
                 }
                 this.hintTime = LocalDateTime.now().plusMinutes(3);
             } else {

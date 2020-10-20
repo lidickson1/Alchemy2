@@ -20,20 +20,27 @@ public class Animation extends Appearance {
 
     public Animation(Variation variation, JSONObject json) {
         super(variation);
-        JSONArray textures = json.getJSONArray("textures");
-        for (int i = 0;i < textures.size();i++) {
-            String path = textures.getString(i);
-            if (StringUtils.countMatches(path, ":") < 2) {
-                path = this.getVariation().getElement().getName() + ":" + path;
+        if (json.hasKey("texture")) {
+            PImage image = variation.getElement().getImage(json.getString("texture"));
+            for (int i = 0; i < image.height / image.width; i++) {
+                this.images.add(image.get(0, i * image.width, image.width, image.width));
             }
-            this.paths.add(path);
-            this.images.add(this.getVariation().getElement().getImage(path));
-        }
-        JSONArray names = json.getJSONArray("names");
-        if (names != null) {
+        } else {
+            JSONArray textures = json.getJSONArray("textures");
             for (int i = 0; i < textures.size(); i++) {
-                if (i < names.size()) {
-                    this.names.add(names.getString(i));
+                String path = textures.getString(i);
+                if (StringUtils.countMatches(path, ":") < 2) {
+                    path = this.getVariation().getElement().getName() + ":" + path;
+                }
+                this.paths.add(path);
+                this.images.add(this.getVariation().getElement().getImage(path));
+            }
+            JSONArray names = json.getJSONArray("names");
+            if (names != null) {
+                for (int i = 0; i < textures.size(); i++) {
+                    if (i < names.size()) {
+                        this.names.add(names.getString(i));
+                    }
                 }
             }
         }
@@ -60,7 +67,7 @@ public class Animation extends Appearance {
     @Override
     public ArrayList<ImmutablePair<PImage, String>> getPairs() {
         ArrayList<ImmutablePair<PImage, String>> list = new ArrayList<>();
-        for (int i = 0;i < this.images.size();i++) {
+        for (int i = 0; i < this.images.size(); i++) {
             if (this.images.get(i) != null) {
                 list.add(new ImmutablePair<>(this.images.get(i), this.paths.get(i)));
             }

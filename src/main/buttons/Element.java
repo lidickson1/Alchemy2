@@ -32,29 +32,29 @@ public class Element extends Button implements Comparable<Element> {
 
     private static int maxElements;
 
-    private static ArrayList<Element> elementsA = new ArrayList<>();
-    private static ArrayList<Element> elementsB = new ArrayList<>();
+    private static final ArrayList<Element> elementsA = new ArrayList<>();
+    private static final ArrayList<Element> elementsB = new ArrayList<>();
 
     private static Element elementSelectedA;
     private static Element elementSelectedB;
-    private static ArrayList<Element> elementsSelected = new ArrayList<>(); //for selecting more than 2 elements
+    private static final ArrayList<Element> elementsSelected = new ArrayList<>(); //for selecting more than 2 elements
 
     public static int pageNumberA;
     public static int totalPagesA;
     public static int pageNumberB;
     public static int totalPagesB;
 
-    private static ArrayList<Element> elementsCreated = new ArrayList<>();
+    private static final ArrayList<Element> elementsCreated = new ArrayList<>();
 
     public static Element touching;
 
     private static long time = -1; //timer when combination is wrong
 
-    private String name;
+    private final String name;
     private Group group;
     private ArrayList<String> tags = new ArrayList<>();
     private String description;
-    private Pack pack;
+    private final Pack pack;
     private boolean persistent;
     private Variation variation;
     private Appearance randomAppearance;
@@ -115,20 +115,38 @@ public class Element extends Button implements Comparable<Element> {
             String id = StringUtils.countMatches(fileName, ":") == 2 ? fileName.split(":")[2] : fileName;
             if (pack.getName().equals("Alchemy") && this.pack.getName().equals("Alchemy")) {
                 //if the element is of the default pack and we are in the default pack right now, load default location
-                String defaultPath = "resources/elements/alchemy/" + this.group.getID() + "/" + id + ".png";
-                PImage image = new File(defaultPath).exists() ? main.loadImage(defaultPath) : error;
-                image.resize(SIZE, SIZE);
+                String defaultPath = "resources/elements/alchemy/" + this.group.getID() + "/" + id;
+                PImage image = this.getImageFromPath(defaultPath);
+                if (image == null) {
+                    image = error;
+                } else {
+                    image.resize(SIZE, 0);
+                }
                 return image;
             } else {
-                String packPath = pack.getPath() + "/elements/" + this.group.getPack().getNamespace() + "/" + this.group.getID() + "/" + id + ".png";
-                if (new File(packPath).exists()) {
-                    PImage image = main.loadImage(packPath);
-                    image.resize(SIZE, SIZE);
+                String packPath = pack.getPath() + "/elements/" + this.group.getPack().getNamespace() + "/" + this.group.getID() + "/" + id;
+                PImage image = this.getImageFromPath(packPath);
+                if (image != null) {
+                    image.resize(SIZE, 0);
                     return image;
                 }
             }
         }
+        return null;
+    }
 
+    private PImage getImageFromPath(String path) {
+        String png = path + ".png";
+        if (new File(png).exists()) {
+            return main.loadImage(png);
+        }
+        //https://stackoverflow.com/questions/54443002/java-splitting-gif-image-in-bufferedimages-gives-malformed-images
+        //TODO: gif -> animated frames -> AnimationVariation
+        //problem is AnimationVariation itself also calls this method lmao, recursive animation?? lol
+        String gif = path + ".gif";
+        if (new File(gif).exists()) {
+            return main.loadImage(gif);
+        }
         return null;
     }
 

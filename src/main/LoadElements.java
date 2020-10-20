@@ -74,7 +74,7 @@ public class LoadElements extends Entity {
 
         for (int i = 0; i < array.size(); i++) {
             JSONObject object = array.getJSONObject(i);
-            String element = pack.getNamespacedName(object.getString("name"));
+            String elementName = pack.getNamespacedName(object.getString("name"));
 
             if (object.hasKey("remove")) {
                 String remove = object.getString("remove");
@@ -116,23 +116,23 @@ public class LoadElements extends Entity {
                     }
                 } else if (remove.equals("element")) {
                     //remove all combos of an element
-                    String elementName = pack.getNamespacedName(object.getString("element"));
-                    main.comboList.removeIf(e -> e.getElement().equals(elementName));
+                    String e = pack.getNamespacedName(object.getString("element"));
+                    main.comboList.removeIf(combo -> combo.getElement().equals(e));
                     for (RandomCombo randomCombo : main.randomCombos) {
-                        randomCombo.removeElement(elementName);
+                        randomCombo.removeElement(e);
                     }
-                    Element element1 = Element.getElement(elementName);
+                    Element element1 = Element.getElement(e);
                     if (element1 != null) {
                         main.groups.get(element1.getGroup()).remove(element1);
-                        main.elements.remove(elementName);
+                        main.elements.remove(e);
                         main.loading.removeElement();
                     } else {
-                        System.err.println(elementName + " could not be removed!");
+                        System.err.println(e + " could not be removed!");
                     }
                 } else if (remove.equals("combo")) {
                     JSONArray combos = object.getJSONArray("combos");
                     for (int j = 0; j < combos.size(); j++) {
-                        processCombo(combos.getJSONObject(j), element, true, null);
+                        processCombo(combos.getJSONObject(j), elementName, true, null);
                     }
                     main.loading.removeCombo();
                 } else if (remove.equals("random")) {
@@ -148,48 +148,48 @@ public class LoadElements extends Entity {
                 main.randomCombos.add(randomCombo);
                 main.loading.randomCombo();
             } else {
-                Group group = Group.getGroup(pack.getNamespacedName(object.getString("group")));
-                Element e = new Element(element, group, pack);
-                if (group == null) {
-                    System.err.println("Error: Group " + pack.getNamespacedName(object.getString("group")) + " not found!");
-                    main.loading.elementFailed();
-                    continue;
-                }
-
+                Element element;
                 //element might exist because we allow existing elements to be modified
-                if (main.elements.containsKey(element)) {
-                    e = Element.getElement(element);
-                    assert e != null;
+                if (main.elements.containsKey(elementName)) {
+                    element = Element.getElement(elementName);
+                    assert element != null;
                     main.loading.modifyElement();
                 } else {
-                    main.groups.get(group).add(e);
-                    main.elements.put(element, group);
+                    Group group = Group.getGroup(pack.getNamespacedName(object.getString("group")));
+                    if (group == null) {
+                        System.err.println("Error: Group " + pack.getNamespacedName(object.getString("group")) + " not found!");
+                        main.loading.elementFailed();
+                        continue;
+                    }
+                    element = new Element(elementName, group, pack);
+                    main.groups.get(group).add(element);
+                    main.elements.put(elementName, group);
                 }
 
                 if (object.hasKey("persistent")) {
-                    e.setPersistent(object.getBoolean("persistent"));
+                    element.setPersistent(object.getBoolean("persistent"));
                 }
 
                 if (object.hasKey("description")) {
-                    e.setDescription(object.getString("description"));
+                    element.setDescription(object.getString("description"));
                 }
 
                 if (object.hasKey("tags")) {
                     JSONArray tags = object.getJSONArray("tags");
                     for (int j = 0; j < tags.size(); j++) {
                         //tags are namespaced too!
-                        e.addTag(pack.getNamespacedName(tags.getString(j)));
+                        element.addTag(pack.getNamespacedName(tags.getString(j)));
                     }
                 }
 
                 if (object.hasKey("variation")) {
-                    e.setVariation(Variation.getVariation(object.getJSONObject("variation"), e, pack));
+                    element.setVariation(Variation.getVariation(object.getJSONObject("variation"), element, pack));
                 }
 
                 if (object.hasKey("combos")) {
                     JSONArray combos = object.getJSONArray("combos");
                     for (int j = 0; j < combos.size(); j++) {
-                        processCombo(combos.getJSONObject(j), element, false, null);
+                        processCombo(combos.getJSONObject(j), elementName, false, null);
                     }
                 }
             }

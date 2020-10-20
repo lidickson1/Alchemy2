@@ -8,17 +8,22 @@ import main.combos.NormalCombo;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Generation extends Entity {
 
+    private static final boolean PRINT_COMBOS = true;
+
     public static void generate(HashSet<String> elements, HashSet<Combo> combos) {
         HashSet<String> discovered = new HashSet<>();
 
+        ArrayList<Element> list = new ArrayList<>();
         for (Pack pack : main.packsRoom.getLoadedPacks()) {
-            for (Element element : pack.getStartingElements()) {
-                discovered.add(element.getName());
-            }
+            pack.getStartingElements(list);
+        }
+        for (Element element : list) {
+            discovered.add(element.getName());
         }
 
         try {
@@ -27,6 +32,7 @@ public class Generation extends Entity {
             while (discovered.size() < elements.size()) {
                 printWriter.println("Generation: " + generation);
                 HashSet<String> created = new HashSet<>(); //elements just created in this generation
+                HashSet<Combo> generationCombos = new HashSet<>(); //combos that can be made in this generation
                 for (Combo combo : combos) {
                     //cannot use canCreate here because we are not using main.game.discovered
                     if (!discovered.contains(combo.getElement())) {
@@ -35,6 +41,7 @@ public class Generation extends Entity {
                             NormalCombo normalCombo = (NormalCombo) combo;
                             if (discovered.contains(normalCombo.getA()) && discovered.contains(normalCombo.getB())) {
                                 created.add(normalCombo.getElement());
+                                generationCombos.add(normalCombo);
                             }
                         } else if (combo instanceof MultiCombo) {
                             MultiCombo multiCombo = (MultiCombo) combo;
@@ -47,13 +54,21 @@ public class Generation extends Entity {
                                 }
                             }
                             if (flag) {
-                                discovered.add(multiCombo.getElement());
+                                created.add(multiCombo.getElement());
+                                generationCombos.add(multiCombo);
                             }
                         }
                     }
                 }
 
-                printWriter.println(String.join(", ", created));
+                if (PRINT_COMBOS) {
+                    for (Combo combo : generationCombos) {
+                        printWriter.println((String.join(", ", combo.getIngredients()) + ", " + combo.getElement()));
+                    }
+                } else {
+                    printWriter.println(String.join(", ", created));
+                }
+
                 discovered.addAll(created);
                 generation++;
 

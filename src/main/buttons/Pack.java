@@ -18,10 +18,10 @@ import java.util.*;
 public class Pack extends LongButton {
 
     private String path;
-    private JSONObject json;
-    private PImage icon;
+    private final JSONObject json;
+    private final PImage icon;
     private JSONObject englishJson;
-    private HashMap<String, PImage> atlasMap = new HashMap<>();
+    private final HashMap<String, PImage> atlasMap = new HashMap<>();
 
     public Pack(String path, JSONObject json) {
         super();
@@ -31,7 +31,7 @@ public class Pack extends LongButton {
         this.icon = main.loadImage(path + "/icon.png");
         this.icon.resize(HEIGHT - 1, HEIGHT - 1);
 
-        if (this.json.hasKey("auto english") && this.json.getBoolean("auto english")) {
+        if (this.json.getBoolean("auto english", false)) {
             this.englishJson = main.loadJSONObject(path + "/languages/english.json");
         }
     }
@@ -206,9 +206,9 @@ public class Pack extends LongButton {
             return this.json.getString("namespace") + ":" + name;
         } else if (count == 1) {
             //must be in the form of: tag:a, group:a, a:b
-            if (name.length() >= 5 && name.substring(0, 4).equals("tag:")) { //5 because at least a character should be behind "tag:"
+            if (name.length() >= 5 && name.startsWith("tag:")) { //5 because at least a character should be behind "tag:"
                 return this.json.getString("namespace") + ":" + name;
-            } else if (name.length() >= 7 && name.substring(0, 6).equals("group:")) {
+            } else if (name.length() >= 7 && name.startsWith("group:")) {
                 return this.json.getString("namespace") + ":" + name;
             } else {
                 String[] split = name.split(":");
@@ -235,22 +235,32 @@ public class Pack extends LongButton {
         return null;
     }
 
-    public ArrayList<Element> getStartingElements() {
-        ArrayList<Element> list = new ArrayList<>();
+    public void getStartingElements(ArrayList<Element> elements) {
         if (this.json.isNull("starting elements")) {
-            return list;
+            return;
         }
         JSONArray array = this.json.getJSONArray("starting elements");
         for (int i = 0; i < array.size(); i++) {
-            String name = this.getNamespacedName(array.getString(i));
+            String name;
+            boolean remove = false;
+            if (array.get(i) instanceof String) {
+                name = this.getNamespacedName(array.getString(i));
+            } else {
+                name = this.getNamespacedName(array.getJSONObject(i).getString("name"));
+                remove = array.getJSONObject(i).getBoolean("remove", false);
+            }
             Element element = Element.getElement(name);
             if (element == null) {
-                System.err.println("Error when loading starting elements: " + name + " not found!");
+                System.err.println("Warning when loading starting elements: " + name + " not found!");
+                System.err.println("This is allowed if you want to control the starting elements by removing them in elements.json");
             } else {
-                list.add(element);
+                if (remove) {
+                    elements.remove(element);
+                } else {
+                    elements.add(element);
+                }
             }
         }
-        return list;
     }
 
     public void generateEnglish(String element) {
