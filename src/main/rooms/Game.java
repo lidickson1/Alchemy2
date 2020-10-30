@@ -1,12 +1,11 @@
 package main.rooms;
 
-import main.combos.Combo;
 import main.Language;
 import main.buttons.*;
 import main.buttons.iconbuttons.Exit;
 import main.buttons.iconbuttons.IconButton;
 import main.buttons.iconbuttons.Save;
-import main.exceptions.NoElementException;
+import main.combos.Combo;
 import org.apache.commons.collections4.CollectionUtils;
 import processing.core.PConstants;
 import processing.data.JSONArray;
@@ -192,9 +191,7 @@ public class Game extends Room {
                 this.mode = this.saveFile.getJson().hasKey("mode") ? this.saveFile.getJson().getString("mode") : "normal";
                 JSONArray array = this.saveFile.getJson().getJSONArray("elements");
                 for (int i = 0; i < array.size(); i++) {
-                    try {
-                        this.addElement(array.getString(i));
-                    } catch (NoElementException e) {
+                    if (!this.addElement(array.getString(i))) {
                         System.err.println("Error: " + array.getString(i) + " could not be loaded from save!");
                         main.loadGame.failed();
                         return;
@@ -338,12 +335,13 @@ public class Game extends Room {
         return "          ";
     }
 
-    private void addElement(String name) throws NoElementException {
+    private boolean addElement(String name) {
         Element element = Element.getElement(name);
         if (element == null) {
-            throw new NoElementException(name);
+            return false;
         }
         this.addElement(element);
+        return true;
     }
 
     public boolean isDiscovered(String element) {
@@ -376,7 +374,7 @@ public class Game extends Room {
             for (i = this.history.size() - 1; i >= 0; i--) {
                 Combo combo = this.history.get(i);
                 if (CollectionUtils.isEqualCollection(ingredients, combo.getIngredients())) {
-                    for (int j = 0;j < combo.getAmount();j++) {
+                    for (int j = 0; j < combo.getAmount(); j++) {
                         created.add(combo.getElement());
                     }
                 } else {
@@ -384,15 +382,12 @@ public class Game extends Room {
                 }
             }
             //remove from history
-            for (int j = this.history.size() - 1;j > i;j--) {
+            for (int j = this.history.size() - 1; j > i; j--) {
                 this.history.remove(this.history.size() - 1);
             }
             for (String ingredient : ingredients) {
                 if (!Objects.requireNonNull(Element.getElement(ingredient)).isPersistent()) {
-                    try {
-                        this.addElement(ingredient);
-                    } catch (NoElementException ignored) {
-                    }
+                    this.addElement(ingredient);
                 }
             }
             for (String element : created) {
@@ -503,10 +498,7 @@ public class Game extends Room {
             }
         } else if (main.key == 'c') {
             for (String element : main.elements.keySet()) {
-                try {
-                    this.addElement(element);
-                } catch (NoElementException ignored) {
-                }
+                this.addElement(element);
             }
         }
     }

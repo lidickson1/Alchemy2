@@ -207,7 +207,7 @@ public class Element extends Button implements Comparable<Element> {
 
     boolean isInPack(Pack pack) {
         String prefix = pack.getNamespace() + ":";
-        return this.name.length() >= prefix.length() && this.name.substring(0, prefix.length()).equals(prefix);
+        return this.name.length() >= prefix.length() && this.name.startsWith(prefix);
     }
 
     @Nullable
