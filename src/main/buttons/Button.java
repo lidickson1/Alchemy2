@@ -14,8 +14,8 @@ public class Button extends Entity {
     private float x;
     private float y;
 
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     private PImage image;
     protected PImage tintedImage;

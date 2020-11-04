@@ -9,7 +9,7 @@ public class MenuButton extends Button {
     public static final int WIDTH = 200;
     public static final int HEIGHT = 70;
 
-    private String name;
+    private final String name;
 
     public MenuButton(String name) {
         super(WIDTH, HEIGHT, "resources/images/menu_button.png");

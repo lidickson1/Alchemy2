@@ -5,10 +5,10 @@ import processing.core.PImage;
 public class ToggleButton extends IconButton {
 
     private boolean toggled = true;
-    private PImage onImage;
-    private PImage onImageOverlay;
-    private PImage offImage;
-    private PImage offImageOverlay;
+    private final PImage onImage;
+    private final PImage onImageOverlay;
+    private final PImage offImage;
+    private final PImage offImageOverlay;
 
     public ToggleButton(String path) {
         super(path);
