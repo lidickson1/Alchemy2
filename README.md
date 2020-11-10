@@ -9,3 +9,7 @@ You need to have Java (JRE) installed on your computer. You can do so by visitin
 ## Screenshots
 
 ![](https://cdn.discordapp.com/attachments/269226485951234068/664307072564985876/screenshot.png)
+
+## Packs
+
+Users can install packs which are like "mods" for the game. A pack is mainly composed of json files and other assets. Packs are used to not just add new content, but can also modify the base game's content. Multiple packs can be loaded on top of each other as well, allowing packs to serve as "addons".
