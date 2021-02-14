@@ -1,7 +1,7 @@
 package main.variations;
 
 import main.LoadElements;
-import main.buttons.Element;
+import main.buttons.ElementButton;
 import main.combos.Combo;
 import main.variations.appearances.Appearance;
 import main.variations.appearances.Texture;
@@ -17,7 +17,7 @@ public class ComboVariation extends Variation {
     private ArrayList<ImmutablePair<Combo, Appearance>> pairs = new ArrayList<>();
     private Appearance current;
 
-    ComboVariation(JSONObject json, Element element) {
+    ComboVariation(JSONObject json, ElementButton element) {
         super(json, element);
     }
 

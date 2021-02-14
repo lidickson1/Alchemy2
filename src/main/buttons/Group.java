@@ -1,5 +1,8 @@
 package main.buttons;
 
+import main.rooms.Game;
+import main.rooms.Loading;
+import main.rooms.PacksRoom;
 import processing.core.PApplet;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
@@ -53,7 +56,7 @@ public class Group extends Button implements Comparable<Group> {
         this.colour = main.color(colourArray.getInt(0), colourArray.getInt(1), colourArray.getInt(2));
 
         //check if a pack has the image, from top to bottom
-        for (Pack pack1 : main.packsRoom.getLoadedPacks()) {
+        for (Pack pack1 : PacksRoom.INSTANCE.getLoadedPacks()) {
             if (pack1.getName().equals("Alchemy") && this.pack.getName().equals("Alchemy")) {
                 //if the element is of the default pack and we are in the default pack right now, load default location
                 this.setImage(main.loadImage("resources/groups/alchemy/" + this.getID() + ".png"));
@@ -73,11 +76,11 @@ public class Group extends Button implements Comparable<Group> {
         return this.name;
     }
 
-    Pack getPack() {
+    public Pack getPack() {
         return this.pack;
     }
 
-    String getID() {
+    public String getID() {
         return this.name.split(":")[1];
     }
 
@@ -92,8 +95,8 @@ public class Group extends Button implements Comparable<Group> {
         if (!this.getID().equals(o.getID())) {
             return this.getID().compareTo(o.getID());
         } else {
-            int thisPack = main.packsRoom.getLoadedPacks().indexOf(this.pack);
-            int oPack = main.packsRoom.getLoadedPacks().indexOf(o.pack);
+            int thisPack = PacksRoom.INSTANCE.getLoadedPacks().indexOf(this.pack);
+            int oPack = PacksRoom.INSTANCE.getLoadedPacks().indexOf(o.pack);
             return Integer.compare(thisPack, oPack);
         }
     }
@@ -109,21 +112,21 @@ public class Group extends Button implements Comparable<Group> {
             JSONObject object = array.getJSONObject(i);
             if (object.hasKey("remove")) {
                 if (object.getString("remove").equals("all")) {
-                    main.loading.removeAllGroups();
+                    Loading.INSTANCE.removeAllGroups();
                     main.groups.clear();
                 } else {
                     Group group = getGroup(pack.getNamespacedName(object.getString("remove")));
                     if (group == null) {
                         System.err.println(pack.getNamespacedName(object.getString("remove")) + " group not found!");
                     } else {
-                        main.loading.removeGroup(group);
+                        Loading.INSTANCE.removeGroup(group);
                         main.groups.remove(group);
                     }
                 }
             } else {
                 main.groups.put(new Group(object, pack), new HashSet<>());
             }
-            main.loading.updateProgress();
+            Loading.INSTANCE.updateProgress();
         }
     }
 
@@ -153,7 +156,7 @@ public class Group extends Button implements Comparable<Group> {
         //number of groups on a page
         maxGroups = groupCountX * groupCountY;
 
-        totalPages = Math.round(PApplet.ceil((float) main.game.getDiscovered().keySet().size() / maxGroups));
+        totalPages = Math.round(PApplet.ceil((float) Game.INSTANCE.getDiscovered().keySet().size() / maxGroups));
 
         ArrayList<Group> groups = getGroups();
         for (int i = 0; i < groups.size(); i++) {
@@ -240,7 +243,7 @@ public class Group extends Button implements Comparable<Group> {
     }
 
     public static ArrayList<Group> getGroups() {
-        ArrayList<Group> groupList = new ArrayList<>(main.game.getDiscovered().keySet());
+        ArrayList<Group> groupList = new ArrayList<>(Game.INSTANCE.getDiscovered().keySet());
         ArrayList<Group> list = new ArrayList<>(); //groups that are actually on screen
         for (int i = pageNumber * maxGroups; i < (pageNumber + 1) * maxGroups; i++) {
             if (i < groupList.size()) {
@@ -264,7 +267,7 @@ public class Group extends Button implements Comparable<Group> {
     }
 
     boolean exists() {
-        for (Group group : main.game.getDiscovered().keySet()) {
+        for (Group group : Game.INSTANCE.getDiscovered().keySet()) {
             if (group.name.equals(this.name)) {
                 return true;
             }
@@ -297,7 +300,7 @@ public class Group extends Button implements Comparable<Group> {
                     deltaY = groupSelectedAY - groupSelectedA.getY();
                     groupSelectedA.alpha = 0; //because by default alpha is 255
                     groupSelectedA.alphaChange = ALPHA_CHANGE;
-                    Element.resetA();
+                    ElementButton.resetA();
                 } else if (groupSelectedB == null) {
                     groupSelectedB = new Group(this);
                     moving = true;
@@ -305,15 +308,15 @@ public class Group extends Button implements Comparable<Group> {
                     deltaY = groupSelectedBY - groupSelectedB.getY();
                     groupSelectedB.alpha = 0; //because by default alpha is 255
                     groupSelectedB.alphaChange = ALPHA_CHANGE;
-                    Element.resetB();
+                    ElementButton.resetB();
                 }
             } else {
                 if (this == groupSelectedA) {
                     groupSelectedA.alphaChange = -ALPHA_CHANGE;
-                    Element.hidePagesA();
+                    ElementButton.hidePagesA();
                 } else if (this == groupSelectedB) {
                     groupSelectedB.alphaChange = -ALPHA_CHANGE;
-                    Element.hidePagesB();
+                    ElementButton.hidePagesB();
                 }
             }
         }
@@ -322,8 +325,8 @@ public class Group extends Button implements Comparable<Group> {
     public static void setHintGroups(Group a, Group b) {
         groupSelectedA = new Group(a);
         groupSelectedB = new Group(b);
-        Element.resetA();
-        Element.resetB();
+        ElementButton.resetA();
+        ElementButton.resetB();
     }
 
 }

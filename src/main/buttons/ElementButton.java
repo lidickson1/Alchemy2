@@ -6,8 +6,7 @@ import main.combos.Combo;
 import main.combos.MultiCombo;
 import main.combos.NormalCombo;
 import main.combos.RandomCombo;
-import main.rooms.ElementRoom;
-import main.rooms.Game;
+import main.rooms.*;
 import main.variations.ComboVariation;
 import main.variations.RandomVariation;
 import main.variations.Variation;
@@ -20,9 +19,11 @@ import processing.core.PImage;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
-public class Element extends Button implements Comparable<Element> {
+public class ElementButton extends Button implements Comparable<ElementButton> {
 
     public static final int SIZE = 64;
     public static final int HEIGHT = SIZE + 30;
@@ -32,21 +33,21 @@ public class Element extends Button implements Comparable<Element> {
 
     private static int maxElements;
 
-    private static final ArrayList<Element> elementsA = new ArrayList<>();
-    private static final ArrayList<Element> elementsB = new ArrayList<>();
+    private static final ArrayList<ElementButton> elementsA = new ArrayList<>();
+    private static final ArrayList<ElementButton> elementsB = new ArrayList<>();
 
-    private static Element elementSelectedA;
-    private static Element elementSelectedB;
-    private static final ArrayList<Element> elementsSelected = new ArrayList<>(); //for selecting more than 2 elements
+    private static ElementButton elementSelectedA;
+    private static ElementButton elementSelectedB;
+    private static final ArrayList<ElementButton> elementsSelected = new ArrayList<>(); //for selecting more than 2 elements
 
     public static int pageNumberA;
     public static int totalPagesA;
     public static int pageNumberB;
     public static int totalPagesB;
 
-    private static final ArrayList<Element> elementsCreated = new ArrayList<>();
+    private static final ArrayList<ElementButton> elementsCreated = new ArrayList<>();
 
-    public static Element touching;
+    public static ElementButton touching;
 
     private static long time = -1; //timer when combination is wrong
 
@@ -62,7 +63,7 @@ public class Element extends Button implements Comparable<Element> {
     private int alpha = 255;
     private int alphaChange;
 
-    public Element(String name, Group group, Pack pack) {
+    public ElementButton(String name, Group group, Pack pack) {
         super(SIZE, HEIGHT);
 
         this.name = name;
@@ -72,7 +73,7 @@ public class Element extends Button implements Comparable<Element> {
     }
 
     //copy constructor
-    public Element(Element other) {
+    public ElementButton(ElementButton other) {
         super(SIZE, HEIGHT);
         this.name = other.name;
         this.group = other.group;
@@ -99,14 +100,14 @@ public class Element extends Button implements Comparable<Element> {
     }
 
     @Override
-    public int compareTo(Element o) {
+    public int compareTo(ElementButton o) {
         return this.name.compareTo(o.name);
     }
 
     //file name without extension
     public PImage getImage(String fileName) {
         //check if a pack has the image, from top to bottom
-        for (Pack pack : main.packsRoom.getLoadedPacks()) {
+        for (Pack pack : PacksRoom.INSTANCE.getLoadedPacks()) {
             //check for atlas first
             if (pack.getAtlasImage(fileName) != null) {
                 return pack.getAtlasImage(fileName);
@@ -186,9 +187,9 @@ public class Element extends Button implements Comparable<Element> {
         return this.variation;
     }
 
-    public static void loadImage(ArrayList<Element> elements) {
+    public static void loadImage(ArrayList<ElementButton> elements) {
         Thread thread = new Thread(() -> {
-            for (Element element : elements) {
+            for (ElementButton element : elements) {
                 //load original image
                 if (element.getImage() == null) {
                     element.setImage(element.getImage(element.getID()));
@@ -198,7 +199,7 @@ public class Element extends Button implements Comparable<Element> {
                     element.variation.loadImages();
                 }
 
-                main.loading.updateProgress();
+                Loading.INSTANCE.updateProgress();
             }
         });
         thread.setDaemon(true);
@@ -211,7 +212,7 @@ public class Element extends Button implements Comparable<Element> {
     }
 
     @Nullable
-    public static Element getElement(String name) {
+    public static ElementButton getElement(String name) {
         if (!main.elements.containsKey(name)) {
             return null;
         }
@@ -219,7 +220,7 @@ public class Element extends Button implements Comparable<Element> {
             System.err.println(main.elements.get(name).getName() + " group not found!");
             return null;
         }
-        for (Element element : main.groups.get(main.elements.get(name))) {
+        for (ElementButton element : main.groups.get(main.elements.get(name))) {
             if (element.name.equals(name)) {
                 return element;
             }
@@ -238,9 +239,9 @@ public class Element extends Button implements Comparable<Element> {
 
         int x = Group.groupSelectedX + Group.SIZE + Group.GAP;
         int y = Group.groupSelectedAY;
-        ArrayList<Element> elements;
+        ArrayList<ElementButton> elements;
         if (Group.groupSelectedA != null) {
-            totalPagesA = (int) Math.ceil((float) main.game.getDiscovered().get(Group.groupSelectedA).size() / maxElements);
+            totalPagesA = (int) Math.ceil((float) Game.INSTANCE.getDiscovered().get(Group.groupSelectedA).size() / maxElements);
             elements = getElementsA();
             for (int i = 0; i < elements.size(); i++) {
                 elements.get(i).updateAlpha();
@@ -256,7 +257,7 @@ public class Element extends Button implements Comparable<Element> {
         x = Group.groupSelectedX + Group.SIZE + Group.GAP;
         y = Group.groupSelectedBY;
         if (Group.groupSelectedB != null) {
-            totalPagesB = (int) Math.ceil((float) main.game.getDiscovered().get(Group.groupSelectedB).size() / maxElements);
+            totalPagesB = (int) Math.ceil((float) Game.INSTANCE.getDiscovered().get(Group.groupSelectedB).size() / maxElements);
             elements = getElementsB();
             for (int i = 0; i < elements.size(); i++) {
                 elements.get(i).updateAlpha();
@@ -278,7 +279,7 @@ public class Element extends Button implements Comparable<Element> {
         //draw multi select
         x = Group.groupSelectedX;
         y = main.screenHeight - Group.GAP - HEIGHT;
-        for (Element element : elementsSelected) {
+        for (ElementButton element : elementsSelected) {
             element.draw(x, y);
             x += SIZE + GAP;
         }
@@ -312,16 +313,16 @@ public class Element extends Button implements Comparable<Element> {
         touching = null;
         int length = (SIZE + GAP) * elementsCreated.size() - GAP;
         int x = main.screenWidth / 2 - length / 2;
-        for (Element element : elementsCreated) {
+        for (ElementButton element : elementsCreated) {
             element.draw(x, main.screenHeight / 2F - SIZE / 2F);
             x += SIZE + GAP;
         }
         drawTooltip();
     }
 
-    public static void drawHintElement(Element element) {
+    public static void drawHintElement(ElementButton element) {
         touching = null;
-        element.draw(main.screenWidth / 2F - Element.SIZE / 2F, main.screenHeight / 2F - Element.SIZE / 2F);
+        element.draw(main.screenWidth / 2F - ElementButton.SIZE / 2F, main.screenHeight / 2F - ElementButton.SIZE / 2F);
         drawTooltip();
     }
 
@@ -433,6 +434,21 @@ public class Element extends Button implements Comparable<Element> {
         return list;
     }
 
+    private boolean isDepleted(List<ElementButton> selected) {
+        int count = 0;
+        for (ElementButton element : Game.INSTANCE.getDiscovered().get(this.group)) {
+            if (element.getName().equals(this.getName())) {
+                count++;
+            }
+        }
+        for (ElementButton element : selected) {
+            if (element != null && element.getName().equals(this.getName())) {
+                count--;
+            }
+        }
+        return count <= 0;
+    }
+
     @Override
     public void clicked() {
         if (main.mouseButton == PConstants.LEFT) {
@@ -440,19 +456,29 @@ public class Element extends Button implements Comparable<Element> {
                 if (!failed()) {
                     if (main.keyPressed && main.keyCode == PConstants.SHIFT) {
                         //these conditions must be separate, or else when it reaches max, it does normal select
-                        int max = Math.floorDiv(main.screenWidth - Group.groupSelectedX, Element.SIZE + Element.GAP); //determine the maximum amount of elements for multi select (based on screen size for now)
+                        int max = Math.floorDiv(main.screenWidth - Group.groupSelectedX, ElementButton.SIZE + ElementButton.GAP); //determine the maximum amount of elements for multi select (based on screen size for now)
                         if (elementsSelected.size() < max) {
                             //clear normal select
                             elementSelectedA = null;
                             elementSelectedB = null;
 
                             elementsSelected.add(this.deepCopy(this.group, this.alpha, 0));
-                            if (main.game.mode.equals("puzzle")) {
+                            if (Game.mode == GameMode.PUZZLE && this.isDepleted(elementsSelected)) {
                                 //can't select the same element multiple times, or else it will be duping
-                                this.setDisabled(true);
+                                for (ElementButton element : Game.INSTANCE.getDiscovered().get(this.group)) {
+                                    if (element.getName().equals(this.getName())) {
+                                        this.setDisabled(true);
+                                    }
+                                }
                             }
                         }
                     } else {
+                        //in puzzle mode, if you open the same group twice, you cannot select both of the same element twice
+                        //this shouldn't be allowed because it would be duping
+                        //we also need to check if we have already selected it because we still need to allow deselecting
+                        if (Game.mode == GameMode.PUZZLE && elementSelectedA != this && elementSelectedB != this && this.isDepleted(Arrays.asList(elementSelectedA, elementSelectedB))) {
+                            return;
+                        }
                         //deselect
                         if (elementSelectedA == this) {
                             elementSelectedA = null;
@@ -468,30 +494,30 @@ public class Element extends Button implements Comparable<Element> {
                     }
                 }
             } else if (main.getRoom() instanceof ElementRoom) {
-                main.elementRoom.setElement(this);
-                main.switchRoom(main.elementRoom);
+                ElementRoom.INSTANCE.setElement(this);
+                main.switchRoom(ElementRoom.INSTANCE);
             }
         } else {
-            main.elementRoom.setElement(this);
-            main.switchRoom(main.elementRoom);
+            ElementRoom.INSTANCE.setElement(this);
+            main.switchRoom(ElementRoom.INSTANCE);
         }
     }
 
     public static void checkForMultiCombos() {
         //reset disabled
         if (Group.groupSelectedA != null) {
-            for (Element element : elementsA) {
+            for (ElementButton element : elementsA) {
                 element.setDisabled(false);
             }
         }
         if (Group.groupSelectedB != null) {
-            for (Element element : elementsB) {
+            for (ElementButton element : elementsB) {
                 element.setDisabled(false);
             }
         }
 
         ArrayList<String> elementsSelectedString = new ArrayList<>();
-        for (Element element : elementsSelected) {
+        for (ElementButton element : elementsSelected) {
             elementsSelectedString.add(element.name);
         }
 
@@ -500,14 +526,14 @@ public class Element extends Button implements Comparable<Element> {
             if (combo instanceof MultiCombo) {
                 MultiCombo multiCombo = (MultiCombo) combo;
                 if (CollectionUtils.isEqualCollection(multiCombo.getIngredients(), elementsSelectedString)) {
-                    Element element = Element.getElement(multiCombo.getElement());
+                    ElementButton element = ElementButton.getElement(multiCombo.getElement());
                     if (Objects.requireNonNull(element).variation instanceof ComboVariation) {
                         ((ComboVariation) element.variation).setCurrentImage(multiCombo);
                     }
                     for (int i = 0; i < multiCombo.getAmount(); i++) {
                         elementsCreated.add(element.deepCopy());
                     }
-                    main.game.getHistory().add(multiCombo);
+                    Game.INSTANCE.getHistory().add(multiCombo);
                 }
             }
         }
@@ -515,26 +541,26 @@ public class Element extends Button implements Comparable<Element> {
         for (RandomCombo randomCombo : main.randomCombos) {
             MultiCombo multiCombo = randomCombo.canCreate(elementsSelectedString);
             if (multiCombo != null) {
-                ArrayList<Element> randomElements = randomCombo.getElements();
+                ArrayList<ElementButton> randomElements = randomCombo.getElements();
                 elementsCreated.addAll(randomElements);
-                for (Element element : randomElements) {
+                for (ElementButton element : randomElements) {
                     if (element.variation instanceof ComboVariation) {
                         ((ComboVariation) element.variation).setCurrentImage(multiCombo);
                     }
-                    main.game.getHistory().add(new MultiCombo(element.name, multiCombo.getIngredients()));
+                    Game.INSTANCE.getHistory().add(new MultiCombo(element.name, multiCombo.getIngredients()));
                 }
             }
         }
 
         if (elementsCreated.size() > 0) {
-            for (Element element : elementsCreated) {
-                main.game.addElement(element);
+            for (ElementButton element : elementsCreated) {
+                Game.INSTANCE.addElement(element);
             }
 
-            if (main.game.mode.equals("puzzle")) {
-                for (Element element : elementsSelected) {
+            if (Game.mode == GameMode.PUZZLE) {
+                for (ElementButton element : elementsSelected) {
                     if (!element.persistent) {
-                        main.game.removeElement(element.name);
+                        Game.INSTANCE.removeElement(element.name);
                     }
                 }
             }
@@ -543,7 +569,7 @@ public class Element extends Button implements Comparable<Element> {
             updateA();
             updateB();
 
-            main.game.success();
+            Game.INSTANCE.success();
             elementsSelected.clear();
         } else {
             time = main.millis();
@@ -558,14 +584,14 @@ public class Element extends Button implements Comparable<Element> {
                 if (combo instanceof NormalCombo) {
                     NormalCombo normalCombo = (NormalCombo) combo;
                     if ((normalCombo.getA().equals(elementSelectedA.name) && normalCombo.getB().equals(elementSelectedB.name)) || (normalCombo.getA().equals(elementSelectedB.name) && normalCombo.getB().equals(elementSelectedA.name))) {
-                        Element element = Element.getElement(normalCombo.getElement());
+                        ElementButton element = ElementButton.getElement(normalCombo.getElement());
                         if (Objects.requireNonNull(element).variation instanceof ComboVariation) {
                             ((ComboVariation) element.variation).setCurrentImage(normalCombo);
                         }
                         for (int i = 0; i < combo.getAmount(); i++) {
                             elementsCreated.add(element.deepCopy());
                         }
-                        main.game.getHistory().add(normalCombo);
+                        Game.INSTANCE.getHistory().add(normalCombo);
                     }
                 }
             }
@@ -573,30 +599,30 @@ public class Element extends Button implements Comparable<Element> {
             for (RandomCombo randomCombo : main.randomCombos) {
                 NormalCombo normalCombo = randomCombo.canCreate(elementSelectedA, elementSelectedB);
                 if (normalCombo != null) {
-                    ArrayList<Element> randomElements = randomCombo.getElements();
+                    ArrayList<ElementButton> randomElements = randomCombo.getElements();
                     elementsCreated.addAll(randomElements);
-                    for (Element element : randomElements) {
+                    for (ElementButton element : randomElements) {
                         if (element.variation instanceof ComboVariation) {
                             ((ComboVariation) element.variation).setCurrentImage(normalCombo);
                         }
-                        main.game.getHistory().add(new NormalCombo(element.name, normalCombo.getA(), normalCombo.getB()));
+                        Game.INSTANCE.getHistory().add(new NormalCombo(element.name, normalCombo.getA(), normalCombo.getB()));
                     }
                 }
             }
 
             if (elementsCreated.size() > 0) {
 
-                for (Element element : elementsCreated) {
+                for (ElementButton element : elementsCreated) {
                     //element adding conditions has been refactored into the method
-                    main.game.addElement(element);
+                    Game.INSTANCE.addElement(element);
                 }
 
-                if (main.game.mode.equals("puzzle")) {
+                if (Game.mode == GameMode.PUZZLE) {
                     if (!elementSelectedA.persistent) {
-                        main.game.removeElement(elementSelectedA.name);
+                        Game.INSTANCE.removeElement(elementSelectedA.name);
                     }
                     if (!elementSelectedB.persistent) {
-                        main.game.removeElement(elementSelectedB.name);
+                        Game.INSTANCE.removeElement(elementSelectedB.name);
                     }
                 }
 
@@ -604,7 +630,7 @@ public class Element extends Button implements Comparable<Element> {
                 updateA();
                 updateB();
 
-                main.game.success();
+                Game.INSTANCE.success();
                 elementSelectedA = null;
                 elementSelectedB = null;
             } else {
@@ -621,7 +647,7 @@ public class Element extends Button implements Comparable<Element> {
         return this.description;
     }
 
-    public static ArrayList<Element> getElementsSelected() {
+    public static ArrayList<ElementButton> getElementsSelected() {
         return elementsSelected;
     }
 
@@ -652,7 +678,7 @@ public class Element extends Button implements Comparable<Element> {
         elementsA.clear();
         //group might be gone if we are in puzzle mode
         if (Group.groupSelectedA != null && Group.groupSelectedA.exists()) {
-            for (Element element : main.game.getDiscovered().get(Group.groupSelectedA)) {
+            for (ElementButton element : Game.INSTANCE.getDiscovered().get(Group.groupSelectedA)) {
                 elementsA.add(element.deepCopy(Group.groupSelectedA, 255, 0));
             }
         } else {
@@ -663,8 +689,8 @@ public class Element extends Button implements Comparable<Element> {
     static void resetA() {
         pageNumberA = 0;
         elementsA.clear();
-        for (int i = 0; i < main.game.getDiscovered().get(Group.groupSelectedA).size(); i++) {
-            Element element = main.game.getDiscovered().get(Group.groupSelectedA).get(i);
+        for (int i = 0; i < Game.INSTANCE.getDiscovered().get(Group.groupSelectedA).size(); i++) {
+            ElementButton element = Game.INSTANCE.getDiscovered().get(Group.groupSelectedA).get(i);
             if (i < maxElements) {
                 elementsA.add(element.deepCopy(Group.groupSelectedA, 0, ALPHA_CHANGE));
             } else {
@@ -672,14 +698,14 @@ public class Element extends Button implements Comparable<Element> {
                 elementsA.add(element.deepCopy(Group.groupSelectedA, 255, 0));
             }
         }
-        totalPagesA = (int) Math.ceil((float) main.game.getDiscovered().get(Group.groupSelectedA).size() / maxElements);
+        totalPagesA = (int) Math.ceil((float) Game.INSTANCE.getDiscovered().get(Group.groupSelectedA).size() / maxElements);
     }
 
     public static void updateB() {
         elementsB.clear();
         //group might be gone if we are in puzzle mode
         if (Group.groupSelectedB != null && Group.groupSelectedB.exists()) {
-            for (Element element : main.game.getDiscovered().get(Group.groupSelectedB)) {
+            for (ElementButton element : Game.INSTANCE.getDiscovered().get(Group.groupSelectedB)) {
                 elementsB.add(element.deepCopy(Group.groupSelectedB, 255, 0));
             }
         } else {
@@ -690,8 +716,8 @@ public class Element extends Button implements Comparable<Element> {
     static void resetB() {
         pageNumberB = 0;
         elementsB.clear();
-        for (int i = 0; i < main.game.getDiscovered().get(Group.groupSelectedB).size(); i++) {
-            Element element = main.game.getDiscovered().get(Group.groupSelectedB).get(i);
+        for (int i = 0; i < Game.INSTANCE.getDiscovered().get(Group.groupSelectedB).size(); i++) {
+            ElementButton element = Game.INSTANCE.getDiscovered().get(Group.groupSelectedB).get(i);
             if (i < maxElements) {
                 elementsB.add(element.deepCopy(Group.groupSelectedB, 0, ALPHA_CHANGE));
             } else {
@@ -699,7 +725,7 @@ public class Element extends Button implements Comparable<Element> {
                 elementsB.add(element.deepCopy(Group.groupSelectedB, 255, 0));
             }
         }
-        totalPagesB = (int) Math.ceil((float) main.game.getDiscovered().get(Group.groupSelectedB).size() / maxElements);
+        totalPagesB = (int) Math.ceil((float) Game.INSTANCE.getDiscovered().get(Group.groupSelectedB).size() / maxElements);
     }
 
     static void hidePagesA() {
@@ -709,7 +735,7 @@ public class Element extends Button implements Comparable<Element> {
         } else if (elementSelectedB != null && elementSelectedB.group == Group.groupSelectedA) {
             elementSelectedB = null;
         }
-        for (Element element : elementsA) {
+        for (ElementButton element : elementsA) {
             element.alphaChange = -ALPHA_CHANGE;
         }
     }
@@ -720,22 +746,22 @@ public class Element extends Button implements Comparable<Element> {
         } else if (elementSelectedB != null && elementSelectedB.group == Group.groupSelectedB) {
             elementSelectedB = null;
         }
-        for (Element element : elementsB) {
+        for (ElementButton element : elementsB) {
             element.alphaChange = -ALPHA_CHANGE;
         }
     }
 
     @SuppressWarnings("SameParameterValue")
-    private Element deepCopy(Group group, int alpha, int alphaChange) {
-        Element element = this.deepCopy();
+    private ElementButton deepCopy(Group group, int alpha, int alphaChange) {
+        ElementButton element = this.deepCopy();
         element.group = group;
         element.alpha = alpha;
         element.alphaChange = alphaChange;
         return element;
     }
 
-    public Element deepCopy() {
-        Element element = new Element(this);
+    public ElementButton deepCopy() {
+        ElementButton element = new ElementButton(this);
         element.setX(this.getX());
         element.setY(this.getY());
         if (this.variation instanceof RandomVariation) {
@@ -746,12 +772,12 @@ public class Element extends Button implements Comparable<Element> {
     }
 
     //this only returns visible elements (i.e. those on the current page)
-    public static ArrayList<Element> getElementsA() {
+    public static ArrayList<ElementButton> getElementsA() {
         //after screen resizing, it's possible that page number changes
         if (pageNumberA >= totalPagesA) {
             pageNumberA = totalPagesA - 1;
         }
-        ArrayList<Element> elements = new ArrayList<>();
+        ArrayList<ElementButton> elements = new ArrayList<>();
         for (int i = pageNumberA * maxElements; i < (pageNumberA + 1) * maxElements; i++) {
             if (i < elementsA.size()) {
                 elements.add(elementsA.get(i));
@@ -760,12 +786,12 @@ public class Element extends Button implements Comparable<Element> {
         return elements;
     }
 
-    public static ArrayList<Element> getElementsB() {
+    public static ArrayList<ElementButton> getElementsB() {
         //after screen resizing, it's possible that page number changes
         if (pageNumberB >= totalPagesB) {
             pageNumberB = totalPagesB - 1;
         }
-        ArrayList<Element> elements = new ArrayList<>();
+        ArrayList<ElementButton> elements = new ArrayList<>();
         for (int i = pageNumberB * maxElements; i < (pageNumberB + 1) * maxElements; i++) {
             if (i < elementsB.size()) {
                 elements.add(elementsB.get(i));

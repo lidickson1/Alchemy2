@@ -1,28 +1,30 @@
 package main;
 
-import main.buttons.Element;
+import main.buttons.ElementButton;
 import main.buttons.Pack;
 import main.combos.Combo;
 import main.combos.MultiCombo;
 import main.combos.NormalCombo;
+import main.rooms.PacksRoom;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 public class Generation extends Entity {
 
     private static final boolean PRINT_COMBOS = true;
 
-    public static void generate(HashSet<String> elements, HashSet<Combo> combos) {
+    public static void generate(Set<String> elements, HashSet<Combo> combos) {
         HashSet<String> discovered = new HashSet<>();
 
-        ArrayList<Element> list = new ArrayList<>();
-        for (Pack pack : main.packsRoom.getLoadedPacks()) {
+        ArrayList<ElementButton> list = new ArrayList<>();
+        for (Pack pack : PacksRoom.INSTANCE.getLoadedPacks()) {
             pack.getStartingElements(list);
         }
-        for (Element element : list) {
+        for (ElementButton element : list) {
             discovered.add(element.getName());
         }
 

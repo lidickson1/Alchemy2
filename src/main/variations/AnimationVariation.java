@@ -1,6 +1,6 @@
 package main.variations;
 
-import main.buttons.Element;
+import main.buttons.ElementButton;
 import main.variations.appearances.Animation;
 import main.variations.appearances.Appearance;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -13,7 +13,7 @@ public class AnimationVariation extends Variation {
 
     private Animation animation;
 
-    AnimationVariation(JSONObject json, Element element) {
+    AnimationVariation(JSONObject json, ElementButton element) {
         super(json, element);
     }
 

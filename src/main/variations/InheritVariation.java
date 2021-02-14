@@ -1,6 +1,6 @@
 package main.variations;
 
-import main.buttons.Element;
+import main.buttons.ElementButton;
 import main.buttons.Pack;
 import main.variations.appearances.Appearance;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -13,13 +13,13 @@ public class InheritVariation extends Variation {
 
     private Pack pack;
 
-    InheritVariation(JSONObject json, Element element, Pack pack) {
+    InheritVariation(JSONObject json, ElementButton element, Pack pack) {
         super(json, element);
         this.pack = pack;
     }
 
-    private Element getInheritedElement() {
-        return Element.getElement(this.pack.getNamespacedName(this.json.getString("texture")));
+    private ElementButton getInheritedElement() {
+        return ElementButton.getElement(this.pack.getNamespacedName(this.json.getString("texture")));
     }
 
     @Override

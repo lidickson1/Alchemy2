@@ -1,12 +1,13 @@
 package main;
 
-import main.buttons.Element;
+import main.buttons.ElementButton;
 import main.buttons.Group;
 import main.buttons.Pack;
 import main.combos.Combo;
 import main.combos.MultiCombo;
 import main.combos.NormalCombo;
 import main.combos.RandomCombo;
+import main.rooms.Loading;
 import main.variations.Variation;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -80,13 +81,13 @@ public class LoadElements extends Entity {
                 String remove = object.getString("remove");
                 //noinspection IfCanBeSwitch
                 if (remove.equals("all")) {
-                    ArrayList<Element> exceptElements = new ArrayList<>();
+                    ArrayList<ElementButton> exceptElements = new ArrayList<>();
                     ArrayList<Combo> exceptCombos = new ArrayList<>();
                     ArrayList<RandomCombo> exceptRandom = new ArrayList<>();
                     if (object.hasKey("except")) {
                         JSONArray array1 = object.getJSONArray("except");
                         for (int j = 0;j < array1.size();j++) {
-                            Element element1 = Element.getElement(array1.getString(j));
+                            ElementButton element1 = ElementButton.getElement(array1.getString(j));
                             if (element1 != null) {
                                 exceptElements.add(element1);
                                 for (Combo combo : main.comboList) {
@@ -106,12 +107,12 @@ public class LoadElements extends Entity {
                     main.comboList.addAll(exceptCombos);
                     main.randomCombos.clear();
                     main.randomCombos.addAll(exceptRandom);
-                    main.loading.removeAllElements(exceptElements.size()); //this needs to be called first or else we can't determine how much progress to remove
-                    for (HashSet<Element> list : main.groups.values()) {
+                    Loading.INSTANCE.removeAllElements(exceptElements.size()); //this needs to be called first or else we can't determine how much progress to remove
+                    for (HashSet<ElementButton> list : main.groups.values()) {
                         list.removeIf(e -> !exceptElements.contains(e));
                     }
                     main.elements.clear();
-                    for (Element element1 : exceptElements) {
+                    for (ElementButton element1 : exceptElements) {
                         main.elements.put(element1.getName(), element1.getGroup());
                     }
                 } else if (remove.equals("element")) {
@@ -121,11 +122,11 @@ public class LoadElements extends Entity {
                     for (RandomCombo randomCombo : main.randomCombos) {
                         randomCombo.removeElement(e);
                     }
-                    Element element1 = Element.getElement(e);
+                    ElementButton element1 = ElementButton.getElement(e);
                     if (element1 != null) {
                         main.groups.get(element1.getGroup()).remove(element1);
                         main.elements.remove(e);
-                        main.loading.removeElement();
+                        Loading.INSTANCE.removeElement();
                     } else {
                         System.err.println(e + " could not be removed!");
                     }
@@ -134,11 +135,11 @@ public class LoadElements extends Entity {
                     for (int j = 0; j < combos.size(); j++) {
                         processCombo(combos.getJSONObject(j), elementName, true, null);
                     }
-                    main.loading.removeCombo();
+                    Loading.INSTANCE.removeCombo();
                 } else if (remove.equals("random")) {
                     JSONObject combo = object.getJSONObject("combo");
                     processCombo(combo, null, true, null);
-                    main.loading.removeCombo();
+                    Loading.INSTANCE.removeCombo();
                 }
             } else if (object.hasKey("combo") && object.hasKey("result")) {
                 //random
@@ -146,22 +147,22 @@ public class LoadElements extends Entity {
                 JSONObject combo = object.getJSONObject("combo");
                 processCombo(combo, null, false, randomCombo);
                 main.randomCombos.add(randomCombo);
-                main.loading.randomCombo();
+                Loading.INSTANCE.randomCombo();
             } else {
-                Element element;
+                ElementButton element;
                 //element might exist because we allow existing elements to be modified
                 if (main.elements.containsKey(elementName)) {
-                    element = Element.getElement(elementName);
+                    element = ElementButton.getElement(elementName);
                     assert element != null;
-                    main.loading.modifyElement();
+                    Loading.INSTANCE.modifyElement();
                 } else {
                     Group group = Group.getGroup(pack.getNamespacedName(object.getString("group")));
                     if (group == null) {
                         System.err.println("Error: Group " + pack.getNamespacedName(object.getString("group")) + " not found!");
-                        main.loading.elementFailed();
+                        Loading.INSTANCE.elementFailed();
                         continue;
                     }
-                    element = new Element(elementName, group, pack);
+                    element = new ElementButton(elementName, group, pack);
                     main.groups.get(group).add(element);
                     main.elements.put(elementName, group);
                 }
@@ -194,7 +195,7 @@ public class LoadElements extends Entity {
                 }
             }
 
-            main.loading.updateProgress();
+            Loading.INSTANCE.updateProgress();
         }
 
         for (Normal normal : normals) {
@@ -299,7 +300,7 @@ public class LoadElements extends Entity {
     }
 
     //use this method to parse combos if it is used after all combos are loaded
-    public static ArrayList<Combo> getCombo(JSONObject combo, Element element) {
+    public static ArrayList<Combo> getCombo(JSONObject combo, ElementButton element) {
         ArrayList<Combo> list = new ArrayList<>();
         Permutation permutation = null;
         MultiPermutation multiPermutation = null;
@@ -432,7 +433,7 @@ public class LoadElements extends Entity {
                 iterator.remove();
                 String tag = string.replace("tag:", "");
                 for (Group group : main.groups.keySet()) {
-                    for (Element element : main.groups.get(group)) {
+                    for (ElementButton element : main.groups.get(group)) {
                         if (element.getTags().contains(tag)) {
                             iterator.add(element.getName());
                         }
@@ -441,7 +442,7 @@ public class LoadElements extends Entity {
             } else if (string.contains("group:")) {
                 iterator.remove();
                 String group = string.replace("group:", "");
-                for (Element element : main.groups.get(Group.getGroup(group))) {
+                for (ElementButton element : main.groups.get(Group.getGroup(group))) {
                     iterator.add(element.getName());
                 }
             }

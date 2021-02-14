@@ -1,6 +1,6 @@
 package main;
 
-import main.buttons.Element;
+import main.buttons.ElementButton;
 import org.apache.commons.io.FilenameUtils;
 import processing.data.JSONObject;
 
@@ -93,7 +93,7 @@ public class Language extends Entity {
         assert language != null;
         JSONObject object = language.json.getJSONObject("elements").getJSONObject("alchemy");
         //noinspection unchecked
-        object.keys().removeIf(e -> Element.getElement("alchemy:" + e) == null);
+        object.keys().removeIf(e -> ElementButton.getElement("alchemy:" + e) == null);
         main.saveJSONObject(language.json, "resources/languages/english.json","indent=4");
     }
 

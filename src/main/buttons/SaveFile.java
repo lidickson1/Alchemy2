@@ -1,6 +1,7 @@
 package main.buttons;
 
 import main.Language;
+import main.rooms.Game;
 import processing.core.PConstants;
 import processing.data.JSONObject;
 
@@ -42,8 +43,9 @@ public class SaveFile extends LongButton {
 
     @Override
     public void clicked() {
-        main.game.setSaveFile(this);
-        main.switchRoom(main.game);
+        Game.INSTANCE.setSaveFile(this);
+        Game.INSTANCE.setGameLoaded(false);
+        main.switchRoom(Game.INSTANCE);
     }
 
     @Override

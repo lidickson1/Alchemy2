@@ -1,7 +1,7 @@
 package main.variations;
 
 import main.Entity;
-import main.buttons.Element;
+import main.buttons.ElementButton;
 import main.buttons.Pack;
 import main.variations.appearances.Appearance;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -14,9 +14,9 @@ import java.util.ArrayList;
 public abstract class Variation extends Entity {
 
     JSONObject json;
-    Element element;
+    ElementButton element;
 
-    Variation(JSONObject json, Element element) {
+    Variation(JSONObject json, ElementButton element) {
         this.json = json;
         this.element = element;
         //can't load images in the constructor because it won't be in the image threading process
@@ -29,7 +29,7 @@ public abstract class Variation extends Entity {
 
     public abstract void loadImages();
 
-    public Element getElement() {
+    public ElementButton getElement() {
         return this.element;
     }
 
@@ -57,7 +57,7 @@ public abstract class Variation extends Entity {
 
     public abstract ArrayList<ImmutablePair<PImage, String>> getPairs();
 
-    public static Variation getVariation(JSONObject json, Element element, Pack pack) {
+    public static Variation getVariation(JSONObject json, ElementButton element, Pack pack) {
         switch (json.getString("type")) {
             case "random":
                 return new RandomVariation(json, element);

@@ -1,6 +1,8 @@
 package main.buttons;
 
 import main.Language;
+import main.rooms.Loading;
+import main.rooms.PacksRoom;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.text.WordUtils;
@@ -94,21 +96,21 @@ public class Pack extends LongButton {
                 String name = scanner.nextLine();
                 int count = StringUtils.countMatches(name, ":");
                 if (count == 1) {
-                    Element element = Element.getElement(name);
+                    ElementButton element = ElementButton.getElement(name);
                     assert element != null;
-                    element.setImage(atlas.get(x, y, Element.SIZE, Element.SIZE));
+                    element.setImage(atlas.get(x, y, ElementButton.SIZE, ElementButton.SIZE));
                 } else {
-                    this.atlasMap.put(name, atlas.get(x, y, Element.SIZE, Element.SIZE));
+                    this.atlasMap.put(name, atlas.get(x, y, ElementButton.SIZE, ElementButton.SIZE));
                 }
-                x += Element.SIZE;
+                x += ElementButton.SIZE;
                 if (x >= atlas.width) {
                     x = 0;
-                    y += Element.SIZE;
+                    y += ElementButton.SIZE;
                 }
             }
         } catch (FileNotFoundException ignored) {
         }
-        main.loading.updateProgress();
+        Loading.INSTANCE.updateProgress();
     }
 
     public void loadLanguages() {
@@ -117,8 +119,8 @@ public class Pack extends LongButton {
 
     private ArrayList<ImmutablePair<PImage, String>> getPairs() {
         ArrayList<ImmutablePair<PImage, String>> list = new ArrayList<>();
-        for (HashSet<Element> elements : main.groups.values()) {
-            for (Element element : elements) {
+        for (HashSet<ElementButton> elements : main.groups.values()) {
+            for (ElementButton element : elements) {
                 if (element.isInPack(this)) {
                     list.addAll(element.getImages());
                 }
@@ -136,7 +138,7 @@ public class Pack extends LongButton {
                 if (width == 0 || height == 0) {
                     return; //this could happen if a pack removes elements!
                 }
-                PGraphics graphics = main.createGraphics(width * Element.SIZE, height * Element.SIZE);
+                PGraphics graphics = main.createGraphics(width * ElementButton.SIZE, height * ElementButton.SIZE);
                 PrintWriter printWriter = new PrintWriter(this.getAtlasTextPath());
                 graphics.beginDraw();
                 int index = 0;
@@ -144,7 +146,7 @@ public class Pack extends LongButton {
                     for (int j = 0; j < width; j++) {
                         ImmutablePair<PImage, String> pair = pairs.get(index);
                         printWriter.println(pair.right);
-                        graphics.image(pair.left, j * Element.SIZE, i * Element.SIZE);
+                        graphics.image(pair.left, j * ElementButton.SIZE, i * ElementButton.SIZE);
                         index++;
                         if (index >= pairs.size()) {
                             break;
@@ -167,7 +169,7 @@ public class Pack extends LongButton {
         return this.json.getString("name");
     }
 
-    String getNamespace() {
+    public String getNamespace() {
         return this.json.getString("namespace");
     }
 
@@ -189,7 +191,7 @@ public class Pack extends LongButton {
 
     @Override
     public void clicked() {
-        main.packsRoom.setMovePack(this);
+        PacksRoom.INSTANCE.setMovePack(this);
     }
 
     @Override
@@ -235,7 +237,7 @@ public class Pack extends LongButton {
         return null;
     }
 
-    public void getStartingElements(ArrayList<Element> elements) {
+    public void getStartingElements(ArrayList<ElementButton> elements) {
         if (this.json.isNull("starting elements")) {
             return;
         }
@@ -249,10 +251,10 @@ public class Pack extends LongButton {
                 name = this.getNamespacedName(array.getJSONObject(i).getString("name"));
                 remove = array.getJSONObject(i).getBoolean("remove", false);
             }
-            Element element = Element.getElement(name);
+            ElementButton element = ElementButton.getElement(name);
             if (element == null) {
-                System.err.println("Warning when loading starting elements: " + name + " not found!");
-                System.err.println("This is allowed if you want to control the starting elements by removing them in elements.json");
+                //that means the starting element got removed
+                //This is allowed if you want to control the starting elements by doing so
             } else {
                 if (remove) {
                     elements.remove(element);

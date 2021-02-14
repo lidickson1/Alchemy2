@@ -1,7 +1,9 @@
 package main.combos;
 
+import main.Element;
 import main.Entity;
-import main.buttons.Element;
+import main.buttons.ElementButton;
+import main.rooms.Game;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.MutableTriple;
@@ -10,10 +12,7 @@ import org.apache.commons.math3.util.Pair;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
 
 public class RandomCombo extends Entity {
 
@@ -29,7 +28,7 @@ public class RandomCombo extends Entity {
                 ArrayList<String> elementsList = new ArrayList<>();
                 Object object = elements.get(j);
                 if (object instanceof String) {
-                    if (Element.getElement((String) object) == null) {
+                    if (ElementButton.getElement((String) object) == null) {
                         System.err.println("Error with random combo: " + object + " doesn't exist!");
                         continue;
                     }
@@ -37,7 +36,7 @@ public class RandomCombo extends Entity {
                 } else if (object instanceof JSONObject) {
                     String name = ((JSONObject) object).getString("element");
                     int amount = ((JSONObject) object).getInt("amount");
-                    if (Element.getElement(name) == null) {
+                    if (ElementButton.getElement(name) == null) {
                         System.err.println("Error with random combo: " + name + " doesn't exist!");
                         continue;
                     }
@@ -81,7 +80,7 @@ public class RandomCombo extends Entity {
     }
 
     //returns the normal combo that was triggered (if any)
-    public NormalCombo canCreate(Element a, Element b) {
+    public NormalCombo canCreate(ElementButton a, ElementButton b) {
         for (Combo combo : this.combos) {
             if (combo instanceof NormalCombo) {
                 NormalCombo normalCombo = (NormalCombo) combo;
@@ -93,7 +92,7 @@ public class RandomCombo extends Entity {
         return null;
     }
 
-    public MultiCombo canCreate(ArrayList<String> elements) {
+    public MultiCombo canCreate(List<String> elements) {
         for (Combo combo : this.combos) {
             if (combo instanceof MultiCombo) {
                 MultiCombo multiCombo = (MultiCombo) combo;
@@ -109,7 +108,7 @@ public class RandomCombo extends Entity {
         ArrayList<Element> elements = new ArrayList<>();
         ArrayList<String> list = this.elements.sample();
         for (String string : list) {
-            elements.add(Objects.requireNonNull(Element.getElement(string)).deepCopy());
+            elements.add(Element.Companion.getElement(string));
         }
         return elements;
     }
@@ -133,7 +132,7 @@ public class RandomCombo extends Entity {
 
     public boolean notAllResultsDiscovered() {
         for (String element : this.getAllResults()) {
-            if (!main.game.isDiscovered(element)) {
+            if (!Game.INSTANCE.isDiscovered(element)) {
                 return true;
             }
         }
@@ -157,14 +156,14 @@ public class RandomCombo extends Entity {
         return set;
     }
 
-    public ArrayList<ImmutableTriple<Element, Element, Element>> toCreationTriples(Element element) {
-        ArrayList<ImmutableTriple<Element, Element, Element>> list = new ArrayList<>();
+    public ArrayList<ImmutableTriple<ElementButton, ElementButton, ElementButton>> toCreationTriples(ElementButton element) {
+        ArrayList<ImmutableTriple<ElementButton, ElementButton, ElementButton>> list = new ArrayList<>();
         for (Combo combo : this.combos) {
             //cannot use combo's toTriple because the element field is null
             if (combo instanceof NormalCombo) {
                 NormalCombo normalCombo = (NormalCombo) combo;
-                Element a = Objects.requireNonNull(Element.getElement(normalCombo.getA())).deepCopy();
-                Element b = Objects.requireNonNull(Element.getElement(normalCombo.getB())).deepCopy();
+                ElementButton a = Objects.requireNonNull(ElementButton.getElement(normalCombo.getA())).deepCopy();
+                ElementButton b = Objects.requireNonNull(ElementButton.getElement(normalCombo.getB())).deepCopy();
                 if (normalCombo.ingredientsDiscovered()) {
                     list.add(new ImmutableTriple<>(a, b, element.deepCopy()));
                 }
@@ -173,12 +172,12 @@ public class RandomCombo extends Entity {
                 if (multiCombo.ingredientsDiscovered()) {
                     int counter = multiCombo.getIngredients().size();
                     do {
-                        MutableTriple<Element, Element, Element> triple;
+                        MutableTriple<ElementButton, ElementButton, ElementButton> triple;
                         if (counter >= 2) {
-                            triple = new MutableTriple<>(Objects.requireNonNull(Element.getElement(multiCombo.getIngredients().get(multiCombo.getIngredients().size() - counter))).deepCopy(), Objects.requireNonNull(Element.getElement(multiCombo.getIngredients().get(multiCombo.getIngredients().size() - counter + 1))).deepCopy(), null);
+                            triple = new MutableTriple<>(Objects.requireNonNull(ElementButton.getElement(multiCombo.getIngredients().get(multiCombo.getIngredients().size() - counter))).deepCopy(), Objects.requireNonNull(ElementButton.getElement(multiCombo.getIngredients().get(multiCombo.getIngredients().size() - counter + 1))).deepCopy(), null);
                             counter -= 2;
                         } else {
-                            triple = new MutableTriple<>(null, Objects.requireNonNull(Element.getElement(multiCombo.getIngredients().get(multiCombo.getIngredients().size() - 1))).deepCopy(), null);
+                            triple = new MutableTriple<>(null, Objects.requireNonNull(ElementButton.getElement(multiCombo.getIngredients().get(multiCombo.getIngredients().size() - 1))).deepCopy(), null);
                             counter--;
                         }
                         if (counter == 0) {
@@ -192,18 +191,18 @@ public class RandomCombo extends Entity {
         return list;
     }
 
-    public ArrayList<ImmutableTriple<Element, Element, Element>> toUsedTriples(Element element) {
-        ArrayList<ImmutableTriple<Element, Element, Element>> list = new ArrayList<>();
+    public ArrayList<ImmutableTriple<ElementButton, ElementButton, ElementButton>> toUsedTriples(ElementButton element) {
+        ArrayList<ImmutableTriple<ElementButton, ElementButton, ElementButton>> list = new ArrayList<>();
         for (Combo combo : this.combos) {
             //cannot use combo's toTriple because the element field is null
             if (combo instanceof NormalCombo) {
                 NormalCombo normalCombo = (NormalCombo) combo;
-                Element a = Objects.requireNonNull(Element.getElement(normalCombo.getA())).deepCopy();
-                Element b = Objects.requireNonNull(Element.getElement(normalCombo.getB())).deepCopy();
+                ElementButton a = Objects.requireNonNull(ElementButton.getElement(normalCombo.getA())).deepCopy();
+                ElementButton b = Objects.requireNonNull(ElementButton.getElement(normalCombo.getB())).deepCopy();
                 if (a.getName().equals(element.getName()) || b.getName().equals(element.getName())) {
                     for (String string : this.getAllResults()) {
                         if (normalCombo.ingredientsDiscovered()) {
-                            list.add(new ImmutableTriple<>(a, b, Element.getElement(string)));
+                            list.add(new ImmutableTriple<>(a, b, ElementButton.getElement(string)));
                         }
                     }
                 }
@@ -214,16 +213,16 @@ public class RandomCombo extends Entity {
                         if (multiCombo.ingredientsDiscovered()) {
                             int counter = multiCombo.getIngredients().size();
                             do {
-                                MutableTriple<Element, Element, Element> triple;
+                                MutableTriple<ElementButton, ElementButton, ElementButton> triple;
                                 if (counter >= 2) {
-                                    triple = new MutableTriple<>(Objects.requireNonNull(Element.getElement(multiCombo.getIngredients().get(multiCombo.getIngredients().size() - counter))).deepCopy(), Objects.requireNonNull(Element.getElement(multiCombo.getIngredients().get(multiCombo.getIngredients().size() - counter + 1))).deepCopy(), null);
+                                    triple = new MutableTriple<>(Objects.requireNonNull(ElementButton.getElement(multiCombo.getIngredients().get(multiCombo.getIngredients().size() - counter))).deepCopy(), Objects.requireNonNull(ElementButton.getElement(multiCombo.getIngredients().get(multiCombo.getIngredients().size() - counter + 1))).deepCopy(), null);
                                     counter -= 2;
                                 } else {
-                                    triple = new MutableTriple<>(null, Objects.requireNonNull(Element.getElement(multiCombo.getIngredients().get(multiCombo.getIngredients().size() - 1))).deepCopy(), null);
+                                    triple = new MutableTriple<>(null, Objects.requireNonNull(ElementButton.getElement(multiCombo.getIngredients().get(multiCombo.getIngredients().size() - 1))).deepCopy(), null);
                                     counter--;
                                 }
                                 if (counter == 0) {
-                                    triple.right = Objects.requireNonNull(Element.getElement(string)).deepCopy();
+                                    triple.right = Objects.requireNonNull(ElementButton.getElement(string)).deepCopy();
                                 }
                                 list.add(new ImmutableTriple<>(triple.left, triple.middle, triple.right));
                             } while (counter > 0);

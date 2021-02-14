@@ -1,6 +1,6 @@
 package main.variations;
 
-import main.buttons.Element;
+import main.buttons.ElementButton;
 import main.variations.appearances.Appearance;
 import main.variations.appearances.Texture;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -16,7 +16,7 @@ public class RandomVariation extends Variation {
 
     private EnumeratedDistribution<Appearance> random;
 
-    RandomVariation(JSONObject json, Element element) {
+    RandomVariation(JSONObject json, ElementButton element) {
         super(json, element);
     }
 
