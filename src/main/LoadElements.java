@@ -1,6 +1,5 @@
 package main;
 
-import main.buttons.ElementButton;
 import main.buttons.Group;
 import main.buttons.Pack;
 import main.combos.Combo;
@@ -18,9 +17,9 @@ import java.util.*;
 
 public class LoadElements extends Entity {
 
-    private static ArrayList<Normal> normals = new ArrayList<>();
-    private static ArrayList<Permutation> permutations = new ArrayList<>();
-    private static ArrayList<MultiPermutation> multiPermutations = new ArrayList<>();
+    private static final ArrayList<Normal> normals = new ArrayList<>();
+    private static final ArrayList<Permutation> permutations = new ArrayList<>();
+    private static final ArrayList<MultiPermutation> multiPermutations = new ArrayList<>();
     private static Pack pack;
 
     static class ProcessCombo {
@@ -81,22 +80,22 @@ public class LoadElements extends Entity {
                 String remove = object.getString("remove");
                 //noinspection IfCanBeSwitch
                 if (remove.equals("all")) {
-                    ArrayList<ElementButton> exceptElements = new ArrayList<>();
+                    ArrayList<Element> exceptElements = new ArrayList<>();
                     ArrayList<Combo> exceptCombos = new ArrayList<>();
                     ArrayList<RandomCombo> exceptRandom = new ArrayList<>();
                     if (object.hasKey("except")) {
                         JSONArray array1 = object.getJSONArray("except");
                         for (int j = 0;j < array1.size();j++) {
-                            ElementButton element1 = ElementButton.getElement(array1.getString(j));
+                            Element element1 = Element.Companion.getElement(array1.getString(j));
                             if (element1 != null) {
                                 exceptElements.add(element1);
                                 for (Combo combo : main.comboList) {
-                                    if (combo.contains(element1.getName())) {
+                                    if (combo.contains(element1.getId())) {
                                         exceptCombos.add(combo);
                                     }
                                 }
                                 for (RandomCombo randomCombo : main.randomCombos) {
-                                    if (randomCombo.contains(element1.getName())) {
+                                    if (randomCombo.contains(element1.getId())) {
                                         exceptRandom.add(randomCombo);
                                     }
                                 }
@@ -108,12 +107,12 @@ public class LoadElements extends Entity {
                     main.randomCombos.clear();
                     main.randomCombos.addAll(exceptRandom);
                     Loading.INSTANCE.removeAllElements(exceptElements.size()); //this needs to be called first or else we can't determine how much progress to remove
-                    for (HashSet<ElementButton> list : main.groups.values()) {
+                    for (HashSet<Element> list : main.groups.values()) {
                         list.removeIf(e -> !exceptElements.contains(e));
                     }
                     main.elements.clear();
-                    for (ElementButton element1 : exceptElements) {
-                        main.elements.put(element1.getName(), element1.getGroup());
+                    for (Element element1 : exceptElements) {
+                        main.elements.put(element1.getId(), element1.getGroup());
                     }
                 } else if (remove.equals("element")) {
                     //remove all combos of an element
@@ -122,7 +121,7 @@ public class LoadElements extends Entity {
                     for (RandomCombo randomCombo : main.randomCombos) {
                         randomCombo.removeElement(e);
                     }
-                    ElementButton element1 = ElementButton.getElement(e);
+                    Element element1 = Element.Companion.getElement(e);
                     if (element1 != null) {
                         main.groups.get(element1.getGroup()).remove(element1);
                         main.elements.remove(e);
@@ -149,10 +148,10 @@ public class LoadElements extends Entity {
                 main.randomCombos.add(randomCombo);
                 Loading.INSTANCE.randomCombo();
             } else {
-                ElementButton element;
+                Element element;
                 //element might exist because we allow existing elements to be modified
                 if (main.elements.containsKey(elementName)) {
-                    element = ElementButton.getElement(elementName);
+                    element = Element.Companion.getElement(elementName);
                     assert element != null;
                     Loading.INSTANCE.modifyElement();
                 } else {
@@ -162,7 +161,7 @@ public class LoadElements extends Entity {
                         Loading.INSTANCE.elementFailed();
                         continue;
                     }
-                    element = new ElementButton(elementName, group, pack);
+                    element = new Element(elementName, group, pack);
                     main.groups.get(group).add(element);
                     main.elements.put(elementName, group);
                 }
@@ -300,22 +299,22 @@ public class LoadElements extends Entity {
     }
 
     //use this method to parse combos if it is used after all combos are loaded
-    public static ArrayList<Combo> getCombo(JSONObject combo, ElementButton element) {
+    public static ArrayList<Combo> getCombo(JSONObject combo, Element element) {
         ArrayList<Combo> list = new ArrayList<>();
         Permutation permutation = null;
         MultiPermutation multiPermutation = null;
         if (combo.hasKey("first element")) {
-            list.add(new NormalCombo(element.getName(), element.getPack().getNamespacedName(combo.getString("first element")), element.getPack().getNamespacedName(combo.getString("second element"))));
+            list.add(new NormalCombo(element.getId(), element.getPack().getNamespacedName(combo.getString("first element")), element.getPack().getNamespacedName(combo.getString("second element"))));
         } else if (combo.hasKey("elements")) {
             if (combo.hasKey("paired") && combo.getBoolean("paired")) {
-                permutation = new Permutation(element.getName(), PermutationType.UNRESTRICTED, combo, false, null);
+                permutation = new Permutation(element.getId(), PermutationType.UNRESTRICTED, combo, false, null);
             } else {
-                multiPermutation = new MultiPermutation(element.getName(), combo, false, null);
+                multiPermutation = new MultiPermutation(element.getId(), combo, false, null);
             }
         } else if (combo.hasKey("first elements")) {
-            permutation = new Permutation(element.getName(), PermutationType.RESTRICTED, combo, false, null);
+            permutation = new Permutation(element.getId(), PermutationType.RESTRICTED, combo, false, null);
         } else {
-            permutation = new Permutation(element.getName(), PermutationType.SETS, combo, false, null);
+            permutation = new Permutation(element.getId(), PermutationType.SETS, combo, false, null);
         }
         if (permutation != null) {
             ArrayList<ImmutablePair<String, String>> combos = processPermutations(permutation.permutationType, permutation.json, element.getPack());
@@ -433,17 +432,17 @@ public class LoadElements extends Entity {
                 iterator.remove();
                 String tag = string.replace("tag:", "");
                 for (Group group : main.groups.keySet()) {
-                    for (ElementButton element : main.groups.get(group)) {
+                    for (Element element : main.groups.get(group)) {
                         if (element.getTags().contains(tag)) {
-                            iterator.add(element.getName());
+                            iterator.add(element.getId());
                         }
                     }
                 }
             } else if (string.contains("group:")) {
                 iterator.remove();
                 String group = string.replace("group:", "");
-                for (ElementButton element : main.groups.get(Group.getGroup(group))) {
-                    iterator.add(element.getName());
+                for (Element element : main.groups.get(Group.getGroup(group))) {
+                    iterator.add(element.getId());
                 }
             }
         }

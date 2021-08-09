@@ -8,7 +8,6 @@ import main.combos.MultiCombo
 import main.combos.NormalCombo
 import main.rooms.Game
 import main.rooms.Game.addElement
-import main.rooms.Game.discovered
 import main.rooms.Game.history
 import main.rooms.Game.removeElement
 import main.rooms.Game.success
@@ -26,83 +25,79 @@ import processing.core.PImage
 import java.io.File
 import java.util.*
 
-class Element(fullname: String, val group: Group, val pack: Pack) : Entity(), Comparable<Element> {
+class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comparable<Element> {
 
     val tags = ArrayList<String>()
     var description: String? = null
     var isPersistent = false
     var variation: Variation? = null
-    private val randomAppearance: Appearance? = null
+//    val randomAppearance: Appearance? = null
     lateinit var image: PImage
-        private set
-    private val namespace: String = fullname.split(":").toTypedArray()[0]
-    private val id: String = fullname.split(":").toTypedArray()[1]
+    val isImageInitialized: Boolean get() = this::image.isInitialized
+    private val namespace: String = id.split(":")[0]
+    private val localId: String = id.split(":")[1]
 
-    private val displayName: String
+    val displayName: String
 
     init {
         val variationName: String? = if (variation == null) {
             null
-        } else if (variation is RandomVariation) {
-            Language.getLanguageSelected().getElementLocalizedString(namespace, randomAppearance!!.name)
         } else {
-            Language.getLanguageSelected().getElementLocalizedString(namespace, variation!!.name)
+            Language.getLanguageSelected().getElementLocalizedString(namespace, variation!!.getName())
         }
-        val displayName = Language.getLanguageSelected().getElementLocalizedString(namespace, id)
+        val displayName = Language.getLanguageSelected().getElementLocalizedString(namespace, localId)
         if (displayName == null) {
-            pack.generateEnglish(id)
+            pack.generateEnglish(localId)
         }
         this.displayName = variationName ?: displayName ?: id
     }
 
     //TODO: for atlas
-    val images: List<ImmutablePair<PImage?, String>> = emptyList()
-//        get() {
-//            val list = ArrayList<ImmutablePair<PImage?, String>>()
-//            if (getImage() != null && getImage() !== error) {
-//                list.add(ImmutablePair(getImage(), id))
-//            }
-//            if (variation != null) {
-//                list.addAll(variation!!.pairs)
-//            }
-//            return list
-//        }
+    val images: List<ImmutablePair<PImage, String>>
+        get() {
+            val list = ArrayList<ImmutablePair<PImage, String>>()
+            if (image !== Button.error) {
+                list.add(ImmutablePair(image, id))
+            }
+            variation?.let {
+                list.addAll(it.pairs)
+            }
+            return list
+        }
 
     override fun compareTo(other: Element): Int {
         return id.compareTo(other.id)
     }
 
     //file name without extension
-    fun loadImage() {
+    fun loadImage(fileName: String): PImage {
         //check if a pack has the image, from top to bottom
         for (pack in loadedPacks) {
             //check for atlas first
-            if (pack.getAtlasImage(id) != null) {
-                image = pack.getAtlasImage(id)
-                return
+            if (pack.getAtlasImage(fileName) != null) {
+                return pack.getAtlasImage(fileName)
             }
             //fileName could be in the form of pack:element:variation because of variations
-            val id = if (StringUtils.countMatches(id, ":") == 2) id.split(":".toRegex()).toTypedArray()[2] else id
+            val id = if (StringUtils.countMatches(fileName, ":") == 2) fileName.split(":")[2] else fileName
             if (pack.name == "Alchemy" && this.pack.name == "Alchemy") {
                 //if the element is of the default pack and we are in the default pack right now, load default location
-                val defaultPath = "resources/elements/alchemy/" + group.id + "/" + id
+                val defaultPath = "resources/elements/alchemy/" + group.localId + "/" + id
                 val getImage = getImageFromPath(defaultPath)
                 if (getImage == null) {
                     image = Button.error
                 } else {
                     getImage.resize(ElementButton.SIZE, 0)
-                    image = getImage
-                    return
+                    return getImage
                 }
             } else {
-                val packPath = "${pack.path}/elements/${group.pack.namespace}/${group.id}/$id"
+                val packPath = "${pack.path}/elements/${group.pack.namespace}/${group.localId}/$id"
                 getImageFromPath(packPath)?.let {
                     it.resize(ElementButton.SIZE, 0)
-                    image = it
-                    return
+                    return it
                 }
             }
         }
+        return Button.error
     }
 
     private fun getImageFromPath(path: String): PImage? {
@@ -120,13 +115,12 @@ class Element(fullname: String, val group: Group, val pack: Pack) : Entity(), Co
     }
 
     fun getImageWithoutFallback(fileName: String): PImage? {
-//        val image = getImage(fileName)
-//        return if (image === main.buttons.Button.error) {
-//            null
-//        } else {
-//            image
-//        }
-        return null
+        val image = loadImage(fileName)
+        return if (image === Button.error) {
+            null
+        } else {
+            image
+        }
     }
 
     fun addTag(tag: String) {
@@ -157,10 +151,11 @@ class Element(fullname: String, val group: Group, val pack: Pack) : Entity(), Co
     companion object {
         private val elementsA = ArrayList<Element>()
         private val elementsB = ArrayList<Element>()
-        private var elementSelectedA: Element? = null
-        private var elementSelectedB: Element? = null
-        private val elementsSelected = ArrayList<Element>()  //for selecting more than 2 elements
-        private val elementsCreated = ArrayList<Element>()
+        var elementSelectedA: Element? = null
+        var elementSelectedB: Element? = null
+        val elementsSelected = ArrayList<Element>()  //for selecting more than 2 elements
+        val elementsCreated = ArrayList<Element>()
+
         fun reset() {
             elementsA.clear()
             elementsB.clear()
@@ -173,12 +168,10 @@ class Element(fullname: String, val group: Group, val pack: Pack) : Entity(), Co
             val thread = Thread {
                 for (element in elements) {
                     //load original image
-                    if (!element::image.isInitialized) {
-                        element.loadImage()
+                    if (!element.isImageInitialized) {
+                        element.image = element.loadImage(element.localId)
                     }
-                    if (element.variation != null) {
-                        element.variation!!.loadImages()
-                    }
+                    element.variation?.loadImages()
                     updateProgress()
                 }
             }
@@ -191,13 +184,13 @@ class Element(fullname: String, val group: Group, val pack: Pack) : Entity(), Co
                 return null
             }
             if (!main.groups.containsKey(main.elements[name])) {
-                System.err.println(main.elements[name]!!.getName() + " group not found!")
+                System.err.println(main.elements[name]!!.id + " group not found!")
                 return null
             }
             for (element in main.groups[main.elements[name]]!!) {
-//                if (element.id == name) {
-//                    return element
-//                }
+                if (element.id == name) {
+                    return element
+                }
             }
             return null
         }
@@ -266,62 +259,61 @@ class Element(fullname: String, val group: Group, val pack: Pack) : Entity(), Co
             }
         }
 
-        fun checkForCombos() {
-//            if (elementSelectedA != null && elementSelectedB != null) {
-//                //check for combos
-//                main.Element.Companion.elementsCreated.clear()
-//                for (combo in main.Entity.main.comboList) {
-//                    if (combo is NormalCombo) {
-//                        val normalCombo = combo as NormalCombo
-//                        if (normalCombo.a == main.Element.Companion.elementSelectedA.id && normalCombo.b == main.Element.Companion.elementSelectedB.id || normalCombo.a == main.Element.Companion.elementSelectedB.id && normalCombo.b == main.Element.Companion.elementSelectedA.id) {
-//                            val element: Element = main.Element.Companion.getElement(normalCombo.element)
-//                            if (Objects.requireNonNull(element).variation is ComboVariation) {
-//                                (element.variation as ComboVariation?)!!.setCurrentImage(normalCombo)
-//                            }
-//                            for (i in 0 until combo.getAmount()) {
-//                                main.Element.Companion.elementsCreated.add(element.deepCopy())
-//                            }
-//                            history.add(normalCombo)
-//                        }
-//                    }
-//                }
-//                for (randomCombo in main.Entity.main.randomCombos) {
-//                    val normalCombo = randomCombo.canCreate(main.Element.Companion.elementSelectedA, main.Element.Companion.elementSelectedB)
-//                    if (normalCombo != null) {
-//                        val randomElements: ArrayList<Element> = randomCombo.elements
-//                        main.Element.Companion.elementsCreated.addAll(randomElements)
-//                        for (element in randomElements) {
-//                            if (element.variation is ComboVariation) {
-//                                (element.variation as ComboVariation?)!!.setCurrentImage(normalCombo)
-//                            }
-//                            history.add(NormalCombo(element.id, normalCombo.a, normalCombo.b))
-//                        }
-//                    }
-//                }
-//                if (main.Element.Companion.elementsCreated.size > 0) {
-//                    for (element in main.Element.Companion.elementsCreated) {
-//                        //element adding conditions has been refactored into the method
-//                        addElement(element)
-//                    }
-//                    if (Game.mode === GameMode.PUZZLE) {
-//                        if (!main.Element.Companion.elementSelectedA.persistent) {
-//                            removeElement(main.Element.Companion.elementSelectedA.id)
-//                        }
-//                        if (!main.Element.Companion.elementSelectedB.persistent) {
-//                            removeElement(main.Element.Companion.elementSelectedB.id)
-//                        }
-//                    }
-//
-//                    //need to update because affected groups might be already selected
-//                    main.Element.Companion.updateA()
-//                    main.Element.Companion.updateB()
-//                    success()
-//                    main.Element.Companion.elementSelectedA = null
-//                    main.Element.Companion.elementSelectedB = null
-//                } else {
-//                    time = main.Entity.main.millis()
-//                }
-//            }
+        fun checkForCombos(): Boolean {
+            assert(elementSelectedA != null && elementSelectedB != null)
+                //check for combos
+                elementsCreated.clear()
+                for (combo in main.comboList) {
+                    if (combo is NormalCombo) {
+                        if (combo.a == elementSelectedA!!.id && combo.b == elementSelectedB!!.id || combo.a == elementSelectedB!!.id && combo.b == elementSelectedA!!.id) {
+                            val element: Element = getElement(combo.element)!!
+                            if (Objects.requireNonNull(element).variation is ComboVariation) {
+                                (element.variation as ComboVariation?)!!.setCurrentImage(combo)
+                            }
+                            for (i in 0 until combo.getAmount()) {
+                                elementsCreated.add(element)
+                            }
+                            history.add(combo)
+                        }
+                    }
+                }
+                for (randomCombo in main.randomCombos) {
+                    val normalCombo = randomCombo.canCreate(elementSelectedA, elementSelectedB)
+                    if (normalCombo != null) {
+                        val randomElements: ArrayList<Element> = randomCombo.elements
+                        elementsCreated.addAll(randomElements)
+                        for (element in randomElements) {
+                            if (element.variation is ComboVariation) {
+                                (element.variation as ComboVariation?)!!.setCurrentImage(normalCombo)
+                            }
+                            history.add(NormalCombo(element.id, normalCombo.a, normalCombo.b))
+                        }
+                    }
+                }
+                if (elementsCreated.isNotEmpty()) {
+                    for (element in elementsCreated) {
+                        //element adding conditions has been refactored into the method
+                        addElement(element)
+                    }
+                    if (Game.mode === GameMode.PUZZLE) {
+                        if (!elementSelectedA!!.isPersistent) {
+                            removeElement(elementSelectedA!!.id)
+                        }
+                        if (!elementSelectedB!!.isPersistent) {
+                            removeElement(elementSelectedB!!.id)
+                        }
+                    }
+
+                    //need to update because affected groups might be already selected
+                    updateA()
+                    updateB()
+                    success()
+                    elementSelectedA = null
+                    elementSelectedB = null
+                    return true
+                } else {
+                    return false
+                }
         }
 
         fun updateA() {

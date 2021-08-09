@@ -1,6 +1,5 @@
 package main;
 
-import main.buttons.ElementButton;
 import main.buttons.Pack;
 import main.combos.Combo;
 import main.combos.MultiCombo;
@@ -20,12 +19,12 @@ public class Generation extends Entity {
     public static void generate(Set<String> elements, HashSet<Combo> combos) {
         HashSet<String> discovered = new HashSet<>();
 
-        ArrayList<ElementButton> list = new ArrayList<>();
+        ArrayList<Element> list = new ArrayList<>();
         for (Pack pack : PacksRoom.INSTANCE.getLoadedPacks()) {
             pack.getStartingElements(list);
         }
-        for (ElementButton element : list) {
-            discovered.add(element.getName());
+        for (Element element : list) {
+            discovered.add(element.getId());
         }
 
         try {

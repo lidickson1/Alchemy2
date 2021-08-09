@@ -1,6 +1,6 @@
 package main.variations;
 
-import main.buttons.ElementButton;
+import main.Element;
 import main.variations.appearances.Appearance;
 import main.variations.appearances.Texture;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -16,13 +16,13 @@ public class RandomVariation extends Variation {
 
     private EnumeratedDistribution<Appearance> random;
 
-    RandomVariation(JSONObject json, ElementButton element) {
+    RandomVariation(JSONObject json, Element element) {
         super(json, element);
     }
 
     @Override
     public void loadImages() {
-        JSONArray array = this.json.getJSONArray("textures");
+        JSONArray array = this.getJson().getJSONArray("textures");
         ArrayList<Pair<Appearance, Double>> list = new ArrayList<>();
         double remainingWeight = 1;
         for (int i = 0; i < array.size(); i++) {
@@ -30,7 +30,7 @@ public class RandomVariation extends Variation {
             list.add(new Pair<>(Appearance.getAppearance(this, object), object.getDouble("weight")));
             remainingWeight -= object.getDouble("weight");
         }
-        list.add(new Pair<>(new Texture(this), remainingWeight)); //chance of getting the original image
+        list.add(new Pair<>(new Texture(this, this.getElement()), remainingWeight)); //chance of getting the original image
         this.random = new EnumeratedDistribution<>(list);
     }
 

@@ -1,5 +1,5 @@
 {
-    "last modified": "2019-12-28 00:05",
+    "last modified": "2021-02-16 14:44",
     "elements": [
         "alchemy:anger",
         "alchemy:astrology",
@@ -696,6 +696,7 @@
         "alchemy:casino",
         "alchemy:castle",
         "alchemy:cemetery",
+        "alchemy:church",
         "alchemy:cinema",
         "alchemy:company",
         "alchemy:court",
@@ -871,5 +872,5 @@
         "alchemy:trap",
         "alchemy:weapons"
     ],
-    "hint time": "PT-17M-17.042S"
+    "hint time": "PT2M36.852S"
 }

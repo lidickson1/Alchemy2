@@ -1,7 +1,9 @@
 package main.rooms
 
+import main.Element
 import main.Language
 import main.buttons.*
+import main.buttons.ElementButton
 import main.buttons.iconbuttons.Exit
 import main.buttons.iconbuttons.IconButton
 import main.buttons.iconbuttons.Save
@@ -15,12 +17,13 @@ import processing.data.JSONObject
 import java.lang.IllegalArgumentException
 import java.time.Duration
 import java.time.LocalDateTime
-import java.util.*
 import javax.swing.JOptionPane
+import kotlin.collections.ArrayList
+import kotlin.math.min
 
 object Game : Room() {
 
-    val discovered = sortedMapOf<Group, MutableList<ElementButton>>()
+    val discovered = sortedMapOf<Group, ArrayList<Element>>()
     val history = mutableListOf<Combo>()
     var saveFile: SaveFile? = null
     private val success: Pane
@@ -169,10 +172,11 @@ object Game : Room() {
             discovered.clear()
             history.clear()
             Group.reset()
+            Element.reset()
             ElementButton.reset()
             if (saveFile == null) { //new game
                 mode = GameMode.NORMAL
-                val elements = ArrayList<ElementButton>()
+                val elements = ArrayList<Element>()
                 for (pack in loadedPacks) {
                     pack.getStartingElements(elements)
                 }
@@ -237,15 +241,16 @@ object Game : Room() {
         }
         if (hint.isActive) {
             hint.draw(main.screenWidth / 2f - hint.width / 2f, main.screenHeight / 2f - hint.height / 2f)
-            ElementButton.drawHintElement(hintElement)
+            ElementButton.drawHintElement(hintElement!!)
         }
 
         //clear multi-select
         if (!isShiftHeld) {
-            if (ElementButton.getElementsSelected().size > 0) {
-                ElementButton.checkForMultiCombos()
+            if (Element.elementsSelected.isNotEmpty()) {
+                Element.checkForMultiCombos()
             }
-            ElementButton.getElementsSelected().clear()
+            ElementButton.elementsSelected.clear()
+            Element.elementsSelected.clear()
             val x = main.screenWidth - IconButton.GAP - IconButton.SIZE
             val y = main.screenHeight - IconButton.GAP - IconButton.SIZE
             exit.draw()
@@ -262,25 +267,25 @@ object Game : Room() {
         if (saveFile == null) {
             saveFile = SaveFile(SaveRoom.saveName, JSONObject())
         }
-        saveFile!!.json.put("elements", discovered.values.flatten().map { it.name }.toTypedArray())
+        saveFile!!.json.put("elements", discovered.values.flatten().map { it.id }.toTypedArray())
         saveFile!!.json.put("last modified", LocalDateTime.now().format(main.formatter))
         saveFile!!.json.put("hint time", Duration.between(LocalDateTime.now(), hintTime).toString())
         main.saveJSONObject(saveFile!!.json, "resources/saves/${saveFile!!.name}.json", "indent=4")
     }
 
     private fun addElement(name: String): Boolean {
-        val element: ElementButton = ElementButton.getElement(name) ?: return false
+        val element: Element = Element.getElement(name) ?: return false
         this.addElement(element)
         return true
     }
 
-    fun isDiscovered(element: String): Boolean {
-        val group: Group = main.elements[element]!!
+    fun isDiscovered(id: String): Boolean {
+        val group: Group = main.elements[id]!!
         if (!discovered.containsKey(group)) {
             return false
         }
         for (e in discovered[group]!!) {
-            if (e.name == element) {
+            if (e.id == id) {
                 return true
             }
         }
@@ -308,7 +313,7 @@ object Game : Room() {
                 history.removeLast()
             }
             for (ingredient in ingredients) {
-                if (!ElementButton.getElement(ingredient)!!.isPersistent) {
+                if (!Element.getElement(ingredient)!!.isPersistent) {
                     this.addElement(ingredient)
                 }
             }
@@ -320,26 +325,25 @@ object Game : Room() {
         }
     }
 
-    fun addElement(element: ElementButton) {
+    fun addElement(element: Element) {
         val group = element.group
         val addElement = if (mode == GameMode.NORMAL) {
-           !discovered.containsKey(group) || !isDiscovered(element.name)
+           !discovered.containsKey(group) || !isDiscovered(element.id)
         } else {
-            !(element.isPersistent && discovered.containsKey(group) && isDiscovered(element.name))
+            !(element.isPersistent && discovered.containsKey(group) && isDiscovered(element.id))
         }
         if (addElement) {
             if (!discovered.containsKey(group)) {
-                discovered[group] = ArrayList(listOf(element))
-            } else {
-                discovered[group]!!.add(element)
+                discovered[group] = ArrayList()
             }
+            discovered[group]!!.add(element)
         }
         discovered[group]!!.sort()
     }
 
     //direct Element objects cannot be used because they are copies
-    fun removeElement(string: String) {
-        val group: Group = main.elements[string]!!
+    fun removeElement(id: String) {
+        val group: Group = main.elements[id]!!
         //edge case: if the elements used are the same element, and they are the last remaining elements of the group
         //then when the first element is removed, the group will be removed, so when we call this method for the second element, the group will be removed already
         discovered[group]?.let {
@@ -347,7 +351,7 @@ object Game : Room() {
             val iterator = it.iterator()
             while (iterator.hasNext()) {
                 val element = iterator.next()
-                if (element.name == string) {
+                if (element.id == id) {
                     iterator.remove()
                     break
                 }
@@ -371,18 +375,18 @@ object Game : Room() {
         elementBUpArrow.mousePressed()
         elementBDownArrow.mousePressed()
         if (!success.isActive && !hint.isActive) {
-            for (group in Group.getGroups()) {
+            for (group in Group.getCurrentPageGroups()) {
                 group.mousePressed()
             }
-            if (Group.groupSelectedA != null) {
-                Group.groupSelectedA.mousePressed()
-                for (element in ElementButton.getElementsA()) {
+            Group.groupSelectedA?.let {
+                it.mousePressed()
+                for (element in ElementButton.getCurrentPageElements(ElementButton.elementButtonsA, ElementButton.pageNumberA)) {
                     element.mousePressed()
                 }
             }
-            if (Group.groupSelectedB != null) {
-                Group.groupSelectedB.mousePressed()
-                for (element in ElementButton.getElementsB()) {
+            Group.groupSelectedB?.let {
+                it.mousePressed()
+                for (element in ElementButton.getCurrentPageElements(ElementButton.elementButtonsB, ElementButton.pageNumberB)) {
                     element.mousePressed()
                 }
             }
@@ -416,8 +420,8 @@ object Game : Room() {
         success.isActive = true
     }
 
-    fun setHintElement(hintElement: ElementButton?) {
-        this.hintElement = hintElement
+    fun setHintElement(element: Element) {
+        this.hintElement = ElementButton(element)
         hint.isActive = true
     }
 

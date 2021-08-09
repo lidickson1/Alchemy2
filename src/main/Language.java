@@ -1,6 +1,5 @@
 package main;
 
-import main.buttons.ElementButton;
 import org.apache.commons.io.FilenameUtils;
 import processing.data.JSONObject;
 
@@ -10,10 +9,10 @@ import java.util.ArrayList;
 public class Language extends Entity {
 
     private static Language languageSelected;
-    private static ArrayList<Language> languages = new ArrayList<>();
+    private static final ArrayList<Language> languages = new ArrayList<>();
 
-    private String id;
-    private JSONObject json;
+    private final String id;
+    private final JSONObject json;
 
     private Language(String id, JSONObject json) {
         this.json = json;
@@ -93,7 +92,7 @@ public class Language extends Entity {
         assert language != null;
         JSONObject object = language.json.getJSONObject("elements").getJSONObject("alchemy");
         //noinspection unchecked
-        object.keys().removeIf(e -> ElementButton.getElement("alchemy:" + e) == null);
+        object.keys().removeIf(e -> Element.Companion.getElement("alchemy:" + e) == null);
         main.saveJSONObject(language.json, "resources/languages/english.json","indent=4");
     }
 

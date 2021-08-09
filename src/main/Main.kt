@@ -51,7 +51,7 @@ class Main : PApplet() {
     lateinit var settings: JSONObject
         private set
     @JvmField
-    var groups = HashMap<Group, HashSet<ElementButton>>()
+    var groups = HashMap<Group, HashSet<Element>>()
     @JvmField
     var elements = HashMap<String, Group>()
     @JvmField
@@ -129,7 +129,7 @@ class Main : PApplet() {
         //setting up colors for error dialog
         UIManager.put("OptionPane.background", Color.BLACK)
         UIManager.put("Panel.background", Color.BLACK)
-        UIManager.put("OptionPane.messageFont", Font(errorFont!!.fontName, Font.PLAIN, 20))
+        UIManager.put("OptionPane.messageFont", Font(errorFont.fontName, Font.PLAIN, 20))
         UIManager.put("OptionPane.buttonFont", Font(errorFont.fontName, Font.PLAIN, 14))
         UIManager.put("OptionPane.messageForeground", Color.WHITE)
         UIManager.put("Button.foreground", Color.WHITE)

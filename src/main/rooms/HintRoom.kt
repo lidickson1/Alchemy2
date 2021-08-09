@@ -1,5 +1,6 @@
 package main.rooms
 
+import main.Element
 import main.Language
 import main.buttons.ElementButton
 import main.buttons.Group
@@ -77,7 +78,7 @@ object HintRoom : Room() {
     //TODO: this is not private for debug reasons
     @Throws(NoHintAvailable::class)
     fun getElementHint() {
-        val possibleElements = ArrayList<String?>()
+        val possibleElements = ArrayList<String>()
         for (combo in main.comboList) {
             if (combo.canCreate() && !Game.isDiscovered(combo.element)) {
                 possibleElements.add(combo.element)
@@ -91,7 +92,7 @@ object HintRoom : Room() {
         if (possibleElements.isEmpty()) {
             throw NoHintAvailable()
         }
-        Game.setHintElement(ElementButton.getElement(possibleElements.random()))
+        Game.setHintElement(Element.getElement(possibleElements.random())!!)
         main.switchRoom(Game)
     }
 
@@ -113,7 +114,7 @@ object HintRoom : Room() {
             throw NoHintAvailable()
         }
         val randomCombo = possibleCombos.random()
-        Group.setHintGroups(main.elements[randomCombo.a], main.elements[randomCombo.b])
+        Group.setHintGroups(main.elements[randomCombo.a]!!, main.elements[randomCombo.b]!!)
         main.switchRoom(Game)
     }
 

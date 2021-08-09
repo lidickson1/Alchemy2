@@ -1,5 +1,6 @@
 package main.rooms
 
+import main.Element
 import main.Generation
 import main.Language
 import main.LoadElements
@@ -33,6 +34,9 @@ object Loading : Room() {
         //packs are loaded from bottom to top, for loop in reverse
         val thread = Thread {
             for (pack in PacksRoom.loadedPacks.reversed()) {
+                pack.loadLanguages()
+                //TODO: this to read from settings
+                Language.setLanguageSelected("english")
                 var groupsArray = JSONArray()
                 var elementsArray = JSONArray()
                 if (pack.name == "Alchemy") {
@@ -58,24 +62,21 @@ object Loading : Room() {
                 if (pack.hasAtlas()) {
                     pack.loadAtlas()
                 }
-                pack.loadLanguages()
-                //TODO: this to read from settings
-                Language.setLanguageSelected("english")
             }
             if (PRINT_GENERATIONS) {
-                val set = main.groups.values.flatten().map { it.name }.toSet()
+                val set = main.groups.values.flatten().map { it.id }.toSet()
                 Generation.generate(set, main.comboList)
             }
 
             //textures are loaded here, after we have defined all of the elements
             val size = 50 //size of each buffer
-            var buffer = ArrayList<ElementButton?>()
+            var buffer = ArrayList<Element>()
             var index = 0
             for (group in main.groups.keys) {
                 for (element in main.groups[group]!!) {
-                    if (element.image == null || element.variation != null) { //some images might already be loaded from an atlas
+                    if (!element.isImageInitialized || element.variation != null) { //some images might already be loaded from an atlas
                         if (index != 0 && index % size == 0) {
-                            ElementButton.loadImage(buffer)
+                            Element.loadImage(buffer)
                             buffer = ArrayList()
                         }
                         buffer.add(element)
@@ -84,7 +85,7 @@ object Loading : Room() {
                 }
             }
             if (buffer.isNotEmpty()) {
-               ElementButton.loadImage(buffer)
+               Element.loadImage(buffer)
             }
         }
         thread.isDaemon = true

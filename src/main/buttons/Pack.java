@@ -1,5 +1,6 @@
 package main.buttons;
 
+import main.Element;
 import main.Language;
 import main.rooms.Loading;
 import main.rooms.PacksRoom;
@@ -96,7 +97,7 @@ public class Pack extends LongButton {
                 String name = scanner.nextLine();
                 int count = StringUtils.countMatches(name, ":");
                 if (count == 1) {
-                    ElementButton element = ElementButton.getElement(name);
+                    Element element = Element.Companion.getElement(name);
                     assert element != null;
                     element.setImage(atlas.get(x, y, ElementButton.SIZE, ElementButton.SIZE));
                 } else {
@@ -119,8 +120,8 @@ public class Pack extends LongButton {
 
     private ArrayList<ImmutablePair<PImage, String>> getPairs() {
         ArrayList<ImmutablePair<PImage, String>> list = new ArrayList<>();
-        for (HashSet<ElementButton> elements : main.groups.values()) {
-            for (ElementButton element : elements) {
+        for (HashSet<Element> elements : main.groups.values()) {
+            for (Element element : elements) {
                 if (element.isInPack(this)) {
                     list.addAll(element.getImages());
                 }
@@ -237,7 +238,7 @@ public class Pack extends LongButton {
         return null;
     }
 
-    public void getStartingElements(ArrayList<ElementButton> elements) {
+    public void getStartingElements(ArrayList<Element> elements) {
         if (this.json.isNull("starting elements")) {
             return;
         }
@@ -251,7 +252,7 @@ public class Pack extends LongButton {
                 name = this.getNamespacedName(array.getJSONObject(i).getString("name"));
                 remove = array.getJSONObject(i).getBoolean("remove", false);
             }
-            ElementButton element = ElementButton.getElement(name);
+            Element element = Element.Companion.getElement(name);
             if (element == null) {
                 //that means the starting element got removed
                 //This is allowed if you want to control the starting elements by doing so

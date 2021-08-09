@@ -1,5 +1,6 @@
 package main.combos;
 
+import main.Element;
 import main.buttons.ElementButton;
 import main.rooms.Game;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
@@ -35,10 +36,10 @@ public class NormalCombo extends Combo {
 
     @Override
     public ArrayList<ImmutableTriple<ElementButton, ElementButton, ElementButton>> toTriples() {
-        ElementButton a = Objects.requireNonNull(ElementButton.getElement(this.a)).deepCopy();
-        ElementButton b = Objects.requireNonNull(ElementButton.getElement(this.b)).deepCopy();
-        ElementButton element = Objects.requireNonNull(ElementButton.getElement(this.getElement())).deepCopy();
-        return new ArrayList<>(Collections.singletonList(new ImmutableTriple<>(a, b, element)));
+        return new ArrayList<>(Collections.singletonList(new ImmutableTriple<>(
+                new ElementButton(Element.Companion.getElement(this.a)),
+                new ElementButton(Element.Companion.getElement(this.b)),
+                new ElementButton(Element.Companion.getElement(this.getElement())))));
     }
 
     @Override

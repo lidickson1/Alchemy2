@@ -1,5 +1,6 @@
 package main.rooms
 
+import main.Element
 import main.Language
 import main.buttons.Arrow
 import main.buttons.ElementButton
@@ -20,7 +21,8 @@ object ElementRoom : Room() {
     private val usedLeftArrow: Arrow
     private val usedRightArrow: Arrow
     private val exit: Exit = Exit()
-    lateinit var element: ElementButton
+    val element: Element get() = elementButton.element
+    lateinit var elementButton: ElementButton
     private val creation = mutableListOf<ImmutableTriple<ElementButton?, ElementButton, ElementButton?>>()
     private val used = mutableListOf<ImmutableTriple<ElementButton?, ElementButton, ElementButton?>>()
 
@@ -35,7 +37,7 @@ object ElementRoom : Room() {
             if (creationPageNumber >= creationTotalPages) {
                 creationPageNumber = creationTotalPages - 1
             }
-            return creation.subList(creationPageNumber * max, min(creation.size, (creationPageNumber + 1) * max))
+            return creation.slice(creationPageNumber * max until min(creation.size, (creationPageNumber + 1) * max))
         }
 
     //when the element has no uses, return an empty list
@@ -49,7 +51,7 @@ object ElementRoom : Room() {
             if (usedPageNumber >= usedTotalPages) {
                 usedPageNumber = usedTotalPages - 1
             }
-            return used.subList(usedPageNumber * max, min(used.size, (usedPageNumber + 1) * max))
+            return used.slice(usedPageNumber * max until min(used.size, (usedPageNumber + 1) * max))
         }
 
     private const val GAP = 30
@@ -114,27 +116,27 @@ object ElementRoom : Room() {
         //no else ifs because the element can be both
         for (combo in main.comboList) {
             if (combo is NormalCombo) {
-                if (combo.element == element.name && combo.ingredientsDiscovered()) {
+                if (combo.element == element.id && combo.ingredientsDiscovered()) {
                     creation.addAll(combo.toTriples())
                 }
-                if ((combo.a == element.name || combo.b == element.name) && combo.ingredientsDiscovered() && isDiscovered(combo.element)) {
+                if ((combo.a == element.id || combo.b == element.id) && combo.ingredientsDiscovered() && isDiscovered(combo.element)) {
                     //ingredients must be discovered too
                     used.addAll(combo.toTriples())
                 }
             } else if (combo is MultiCombo) {
-                if (combo.element == element.name && combo.ingredientsDiscovered()) {
+                if (combo.element == element.id && combo.ingredientsDiscovered()) {
                     creation.addAll(combo.toTriples())
                 }
-                if (combo.ingredients.contains(element.name) && combo.ingredientsDiscovered() && isDiscovered(combo.element)) {
+                if (combo.ingredients.contains(element.id) && combo.ingredientsDiscovered() && isDiscovered(combo.element)) {
                     used.addAll(combo.toTriples())
                 }
             }
         }
         for (combo in main.randomCombos) {
-            if (combo.isResult(element.name)) {
+            if (combo.isResult(element.id)) {
                 creation.addAll(combo.toCreationTriples(element))
             }
-            if (combo.isIngredient(element.name)) {
+            if (combo.isIngredient(element.id)) {
                 used.addAll(combo.toUsedTriples(element))
             }
         }
@@ -145,7 +147,7 @@ object ElementRoom : Room() {
     override fun draw() {
         ElementButton.touching = null
         var y = Group.GROUP_Y
-        element.draw(Group.GROUP_X.toFloat(), y.toFloat())
+        elementButton.draw(Group.GROUP_X.toFloat(), y.toFloat())
         if (element.description != null) {
             val x = Group.GROUP_X + ElementButton.SIZE + 40
             val width = main.screenWidth - Group.GROUP_X - x

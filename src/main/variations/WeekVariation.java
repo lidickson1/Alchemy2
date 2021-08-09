@@ -1,6 +1,6 @@
 package main.variations;
 
-import main.buttons.ElementButton;
+import main.Element;
 import main.variations.appearances.Appearance;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PImage;
@@ -13,7 +13,7 @@ public class WeekVariation extends Variation {
 
     private Appearance[] images = new Appearance[7];
 
-    WeekVariation(JSONObject json, ElementButton element) {
+    WeekVariation(JSONObject json, Element element) {
         super(json, element);
     }
 

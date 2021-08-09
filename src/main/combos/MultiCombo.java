@@ -1,5 +1,6 @@
 package main.combos;
 
+import main.Element;
 import main.buttons.ElementButton;
 import main.buttons.Group;
 import main.rooms.Game;
@@ -13,7 +14,7 @@ import java.util.Objects;
 
 public class MultiCombo extends Combo {
 
-    private ArrayList<String> ingredients;
+    private final ArrayList<String> ingredients;
 
     public MultiCombo(String element, ArrayList<String> ingredients) {
         super(element);
@@ -46,8 +47,8 @@ public class MultiCombo extends Combo {
         return this.ingredientsDiscovered();
     }
 
-    boolean isIngredient(ElementButton element) {
-        return this.ingredients.contains(element.getName());
+    boolean isIngredient(Element element) {
+        return this.ingredients.contains(element.getId());
     }
 
     @Override
@@ -57,14 +58,18 @@ public class MultiCombo extends Combo {
         do {
             MutableTriple<ElementButton, ElementButton, ElementButton> triple;
             if (counter >= 2) {
-                triple = new MutableTriple<>(Objects.requireNonNull(ElementButton.getElement(this.ingredients.get(this.ingredients.size() - counter))).deepCopy(), Objects.requireNonNull(ElementButton.getElement(this.ingredients.get(this.ingredients.size() - counter + 1))).deepCopy(), null);
+                triple = new MutableTriple<>(new ElementButton(Element.Companion.getElement(this.ingredients.get(this.ingredients.size() - counter))),
+                        new ElementButton(Element.Companion.getElement(this.ingredients.get(this.ingredients.size() - counter + 1))),
+                        null);
                 counter -= 2;
             } else {
-                triple = new MutableTriple<>(null, Objects.requireNonNull(ElementButton.getElement(this.ingredients.get(this.ingredients.size() - 1))).deepCopy(), null);
+                triple = new MutableTriple<>(null,
+                        new ElementButton(Element.Companion.getElement(this.ingredients.get(this.ingredients.size() - 1))),
+                        null);
                 counter--;
             }
             if (counter == 0) {
-                triple.right = Objects.requireNonNull(ElementButton.getElement(this.getElement())).deepCopy();
+                triple.right = new ElementButton(Element.Companion.getElement(this.getElement()));
             }
             list.add(new ImmutableTriple<>(triple.left, triple.middle, triple.right));
         } while (counter > 0);
