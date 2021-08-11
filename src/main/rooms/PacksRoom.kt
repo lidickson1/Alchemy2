@@ -7,7 +7,9 @@ import main.buttons.Pack
 import main.buttons.iconbuttons.Exit
 import main.buttons.iconbuttons.IconButton
 import processing.core.PConstants
+import processing.data.JSONArray
 import processing.data.JSONObject
+import processing.data.StringList
 import java.io.File
 
 object PacksRoom : Room() {
@@ -93,7 +95,7 @@ object PacksRoom : Room() {
             pack.draw(x.toFloat(), y.toFloat())
             y += pack.height
         }
-        done.setDisabled(loadedPacks.size == 0)
+        done.setDisabled(loadedPacks.isEmpty())
         done.draw((main.screenWidth - Group.GAP - IconButton.SIZE - (IconButton.SIZE + Group.GAP)).toFloat(), (main.screenHeight - Group.GAP - IconButton.SIZE).toFloat())
         exit.draw()
     }
@@ -121,7 +123,7 @@ object PacksRoom : Room() {
     }
 
     private fun save() {
-        main.settings.put("loaded packs", loadedPacks.map { it.name }.toTypedArray())
+        main.settings.put("loaded packs", JSONArray(StringList( loadedPacks.map { it.name })))
         main.saveSettings()
     }
 

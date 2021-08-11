@@ -4,7 +4,7 @@ import main.Element;
 import main.LoadElements;
 import main.combos.Combo;
 import main.variations.appearances.Appearance;
-import main.variations.appearances.Texture;
+import main.variations.appearances.ElementTexture;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PImage;
 import processing.data.JSONArray;
@@ -43,7 +43,7 @@ public class ComboVariation extends Variation {
                 }
             }
         }
-        this.current = new Texture(this, this.getElement());
+        this.current = new ElementTexture(this.getElement());
     }
 
     @Override

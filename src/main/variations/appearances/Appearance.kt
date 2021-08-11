@@ -7,23 +7,25 @@ import processing.core.PImage
 import processing.data.JSONObject
 import java.util.*
 
-abstract class Appearance(val variation: Variation) : Entity() {
+abstract class Appearance : Entity() {
 
-    abstract fun getName(): String?
-    abstract fun getImage(): PImage?
+    abstract fun getName(): String
+    abstract fun getImage(): PImage
+
     //for atlas
     abstract fun getPairs(): List<ImmutablePair<PImage, String>>
 
     companion object {
-        //TODO: fix this up a bit
         @JvmStatic
-        fun getAppearance(variation: Variation, json: JSONObject): Appearance? {
-            if (json.hasKey("texture")) {
-                return Texture(variation, json)
-            } else if (json.hasKey("textures")) {
+        fun getAppearance(variation: Variation, json: JSONObject): Appearance {
+//            if (json.hasKey("texture")) {
+//                return Texture(variation, json)
+//            } else
+            if (json.hasKey("textures")) {
                 return Animation(variation, json)
             }
-            return null
+            return Texture(variation, json)
+//            return null
         }
     }
 }

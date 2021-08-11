@@ -2,7 +2,7 @@ package main.variations;
 
 import main.Element;
 import main.variations.appearances.Appearance;
-import main.variations.appearances.Texture;
+import main.variations.appearances.ElementTexture;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
 import org.apache.commons.math3.util.Pair;
@@ -30,7 +30,7 @@ public class RandomVariation extends Variation {
             list.add(new Pair<>(Appearance.getAppearance(this, object), object.getDouble("weight")));
             remainingWeight -= object.getDouble("weight");
         }
-        list.add(new Pair<>(new Texture(this, this.getElement()), remainingWeight)); //chance of getting the original image
+        list.add(new Pair<>(new ElementTexture(this.getElement()), remainingWeight)); //chance of getting the original image
         this.random = new EnumeratedDistribution<>(list);
     }
 

@@ -9,14 +9,14 @@ import processing.data.JSONObject
 
 class AnimationVariation internal constructor(json: JSONObject, element: Element) : Variation(json, element) {
 
-    private var animation: Animation? = null
+    private lateinit var animation: Animation
 
     override fun loadImages() {
         animation = Animation(this, json)
     }
 
-    override fun getAppearance(): Appearance = animation!!
+    override fun getAppearance(): Appearance = animation
 
     override val pairs: List<ImmutablePair<PImage, String>>
-        get() = animation!!.getPairs()
+        get() = animation.getPairs()
 }

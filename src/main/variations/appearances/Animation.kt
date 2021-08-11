@@ -7,7 +7,7 @@ import processing.core.PImage
 import processing.data.JSONObject
 import java.util.*
 
-class Animation(variation: Variation, json: JSONObject) : Appearance(variation) {
+class Animation(val variation: Variation, json: JSONObject) : Appearance() {
     private val images = ArrayList<PImage>()
     private val time //time between frames
             : Int
@@ -60,6 +60,6 @@ class Animation(variation: Variation, json: JSONObject) : Appearance(variation) 
                 }
             }
         }
-        time = if (json.hasKey("time")) json.getInt("time") else 1000
+        time = json.getInt("time", 1000)
     }
 }

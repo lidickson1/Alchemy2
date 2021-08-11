@@ -16,16 +16,17 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
 
     private var alpha = 255
     private var alphaChange = 0
-    private val shortenedDisplayName: String
 
     init {
         tintOverlay = false
+    }
 
-        var displayName = element.displayName
+    private fun getShortenedDisplayName(): String {
+        var displayName = element.getDisplayName()
         while (main.textWidth("$displayName...") >= SIZE) {
             displayName = displayName.substring(0, displayName.length - 1)
         }
-        shortenedDisplayName = "$displayName..."
+        return "$displayName..."
     }
 
     private fun getDrawnImage(): PImage {
@@ -33,14 +34,14 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
     }
 
     override fun drawButton() {
-        main.image(getDrawnImage(), x, y)
+        main.image(getDrawnImage(), x, y, SIZE.toFloat(), SIZE.toFloat())
         main.fill(if (main.settings.getBoolean("group colour")) element.group.colour else 255, alpha.toFloat())
         main.textAlign(PConstants.CENTER)
-        val drawTooltip: Boolean = main.setFontSize(element.displayName, 20, SIZE)
+        val drawTooltip: Boolean = main.setFontSize(element.getDisplayName(), 20, SIZE)
         if (touching == null && inBounds() && drawTooltip) {
             touching = this
         }
-        main.text(if (drawTooltip) shortenedDisplayName else element.displayName, x + SIZE / 2f, y + SIZE + 22)
+        main.text(if (drawTooltip) getShortenedDisplayName() else element.getDisplayName(), x + SIZE / 2f, y + SIZE + 22)
         main.fill(255)
         if (main.room is Game && (elementButtonSelectedA === this || elementButtonSelectedB === this)) {
             if (failed()) {
@@ -173,8 +174,8 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
             val elementCountY = Math.floorDiv(Group.groupSelectedBY - Group.groupSelectedAY, HEIGHT + 16)
             maxElements = elementCountX * elementCountY
             touching = null
-            var x: Int = Group.groupSelectedX + Group.SIZE + Group.GAP
-            var y: Int = Group.groupSelectedAY
+            var x = Group.groupSelectedX + Group.SIZE + Group.GAP
+            var y = Group.groupSelectedAY
 
             if (Group.groupSelectedA != null) {
                 totalPagesA = ceil((discovered[Group.groupSelectedA]!!.size.toFloat() / maxElements).toDouble()).toInt()
@@ -229,7 +230,7 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
                 //draw tool tip
                 main.textSize(20f)
                 val padding = 2 //some horizontal padding
-                val width: Float = main.textWidth(touching!!.element.displayName) + padding * 2
+                val width: Float = main.textWidth(touching!!.element.getDisplayName()) + padding * 2
                 val height: Float = main.textAscent() + main.textDescent()
                 val offset = 13f //13 pixel offset so it doesn't cover the cursor
                 var x: Float = main.mouseX + offset
@@ -241,7 +242,7 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
                 main.rect(x, main.mouseY.toFloat(), width, height)
                 main.textAlign(PConstants.LEFT, PConstants.TOP)
                 main.fill(if (main.settings.getBoolean("group colour")) touching!!.element.group.colour else 255, touching!!.alpha.toFloat())
-                main.text(touching!!.element.displayName, x + padding, main.mouseY.toFloat())
+                main.text(touching!!.element.getDisplayName(), x + padding, main.mouseY.toFloat())
             }
         }
 

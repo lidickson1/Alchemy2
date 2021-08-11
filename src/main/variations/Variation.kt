@@ -11,15 +11,15 @@ import processing.data.JSONObject
 import java.util.*
 
 abstract class Variation  //can't load images in the constructor because it won't be in the image threading process
-internal constructor(var json: JSONObject, var element: Element) : Entity() {
-    open fun getImage(): PImage = getAppearance().getImage() ?: element.image
+internal constructor(val json: JSONObject, val element: Element) : Entity() {
+    open fun getImage(): PImage = getAppearance().getImage()
 
     abstract fun loadImages()
 
-    open fun getName(): String? = getAppearance().getName()
+    open fun getName(): String = getAppearance().getName()
 
-    fun loadAppearances(): ArrayList<Appearance?> {
-        val list = ArrayList<Appearance?>()
+    fun loadAppearances(): ArrayList<Appearance> {
+        val list = ArrayList<Appearance>()
         val textures = json.getJSONArray("textures")
         for (i in 0 until textures.size()) {
             val `object` = textures[i]

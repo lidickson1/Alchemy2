@@ -49,14 +49,13 @@ object Game : Room() {
         get() = Duration.between(LocalDateTime.now(), hintTime).isZero || Duration.between(LocalDateTime.now(), hintTime).isNegative
 
     //TODO: maybe separate the update time logic?
-    val timeString: String
-        get() {
-            var duration = Duration.between(LocalDateTime.now(), hintTime)
-            if (duration.isNegative) {
-                duration = Duration.ZERO
-            }
-            return DurationFormatUtils.formatDuration(duration.toMillis(), "mm:ss")
+    fun getTimeString(): String {
+        var duration = Duration.between(LocalDateTime.now(), hintTime)
+        if (duration.isNegative) {
+            duration = Duration.ZERO
         }
+        return DurationFormatUtils.formatDuration(duration.toMillis(), "mm:ss")
+    }
 
     private val numberOfElements: Int
          get() {
@@ -226,7 +225,7 @@ object Game : Room() {
         main.textAlign(PConstants.LEFT, PConstants.TOP)
         main.text(Language.getLanguageSelected().getLocalizedString("game", "elements") + ": " + numberOfElements + gap +
                 Language.getLanguageSelected().getLocalizedString("game", "groups") + ": " + discovered.keys.size + gap +
-                Language.getLanguageSelected().getLocalizedString("game", "hint timer") + ": " + timeString, 10f, 10f)
+                Language.getLanguageSelected().getLocalizedString("game", "hint timer") + ": " + getTimeString(), 10f, 10f)
         Group.drawGroups()
         ElementButton.drawElements()
         groupLeftArrow.draw(Group.GROUP_X.toFloat(), (Group.GROUP_Y + (Group.SIZE + Group.GAP) * Group.groupCountY).toFloat())

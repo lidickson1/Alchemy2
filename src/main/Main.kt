@@ -40,10 +40,7 @@ class Main : PApplet() {
     lateinit var backgroundMusicThread: Thread
     @JvmField
     var formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-    @JvmField
-    var font: PFont? = null
-    @JvmField
-    var random = Random()
+    lateinit var font: PFont
     lateinit var icon: PImage
         private set
     lateinit var room: Room
@@ -115,14 +112,7 @@ class Main : PApplet() {
         Button.click = minim.loadFile("resources/audio/click.mp3")
         Button.click.gain = toGain(settings.getFloat("volume"))
         font = this.createFont("resources/fonts/Franklin Gothic Book Regular.ttf", 20f)
-        lateinit var errorFont: Font
-        try {
-            errorFont = Font.createFont(Font.TRUETYPE_FONT, File("resources/fonts/Franklin Gothic Book Regular.ttf"))
-        } catch (e: FontFormatException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
+        val errorFont: Font = Font.createFont(Font.TRUETYPE_FONT, File("resources/fonts/Franklin Gothic Book Regular.ttf"))
         val ge = GraphicsEnvironment.getLocalGraphicsEnvironment()
         ge.registerFont(errorFont)
 
@@ -228,9 +218,9 @@ class Main : PApplet() {
         room.keyPressed()
     }
 
-    fun setFontSize(name: String?, start: Int, max: Int): Boolean {
+    fun setFontSize(name: String, start: Int, max: Int): Boolean {
         val threshold = 12 //when font size is <= this we need to display a tooltip
-        var i: Int = start
+        var i = start
         while (i > 12) {
             this.textFont(font, i.toFloat())
             if (this.textWidth(name) <= max) {

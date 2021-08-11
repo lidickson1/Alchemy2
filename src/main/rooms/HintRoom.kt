@@ -53,7 +53,7 @@ object HintRoom : Room() {
         main.textAlign(PConstants.CENTER)
         main.textSize(30f)
         main.text(Language.getLanguageSelected().getLocalizedString("hint", "time remaining"), main.screenWidth / 2f, 250f)
-        main.text(Game.timeString, main.screenWidth / 2f, 300F)
+        main.text(Game.getTimeString(), main.screenWidth / 2f, 300F)
         val gap = 300
         val width: Float = (main.screenWidth - gap * 3) / 2f
         main.textLeading(20f)

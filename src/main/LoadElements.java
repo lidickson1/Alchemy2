@@ -208,7 +208,7 @@ public class LoadElements extends Entity {
                 }
             } else {
                 NormalCombo normalCombo = new NormalCombo(normal.element, normal.a, normal.b);
-                int count = normal.json.hasKey("amount") ? normal.json.getInt("amount") : 1;
+                int count = normal.json.getInt("amount", 1);
                 normalCombo.setAmount(count);
                 if (normal.isRandom()) {
                     normal.randomCombo.addCombo(normalCombo);
@@ -232,7 +232,7 @@ public class LoadElements extends Entity {
                     }
                 } else {
                     NormalCombo normalCombo = new NormalCombo(permutation.element, pair.left, pair.right);
-                    int count = permutation.json.hasKey("amount") ? permutation.json.getInt("amount") : 1;
+                    int count = permutation.json.getInt("amount", 1);
                     normalCombo.setAmount(count);
                     if (permutation.isRandom()) {
                         permutation.randomCombo.addCombo(normalCombo);
@@ -256,7 +256,7 @@ public class LoadElements extends Entity {
                 }
             } else {
                 MultiCombo multiCombo = new MultiCombo(multiPermutation.element, ingredients);
-                int count = multiPermutation.json.hasKey("amount") ? multiPermutation.json.getInt("amount") : 1;
+                int count = multiPermutation.json.getInt("amount", 1);
                 multiCombo.setAmount(count);
                 if (multiPermutation.isRandom()) {
                     multiPermutation.randomCombo.addCombo(multiCombo);
@@ -320,7 +320,7 @@ public class LoadElements extends Entity {
             ArrayList<ImmutablePair<String, String>> combos = processPermutations(permutation.permutationType, permutation.json, element.getPack());
             for (ImmutablePair<String, String> pair : combos) {
                 NormalCombo normalCombo = new NormalCombo(permutation.element, pair.left, pair.right);
-                int count = permutation.json.hasKey("amount") ? permutation.json.getInt("amount") : 1;
+                int count = permutation.json.getInt("amount", 1);
                 normalCombo.setAmount(count);
                 list.add(normalCombo);
             }
@@ -329,7 +329,7 @@ public class LoadElements extends Entity {
             JSONArray elements = multiPermutation.json.getJSONArray("elements");
             ArrayList<String> ingredients = processTags(elements, element.getPack());
             MultiCombo multiCombo = new MultiCombo(multiPermutation.element, ingredients);
-            int count = multiPermutation.json.hasKey("amount") ? multiPermutation.json.getInt("amount") : 1;
+            int count = multiPermutation.json.getInt("amount", 1);
             multiCombo.setAmount(count);
             list.add(multiCombo);
         }

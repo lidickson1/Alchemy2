@@ -56,6 +56,7 @@ public class Language extends Entity {
                     } else {
                         Language language = getLanguage(id);
                         assert language != null;
+                        //we recursively traverse the json, and merge changes in place
                         traverseJSON(language.json, object);
                     }
                 }

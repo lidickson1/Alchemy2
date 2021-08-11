@@ -15,9 +15,7 @@ import main.rooms.GameMode
 import main.rooms.Loading.updateProgress
 import main.rooms.PacksRoom.loadedPacks
 import main.variations.ComboVariation
-import main.variations.RandomVariation
 import main.variations.Variation
-import main.variations.appearances.Appearance
 import org.apache.commons.collections4.CollectionUtils
 import org.apache.commons.lang3.StringUtils
 import org.apache.commons.lang3.tuple.ImmutablePair
@@ -31,39 +29,47 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
     var description: String? = null
     var isPersistent = false
     var variation: Variation? = null
-//    val randomAppearance: Appearance? = null
+    //    val randomAppearance: Appearance? = null
     lateinit var image: PImage
     val isImageInitialized: Boolean get() = this::image.isInitialized
     private val namespace: String = id.split(":")[0]
     private val localId: String = id.split(":")[1]
 
-    val displayName: String
-
-    init {
+    fun getDisplayName(): String {
+        //display names must be computed
+        //imagine we have a pack on top of the default pack
+        //and its language modifies the display name of an element that is in the default pack
+        //since packs load both languages and elements together
+        //the default pack gets loaded, so the element gets loaded, and its name is set
+        //by the time we load the next pack, the changes made to the language will not reflect in the element's name anymore
+        //also animation variation might have a different name per frame
         val variationName: String? = if (variation == null) {
             null
         } else {
             Language.getLanguageSelected().getElementLocalizedString(namespace, variation!!.getName())
         }
+        return variationName ?: getDisplayNameWithoutVariation()
+    }
+
+    fun getDisplayNameWithoutVariation(): String {
         val displayName = Language.getLanguageSelected().getElementLocalizedString(namespace, localId)
         if (displayName == null) {
             pack.generateEnglish(localId)
         }
-        this.displayName = variationName ?: displayName ?: id
+        return displayName ?: id
     }
 
     //TODO: for atlas
-    val images: List<ImmutablePair<PImage, String>>
-        get() {
-            val list = ArrayList<ImmutablePair<PImage, String>>()
-            if (image !== Button.error) {
-                list.add(ImmutablePair(image, id))
-            }
-            variation?.let {
-                list.addAll(it.pairs)
-            }
-            return list
+    fun getImages(): List<ImmutablePair<PImage, String>> {
+        val list = ArrayList<ImmutablePair<PImage, String>>()
+        if (image !== Button.error) {
+            list.add(ImmutablePair(image, id))
         }
+        variation?.let {
+            list.addAll(it.pairs)
+        }
+        return list
+    }
 
     override fun compareTo(other: Element): Int {
         return id.compareTo(other.id)
@@ -81,7 +87,7 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
             val id = if (StringUtils.countMatches(fileName, ":") == 2) fileName.split(":")[2] else fileName
             if (pack.name == "Alchemy" && this.pack.name == "Alchemy") {
                 //if the element is of the default pack and we are in the default pack right now, load default location
-                val defaultPath = "resources/elements/alchemy/" + group.localId + "/" + id
+                val defaultPath = "resources/elements/alchemy/${group.localId}/$id"
                 val getImage = getImageFromPath(defaultPath)
                 if (getImage == null) {
                     image = Button.error
@@ -130,22 +136,6 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
     fun isInPack(pack: Pack): Boolean {
         val prefix = pack.namespace + ":"
         return id.length >= prefix.length && id.startsWith(prefix)
-    }
-
-    private fun isDepleted(selected: List<Element>): Boolean {
-//        var count = 0
-//        for (element in discovered[group]!!) {
-//            if (element.id == id) {
-//                count++
-//            }
-//        }
-//        for (element in selected) {
-//            if (element != null && element.id == id) {
-//                count--
-//            }
-//        }
-//        return count <= 0
-        return false
     }
 
     companion object {
@@ -207,15 +197,13 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
 //                    element.setDisabled(false)
 //                }
 //            }
-            val elementsSelectedString = elementsSelected.map{it.id}
+            val elementsSelectedString = elementsSelected.map { it.id }
             elementsCreated.clear()
             for (combo in main.comboList) {
                 if (combo is MultiCombo) {
                     if (CollectionUtils.isEqualCollection(combo.ingredients, elementsSelectedString)) {
                         val element: Element = getElement(combo.element)!!
-                        if (element.variation is ComboVariation) {
-                            (element.variation as ComboVariation?)!!.setCurrentImage(combo)
-                        }
+                        (element.variation as? ComboVariation)?.setCurrentImage(combo)
                         for (i in 0 until combo.amount) {
                             elementsCreated.add(element)
                         }
@@ -224,15 +212,12 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
                 }
             }
             for (randomCombo in main.randomCombos) {
-                val multiCombo = randomCombo.canCreate(elementsSelectedString)
-                if (multiCombo != null) {
-                    val randomElements: ArrayList<Element> = randomCombo.elements
+                randomCombo.canCreate(elementsSelectedString)?.let {
+                    val randomElements = randomCombo.elements
                     elementsCreated.addAll(randomElements)
                     for (element in randomElements) {
-                        if (element.variation is ComboVariation) {
-                            (element.variation as ComboVariation?)!!.setCurrentImage(multiCombo)
-                        }
-                        history.add(MultiCombo(element.id, multiCombo.ingredients))
+                        (element.variation as? ComboVariation)?.setCurrentImage(it)
+                        history.add(MultiCombo(element.id, it.ingredients))
                     }
                 }
             }
@@ -248,9 +233,6 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
                     }
                 }
 
-                //need to update because affected groups might be already selected
-                updateA()
-                updateB()
                 success()
                 elementsSelected.clear()
                 return true
@@ -261,130 +243,52 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
 
         fun checkForCombos(): Boolean {
             assert(elementSelectedA != null && elementSelectedB != null)
-                //check for combos
-                elementsCreated.clear()
-                for (combo in main.comboList) {
-                    if (combo is NormalCombo) {
-                        if (combo.a == elementSelectedA!!.id && combo.b == elementSelectedB!!.id || combo.a == elementSelectedB!!.id && combo.b == elementSelectedA!!.id) {
-                            val element: Element = getElement(combo.element)!!
-                            if (Objects.requireNonNull(element).variation is ComboVariation) {
-                                (element.variation as ComboVariation?)!!.setCurrentImage(combo)
-                            }
-                            for (i in 0 until combo.getAmount()) {
-                                elementsCreated.add(element)
-                            }
-                            history.add(combo)
+            //check for combos
+            elementsCreated.clear()
+            for (combo in main.comboList) {
+                if (combo is NormalCombo) {
+                    if (combo.a == elementSelectedA!!.id && combo.b == elementSelectedB!!.id || combo.a == elementSelectedB!!.id && combo.b == elementSelectedA!!.id) {
+                        val element = getElement(combo.element)!!
+                        (element.variation as? ComboVariation)?.setCurrentImage(combo)
+                        for (i in 0 until combo.getAmount()) {
+                            elementsCreated.add(element)
                         }
+                        history.add(combo)
                     }
                 }
-                for (randomCombo in main.randomCombos) {
-                    val normalCombo = randomCombo.canCreate(elementSelectedA, elementSelectedB)
-                    if (normalCombo != null) {
-                        val randomElements: ArrayList<Element> = randomCombo.elements
-                        elementsCreated.addAll(randomElements)
-                        for (element in randomElements) {
-                            if (element.variation is ComboVariation) {
-                                (element.variation as ComboVariation?)!!.setCurrentImage(normalCombo)
-                            }
-                            history.add(NormalCombo(element.id, normalCombo.a, normalCombo.b))
-                        }
+            }
+            for (randomCombo in main.randomCombos) {
+                randomCombo.canCreate(elementSelectedA, elementSelectedB)?.let {
+                    val randomElements = randomCombo.elements
+                    elementsCreated.addAll(randomElements)
+                    for (element in randomElements) {
+                        (element.variation as? ComboVariation)?.setCurrentImage(it)
+                        history.add(NormalCombo(element.id, it.a, it.b))
                     }
                 }
-                if (elementsCreated.isNotEmpty()) {
-                    for (element in elementsCreated) {
-                        //element adding conditions has been refactored into the method
-                        addElement(element)
-                    }
-                    if (Game.mode === GameMode.PUZZLE) {
-                        if (!elementSelectedA!!.isPersistent) {
-                            removeElement(elementSelectedA!!.id)
-                        }
-                        if (!elementSelectedB!!.isPersistent) {
-                            removeElement(elementSelectedB!!.id)
-                        }
-                    }
-
-                    //need to update because affected groups might be already selected
-                    updateA()
-                    updateB()
-                    success()
-                    elementSelectedA = null
-                    elementSelectedB = null
-                    return true
-                } else {
-                    return false
+            }
+            if (elementsCreated.isNotEmpty()) {
+                for (element in elementsCreated) {
+                    //element adding conditions has been refactored into the method
+                    addElement(element)
                 }
+                if (Game.mode === GameMode.PUZZLE) {
+                    if (!elementSelectedA!!.isPersistent) {
+                        removeElement(elementSelectedA!!.id)
+                    }
+                    if (!elementSelectedB!!.isPersistent) {
+                        removeElement(elementSelectedB!!.id)
+                    }
+                }
+
+                success()
+                elementSelectedA = null
+                elementSelectedB = null
+                return true
+            } else {
+                return false
+            }
         }
 
-        fun updateA() {
-//            main.Element.Companion.elementsA.clear()
-//            //group might be gone if we are in puzzle mode
-//            if (main.buttons.Group.groupSelectedA != null && main.buttons.Group.groupSelectedA.exists()) {
-//                for (element in discovered[main.buttons.Group.groupSelectedA]!!) {
-//                    main.Element.Companion.elementsA.add(element.deepCopy(main.buttons.Group.groupSelectedA, 255, 0))
-//                }
-//            } else {
-//                main.buttons.Group.groupSelectedA = null
-//            }
-        }
-
-        fun resetA() {
-//            pageNumberA = 0
-//            main.Element.Companion.elementsA.clear()
-//            for (i in discovered[main.buttons.Group.groupSelectedA]!!.indices) {
-//                val element: Element = discovered[main.buttons.Group.groupSelectedA]!![i]
-//                if (i < maxElements) {
-//                    main.Element.Companion.elementsA.add(element.deepCopy(main.buttons.Group.groupSelectedA, 0, ALPHA_CHANGE))
-//                } else {
-//                    //elements that are not on the first page don't need to fade in
-//                    main.Element.Companion.elementsA.add(element.deepCopy(main.buttons.Group.groupSelectedA, 255, 0))
-//                }
-//            }
-//            totalPagesA = Math.ceil(discovered[main.buttons.Group.groupSelectedA]!!.size.toFloat() / maxElements).toInt()
-        }
-
-        fun updateB() {
-//            main.Element.Companion.elementsB.clear()
-//            //group might be gone if we are in puzzle mode
-//            if (main.buttons.Group.groupSelectedB != null && main.buttons.Group.groupSelectedB.exists()) {
-//                for (element in discovered[main.buttons.Group.groupSelectedB]!!) {
-//                    main.Element.Companion.elementsB.add(element.deepCopy(main.buttons.Group.groupSelectedB, 255, 0))
-//                }
-//            } else {
-//                main.buttons.Group.groupSelectedB = null
-//            }
-        }
-
-        fun resetB() {
-//            pageNumberB = 0
-//            main.Element.Companion.elementsB.clear()
-//            for (i in discovered[main.buttons.Group.groupSelectedB]!!.indices) {
-//                val element: Element = discovered[main.buttons.Group.groupSelectedB]!![i]
-//                if (i < maxElements) {
-//                    main.Element.Companion.elementsB.add(element.deepCopy(main.buttons.Group.groupSelectedB, 0, ALPHA_CHANGE))
-//                } else {
-//                    //elements that are not on the first page don't need to fade in
-//                    main.Element.Companion.elementsB.add(element.deepCopy(main.buttons.Group.groupSelectedB, 255, 0))
-//                }
-//            }
-//            totalPagesB = Math.ceil(discovered[main.buttons.Group.groupSelectedB]!!.size.toFloat() / maxElements).toInt()
-        }
-
-        fun hidePagesA() {
-//            //this is necessary because the first element clicked can be from group B
-//            if (main.Element.Companion.elementSelectedA != null && main.Element.Companion.elementSelectedA.group === main.buttons.Group.groupSelectedA) {
-//                main.Element.Companion.elementSelectedA = null
-//            } else if (main.Element.Companion.elementSelectedB != null && main.Element.Companion.elementSelectedB.group === main.buttons.Group.groupSelectedA) {
-//                main.Element.Companion.elementSelectedB = null
-//            }
-        }
-
-        fun hidePagesB() {
-//            if (main.Element.Companion.elementSelectedA != null && main.Element.Companion.elementSelectedA.group === main.buttons.Group.groupSelectedB) {
-//                main.Element.Companion.elementSelectedA = null
-//            } else if (main.Element.Companion.elementSelectedB != null && main.Element.Companion.elementSelectedB.group === main.buttons.Group.groupSelectedB) {
-//                main.Element.Companion.elementSelectedB = null
-//            }
-        }
     }
 }
