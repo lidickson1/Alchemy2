@@ -1,6 +1,6 @@
 package main.variations;
 
-import main.buttons.Element;
+import main.Element;
 import main.buttons.Pack;
 import main.variations.appearances.Appearance;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -19,12 +19,12 @@ public class InheritVariation extends Variation {
     }
 
     private Element getInheritedElement() {
-        return Element.getElement(this.pack.getNamespacedName(this.json.getString("texture")));
+        return Element.Companion.getElement(this.pack.getNamespacedName(this.getJson().getString("texture")));
     }
 
     @Override
     public PImage getImage() {
-        return this.getInheritedElement().getDrawnImage();
+        return this.getInheritedElement().getImage();
     }
 
     @Override

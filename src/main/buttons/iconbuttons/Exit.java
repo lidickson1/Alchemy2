@@ -16,12 +16,12 @@ public class Exit extends IconButton {
 
     @Override
     public void clicked() {
-        if (main.getRoom() instanceof SaveRoom || main.getRoom() instanceof HistoryRoom || main.getRoom() instanceof ElementRoom || main.getRoom() instanceof Hint) {
-            main.switchRoom(main.game);
+        if (main.getRoom() instanceof SaveRoom || main.getRoom() instanceof HistoryRoom || main.getRoom() instanceof ElementRoom || main.getRoom() instanceof HintRoom) {
+            main.switchRoom(Game.INSTANCE);
         } else if (main.getRoom() instanceof Game) {
-            main.game.exitGame();
+            Game.INSTANCE.exitGame();
         } else {
-            main.switchRoom(main.menu);
+            main.switchRoom(Menu.INSTANCE);
         }
     }
 

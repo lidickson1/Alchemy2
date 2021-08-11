@@ -1,12 +1,12 @@
 package main;
 
-import main.buttons.Element;
 import main.buttons.Group;
 import main.buttons.Pack;
 import main.combos.Combo;
 import main.combos.MultiCombo;
 import main.combos.NormalCombo;
 import main.combos.RandomCombo;
+import main.rooms.Loading;
 import main.variations.Variation;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -17,9 +17,9 @@ import java.util.*;
 
 public class LoadElements extends Entity {
 
-    private static ArrayList<Normal> normals = new ArrayList<>();
-    private static ArrayList<Permutation> permutations = new ArrayList<>();
-    private static ArrayList<MultiPermutation> multiPermutations = new ArrayList<>();
+    private static final ArrayList<Normal> normals = new ArrayList<>();
+    private static final ArrayList<Permutation> permutations = new ArrayList<>();
+    private static final ArrayList<MultiPermutation> multiPermutations = new ArrayList<>();
     private static Pack pack;
 
     static class ProcessCombo {
@@ -86,16 +86,16 @@ public class LoadElements extends Entity {
                     if (object.hasKey("except")) {
                         JSONArray array1 = object.getJSONArray("except");
                         for (int j = 0;j < array1.size();j++) {
-                            Element element1 = Element.getElement(array1.getString(j));
+                            Element element1 = Element.Companion.getElement(array1.getString(j));
                             if (element1 != null) {
                                 exceptElements.add(element1);
                                 for (Combo combo : main.comboList) {
-                                    if (combo.contains(element1.getName())) {
+                                    if (combo.contains(element1.getId())) {
                                         exceptCombos.add(combo);
                                     }
                                 }
                                 for (RandomCombo randomCombo : main.randomCombos) {
-                                    if (randomCombo.contains(element1.getName())) {
+                                    if (randomCombo.contains(element1.getId())) {
                                         exceptRandom.add(randomCombo);
                                     }
                                 }
@@ -106,13 +106,13 @@ public class LoadElements extends Entity {
                     main.comboList.addAll(exceptCombos);
                     main.randomCombos.clear();
                     main.randomCombos.addAll(exceptRandom);
-                    main.loading.removeAllElements(exceptElements.size()); //this needs to be called first or else we can't determine how much progress to remove
+                    Loading.INSTANCE.removeAllElements(exceptElements.size()); //this needs to be called first or else we can't determine how much progress to remove
                     for (HashSet<Element> list : main.groups.values()) {
                         list.removeIf(e -> !exceptElements.contains(e));
                     }
                     main.elements.clear();
                     for (Element element1 : exceptElements) {
-                        main.elements.put(element1.getName(), element1.getGroup());
+                        main.elements.put(element1.getId(), element1.getGroup());
                     }
                 } else if (remove.equals("element")) {
                     //remove all combos of an element
@@ -121,11 +121,11 @@ public class LoadElements extends Entity {
                     for (RandomCombo randomCombo : main.randomCombos) {
                         randomCombo.removeElement(e);
                     }
-                    Element element1 = Element.getElement(e);
+                    Element element1 = Element.Companion.getElement(e);
                     if (element1 != null) {
                         main.groups.get(element1.getGroup()).remove(element1);
                         main.elements.remove(e);
-                        main.loading.removeElement();
+                        Loading.INSTANCE.removeElement();
                     } else {
                         System.err.println(e + " could not be removed!");
                     }
@@ -134,11 +134,11 @@ public class LoadElements extends Entity {
                     for (int j = 0; j < combos.size(); j++) {
                         processCombo(combos.getJSONObject(j), elementName, true, null);
                     }
-                    main.loading.removeCombo();
+                    Loading.INSTANCE.removeCombo();
                 } else if (remove.equals("random")) {
                     JSONObject combo = object.getJSONObject("combo");
                     processCombo(combo, null, true, null);
-                    main.loading.removeCombo();
+                    Loading.INSTANCE.removeCombo();
                 }
             } else if (object.hasKey("combo") && object.hasKey("result")) {
                 //random
@@ -146,19 +146,19 @@ public class LoadElements extends Entity {
                 JSONObject combo = object.getJSONObject("combo");
                 processCombo(combo, null, false, randomCombo);
                 main.randomCombos.add(randomCombo);
-                main.loading.randomCombo();
+                Loading.INSTANCE.randomCombo();
             } else {
                 Element element;
                 //element might exist because we allow existing elements to be modified
                 if (main.elements.containsKey(elementName)) {
-                    element = Element.getElement(elementName);
+                    element = Element.Companion.getElement(elementName);
                     assert element != null;
-                    main.loading.modifyElement();
+                    Loading.INSTANCE.modifyElement();
                 } else {
                     Group group = Group.getGroup(pack.getNamespacedName(object.getString("group")));
                     if (group == null) {
                         System.err.println("Error: Group " + pack.getNamespacedName(object.getString("group")) + " not found!");
-                        main.loading.elementFailed();
+                        Loading.INSTANCE.elementFailed();
                         continue;
                     }
                     element = new Element(elementName, group, pack);
@@ -194,7 +194,7 @@ public class LoadElements extends Entity {
                 }
             }
 
-            main.loading.updateProgress();
+            Loading.INSTANCE.updateProgress();
         }
 
         for (Normal normal : normals) {
@@ -208,7 +208,7 @@ public class LoadElements extends Entity {
                 }
             } else {
                 NormalCombo normalCombo = new NormalCombo(normal.element, normal.a, normal.b);
-                int count = normal.json.hasKey("amount") ? normal.json.getInt("amount") : 1;
+                int count = normal.json.getInt("amount", 1);
                 normalCombo.setAmount(count);
                 if (normal.isRandom()) {
                     normal.randomCombo.addCombo(normalCombo);
@@ -232,7 +232,7 @@ public class LoadElements extends Entity {
                     }
                 } else {
                     NormalCombo normalCombo = new NormalCombo(permutation.element, pair.left, pair.right);
-                    int count = permutation.json.hasKey("amount") ? permutation.json.getInt("amount") : 1;
+                    int count = permutation.json.getInt("amount", 1);
                     normalCombo.setAmount(count);
                     if (permutation.isRandom()) {
                         permutation.randomCombo.addCombo(normalCombo);
@@ -256,7 +256,7 @@ public class LoadElements extends Entity {
                 }
             } else {
                 MultiCombo multiCombo = new MultiCombo(multiPermutation.element, ingredients);
-                int count = multiPermutation.json.hasKey("amount") ? multiPermutation.json.getInt("amount") : 1;
+                int count = multiPermutation.json.getInt("amount", 1);
                 multiCombo.setAmount(count);
                 if (multiPermutation.isRandom()) {
                     multiPermutation.randomCombo.addCombo(multiCombo);
@@ -304,23 +304,23 @@ public class LoadElements extends Entity {
         Permutation permutation = null;
         MultiPermutation multiPermutation = null;
         if (combo.hasKey("first element")) {
-            list.add(new NormalCombo(element.getName(), element.getPack().getNamespacedName(combo.getString("first element")), element.getPack().getNamespacedName(combo.getString("second element"))));
+            list.add(new NormalCombo(element.getId(), element.getPack().getNamespacedName(combo.getString("first element")), element.getPack().getNamespacedName(combo.getString("second element"))));
         } else if (combo.hasKey("elements")) {
             if (combo.hasKey("paired") && combo.getBoolean("paired")) {
-                permutation = new Permutation(element.getName(), PermutationType.UNRESTRICTED, combo, false, null);
+                permutation = new Permutation(element.getId(), PermutationType.UNRESTRICTED, combo, false, null);
             } else {
-                multiPermutation = new MultiPermutation(element.getName(), combo, false, null);
+                multiPermutation = new MultiPermutation(element.getId(), combo, false, null);
             }
         } else if (combo.hasKey("first elements")) {
-            permutation = new Permutation(element.getName(), PermutationType.RESTRICTED, combo, false, null);
+            permutation = new Permutation(element.getId(), PermutationType.RESTRICTED, combo, false, null);
         } else {
-            permutation = new Permutation(element.getName(), PermutationType.SETS, combo, false, null);
+            permutation = new Permutation(element.getId(), PermutationType.SETS, combo, false, null);
         }
         if (permutation != null) {
             ArrayList<ImmutablePair<String, String>> combos = processPermutations(permutation.permutationType, permutation.json, element.getPack());
             for (ImmutablePair<String, String> pair : combos) {
                 NormalCombo normalCombo = new NormalCombo(permutation.element, pair.left, pair.right);
-                int count = permutation.json.hasKey("amount") ? permutation.json.getInt("amount") : 1;
+                int count = permutation.json.getInt("amount", 1);
                 normalCombo.setAmount(count);
                 list.add(normalCombo);
             }
@@ -329,7 +329,7 @@ public class LoadElements extends Entity {
             JSONArray elements = multiPermutation.json.getJSONArray("elements");
             ArrayList<String> ingredients = processTags(elements, element.getPack());
             MultiCombo multiCombo = new MultiCombo(multiPermutation.element, ingredients);
-            int count = multiPermutation.json.hasKey("amount") ? multiPermutation.json.getInt("amount") : 1;
+            int count = multiPermutation.json.getInt("amount", 1);
             multiCombo.setAmount(count);
             list.add(multiCombo);
         }
@@ -434,7 +434,7 @@ public class LoadElements extends Entity {
                 for (Group group : main.groups.keySet()) {
                     for (Element element : main.groups.get(group)) {
                         if (element.getTags().contains(tag)) {
-                            iterator.add(element.getName());
+                            iterator.add(element.getId());
                         }
                     }
                 }
@@ -442,7 +442,7 @@ public class LoadElements extends Entity {
                 iterator.remove();
                 String group = string.replace("group:", "");
                 for (Element element : main.groups.get(Group.getGroup(group))) {
-                    iterator.add(element.getName());
+                    iterator.add(element.getId());
                 }
             }
         }

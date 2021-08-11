@@ -1,6 +1,8 @@
 package main.combos;
 
-import main.buttons.Element;
+import main.Element;
+import main.buttons.ElementButton;
+import main.rooms.Game;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 
 import java.util.ArrayList;
@@ -29,15 +31,15 @@ public class NormalCombo extends Combo {
 
     @Override
     public boolean canCreate() {
-        return main.game.isDiscovered(this.a) && main.game.isDiscovered(this.b);
+        return Game.INSTANCE.isDiscovered(this.a) && Game.INSTANCE.isDiscovered(this.b);
     }
 
     @Override
-    public ArrayList<ImmutableTriple<Element, Element, Element>> toTriples() {
-        Element a = Objects.requireNonNull(Element.getElement(this.a)).deepCopy();
-        Element b = Objects.requireNonNull(Element.getElement(this.b)).deepCopy();
-        Element element = Objects.requireNonNull(Element.getElement(this.getElement())).deepCopy();
-        return new ArrayList<>(Collections.singletonList(new ImmutableTriple<>(a, b, element)));
+    public ArrayList<ImmutableTriple<ElementButton, ElementButton, ElementButton>> toTriples() {
+        return new ArrayList<>(Collections.singletonList(new ImmutableTriple<>(
+                new ElementButton(Element.Companion.getElement(this.a)),
+                new ElementButton(Element.Companion.getElement(this.b)),
+                new ElementButton(Element.Companion.getElement(this.getElement())))));
     }
 
     @Override

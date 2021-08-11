@@ -1,7 +1,7 @@
 package main.combos;
 
 import main.Entity;
-import main.buttons.Element;
+import main.buttons.ElementButton;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public abstract class Combo extends Entity {
 
     public abstract boolean canCreate();
 
-    public abstract ArrayList<ImmutableTriple<Element, Element, Element>> toTriples();
+    public abstract ArrayList<ImmutableTriple<ElementButton, ElementButton, ElementButton>> toTriples();
 
     public abstract ArrayList<String> getIngredients();
 

@@ -1,6 +1,6 @@
 package main.variations;
 
-import main.buttons.Element;
+import main.Element;
 import main.variations.appearances.Appearance;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import processing.core.PImage;

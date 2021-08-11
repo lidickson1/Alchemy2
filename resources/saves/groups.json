@@ -19,7 +19,9 @@
         "alchemy:algae",
         "alchemy:sea",
         "alchemy:swamp",
+        "alchemy:water",
+        "alchemy:water",
         "alchemy:water"
     ],
-    "mode": "puzzle"
+    "mode": "PUZZLE"
 }

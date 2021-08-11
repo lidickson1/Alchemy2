@@ -1,8 +1,8 @@
 package main.variations;
 
-import main.buttons.Element;
+import main.Element;
 import main.variations.appearances.Appearance;
-import main.variations.appearances.Texture;
+import main.variations.appearances.ElementTexture;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.math3.distribution.EnumeratedDistribution;
 import org.apache.commons.math3.util.Pair;
@@ -22,7 +22,7 @@ public class RandomVariation extends Variation {
 
     @Override
     public void loadImages() {
-        JSONArray array = this.json.getJSONArray("textures");
+        JSONArray array = this.getJson().getJSONArray("textures");
         ArrayList<Pair<Appearance, Double>> list = new ArrayList<>();
         double remainingWeight = 1;
         for (int i = 0; i < array.size(); i++) {
@@ -30,7 +30,7 @@ public class RandomVariation extends Variation {
             list.add(new Pair<>(Appearance.getAppearance(this, object), object.getDouble("weight")));
             remainingWeight -= object.getDouble("weight");
         }
-        list.add(new Pair<>(new Texture(this), remainingWeight)); //chance of getting the original image
+        list.add(new Pair<>(new ElementTexture(this.getElement()), remainingWeight)); //chance of getting the original image
         this.random = new EnumeratedDistribution<>(list);
     }
 

@@ -1,5 +1,7 @@
 package main.buttons.menubuttons;
 
+import main.rooms.LoadGame;
+
 public class LoadGameButton extends MenuButton {
 
     public LoadGameButton() {
@@ -8,7 +10,7 @@ public class LoadGameButton extends MenuButton {
 
     @Override
     public void clicked() {
-        main.switchRoom(main.loadGame);
+        main.switchRoom(LoadGame.INSTANCE);
     }
 
 }
