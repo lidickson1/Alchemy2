@@ -3,7 +3,6 @@ package main.rooms
 import main.Element
 import main.Language
 import main.buttons.*
-import main.buttons.ElementButton
 import main.buttons.iconbuttons.Exit
 import main.buttons.iconbuttons.IconButton
 import main.buttons.iconbuttons.Save
@@ -14,12 +13,9 @@ import org.apache.commons.collections4.CollectionUtils
 import org.apache.commons.lang3.time.DurationFormatUtils
 import processing.core.PConstants
 import processing.data.JSONObject
-import java.lang.IllegalArgumentException
 import java.time.Duration
 import java.time.LocalDateTime
 import javax.swing.JOptionPane
-import kotlin.collections.ArrayList
-import kotlin.math.min
 
 object Game : Room() {
 
@@ -45,8 +41,11 @@ object Game : Room() {
 
     @JvmField
     var mode = GameMode.NORMAL
-    val isHintReady: Boolean
-        get() = Duration.between(LocalDateTime.now(), hintTime).isZero || Duration.between(LocalDateTime.now(), hintTime).isNegative
+
+    fun isHintReady(): Boolean = Duration.between(LocalDateTime.now(), hintTime).isZero || Duration.between(
+        LocalDateTime.now(),
+        hintTime
+    ).isNegative
 
     //TODO: maybe separate the update time logic?
     fun getTimeString(): String {
@@ -57,17 +56,17 @@ object Game : Room() {
         return DurationFormatUtils.formatDuration(duration.toMillis(), "mm:ss")
     }
 
-    private val numberOfElements: Int
-         get() {
-            var sum = 0
-            for (list in discovered.values) {
-                sum += list.size
-            }
-            return sum
+    private fun getNumberOfElements(): Int {
+        var sum = 0
+        for (list in discovered.values) {
+            sum += list.size
         }
+        return sum
+    }
 
     private const val gap: String = "          "
-    private val isShiftHeld: Boolean get() = main.keyPressed && main.keyCode == PConstants.SHIFT
+
+    private fun isShiftHeld(): Boolean = main.keyPressed && main.keyCode == PConstants.SHIFT
 
     init {
         success = object : Pane() {
@@ -210,7 +209,7 @@ object Game : Room() {
     }
 
     fun exitGame() {
-        if (saveFile != null && saveFile!!.json.getJSONArray("elements").size() < numberOfElements) {
+        if (saveFile != null && saveFile!!.json.getJSONArray("elements").size() < getNumberOfElements()) {
             val result = JOptionPane.showConfirmDialog(null, Language.getLanguageSelected().getLocalizedString("game", "not saved"), Language.getLanguageSelected().getLocalizedString("misc", "warning"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE)
             if (result == JOptionPane.CANCEL_OPTION) {
                 return
@@ -223,7 +222,7 @@ object Game : Room() {
         main.textFont(main.font, 20f)
         main.fill(255)
         main.textAlign(PConstants.LEFT, PConstants.TOP)
-        main.text(Language.getLanguageSelected().getLocalizedString("game", "elements") + ": " + numberOfElements + gap +
+        main.text(Language.getLanguageSelected().getLocalizedString("game", "elements") + ": " + getNumberOfElements() + gap +
                 Language.getLanguageSelected().getLocalizedString("game", "groups") + ": " + discovered.keys.size + gap +
                 Language.getLanguageSelected().getLocalizedString("game", "hint timer") + ": " + getTimeString(), 10f, 10f)
         Group.drawGroups()
@@ -244,7 +243,7 @@ object Game : Room() {
         }
 
         //clear multi-select
-        if (!isShiftHeld) {
+        if (!isShiftHeld()) {
             if (Element.elementsSelected.isNotEmpty()) {
                 Element.checkForMultiCombos()
             }
@@ -283,12 +282,7 @@ object Game : Room() {
         if (!discovered.containsKey(group)) {
             return false
         }
-        for (e in discovered[group]!!) {
-            if (e.id == id) {
-                return true
-            }
-        }
-        return false
+        return discovered[group]!!.any { it.id == id }
     }
 
     private fun undo() {

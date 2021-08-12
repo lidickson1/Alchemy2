@@ -61,11 +61,11 @@ object HintRoom : Room() {
         main.fill(255)
         main.text(Language.getLanguageSelected().getLocalizedString("hint", "element hint"), main.screenWidth / 2f - gap / 2f - width / 2, 500f)
         elementHint.draw(main.screenWidth / 2f - gap / 2f - width / 2 - IconButton.SIZE / 2f, 530f)
-        elementHint.setDisabled(!Game.isHintReady)
+        elementHint.setDisabled(!Game.isHintReady())
         main.fill(255) //need to reset colour because button in bounds cause colour change
         main.text(Language.getLanguageSelected().getLocalizedString("hint", "group hint"), main.screenWidth / 2f + gap / 2f + width / 2, 500f)
         groupHint.draw(main.screenWidth / 2f + gap / 2f + width / 2 - IconButton.SIZE / 2f, 530f)
-        groupHint.setDisabled(!Game.isHintReady)
+        groupHint.setDisabled(!Game.isHintReady())
         exit.draw()
     }
 

@@ -2,10 +2,8 @@ package main.variations.appearances
 
 import main.Entity
 import main.variations.Variation
-import org.apache.commons.lang3.tuple.ImmutablePair
 import processing.core.PImage
 import processing.data.JSONObject
-import java.util.*
 
 abstract class Appearance : Entity() {
 
@@ -13,7 +11,7 @@ abstract class Appearance : Entity() {
     abstract fun getImage(): PImage
 
     //for atlas
-    abstract fun getPairs(): List<ImmutablePair<PImage, String>>
+    abstract fun getPairs(): List<Pair<PImage, String>>
 
     companion object {
         @JvmStatic

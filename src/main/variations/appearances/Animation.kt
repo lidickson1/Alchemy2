@@ -2,7 +2,6 @@ package main.variations.appearances
 
 import main.variations.Variation
 import org.apache.commons.lang3.StringUtils
-import org.apache.commons.lang3.tuple.ImmutablePair
 import processing.core.PImage
 import processing.data.JSONObject
 import java.util.*
@@ -27,13 +26,9 @@ class Animation(val variation: Variation, json: JSONObject) : Appearance() {
         return images[index]
     }
 
-    override fun getPairs(): List<ImmutablePair<PImage, String>> {
+    override fun getPairs(): List<Pair<PImage, String>> {
         //TODO what is the path for strip animation textures?
-        val list = ArrayList<ImmutablePair<PImage, String>>()
-        for (i in images.indices) {
-            list.add(ImmutablePair(images[i], paths[i]))
-        }
-        return list
+        return images.zip(paths)
     }
 
     init {

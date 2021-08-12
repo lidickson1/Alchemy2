@@ -9,7 +9,7 @@ import java.io.OutputStream
 import java.io.PrintStream
 
 object SaveRoom : Room() {
-    lateinit var textField: TextField
+    private lateinit var textField: TextField
     private val save: Save = Save()
     private val exit: Exit = Exit()
     private var text: String = ""

@@ -31,7 +31,7 @@ class Texture(val variation: Variation, json: JSONObject) : Appearance() {
         return image
     }
 
-    override fun getPairs(): List<ImmutablePair<PImage, String>> {
-        return listOf(ImmutablePair(image, path))
+    override fun getPairs(): List<Pair<PImage, String>> {
+        return listOf(image to path)
     }
 }

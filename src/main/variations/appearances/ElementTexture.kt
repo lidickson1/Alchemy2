@@ -13,7 +13,7 @@ class ElementTexture(private val element: Element) : Appearance() {
         return element.image
     }
 
-    override fun getPairs(): List<ImmutablePair<PImage, String>> {
+    override fun getPairs(): List<Pair<PImage, String>> {
         TODO("Not yet implemented")
     }
 }

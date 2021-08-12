@@ -18,7 +18,6 @@ import main.variations.ComboVariation
 import main.variations.Variation
 import org.apache.commons.collections4.CollectionUtils
 import org.apache.commons.lang3.StringUtils
-import org.apache.commons.lang3.tuple.ImmutablePair
 import processing.core.PImage
 import java.io.File
 import java.util.*
@@ -60,13 +59,13 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
     }
 
     //TODO: for atlas
-    fun getImages(): List<ImmutablePair<PImage, String>> {
-        val list = ArrayList<ImmutablePair<PImage, String>>()
+    fun getImages(): List<Pair<PImage, String>> {
+        val list = ArrayList<Pair<PImage, String>>()
         if (image !== Button.error) {
-            list.add(ImmutablePair(image, id))
+            list.add(image to id)
         }
         variation?.let {
-            list.addAll(it.pairs)
+            list.addAll(it.getPairs())
         }
         return list
     }

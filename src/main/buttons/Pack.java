@@ -1,5 +1,6 @@
 package main.buttons;
 
+import kotlin.Pair;
 import main.Element;
 import main.Language;
 import main.rooms.Loading;
@@ -118,8 +119,8 @@ public class Pack extends LongButton {
         Language.loadLanguages(this.getName().equals("Alchemy") ? "resources/languages" : this.path + "/languages");
     }
 
-    private ArrayList<ImmutablePair<PImage, String>> getPairs() {
-        ArrayList<ImmutablePair<PImage, String>> list = new ArrayList<>();
+    private ArrayList<Pair<PImage, String>> getPairs() {
+        ArrayList<Pair<PImage, String>> list = new ArrayList<>();
         for (HashSet<Element> elements : main.groups.values()) {
             for (Element element : elements) {
                 if (element.isInPack(this)) {
@@ -133,7 +134,7 @@ public class Pack extends LongButton {
     public void generateAtlas() {
         if (!this.hasAtlas()) {
             try {
-                ArrayList<ImmutablePair<PImage, String>> pairs = this.getPairs();
+                ArrayList<Pair<PImage, String>> pairs = this.getPairs();
                 int width = (int) Math.round(Math.sqrt(pairs.size()));
                 int height = (int) Math.ceil((double) pairs.size() / width);
                 if (width == 0 || height == 0) {
@@ -145,9 +146,9 @@ public class Pack extends LongButton {
                 int index = 0;
                 for (int i = 0; i < height; i++) {
                     for (int j = 0; j < width; j++) {
-                        ImmutablePair<PImage, String> pair = pairs.get(index);
-                        printWriter.println(pair.right);
-                        graphics.image(pair.left, j * ElementButton.SIZE, i * ElementButton.SIZE);
+                        Pair<PImage, String> pair = pairs.get(index);
+                        printWriter.println(pair.getSecond());
+                        graphics.image(pair.getFirst(), j * ElementButton.SIZE, i * ElementButton.SIZE);
                         index++;
                         if (index >= pairs.size()) {
                             break;

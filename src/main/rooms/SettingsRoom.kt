@@ -13,7 +13,7 @@ object SettingsRoom : Room() {
     private val soundButton: ToggleButton
     private val groupColour: ToggleButton
     private val exit: Exit
-    lateinit var slider: Slider
+    private lateinit var slider: Slider
 
     init {
         musicButton = object : ToggleButton("resources/images/music_button.png") {

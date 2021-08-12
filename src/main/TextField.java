@@ -13,7 +13,7 @@ public class TextField extends GTextField {
         this.setLocalColor(12, main.color(255));
         this.setLocalColor(7, main.color(0));
         this.setLocalColor(14, main.color(0));
-        this.setFont((Font) main.font.getNative());
+        this.setFont((Font) main.getFont().getNative());
     }
 
 }

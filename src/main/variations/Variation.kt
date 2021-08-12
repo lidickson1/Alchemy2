@@ -5,7 +5,6 @@ import main.Entity
 import main.buttons.Pack
 import main.variations.appearances.Appearance
 import main.variations.appearances.Appearance.Companion.getAppearance
-import org.apache.commons.lang3.tuple.ImmutablePair
 import processing.core.PImage
 import processing.data.JSONObject
 import java.util.*
@@ -36,11 +35,11 @@ internal constructor(val json: JSONObject, val element: Element) : Entity() {
 
     abstract fun getAppearance(): Appearance
 
-    abstract val pairs: List<ImmutablePair<PImage, String>>
+    abstract fun getPairs(): List<Pair<PImage, String>>
 
     companion object {
         @JvmStatic
-        fun getVariation(json: JSONObject, element: Element, pack: Pack?): Variation? {
+        fun getVariation(json: JSONObject, element: Element, pack: Pack): Variation? {
             return when (json.getString("type")) {
                 "random" -> RandomVariation(json, element)
                 "combo" -> ComboVariation(json, element)

@@ -1,6 +1,6 @@
 # Alchemy
 
-Inspired by games like [Little Alchemy](https://littlealchemy.com/) and [Doodle God](http://doodlegod.com/games/doodle-god/#all), Alchemy is a game about combining and creating new elements. It is a desktop application written in Java using the [Processing Library](https://processing.org/).
+Inspired by games like [Little Alchemy](https://littlealchemy.com/) and [Doodle God](http://doodlegod.com/games/doodle-god/#all), Alchemy is a game about combining and creating new elements. It is a desktop application written in Kotlin and Java using the [Processing Library](https://processing.org/).
 
 ## Prerequisites
 

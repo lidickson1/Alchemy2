@@ -4,11 +4,11 @@ import ddf.minim.AudioPlayer
 import ddf.minim.Minim
 import g4p_controls.G4P
 import main.buttons.Button
-import main.buttons.ElementButton
 import main.buttons.Group
 import main.combos.Combo
 import main.combos.RandomCombo
-import main.rooms.*
+import main.rooms.Loading
+import main.rooms.Room
 import processing.awt.PSurfaceAWT.SmoothCanvas
 import processing.core.PApplet
 import processing.core.PFont
@@ -18,7 +18,6 @@ import processing.data.JSONObject
 import java.awt.*
 import java.awt.event.KeyEvent
 import java.io.File
-import java.io.IOException
 import java.io.OutputStream
 import java.io.PrintStream
 import java.time.format.DateTimeFormatter
@@ -32,27 +31,31 @@ import javax.swing.plaf.BorderUIResource
 class Main : PApplet() {
     @JvmField
     var screenWidth = 1600
+
     @JvmField
     var screenHeight = 900
-    private lateinit var jFrame: JFrame
-    private lateinit var minim: Minim
-    lateinit var backgroundMusic: AudioPlayer
-    lateinit var backgroundMusicThread: Thread
+    private var jFrame: JFrame by lateVal()
+    private var minim: Minim by lateVal()
+    var backgroundMusic: AudioPlayer by lateVal()
+    var backgroundMusicThread: Thread by lateVal()
+
     @JvmField
     var formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-    lateinit var font: PFont
-    lateinit var icon: PImage
-        private set
+    var font: PFont by lateVal()
+    var icon: PImage by lateVal()
     lateinit var room: Room
         private set
-    lateinit var settings: JSONObject
-        private set
+    var settings: JSONObject by lateVal()
+
     @JvmField
     var groups = HashMap<Group, HashSet<Element>>()
+
     @JvmField
     var elements = HashMap<String, Group>()
+
     @JvmField
     var comboList = HashSet<Combo>()
+
     @JvmField
     var randomCombos = HashSet<RandomCombo>()
 
@@ -112,7 +115,8 @@ class Main : PApplet() {
         Button.click = minim.loadFile("resources/audio/click.mp3")
         Button.click.gain = toGain(settings.getFloat("volume"))
         font = this.createFont("resources/fonts/Franklin Gothic Book Regular.ttf", 20f)
-        val errorFont: Font = Font.createFont(Font.TRUETYPE_FONT, File("resources/fonts/Franklin Gothic Book Regular.ttf"))
+        val errorFont: Font =
+            Font.createFont(Font.TRUETYPE_FONT, File("resources/fonts/Franklin Gothic Book Regular.ttf"))
         val ge = GraphicsEnvironment.getLocalGraphicsEnvironment()
         ge.registerFont(errorFont)
 
@@ -126,12 +130,18 @@ class Main : PApplet() {
         UIManager.put("Button.background", Color.BLACK)
         UIManager.put("Button.select", Color.BLACK) //the background color when you hold and click on the button
         UIManager.put("Button.focus", Color.BLACK) //the border color that shows up when the button is focused
-        UIManager.put("Button.border", BorderUIResource(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.WHITE, 1),
-                BorderFactory.createEmptyBorder(5, 10, 5, 10))))
+        UIManager.put(
+            "Button.border", BorderUIResource(
+                BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(Color.WHITE, 1),
+                    BorderFactory.createEmptyBorder(5, 10, 5, 10)
+                )
+            )
+        )
 
         //TODO: make this dynamic?
-        val musicNames = mutableListOf("Angel Share", "Dreamer", "Easy Lemon", "Frozen Star", "Handbook - Spirits", "Immersed")
+        val musicNames =
+            mutableListOf("Angel Share", "Dreamer", "Easy Lemon", "Frozen Star", "Handbook - Spirits", "Immersed")
         backgroundMusicThread = Thread {
             while (true) {
                 musicNames.shuffle()
@@ -232,7 +242,12 @@ class Main : PApplet() {
     }
 
     fun showError(message: String?) {
-        JOptionPane.showMessageDialog(null, message, Language.getLanguageSelected().getLocalizedString("misc", "error"), JOptionPane.ERROR_MESSAGE)
+        JOptionPane.showMessageDialog(
+            null,
+            message,
+            Language.getLanguageSelected().getLocalizedString("misc", "error"),
+            JOptionPane.ERROR_MESSAGE
+        )
     }
 
 }
