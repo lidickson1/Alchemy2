@@ -63,11 +63,11 @@ The `elements.json` file should be an array of objects, with each object corresp
 }
 ```
 
-The `name` and `group` attributes are required to define an element. `tags` is an array of strings which are helpful for defining combinations. The `description` is just a string that gets displayed along with the element's information (this is done by right clicking an element). `combos` is an array of combination objects which are further detailed down here.
+The `name` and `group` attributes are required to define an element. `tags` is an array of strings which are helpful for defining combinations. The `description` is just a string that gets displayed along with the element's information (this is done by right clicking an element). `combos` is an array of combination objects which are further detailed down [here](#combinations).
 
 `persistent` is a boolean that is used to mark an element to be persistent or not. An element is persistent if it doesn't get consumed after being used in a combination in puzzle mode. It has no effect in normal mode.
 
-`variation` is an object that is used to dynamic alter the element's appearance, it is further documented [here](#variations).
+`variation` is an object that is used to dynamically alter the element's appearance, it is further documented [here](#variations).
 
 #### Combinations
 
@@ -108,9 +108,7 @@ The normal combination is when you only need two elements (ingredients) to creat
 }
 ```
 
-This is equivalent to:
-
--   a + b
+This is equivalent to: a + b
 
 ##### Multiple Combination
 
@@ -122,13 +120,11 @@ The multiple combination is when you need more than two ingredients.
 }
 ```
 
-This is equivalent to:
-
--   a + b + c
+This is equivalent to: a + b + c
 
 ##### Paired Multiple Combination
 
-The paired multiple combination will generate all unique possible pairs from the given ingredients. The format is the same as a multiple combination, except a boolean flag called `paired` is set to `true`.
+The paired multiple combination will generate all unique possible pairs from the given ingredients. The format is the same as a multiple combination, except there is a boolean flag called `paired` that is set to `true`.
 
 ```json
 {
@@ -163,7 +159,7 @@ This is equivalent to:
 
 ##### Shorthand Combination
 
-The shorthand combination is a shorthand way of describing multiple combinations into one object. Order matters for this type of combination.
+The shorthand combination is a shorthand for describing multiple combinations into one object. Order matters for this type of combination.
 
 ```json
 {
@@ -259,7 +255,7 @@ This variation is used when you want the element to have a pre-existing texture.
 
 Note that this will not work if the said element is removed so beware of packs that do so.
 
-##### Date Variation
+##### Date Variations
 
 There are 2 types of date variations currently available: month and week.
 
@@ -326,7 +322,7 @@ The week variation allows separate textures or animations for every day of the w
 }
 ```
 
-The variation is useful when you want to change the texture based on chance. The `textures` array hold a list of objects, which specifies the probability of the texture or animation being chosen, and the file name. The sum of all of the `weight`s should be between 0 and 1. If it isn't, the results will not be as expected. The remaining probability (in this example 0.5) will be the probability of the default texture being used.
+The variation is useful when you want to change the texture based on chance. The `textures` array hold a list of objects, which specifies the probability of the texture or animation being chosen, and the file name. The sum of all of the `weight`s should be between 0 and 1. If it isn't, it can result in undefined behaviour. The remaining probability (in this example 0.5) will be the probability of the default texture being used.
 
 `name` is an optional string which is the unlocalized name for that texture.
 
