@@ -1,6 +1,7 @@
 package main.rooms
 
 import main.Language
+import main.Main
 import main.buttons.SaveFile
 import main.buttons.iconbuttons.Exit
 import processing.core.PApplet
@@ -27,7 +28,7 @@ object LoadGame : Room() {
         drawTitle("load game", "load game")
         var y = 120
         for (saveFile in saveFiles) {
-            saveFile.draw(main.screenWidth / 2f - saveFile.width / 2f, y.toFloat())
+            saveFile.draw(Main.screenWidth / 2f - saveFile.width / 2f, y.toFloat())
             y += saveFile.height
         }
         exit.draw()
@@ -41,8 +42,8 @@ object LoadGame : Room() {
             }
         }
         if (failed) {
-            main.showError(Language.getLanguageSelected().getLocalizedString("load game", "elements not loaded"))
-            main.switchRoom(this)
+            Main.showError(Language.languageSelected.getLocalizedString("load game", "elements not loaded"))
+            Main.switchRoom(this)
         }
         exit.mousePressed()
     }

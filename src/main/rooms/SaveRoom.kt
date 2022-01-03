@@ -1,6 +1,7 @@
 package main.rooms
 
 import main.Language
+import main.Main
 import main.TextField
 import main.buttons.iconbuttons.Exit
 import main.buttons.iconbuttons.Save
@@ -20,26 +21,26 @@ object SaveRoom : Room() {
             override fun write(b: Int) {}
         })
         System.setOut(dummyStream)
-        textField = TextField(main, 400F, 30F)
+        textField = TextField(Main, 400F, 30F)
         System.setOut(originalStream)
     }
 
     override fun draw() {
         save.setDisabled(!updateText())
         drawTitle("save", "save game")
-        main.textSize(20f)
-        main.text(Language.getLanguageSelected().getLocalizedString("save", "enter name"), main.screenWidth / 2f, main.screenHeight / 2f - 60)
-        textField.moveTo(main.screenWidth / 2f - textField.width / 2, main.screenHeight / 2f - textField.height / 2)
+        Main.textSize(20f)
+        Main.text(Language.languageSelected.getLocalizedString("save", "enter name"), Main.screenWidth / 2f, Main.screenHeight / 2f - 60)
+        textField.moveTo(Main.screenWidth / 2f - textField.width / 2, Main.screenHeight / 2f - textField.height / 2)
         textField.draw()
         if (text != "") {
-            main.textSize(20f)
-            main.text(Language.getLanguageSelected().getLocalizedString("save", text), main.screenWidth / 2f, main.screenHeight / 2f + 60)
+            Main.textSize(20f)
+            Main.text(Language.languageSelected.getLocalizedString("save", text), Main.screenWidth / 2f, Main.screenHeight / 2f + 60)
         }
-        main.stroke(255)
-        main.noFill()
-        main.rect(textField.x, textField.y, textField.width, textField.height + 1)
-        save.draw(main.screenWidth / 2f - 15 - save.width, (main.screenHeight - 30 - save.height).toFloat())
-        exit.draw(main.screenWidth / 2f + 15, (main.screenHeight - 30 - exit.height).toFloat())
+        Main.stroke(255)
+        Main.noFill()
+        Main.rect(textField.x, textField.y, textField.width, textField.height + 1)
+        save.draw(Main.screenWidth / 2f - 15 - save.width, (Main.screenHeight - 30 - save.height).toFloat())
+        exit.draw(Main.screenWidth / 2f + 15, (Main.screenHeight - 30 - exit.height).toFloat())
     }
 
     override fun end() {

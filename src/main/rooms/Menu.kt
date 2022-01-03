@@ -1,6 +1,7 @@
 package main.rooms
 
 import main.Language
+import main.Main
 import main.buttons.iconbuttons.IconButton
 import main.buttons.menubuttons.LoadGameButton
 import main.buttons.menubuttons.MenuButton
@@ -16,12 +17,12 @@ object Menu : Room() {
     private val packs: PacksButton = PacksButton()
     private val achievements: MenuButton = MenuButton("achievements")
     private val settings: IconButton
-    private val titleFont: PFont = main.createFont("resources/fonts/Alchemy Gold.ttf", 128f)
+    private val titleFont: PFont = Main.createFont("resources/fonts/Alchemy Gold.ttf", 128f)
 
     init {
         settings = object : IconButton("resources/images/settings_button.png") {
             override fun clicked() {
-                main.switchRoom(SettingsRoom)
+                Main.switchRoom(SettingsRoom)
             }
         }
     }
@@ -29,20 +30,20 @@ object Menu : Room() {
     override fun setup() {}
 
     override fun draw() {
-        main.textFont(titleFont, 220f)
-        main.textAlign(PConstants.CENTER, PConstants.TOP)
-        main.fill(255)
-        main.text(Language.getLanguageSelected().getLocalizedString("menu", "alchemy"), main.screenWidth / 2f, 20f)
+        Main.textFont(titleFont, 220f)
+        Main.textAlign(PConstants.CENTER, PConstants.TOP)
+        Main.fill(255)
+        Main.text(Language.languageSelected.getLocalizedString("menu", "alchemy"), Main.screenWidth / 2f, 20f)
         var y = 340
         val gap = 10
-        loadGame.draw(main.screenWidth / 2f - MenuButton.WIDTH / 2f, y.toFloat())
+        loadGame.draw(Main.screenWidth / 2f - MenuButton.WIDTH / 2f, y.toFloat())
         y += MenuButton.HEIGHT + gap
-        newGame.draw(main.screenWidth / 2f - MenuButton.WIDTH / 2f, y.toFloat())
+        newGame.draw(Main.screenWidth / 2f - MenuButton.WIDTH / 2f, y.toFloat())
         y += MenuButton.HEIGHT + gap
-        packs.draw(main.screenWidth / 2f - MenuButton.WIDTH / 2f, y.toFloat())
+        packs.draw(Main.screenWidth / 2f - MenuButton.WIDTH / 2f, y.toFloat())
         y += MenuButton.HEIGHT + gap
-        achievements.draw(main.screenWidth / 2f - MenuButton.WIDTH / 2f, y.toFloat())
-        settings.draw(30f, (main.screenHeight - 30 - IconButton.SIZE).toFloat())
+        achievements.draw(Main.screenWidth / 2f - MenuButton.WIDTH / 2f, y.toFloat())
+        settings.draw(30f, (Main.screenHeight - 30 - IconButton.SIZE).toFloat())
     }
 
     override fun mousePressed() {

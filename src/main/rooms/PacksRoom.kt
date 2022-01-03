@@ -1,6 +1,7 @@
 package main.rooms
 
 import main.Language
+import main.Main
 import main.buttons.Group
 import main.buttons.LongButton
 import main.buttons.Pack
@@ -42,7 +43,7 @@ object PacksRoom : Room() {
                 val jsonFile = File(folder.absolutePath + "/pack.json")
                 val icon = File(folder.absolutePath + "/icon.png")
                 if (jsonFile.exists() && icon.exists()) {
-                    val `object`: JSONObject = main.loadJSONObject(jsonFile.absolutePath)
+                    val `object`: JSONObject = Main.loadJSONObject(jsonFile.absolutePath)
                     if (`object`.getString("name") == "Alchemy") {
                         System.err.println("Error: pack name cannot be name \"Alchemy\"")
                         continue
@@ -55,7 +56,7 @@ object PacksRoom : Room() {
         unloadedPacks.sort()
 
         //loaded packs are read from settings file
-        for (string in main.settings.getJSONArray("loaded packs").stringArray) {
+        for (string in Main.settings.getJSONArray("loaded packs").stringArray) {
             var pack: Pack?
             if (string == "Alchemy") {
                 pack = getPack("Alchemy")
@@ -73,30 +74,30 @@ object PacksRoom : Room() {
 
     override fun draw() {
         drawTitle("packs", "packs")
-        var x = main.screenWidth / 2 - GAP / 2 - LongButton.WIDTH
+        var x = Main.screenWidth / 2 - GAP / 2 - LongButton.WIDTH
         var y = 120
-        main.textSize(24f)
-        main.textAlign(PConstants.CENTER, PConstants.CENTER)
-        main.fill(255)
-        main.text(Language.getLanguageSelected().getLocalizedString("packs", "unloaded packs"), x + LongButton.WIDTH / 2f, y.toFloat())
+        Main.textSize(24f)
+        Main.textAlign(PConstants.CENTER, PConstants.CENTER)
+        Main.fill(255)
+        Main.text(Language.languageSelected.getLocalizedString("packs", "unloaded packs"), x + LongButton.WIDTH / 2f, y.toFloat())
         y += 40
         for (pack in unloadedPacks) {
             pack.draw(x.toFloat(), y.toFloat())
             y += pack.height
         }
-        x = main.screenWidth / 2 + GAP / 2
+        x = Main.screenWidth / 2 + GAP / 2
         y = 120
-        main.textSize(24f)
-        main.textAlign(PConstants.CENTER, PConstants.CENTER)
-        main.fill(255)
-        main.text(Language.getLanguageSelected().getLocalizedString("packs", "loaded packs"), x + LongButton.WIDTH / 2f, y.toFloat())
+        Main.textSize(24f)
+        Main.textAlign(PConstants.CENTER, PConstants.CENTER)
+        Main.fill(255)
+        Main.text(Language.languageSelected.getLocalizedString("packs", "loaded packs"), x + LongButton.WIDTH / 2f, y.toFloat())
         y += 40
         for (pack in loadedPacks) {
             pack.draw(x.toFloat(), y.toFloat())
             y += pack.height
         }
         done.setDisabled(loadedPacks.isEmpty())
-        done.draw((main.screenWidth - Group.GAP - IconButton.SIZE - (IconButton.SIZE + Group.GAP)).toFloat(), (main.screenHeight - Group.GAP - IconButton.SIZE).toFloat())
+        done.draw((Main.screenWidth - Group.GAP - IconButton.SIZE - (IconButton.SIZE + Group.GAP)).toFloat(), (Main.screenHeight - Group.GAP - IconButton.SIZE).toFloat())
         exit.draw()
     }
 
@@ -123,8 +124,8 @@ object PacksRoom : Room() {
     }
 
     private fun save() {
-        main.settings.put("loaded packs", JSONArray(StringList( loadedPacks.map { it.name })))
-        main.saveSettings()
+        Main.settings.put("loaded packs", JSONArray(StringList( loadedPacks.map { it.name })))
+        Main.saveSettings()
     }
 
     private fun getPack(name: String): Pack? {

@@ -22,7 +22,7 @@ import processing.core.PImage
 import java.io.File
 import java.util.*
 
-class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comparable<Element> {
+class Element(val id: String, val group: Group, val pack: Pack) : Comparable<Element> {
 
     val tags = ArrayList<String>()
     var description: String? = null
@@ -45,13 +45,13 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
         val variationName: String? = if (variation == null) {
             null
         } else {
-            Language.getLanguageSelected().getElementLocalizedString(namespace, variation!!.getName())
+            Language.languageSelected.getElementLocalizedString(namespace, variation!!.getName())
         }
         return variationName ?: getDisplayNameWithoutVariation()
     }
 
     fun getDisplayNameWithoutVariation(): String {
-        val displayName = Language.getLanguageSelected().getElementLocalizedString(namespace, localId)
+        val displayName = Language.languageSelected.getElementLocalizedString(namespace, localId)
         if (displayName == null) {
             pack.generateEnglish(localId)
         }
@@ -108,14 +108,14 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
     private fun getImageFromPath(path: String): PImage? {
         val png = "$path.png"
         if (File(png).exists()) {
-            return main.loadImage(png)
+            return Main.loadImage(png)
         }
         //https://stackoverflow.com/questions/54443002/java-splitting-gif-image-in-bufferedimages-gives-malformed-images
         //TODO: gif -> animated frames -> AnimationVariation
         //problem is AnimationVariation itself also calls this method lmao, recursive animation?? lol
         val gif = "$path.gif"
         return if (File(gif).exists()) {
-            main.loadImage(gif)
+            Main.loadImage(gif)
         } else null
     }
 
@@ -169,14 +169,14 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
         }
 
         fun getElement(name: String): Element? {
-            if (!main.elements.containsKey(name)) {
+            if (!Main.elements.containsKey(name)) {
                 return null
             }
-            if (!main.groups.containsKey(main.elements[name])) {
-                System.err.println(main.elements[name]!!.id + " group not found!")
+            if (!Main.groups.containsKey(Main.elements[name])) {
+                System.err.println(Main.elements[name]!!.id + " group not found!")
                 return null
             }
-            for (element in main.groups[main.elements[name]]!!) {
+            for (element in Main.groups[Main.elements[name]]!!) {
                 if (element.id == name) {
                     return element
                 }
@@ -198,7 +198,7 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
 //            }
             val elementsSelectedString = elementsSelected.map { it.id }
             elementsCreated.clear()
-            for (combo in main.comboList) {
+            for (combo in Main.comboList) {
                 if (combo is MultiCombo) {
                     if (CollectionUtils.isEqualCollection(combo.ingredients, elementsSelectedString)) {
                         val element: Element = getElement(combo.element)!!
@@ -210,7 +210,7 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
                     }
                 }
             }
-            for (randomCombo in main.randomCombos) {
+            for (randomCombo in Main.randomCombos) {
                 randomCombo.canCreate(elementsSelectedString)?.let {
                     val randomElements = randomCombo.elements
                     elementsCreated.addAll(randomElements)
@@ -244,7 +244,7 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
             assert(elementSelectedA != null && elementSelectedB != null)
             //check for combos
             elementsCreated.clear()
-            for (combo in main.comboList) {
+            for (combo in Main.comboList) {
                 if (combo is NormalCombo) {
                     if (combo.a == elementSelectedA!!.id && combo.b == elementSelectedB!!.id || combo.a == elementSelectedB!!.id && combo.b == elementSelectedA!!.id) {
                         val element = getElement(combo.element)!!
@@ -256,7 +256,7 @@ class Element(val id: String, val group: Group, val pack: Pack) : Entity(), Comp
                     }
                 }
             }
-            for (randomCombo in main.randomCombos) {
+            for (randomCombo in Main.randomCombos) {
                 randomCombo.canCreate(elementSelectedA, elementSelectedB)?.let {
                     val randomElements = randomCombo.elements
                     elementsCreated.addAll(randomElements)

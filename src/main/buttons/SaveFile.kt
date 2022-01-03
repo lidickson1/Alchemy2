@@ -17,7 +17,7 @@ class SaveFile(val name: String, val json: JSONObject) : LongButton() {
         main.text(name, x + 10, y + 28)
         main.textAlign(PConstants.RIGHT, PConstants.CENTER)
         main.fill(120)
-        main.text(Language.getLanguageSelected().getLocalizedString("load game", "last modified") + ": " + json.getString("last modified"), x + WIDTH - 10, y + 28)
+        main.text(Language.languageSelected.getLocalizedString("load game", "last modified") + ": " + json.getString("last modified"), x + WIDTH - 10, y + 28)
     }
 
     override fun clicked() {

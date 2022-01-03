@@ -28,7 +28,7 @@ import javax.swing.JOptionPane
 import javax.swing.UIManager
 import javax.swing.plaf.BorderUIResource
 
-class Main : PApplet() {
+object Main : PApplet() {
     @JvmField
     var screenWidth = 1600
 
@@ -36,7 +36,7 @@ class Main : PApplet() {
     var screenHeight = 900
     private var jFrame: JFrame by lateVal()
     private var minim: Minim by lateVal()
-    var backgroundMusic: AudioPlayer by lateVal()
+    lateinit var backgroundMusic: AudioPlayer
     var backgroundMusicThread: Thread by lateVal()
 
     @JvmField
@@ -220,9 +220,9 @@ class Main : PApplet() {
 
     override fun keyPressed() {
         //prevents application from closing when esc key is pressed
-        if (key.toInt() == 27) {
+        if (key.code == 27) {
             key = 0.toChar()
-        } else if (key.toInt() == CODED && keyCode == KeyEvent.VK_F2) {
+        } else if (key.code == CODED && keyCode == KeyEvent.VK_F2) {
             this.saveFrame("screenshot.png")
         }
         room.keyPressed()
@@ -245,7 +245,7 @@ class Main : PApplet() {
         JOptionPane.showMessageDialog(
             null,
             message,
-            Language.getLanguageSelected().getLocalizedString("misc", "error"),
+            Language.languageSelected.getLocalizedString("misc", "error"),
             JOptionPane.ERROR_MESSAGE
         )
     }
@@ -253,5 +253,5 @@ class Main : PApplet() {
 }
 
 fun main() {
-    PApplet.main("main.Main")
+    PApplet.runSketch(arrayOf(Main::class.java.name), Main)
 }

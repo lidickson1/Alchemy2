@@ -1,11 +1,10 @@
 package main.variations.appearances
 
-import main.Entity
 import main.variations.Variation
 import processing.core.PImage
 import processing.data.JSONObject
 
-abstract class Appearance : Entity() {
+abstract class Appearance {
 
     abstract fun getName(): String
     abstract fun getImage(): PImage

@@ -2,6 +2,7 @@ package main.rooms
 
 import main.Element
 import main.Language
+import main.Main
 import main.buttons.*
 import main.buttons.iconbuttons.Exit
 import main.buttons.iconbuttons.IconButton
@@ -12,7 +13,9 @@ import main.rooms.PacksRoom.loadedPacks
 import org.apache.commons.collections4.CollectionUtils
 import org.apache.commons.lang3.time.DurationFormatUtils
 import processing.core.PConstants
+import processing.data.JSONArray
 import processing.data.JSONObject
+import processing.data.StringList
 import java.time.Duration
 import java.time.LocalDateTime
 import javax.swing.JOptionPane
@@ -66,17 +69,17 @@ object Game : Room() {
 
     private const val gap: String = "          "
 
-    private fun isShiftHeld(): Boolean = main.keyPressed && main.keyCode == PConstants.SHIFT
+    private fun isShiftHeld(): Boolean = Main.keyPressed && Main.keyCode == PConstants.SHIFT
 
     init {
         success = object : Pane() {
             override fun getText(): String {
-                return Language.getLanguageSelected().getLocalizedString("game", "you created")
+                return Language.languageSelected.getLocalizedString("game", "you created")
             }
         }
         hint = object : Pane() {
             override fun getText(): String {
-                return Language.getLanguageSelected().getLocalizedString("game", "element hint")
+                return Language.languageSelected.getLocalizedString("game", "element hint")
             }
         }
         save = Save()
@@ -149,12 +152,12 @@ object Game : Room() {
         }
         historyButton = object : IconButton("resources/images/history_button.png") {
             override fun clicked() {
-                main.switchRoom(HistoryRoom)
+                Main.switchRoom(HistoryRoom)
             }
         }
         hintButton = object : IconButton("resources/images/hint_button.png") {
             override fun clicked() {
-                main.switchRoom(HintRoom)
+                Main.switchRoom(HintRoom)
             }
         }
         undoButton = object : IconButton("resources/images/undo_button.png") {
@@ -200,7 +203,9 @@ object Game : Room() {
                         return
                     }
                 }
-                hintTime = if (saveFile!!.json.hasKey("hint time")) LocalDateTime.now().plus(Duration.parse(saveFile!!.json.getString("hint time"))) else LocalDateTime.now().plusMinutes(3)
+                hintTime = if (saveFile!!.json.hasKey("hint time")) LocalDateTime.now()
+                    .plus(Duration.parse(saveFile!!.json.getString("hint time"))) else LocalDateTime.now()
+                    .plusMinutes(3)
             }
             gameLoaded = true
             success.isActive = false
@@ -210,35 +215,58 @@ object Game : Room() {
 
     fun exitGame() {
         if (saveFile != null && saveFile!!.json.getJSONArray("elements").size() < getNumberOfElements()) {
-            val result = JOptionPane.showConfirmDialog(null, Language.getLanguageSelected().getLocalizedString("game", "not saved"), Language.getLanguageSelected().getLocalizedString("misc", "warning"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE)
+            val result = JOptionPane.showConfirmDialog(
+                null,
+                Language.languageSelected.getLocalizedString("game", "not saved"),
+                Language.languageSelected.getLocalizedString("misc", "warning"),
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.WARNING_MESSAGE
+            )
             if (result == JOptionPane.CANCEL_OPTION) {
                 return
             }
         }
-        main.switchRoom(Menu)
+        Main.switchRoom(Menu)
     }
 
     override fun draw() {
-        main.textFont(main.font, 20f)
-        main.fill(255)
-        main.textAlign(PConstants.LEFT, PConstants.TOP)
-        main.text(Language.getLanguageSelected().getLocalizedString("game", "elements") + ": " + getNumberOfElements() + gap +
-                Language.getLanguageSelected().getLocalizedString("game", "groups") + ": " + discovered.keys.size + gap +
-                Language.getLanguageSelected().getLocalizedString("game", "hint timer") + ": " + getTimeString(), 10f, 10f)
+        Main.textFont(Main.font, 20f)
+        Main.fill(255)
+        Main.textAlign(PConstants.LEFT, PConstants.TOP)
+        Main.text(
+            Language.languageSelected.getLocalizedString("game", "elements") + ": " + getNumberOfElements() + gap +
+                    Language.languageSelected
+                        .getLocalizedString("game", "groups") + ": " + discovered.keys.size + gap +
+                    Language.languageSelected.getLocalizedString("game", "hint timer") + ": " + getTimeString(),
+            10f,
+            10f
+        )
         Group.drawGroups()
         ElementButton.drawElements()
-        groupLeftArrow.draw(Group.GROUP_X.toFloat(), (Group.GROUP_Y + (Group.SIZE + Group.GAP) * Group.groupCountY).toFloat())
-        groupRightArrow.draw(((Group.SIZE + Group.GAP) * Group.groupCountX - Arrow.SIZE).toFloat(), (Group.GROUP_Y + (Group.SIZE + Group.GAP) * Group.groupCountY).toFloat())
-        elementAUpArrow.draw((main.screenWidth - 20 - Arrow.SIZE).toFloat(), Group.groupSelectedAY.toFloat())
-        elementADownArrow.draw((main.screenWidth - 20 - Arrow.SIZE).toFloat(), (Group.groupSelectedBY - Group.GAP - Arrow.SIZE).toFloat())
-        elementBUpArrow.draw((main.screenWidth - 20 - Arrow.SIZE).toFloat(), Group.groupSelectedBY.toFloat())
-        elementBDownArrow.draw((main.screenWidth - 20 - Arrow.SIZE).toFloat(), (Group.groupSelectedBY * 2 - Group.GAP - Arrow.SIZE - Group.GROUP_Y).toFloat())
+        groupLeftArrow.draw(
+            Group.GROUP_X.toFloat(),
+            (Group.GROUP_Y + (Group.SIZE + Group.GAP) * Group.groupCountY).toFloat()
+        )
+        groupRightArrow.draw(
+            ((Group.SIZE + Group.GAP) * Group.groupCountX - Arrow.SIZE).toFloat(),
+            (Group.GROUP_Y + (Group.SIZE + Group.GAP) * Group.groupCountY).toFloat()
+        )
+        elementAUpArrow.draw((Main.screenWidth - 20 - Arrow.SIZE).toFloat(), Group.groupSelectedAY.toFloat())
+        elementADownArrow.draw(
+            (Main.screenWidth - 20 - Arrow.SIZE).toFloat(),
+            (Group.groupSelectedBY - Group.GAP - Arrow.SIZE).toFloat()
+        )
+        elementBUpArrow.draw((Main.screenWidth - 20 - Arrow.SIZE).toFloat(), Group.groupSelectedBY.toFloat())
+        elementBDownArrow.draw(
+            (Main.screenWidth - 20 - Arrow.SIZE).toFloat(),
+            (Group.groupSelectedBY * 2 - Group.GAP - Arrow.SIZE - Group.GROUP_Y).toFloat()
+        )
         if (success.isActive) {
-            success.draw(main.screenWidth / 2f - success.width / 2f, main.screenHeight / 2f - success.height / 2f)
+            success.draw(Main.screenWidth / 2f - success.width / 2f, Main.screenHeight / 2f - success.height / 2f)
             ElementButton.drawCreatedElements()
         }
         if (hint.isActive) {
-            hint.draw(main.screenWidth / 2f - hint.width / 2f, main.screenHeight / 2f - hint.height / 2f)
+            hint.draw(Main.screenWidth / 2f - hint.width / 2f, Main.screenHeight / 2f - hint.height / 2f)
             ElementButton.drawHintElement(hintElement!!)
         }
 
@@ -249,8 +277,8 @@ object Game : Room() {
             }
             ElementButton.elementsSelected.clear()
             Element.elementsSelected.clear()
-            val x = main.screenWidth - IconButton.GAP - IconButton.SIZE
-            val y = main.screenHeight - IconButton.GAP - IconButton.SIZE
+            val x = Main.screenWidth - IconButton.GAP - IconButton.SIZE
+            val y = Main.screenHeight - IconButton.GAP - IconButton.SIZE
             exit.draw()
             save.draw((x - (IconButton.SIZE + IconButton.GAP)).toFloat(), y.toFloat())
             historyButton.draw((x - (IconButton.SIZE + IconButton.GAP) * 2).toFloat(), y.toFloat())
@@ -265,10 +293,10 @@ object Game : Room() {
         if (saveFile == null) {
             saveFile = SaveFile(SaveRoom.saveName, JSONObject())
         }
-        saveFile!!.json.put("elements", discovered.values.flatten().map { it.id }.toTypedArray())
-        saveFile!!.json.put("last modified", LocalDateTime.now().format(main.formatter))
+        saveFile!!.json.put("elements", JSONArray(StringList(discovered.values.flatten().map { it.id }.toTypedArray())))
+        saveFile!!.json.put("last modified", LocalDateTime.now().format(Main.formatter))
         saveFile!!.json.put("hint time", Duration.between(LocalDateTime.now(), hintTime).toString())
-        main.saveJSONObject(saveFile!!.json, "resources/saves/${saveFile!!.name}.json", "indent=4")
+        Main.saveJSONObject(saveFile!!.json, "resources/saves/${saveFile!!.name}.json", "indent=4")
     }
 
     private fun addElement(name: String): Boolean {
@@ -278,7 +306,7 @@ object Game : Room() {
     }
 
     fun isDiscovered(id: String): Boolean {
-        val group: Group = main.elements[id]!!
+        val group: Group = Main.elements[id]!!
         if (!discovered.containsKey(group)) {
             return false
         }
@@ -321,7 +349,7 @@ object Game : Room() {
     fun addElement(element: Element) {
         val group = element.group
         val addElement = if (mode == GameMode.NORMAL) {
-           !discovered.containsKey(group) || !isDiscovered(element.id)
+            !discovered.containsKey(group) || !isDiscovered(element.id)
         } else {
             !(element.isPersistent && discovered.containsKey(group) && isDiscovered(element.id))
         }
@@ -336,7 +364,7 @@ object Game : Room() {
 
     //direct Element objects cannot be used because they are copies
     fun removeElement(id: String) {
-        val group: Group = main.elements[id]!!
+        val group: Group = Main.elements[id]!!
         //edge case: if the elements used are the same element, and they are the last remaining elements of the group
         //then when the first element is removed, the group will be removed, so when we call this method for the second element, the group will be removed already
         discovered[group]?.let {
@@ -373,13 +401,19 @@ object Game : Room() {
             }
             Group.groupSelectedA?.let {
                 it.mousePressed()
-                for (element in ElementButton.getCurrentPageElements(ElementButton.elementButtonsA, ElementButton.pageNumberA)) {
+                for (element in ElementButton.getCurrentPageElements(
+                    ElementButton.elementButtonsA,
+                    ElementButton.pageNumberA
+                )) {
                     element.mousePressed()
                 }
             }
             Group.groupSelectedB?.let {
                 it.mousePressed()
-                for (element in ElementButton.getCurrentPageElements(ElementButton.elementButtonsB, ElementButton.pageNumberB)) {
+                for (element in ElementButton.getCurrentPageElements(
+                    ElementButton.elementButtonsB,
+                    ElementButton.pageNumberB
+                )) {
                     element.mousePressed()
                 }
             }
@@ -391,19 +425,19 @@ object Game : Room() {
     }
 
     override fun keyPressed() {
-        if (main.key.toInt() == PConstants.CODED) {
-            if (main.keyCode == PConstants.LEFT) {
+        if (Main.key.code == PConstants.CODED) {
+            if (Main.keyCode == PConstants.LEFT) {
                 groupLeftArrow.clicked()
-            } else if (main.keyCode == PConstants.RIGHT) {
+            } else if (Main.keyCode == PConstants.RIGHT) {
                 groupRightArrow.clicked()
-            } else if (main.keyCode == PConstants.UP) {
+            } else if (Main.keyCode == PConstants.UP) {
                 try {
                     HintRoom.getElementHint()
                 } catch (ignored: NoHintAvailable) {
                 }
             }
-        } else if (main.key == 'c') {
-            for (element in main.elements.keys) {
+        } else if (Main.key == 'c') {
+            for (element in Main.elements.keys) {
                 this.addElement(element)
             }
         }

@@ -1,9 +1,6 @@
 package main.rooms
 
-import main.Element
-import main.Generation
-import main.Language
-import main.LoadElements
+import main.*
 import main.buttons.ElementButton
 import main.buttons.Group
 import processing.core.PConstants
@@ -26,30 +23,30 @@ object Loading : Room() {
         progress.set(0)
         total = 0
         PacksRoom.setup() //reads the pack list
-        main.elements.clear()
-        main.groups.clear()
-        main.comboList.clear()
-        main.randomCombos.clear()
+        Main.elements.clear()
+        Main.groups.clear()
+        Main.comboList.clear()
+        Main.randomCombos.clear()
 
         //packs are loaded from bottom to top, for loop in reverse
         val thread = Thread {
             for (pack in PacksRoom.loadedPacks.reversed()) {
                 pack.loadLanguages()
                 //TODO: this to read from settings
-                Language.setLanguageSelected("english")
+                Language.languageSelected = Language.getLanguage("english")!!
                 var groupsArray = JSONArray()
                 var elementsArray = JSONArray()
                 if (pack.name == "Alchemy") {
-                    groupsArray = main.loadJSONArray("resources/groups.json")
-                    elementsArray = main.loadJSONArray("resources/elements.json")
+                    groupsArray = Main.loadJSONArray("resources/groups.json")
+                    elementsArray = Main.loadJSONArray("resources/elements.json")
                     //Compressor.toBinary(elementsArray);
                     //Compressor.fromBinary(new File("elements.bin"));
                 } else {
                     if (File(pack.path + "/groups.json").exists()) {
-                        groupsArray = main.loadJSONArray(pack.path + "/groups.json")
+                        groupsArray = Main.loadJSONArray(pack.path + "/groups.json")
                     }
                     if (File(pack.path + "/elements.json").exists()) {
-                        elementsArray = main.loadJSONArray(pack.path + "/elements.json")
+                        elementsArray = Main.loadJSONArray(pack.path + "/elements.json")
                     }
                 }
                 total += if (pack.hasAtlas()) {
@@ -64,16 +61,16 @@ object Loading : Room() {
                 }
             }
             if (PRINT_GENERATIONS) {
-                val set = main.groups.values.flatten().map { it.id }.toSet()
-                Generation.generate(set, main.comboList)
+                val set = Main.groups.values.flatten().map { it.id }.toSet()
+                Generation.generate(set, Main.comboList)
             }
 
             //textures are loaded here, after we have defined all of the elements
             val size = 50 //size of each buffer
             var buffer = ArrayList<Element>()
             var index = 0
-            for (group in main.groups.keys) {
-                for (element in main.groups[group]!!) {
+            for (group in Main.groups.keys) {
+                for (element in Main.groups[group]!!) {
                     if (!element.isImageInitialized || element.variation != null) { //some images might already be loaded from an atlas
                         if (index != 0 && index % size == 0) {
                             Element.loadImage(buffer)
@@ -90,22 +87,22 @@ object Loading : Room() {
         }
         thread.isDaemon = true
         thread.start()
-        main.textFont(main.font, 20f)
+        Main.textFont(Main.font, 20f)
     }
 
     override fun draw() {
         // Loading screen
-        main.image(main.icon, main.screenWidth / 2f - main.icon.width / 2f, main.screenHeight / 2f - main.icon.height / 2f - 90)
+        Main.image(Main.icon, Main.screenWidth / 2f - Main.icon.width / 2f, Main.screenHeight / 2f - Main.icon.height / 2f - 90)
         val width = 900
-        main.noFill()
-        main.stroke(255)
-        main.rect(main.screenWidth / 2f - 450, main.screenHeight / 2f + 50, width.toFloat(), 10f)
-        main.fill(255)
-        main.noStroke()
+        Main.noFill()
+        Main.stroke(255)
+        Main.rect(Main.screenWidth / 2f - 450, Main.screenHeight / 2f + 50, width.toFloat(), 10f)
+        Main.fill(255)
+        Main.noStroke()
         val length = if (total == 0) 0 else (progress.get().toFloat() / total * width).roundToInt()
-        main.rect(main.screenWidth / 2f - 450, main.screenHeight / 2f + 50, length.toFloat(), 10f)
-        main.textAlign(PConstants.CENTER)
-        main.text(splashText, main.screenWidth / 2f, main.screenHeight / 2f + 100)
+        Main.rect(Main.screenWidth / 2f - 450, Main.screenHeight / 2f + 50, length.toFloat(), 10f)
+        Main.textAlign(PConstants.CENTER)
+        Main.text(splashText, Main.screenWidth / 2f, Main.screenHeight / 2f + 100)
         if (total > 0 && progress.get() >= total) {
             //generate atlases, this can only be executed when all images are loaded
             if (GENERATE_ATLAS) {
@@ -114,7 +111,7 @@ object Loading : Room() {
                 }
             }
             //Language.validateEnglish();
-            main.switchRoom(Menu)
+            Main.switchRoom(Menu)
         }
     }
 
@@ -135,7 +132,7 @@ object Loading : Room() {
     fun removeAllElements(except: Int) {
         //remove its counter from total (json loading is successful, no need to load image)
         total--
-        for (list in main.groups.values) {
+        for (list in Main.groups.values) {
             //we only subtract 1 for each because the json loading is already done, only need to remove the progress for loading the images
             total -= list.size
         }
@@ -162,13 +159,13 @@ object Loading : Room() {
     }
 
     fun removeGroup(group: Group) {
-        total -= main.groups[group]!!.size
+        total -= Main.groups[group]!!.size
         checkEverythingFailed()
     }
 
     fun removeAllGroups() {
-        for (group in main.groups.keys) {
-            total -= main.groups[group]!!.size
+        for (group in Main.groups.keys) {
+            total -= Main.groups[group]!!.size
         }
         checkEverythingFailed()
     }

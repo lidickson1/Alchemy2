@@ -2,6 +2,7 @@ package main.rooms
 
 import main.Element
 import main.Language
+import main.Main
 import main.buttons.Arrow
 import main.buttons.ElementButton
 import main.buttons.Group
@@ -114,7 +115,7 @@ object ElementRoom : Room() {
         creation.clear()
         used.clear()
         //no else ifs because the element can be both
-        for (combo in main.comboList) {
+        for (combo in Main.comboList) {
             if (combo is NormalCombo) {
                 if (combo.element == element.id && combo.ingredientsDiscovered()) {
                     creation.addAll(combo.toTriples())
@@ -132,7 +133,7 @@ object ElementRoom : Room() {
                 }
             }
         }
-        for (combo in main.randomCombos) {
+        for (combo in Main.randomCombos) {
             if (combo.isResult(element.id)) {
                 creation.addAll(combo.toCreationTriples(element))
             }
@@ -150,20 +151,20 @@ object ElementRoom : Room() {
         elementButton.draw(Group.GROUP_X.toFloat(), y.toFloat())
         if (element.description != null) {
             val x = Group.GROUP_X + ElementButton.SIZE + 40
-            val width = main.screenWidth - Group.GROUP_X - x
-            main.textAlign(PConstants.LEFT)
-            main.textLeading(20f)
-            main.fill(255)
-            main.text(element.description, x.toFloat(), (y + 10).toFloat(), width.toFloat(), main.screenHeight.toFloat())
+            val width = Main.screenWidth - Group.GROUP_X - x
+            Main.textAlign(PConstants.LEFT)
+            Main.textLeading(20f)
+            Main.fill(255)
+            Main.text(element.description, x.toFloat(), (y + 10).toFloat(), width.toFloat(), Main.screenHeight.toFloat())
         }
         y += ElementButton.HEIGHT + 40
-        var x = (main.screenWidth / 2 - Group.GAP * 2) / 2
-        main.textAlign(PConstants.CENTER)
-        main.fill(255)
-        main.textSize(20f)
-        main.text(Language.getLanguageSelected().getLocalizedString("information", "creation"), x.toFloat(), y.toFloat())
+        var x = (Main.screenWidth / 2 - Group.GAP * 2) / 2
+        Main.textAlign(PConstants.CENTER)
+        Main.fill(255)
+        Main.textSize(20f)
+        Main.text(Language.languageSelected.getLocalizedString("information", "creation"), x.toFloat(), y.toFloat())
         y += 40
-        max = Math.floorDiv(main.screenHeight - y - 40 - Arrow.SIZE, ElementButton.HEIGHT + GAP)
+        max = Math.floorDiv(Main.screenHeight - y - 40 - Arrow.SIZE, ElementButton.HEIGHT + GAP)
         val length = ElementButton.SIZE + GAP + plus.width + GAP + ElementButton.SIZE + GAP + equal.width + GAP + ElementButton.SIZE
         var start = x - length / 2
         creationTotalPages = ceil((creation.size.toFloat() / max).toDouble()).toInt()
@@ -172,16 +173,16 @@ object ElementRoom : Room() {
         for ((index, triple) in triples.withIndex()) {
             x = start
             if (index > 0 && triples[index - 1].right == null && triple.left != null) {
-                main.image(plus, (x - ElementButton.SIZE - GAP).toFloat(), y.toFloat())
+                Main.image(plus, (x - ElementButton.SIZE - GAP).toFloat(), y.toFloat())
             }
             triple.left?.draw(x.toFloat(), y.toFloat())
             x += ElementButton.SIZE + GAP
-            main.image(plus, x.toFloat(), y.toFloat())
+            Main.image(plus, x.toFloat(), y.toFloat())
             x += plus.width + GAP
             triple.middle.draw(x.toFloat(), y.toFloat())
             x += ElementButton.SIZE + GAP
             if (triple.right != null) {
-                main.image(equal, x.toFloat(), y.toFloat())
+                Main.image(equal, x.toFloat(), y.toFloat())
                 x += equal.width + GAP
                 triple.right!!.draw(x.toFloat(), y.toFloat())
             }
@@ -193,28 +194,28 @@ object ElementRoom : Room() {
         y = Group.GROUP_Y + ElementButton.HEIGHT + 40 + 40 + (ElementButton.HEIGHT + GAP) * max
         creationLeftArrow.draw(x.toFloat(), y.toFloat())
         creationRightArrow.draw((x + length - Arrow.SIZE).toFloat(), y.toFloat())
-        x = (main.screenWidth / 2 - Group.GAP * 2) / 2 + main.screenWidth / 2
+        x = (Main.screenWidth / 2 - Group.GAP * 2) / 2 + Main.screenWidth / 2
         y = Group.GROUP_Y + ElementButton.HEIGHT + 40
-        main.textAlign(PConstants.CENTER)
-        main.fill(255)
-        main.textSize(20f)
-        main.text(Language.getLanguageSelected().getLocalizedString("information", "used to create"), x.toFloat(), y.toFloat())
-        start += main.screenWidth / 2
+        Main.textAlign(PConstants.CENTER)
+        Main.fill(255)
+        Main.textSize(20f)
+        Main.text(Language.languageSelected.getLocalizedString("information", "used to create"), x.toFloat(), y.toFloat())
+        start += Main.screenWidth / 2
         y += 40
         triples = usedTriples
         for ((index, triple) in triples.withIndex()) {
             x = start
             if (index > 0 && triples[index - 1].right == null && triple.left != null) {
-                main.image(plus, (x - ElementButton.SIZE - GAP).toFloat(), y.toFloat())
+                Main.image(plus, (x - ElementButton.SIZE - GAP).toFloat(), y.toFloat())
             }
             triple.left?.draw(x.toFloat(), y.toFloat())
             x += ElementButton.SIZE + GAP
-            main.image(plus, x.toFloat(), y.toFloat())
+            Main.image(plus, x.toFloat(), y.toFloat())
             x += plus.width + GAP
             triple.middle.draw(x.toFloat(), y.toFloat())
             x += ElementButton.SIZE + GAP
             if (triple.right != null) {
-                main.image(equal, x.toFloat(), y.toFloat())
+                Main.image(equal, x.toFloat(), y.toFloat())
                 x += equal.width + GAP
                 triple.right!!.draw(x.toFloat(), y.toFloat())
             }

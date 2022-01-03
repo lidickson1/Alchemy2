@@ -1,7 +1,6 @@
 package main.variations
 
 import main.Element
-import main.Entity
 import main.buttons.Pack
 import main.variations.appearances.Appearance
 import main.variations.appearances.Appearance.Companion.getAppearance
@@ -10,7 +9,7 @@ import processing.data.JSONObject
 import java.util.*
 
 abstract class Variation  //can't load images in the constructor because it won't be in the image threading process
-internal constructor(val json: JSONObject, val element: Element) : Entity() {
+internal constructor(val json: JSONObject, val element: Element) {
     open fun getImage(): PImage = getAppearance().getImage()
 
     abstract fun loadImages()

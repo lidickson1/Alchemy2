@@ -20,10 +20,11 @@ class RandomVariation internal constructor(json: JSONObject, element: Element) :
         var remainingWeight = 1.0
         for (i in 0 until array.size()) {
             val `object` = array.getJSONObject(i)
-            map[getAppearance(this, `object`)] =  `object`.getDouble("weight")
+            map[getAppearance(this, `object`)] = `object`.getDouble("weight")
             remainingWeight -= `object`.getDouble("weight")
         }
-        map[ElementTexture(element)] =  remainingWeight //chance of getting the original image
+        //TODO if remaining weight <= 0, means there is no chance for original image
+        map[ElementTexture(element)] = remainingWeight //chance of getting the original image
         appearances = map.keys.toList()
         random = WeightedRandom(map)
     }
