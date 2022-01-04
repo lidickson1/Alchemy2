@@ -18,7 +18,7 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
     private var alpha = 255
     private var alphaChange = 0
 
-    override val tintOverlay = false
+    override val tintedImage: PImage? = null
 
     private fun getShortenedDisplayName(): String {
         var displayName = element.getDisplayName()
@@ -270,12 +270,12 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
             //reset disabled
             if (Group.groupSelectedA != null) {
                 for (element in elementButtonsA) {
-                    element.setDisabled(false)
+                    element.disabled = false
                 }
             }
             if (Group.groupSelectedB != null) {
                 for (element in elementButtonsB) {
-                    element.setDisabled(false)
+                    element.disabled = false
                 }
             }
             elementButtonCreated.clear()

@@ -13,6 +13,7 @@ import main.rooms.Loading.removeAllGroups
 import main.rooms.Loading.removeGroup
 import main.rooms.Loading.updateProgress
 import main.rooms.PacksRoom.loadedPacks
+import processing.core.PImage
 import processing.data.JSONArray
 import processing.data.JSONObject
 import java.io.File
@@ -21,55 +22,19 @@ import kotlin.math.ceil
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-class Group : Button, Comparable<Group> {
+class Group(
+    val id: String,
+    val colour: Int,
+    image: PImage,
+    val pack: Pack,
+    private var alpha: Int = 255,
+    private var alphaChange: Int = 0
+) : Button(SIZE, SIZE, image), Comparable<Group> {
 
-    var colour: Int
-        private set
-    private var alpha = 255
-    private var alphaChange = 0
     private var done = false
-    var id: String
-        private set
-    var pack: Pack
-        private set
-    val localId: String
-        get() = id.split(":")[1]
-    private val isSelected get() = x >= groupSelectedX
+    val localId = getLocalId(id)
 
-    private constructor(json: JSONObject, pack: Pack) : super(SIZE, SIZE) {
-        this.pack = pack
-        id = pack.getNamespacedName(json.getString("name"))
-        val colourArray = json.getJSONArray("colour")
-        colour = Main.color(colourArray.getInt(0), colourArray.getInt(1), colourArray.getInt(2))
-
-        //check if a pack has the image, from top to bottom
-        for (pack1 in loadedPacks) {
-            if (pack1.name == "Alchemy" && this.pack.name == "Alchemy") {
-                //if the element is of the default pack and we are in the default pack right now, load default location
-                image = Main.loadImage("resources/groups/alchemy/$localId.png")
-                break
-            } else {
-                val packPath = "${pack1.path}/groups/${pack.namespace}/$localId.png"
-                if (File(packPath).exists()) {
-                    image = Main.loadImage(packPath)
-                    break
-                }
-            }
-        }
-        image.resize(SIZE, SIZE)
-    }
-
-    constructor(other: Group) : super(SIZE, SIZE) {
-        colour = other.colour
-        alpha = other.alpha
-        alphaChange = other.alphaChange
-        done = other.done
-        id = other.id
-        pack = other.pack
-        x = other.x
-        y = other.y
-        image = other.image
-    }
+    private fun isSelected() = x >= groupSelectedX
 
     //just added an extra !moving condition
     override fun inBounds(): Boolean {
@@ -112,29 +77,30 @@ class Group : Button, Comparable<Group> {
     }
 
     fun exists() = discovered.keys.any { it.id == id }
+
     override fun clicked() {
         if (!moving) {
-            if (!isSelected) {
+            if (!isSelected()) {
                 //in puzzle mode, you cannot open the same group twice
                 if (Game.mode == GameMode.PUZZLE && (this.id == groupSelectedA?.id || this.id == groupSelectedB?.id)) {
                     return
                 }
                 //the two blocks of code should be identical
                 if (groupSelectedA == null) {
-                    groupSelectedA = Group(this)
+                    groupSelectedA = Group(id, colour, image, pack, 0, ALPHA_CHANGE)
+                    groupSelectedA!!.x = x
+                    groupSelectedA!!.y = y
                     moving = true
                     deltaX = groupSelectedX - groupSelectedA!!.x
                     deltaY = groupSelectedAY - groupSelectedA!!.y
-                    groupSelectedA!!.alpha = 0 //because by default alpha is 255
-                    groupSelectedA!!.alphaChange = ALPHA_CHANGE
                     resetA()
                 } else if (groupSelectedB == null) {
-                    groupSelectedB = Group(this)
+                    groupSelectedB = Group(id, colour, image, pack, 0, ALPHA_CHANGE)
+                    groupSelectedB!!.x = x
+                    groupSelectedB!!.y = y
                     moving = true
                     deltaX = groupSelectedX - groupSelectedB!!.x
                     deltaY = groupSelectedBY - groupSelectedB!!.y
-                    groupSelectedB!!.alpha = 0 //because by default alpha is 255
-                    groupSelectedB!!.alphaChange = ALPHA_CHANGE
                     resetB()
                 }
             } else {
@@ -169,6 +135,7 @@ class Group : Button, Comparable<Group> {
         private var deltaX = 0f
         private var deltaY = 0f
         private var moving = false
+
         fun reset() {
             pageNumber = 0
             groupSelectedA = null
@@ -177,40 +144,63 @@ class Group : Button, Comparable<Group> {
 
         fun loadGroups(array: JSONArray, pack: Pack) {
             for (i in 0 until array.size()) {
-                val `object` = array.getJSONObject(i)
-                if (`object`.hasKey("remove")) {
-                    if (`object`.getString("remove") == "all") {
+                val json = array.getJSONObject(i)
+                if (json.hasKey("remove")) {
+                    if (json.getString("remove") == "all") {
                         removeAllGroups()
                         Main.groups.clear()
                     } else {
-                        val group = getGroup(pack.getNamespacedName(`object`.getString("remove")))
+                        val group = getGroup(pack.getNamespacedName(json.getString("remove")))
                         if (group == null) {
-                            System.err.println(pack.getNamespacedName(`object`.getString("remove")) + " group not found!")
+                            System.err.println(pack.getNamespacedName(json.getString("remove")) + " group not found!")
                         } else {
                             removeGroup(group)
                             Main.groups.remove(group)
                         }
                     }
                 } else {
-                    Main.groups[Group(`object`, pack)] = HashSet<Element>()
+                    Main.groups[createGroup(json, pack)] = HashSet<Element>()
                 }
                 updateProgress()
+//                Thread.sleep(500)
             }
+        }
+
+        private fun getLocalId(id: String) = id.split(":")[1]
+
+        private fun createGroup(json: JSONObject, pack: Pack): Group {
+            val id = pack.getNamespacedName(json.getString("name"))
+            val colourArray = json.getJSONArray("colour")
+            lateinit var image: PImage
+
+            //check if a pack has the image, from top to bottom
+            for (loadedPack in loadedPacks) {
+                if (loadedPack.name == "Alchemy" && pack.name == "Alchemy") {
+                    //if the element is of the default pack and we are in the default pack right now, load default location
+                    image = Main.loadImage("resources/groups/alchemy/${getLocalId(id)}.png")
+                    break
+                } else {
+                    val packPath = "${loadedPack.path}/groups/${pack.namespace}/${getLocalId(id)}.png"
+                    if (File(packPath).exists()) {
+                        image = Main.loadImage(packPath)
+                        break
+                    }
+                }
+            }
+            return Group(
+                id,
+                Main.color(colourArray.getInt(0), colourArray.getInt(1), colourArray.getInt(2)),
+                image,
+                pack
+            )
         }
 
         @JvmStatic
-        fun getGroup(id: String): Group? {
-            for (group in Main.groups.keys) {
-                if (group.id == id) {
-                    return group
-                }
-            }
-            return null
-        }
+        fun getGroup(id: String): Group? = Main.groups.keys.find { it.id == id }
 
         fun drawGroups() {
-            var x: Int = GROUP_X
-            var y: Int = GROUP_Y
+            var x = GROUP_X
+            var y = GROUP_Y
             val maxX = (Main.screenWidth / 2f * 0.6).roundToInt() //maximum X value to draw the group grid
             groupSelectedX = maxX + 100
             groupSelectedAY = y
@@ -236,8 +226,8 @@ class Group : Button, Comparable<Group> {
             }
             groupSelectedA?.let {
                 if (it.x < groupSelectedX) {
-                    it.incrementX(deltaX / GROUP_MOVING_RATE)
-                    it.incrementY(deltaY / GROUP_MOVING_RATE)
+                    it.x += deltaX / GROUP_MOVING_RATE
+                    it.y += deltaY / GROUP_MOVING_RATE
                     //having the if statement here ensures that it only gets run once
                     if (it.x >= groupSelectedX) {
                         //need to set it so it doesn't go past
@@ -258,8 +248,8 @@ class Group : Button, Comparable<Group> {
             }
             groupSelectedB?.let {
                 if (it.x < groupSelectedX) {
-                    it.incrementX(deltaX / GROUP_MOVING_RATE)
-                    it.incrementY(deltaY / GROUP_MOVING_RATE)
+                    it.x += deltaX / GROUP_MOVING_RATE
+                    it.y += deltaY / GROUP_MOVING_RATE
                     //having the if statement here ensures that it only gets run once
                     if (it.x >= groupSelectedX) {
                         it.x = groupSelectedX.toFloat()
@@ -281,14 +271,15 @@ class Group : Button, Comparable<Group> {
         }
 
         fun setHintGroups(a: Group, b: Group) {
-            groupSelectedA = Group(a)
-            groupSelectedB = Group(b)
+            groupSelectedA = Group(a.id, a.colour, a.image, a.pack)
+            groupSelectedB = Group(b.id, b.colour, b.image, b.pack)
             resetA()
             resetB()
         }
 
         fun getCurrentPageGroups(): List<Group> {
-            return discovered.keys.toList().subList(pageNumber * maxGroups, min((pageNumber + 1) * maxGroups, discovered.keys.size))
+            return discovered.keys.toList()
+                .subList(pageNumber * maxGroups, min((pageNumber + 1) * maxGroups, discovered.keys.size))
         }
     }
 }

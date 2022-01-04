@@ -4,6 +4,7 @@ import main.Language
 import main.Main
 import main.Slider
 import main.buttons.iconbuttons.Exit
+import main.buttons.iconbuttons.IconButton
 import main.buttons.iconbuttons.ToggleButton
 import java.io.OutputStream
 import java.io.PrintStream
@@ -54,12 +55,12 @@ object SettingsRoom : Room() {
         Main.text(Language.languageSelected.getLocalizedString("settings", "volume"), Main.screenWidth / 2f, 200f)
         slider.moveTo(Main.screenWidth / 2f - slider.width / 2, 220f)
         slider.draw()
-        val length = (ToggleButton.SIZE + ToggleButton.GAP) * 3 - ToggleButton.GAP
+        val length = (IconButton.SIZE + IconButton.GAP) * 3 - IconButton.GAP
         var x = Main.screenWidth / 2 - length / 2
         musicButton.draw(x.toFloat(), 400f)
-        x += ToggleButton.SIZE + ToggleButton.GAP
+        x += IconButton.SIZE + IconButton.GAP
         soundButton.draw(x.toFloat(), 400f)
-        x += ToggleButton.SIZE + ToggleButton.GAP
+        x += IconButton.SIZE + IconButton.GAP
         groupColour.draw(x.toFloat(), 400f)
         exit.draw()
 

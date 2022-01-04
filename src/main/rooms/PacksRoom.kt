@@ -96,7 +96,7 @@ object PacksRoom : Room() {
             pack.draw(x.toFloat(), y.toFloat())
             y += pack.height
         }
-        done.setDisabled(loadedPacks.isEmpty())
+        done.disabled = loadedPacks.isEmpty()
         done.draw((Main.screenWidth - Group.GAP - IconButton.SIZE - (IconButton.SIZE + Group.GAP)).toFloat(), (Main.screenHeight - Group.GAP - IconButton.SIZE).toFloat())
         exit.draw()
     }

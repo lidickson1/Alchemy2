@@ -26,7 +26,7 @@ object SaveRoom : Room() {
     }
 
     override fun draw() {
-        save.setDisabled(!updateText())
+        save.disabled = !updateText()
         drawTitle("save", "save game")
         Main.textSize(20f)
         Main.text(Language.languageSelected.getLocalizedString("save", "enter name"), Main.screenWidth / 2f, Main.screenHeight / 2f - 60)

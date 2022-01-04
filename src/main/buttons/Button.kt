@@ -2,51 +2,35 @@ package main.buttons
 
 import ddf.minim.AudioPlayer
 import main.Main
-import processing.core.PImage
 import processing.core.PApplet
+import processing.core.PImage
 
-open class Button  {
-    val width: Int
-    val height: Int
+open class Button(val width: Int, val height: Int, val image: PImage) {
     protected var x = 0f
     protected var y = 0f
-    var image: PImage
-    @JvmField
-    protected var tintedImage: PImage? = null
-    open val tintOverlay = true
-    private var disabled = false
 
-    internal constructor(width: Int, height: Int): this(width, height, null as PImage?)
+    //if this is not lazy, it will cause the screen to flicker when the game is loading lol
+    open val tintedImage: PImage? by lazy { brightenImage(image) }
+    var disabled = false
 
-    protected constructor(width: Int, height: Int, path: String?) : this(
+    internal constructor(width: Int, height: Int) : this(width, height, error.copy())
+
+    protected constructor(width: Int, height: Int, path: String) : this(
         width,
         height,
-        Main.loadImage(path)
+        Main.loadImage(path) ?: error.copy()
     )
 
-    private constructor(width: Int, height: Int, image: PImage?) {
-        this.width = width
-        this.height = height
-        this.image = image ?: error.copy()
-        this.image.resize(width, height)
+    init {
+        image.resize(width, height)
     }
 
-//    fun setImage(image: PImage?) {
-//        this.image = image
-//        if (this.image == null) {
-//            this.image = error.copy()
-//            this.image!!.resize(width, height)
-//        }
-//    }
-
-    //using getImage() here so it's easier to implement ToggleButton
     open fun draw(x: Float, y: Float) {
         this.x = x
         this.y = y
         drawButton()
         if (inBounds()) {
-            if (tintOverlay) {
-                getTintedImage()
+            if (tintedImage != null) {
                 if (disabled) {
                     Main.tint(255f, 0f, 0f, ALPHA.toFloat())
                 }
@@ -65,16 +49,10 @@ open class Button  {
         postDraw()
     }
 
-    protected open fun getTintedImage() {
-        if (tintedImage == null) {
-            tintedImage = brightenImage(image)
-        }
-    }
-
     protected open fun postDraw() {}
 
     protected open fun draw() {
-        this.draw(x, y)
+        draw(x, y)
     }
 
     open fun mousePressed() {
@@ -89,25 +67,12 @@ open class Button  {
 
     open fun clicked() {}
 
-    //using getImage() here so it's easier to implement ToggleButton
     protected open fun drawButton() {
         Main.image(image, x, y)
     }
 
     protected open fun inBounds(): Boolean {
         return Main.mouseX >= x && Main.mouseX < x + width && Main.mouseY >= y && Main.mouseY < y + height
-    }
-
-    fun incrementX(x: Float) {
-        this.x += x
-    }
-
-    fun incrementY(y: Float) {
-        this.y += y
-    }
-
-    fun setDisabled(disabled: Boolean) {
-        this.disabled = disabled
     }
 
     companion object {
