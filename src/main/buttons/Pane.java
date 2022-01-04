@@ -1,5 +1,6 @@
 package main.buttons;
 
+import main.Main;
 import processing.core.PConstants;
 
 public abstract class Pane extends Button {
@@ -22,12 +23,12 @@ public abstract class Pane extends Button {
 
     @Override
     protected void drawButton() {
-        main.image(this.getImage(), this.getX(), this.getY());
+        Main.INSTANCE.image(this.getImage(), this.getX(), this.getY());
 
-        main.fill(255);
-        main.textAlign(PConstants.CENTER, PConstants.CENTER);
-        main.textSize(20);
-        main.text(this.getText(), main.screenWidth / 2F, this.getY() + 30);
+        Main.INSTANCE.fill(255);
+        Main.INSTANCE.textAlign(PConstants.CENTER, PConstants.CENTER);
+        Main.INSTANCE.textSize(20);
+        Main.INSTANCE.text(this.getText(), Main.INSTANCE.screenWidth / 2F, this.getY() + 30);
     }
 
     protected abstract String getText();

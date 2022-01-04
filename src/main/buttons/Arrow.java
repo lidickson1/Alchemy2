@@ -1,5 +1,7 @@
 package main.buttons;
 
+import main.Main;
+
 public abstract class Arrow extends Button {
 
     public static final int SIZE = 32;
@@ -21,9 +23,9 @@ public abstract class Arrow extends Button {
             this.drawButton();
 
             if (this.inBounds()) {
-                main.noStroke();
-                main.fill(255, 80);
-                main.rect(x, y, this.getWidth(), this.getHeight(), 6);
+                Main.INSTANCE.noStroke();
+                Main.INSTANCE.fill(255, 80);
+                Main.INSTANCE.rect(x, y, this.getWidth(), this.getHeight(), 6);
             }
         }
     }

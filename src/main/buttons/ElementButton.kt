@@ -1,6 +1,7 @@
 package main.buttons
 
 import main.Element
+import main.Main
 import main.rooms.ElementRoom
 import main.rooms.ElementRoom.elementButton
 import main.rooms.Game
@@ -17,13 +18,11 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
     private var alpha = 255
     private var alphaChange = 0
 
-    init {
-        tintOverlay = false
-    }
+    override val tintOverlay = false
 
     private fun getShortenedDisplayName(): String {
         var displayName = element.getDisplayName()
-        while (main.textWidth("$displayName...") >= SIZE) {
+        while (Main.textWidth("$displayName...") >= SIZE) {
             displayName = displayName.substring(0, displayName.length - 1)
         }
         return "$displayName..."
@@ -34,43 +33,43 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
     }
 
     override fun drawButton() {
-        main.image(getDrawnImage(), x, y, SIZE.toFloat(), SIZE.toFloat())
-        main.fill(if (main.settings.getBoolean("group colour")) element.group.colour else 255, alpha.toFloat())
-        main.textAlign(PConstants.CENTER)
-        val drawTooltip: Boolean = main.setFontSize(element.getDisplayName(), 20, SIZE)
+        Main.image(getDrawnImage(), x, y, SIZE.toFloat(), SIZE.toFloat())
+        Main.fill(if (Main.settings.getBoolean("group colour")) element.group.colour else 255, alpha.toFloat())
+        Main.textAlign(PConstants.CENTER)
+        val drawTooltip: Boolean = Main.setFontSize(element.getDisplayName(), 20, SIZE)
         if (touching == null && inBounds() && drawTooltip) {
             touching = this
         }
-        main.text(if (drawTooltip) getShortenedDisplayName() else element.getDisplayName(), x + SIZE / 2f, y + SIZE + 22)
-        main.fill(255)
-        if (main.room is Game && (elementButtonSelectedA === this || elementButtonSelectedB === this)) {
+        Main.text(if (drawTooltip) getShortenedDisplayName() else element.getDisplayName(), x + SIZE / 2f, y + SIZE + 22)
+        Main.fill(255)
+        if (Main.room is Game && (elementButtonSelectedA === this || elementButtonSelectedB === this)) {
             if (failed()) {
-                main.stroke(255f, 0f, 0f)
+                Main.stroke(255f, 0f, 0f)
             } else {
-                main.stroke(255)
+                Main.stroke(255)
             }
-            main.noFill()
-            main.rect(x, y, SIZE.toFloat(), HEIGHT.toFloat())
+            Main.noFill()
+            Main.rect(x, y, SIZE.toFloat(), HEIGHT.toFloat())
         }
 
         //if failed timer passed failed time limit and it didn't get reset yet
-        if (main.millis() - time > FAILED_TIME && time != -1L) {
+        if (Main.millis() - time > FAILED_TIME && time != -1L) {
             time = -1 //reset timer
             elementButtonSelectedA = null
             elementButtonSelectedB = null
             Element.elementSelectedA = null
             Element.elementSelectedB = null
         }
-        main.noStroke()
+        Main.noStroke()
     }
 
     override fun clicked() {
-        if (main.mouseButton == PConstants.LEFT) {
-            if (main.room is Game) {
+        if (Main.mouseButton == PConstants.LEFT) {
+            if (Main.room is Game) {
                 if (!failed()) {
-                    if (main.keyPressed && main.keyCode == PConstants.SHIFT) {
+                    if (Main.keyPressed && Main.keyCode == PConstants.SHIFT) {
                         //these conditions must be separate, or else when it reaches max, it does normal select
-                        val max = Math.floorDiv(main.screenWidth - Group.groupSelectedX, SIZE + GAP) //determine the maximum amount of elements for multi select (based on screen size for now)
+                        val max = Math.floorDiv(Main.screenWidth - Group.groupSelectedX, SIZE + GAP) //determine the maximum amount of elements for multi select (based on screen size for now)
                         if (Element.elementsSelected.size < max) {
                             //clear normal select
                             elementButtonSelectedA = null
@@ -108,13 +107,13 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
                         }
                     }
                 }
-            } else if (main.room is ElementRoom) {
+            } else if (Main.room is ElementRoom) {
                 elementButton = this
-                main.switchRoom(ElementRoom)
+                Main.switchRoom(ElementRoom)
             }
         } else {
             elementButton = this
-            main.switchRoom(ElementRoom)
+            Main.switchRoom(ElementRoom)
         }
     }
 
@@ -134,7 +133,7 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
                 alpha = 0
             }
         }
-        main.tint(255, alpha.toFloat())
+        Main.tint(255, alpha.toFloat())
     }
 
     companion object {
@@ -169,7 +168,7 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
 
         fun drawElements() {
             //determine how many elements to draw horizontally
-            val elementCountX = Math.floorDiv(main.screenWidth - (Group.groupSelectedX + Group.SIZE + Group.GAP + 20 + Arrow.SIZE), SIZE + GAP)
+            val elementCountX = Math.floorDiv(Main.screenWidth - (Group.groupSelectedX + Group.SIZE + Group.GAP + 20 + Arrow.SIZE), SIZE + GAP)
             //determine how many elements to draw vertically
             val elementCountY = Math.floorDiv(Group.groupSelectedBY - Group.groupSelectedAY, HEIGHT + 16)
             maxElements = elementCountX * elementCountY
@@ -211,14 +210,14 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
             }
 
             //reset transparency
-            main.tint(255, 255f)
+            Main.tint(255, 255f)
 
             //draw tooltip, it's done here so it gets drawn on top of all the elements
             drawTooltip()
 
             //draw multi select
             x = Group.groupSelectedX
-            y = main.screenHeight - Group.GAP - HEIGHT
+            y = Main.screenHeight - Group.GAP - HEIGHT
             for (element in elementsSelected) {
                 element.draw(x.toFloat(), y.toFloat())
                 x += SIZE + GAP
@@ -228,30 +227,30 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
         fun drawTooltip() {
             if (touching != null) {
                 //draw tool tip
-                main.textSize(20f)
+                Main.textSize(20f)
                 val padding = 2 //some horizontal padding
-                val width: Float = main.textWidth(touching!!.element.getDisplayName()) + padding * 2
-                val height: Float = main.textAscent() + main.textDescent()
+                val width: Float = Main.textWidth(touching!!.element.getDisplayName()) + padding * 2
+                val height: Float = Main.textAscent() + Main.textDescent()
                 val offset = 13f //13 pixel offset so it doesn't cover the cursor
-                var x: Float = main.mouseX + offset
-                if (x + width >= main.screenWidth) {
-                    x = main.screenWidth - width - 1 //subtracting 1 here so that the border is shown
+                var x: Float = Main.mouseX + offset
+                if (x + width >= Main.screenWidth) {
+                    x = Main.screenWidth - width - 1 //subtracting 1 here so that the border is shown
                 }
-                main.stroke(255)
-                main.fill(0)
-                main.rect(x, main.mouseY.toFloat(), width, height)
-                main.textAlign(PConstants.LEFT, PConstants.TOP)
-                main.fill(if (main.settings.getBoolean("group colour")) touching!!.element.group.colour else 255, touching!!.alpha.toFloat())
-                main.text(touching!!.element.getDisplayName(), x + padding, main.mouseY.toFloat())
+                Main.stroke(255)
+                Main.fill(0)
+                Main.rect(x, Main.mouseY.toFloat(), width, height)
+                Main.textAlign(PConstants.LEFT, PConstants.TOP)
+                Main.fill(if (Main.settings.getBoolean("group colour")) touching!!.element.group.colour else 255, touching!!.alpha.toFloat())
+                Main.text(touching!!.element.getDisplayName(), x + padding, Main.mouseY.toFloat())
             }
         }
 
         fun drawCreatedElements() {
             touching = null
             val length = (SIZE + GAP) * elementButtonCreated.size - GAP
-            var x: Int = main.screenWidth / 2 - length / 2
+            var x: Int = Main.screenWidth / 2 - length / 2
             for (element in elementButtonCreated) {
-                element.draw(x.toFloat(), main.screenHeight / 2f - SIZE / 2f)
+                element.draw(x.toFloat(), Main.screenHeight / 2f - SIZE / 2f)
                 x += SIZE + GAP
             }
             drawTooltip()
@@ -259,12 +258,12 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
 
         fun drawHintElement(element: ElementButton) {
             touching = null
-            element.draw(main.screenWidth / 2f - SIZE / 2f, main.screenHeight / 2f - SIZE / 2f)
+            element.draw(Main.screenWidth / 2f - SIZE / 2f, Main.screenHeight / 2f - SIZE / 2f)
             drawTooltip()
         }
 
         private fun failed(): Boolean {
-            return time != -1L && main.millis() - time <= FAILED_TIME
+            return time != -1L && Main.millis() - time <= FAILED_TIME
         }
 
         fun checkForMultiCombos() {
@@ -289,7 +288,7 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
                     elementButtonCreated.add(ElementButton(element))
                 }
             } else {
-                time = main.millis().toLong()
+                time = Main.millis().toLong()
             }
         }
 
@@ -307,7 +306,7 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
                         elementButtonCreated.add(ElementButton(element))
                     }
                 } else {
-                    time = main.millis().toLong()
+                    time = Main.millis().toLong()
                 }
             }
         }

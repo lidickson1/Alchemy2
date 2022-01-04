@@ -1,5 +1,6 @@
 package main.buttons.menubuttons;
 
+import main.Main;
 import main.rooms.PacksRoom;
 
 public class PacksButton extends MenuButton {
@@ -10,7 +11,7 @@ public class PacksButton extends MenuButton {
 
     @Override
     public void clicked() {
-        main.switchRoom(PacksRoom.INSTANCE);
+        Main.INSTANCE.switchRoom(PacksRoom.INSTANCE);
     }
 
 }

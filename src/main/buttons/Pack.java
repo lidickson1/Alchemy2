@@ -3,10 +3,10 @@ package main.buttons;
 import kotlin.Pair;
 import main.Element;
 import main.Language;
+import main.Main;
 import main.rooms.Loading;
 import main.rooms.PacksRoom;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.text.WordUtils;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -32,11 +32,11 @@ public class Pack extends LongButton {
 
         this.path = path;
         this.json = json;
-        this.icon = main.loadImage(path + "/icon.png");
+        this.icon = Main.INSTANCE.loadImage(path + "/icon.png");
         this.icon.resize(HEIGHT - 1, HEIGHT - 1);
 
         if (this.json.getBoolean("auto english", false)) {
-            this.englishJson = main.loadJSONObject(path + "/languages/english.json");
+            this.englishJson = Main.INSTANCE.loadJSONObject(path + "/languages/english.json");
         }
     }
 
@@ -55,7 +55,7 @@ public class Pack extends LongButton {
         array.append("alchemy:water");
         this.json.setJSONArray("starting elements", array);
 
-        this.icon = main.loadImage("resources/images/icon.png");
+        this.icon = Main.INSTANCE.loadImage("resources/images/icon.png");
         this.icon.resize(HEIGHT, HEIGHT);
     }
 
@@ -89,7 +89,7 @@ public class Pack extends LongButton {
 
     public void loadAtlas() {
         try {
-            PImage atlas = main.loadImage(this.getAtlasImagePath());
+            PImage atlas = Main.INSTANCE.loadImage(this.getAtlasImagePath());
             Scanner scanner = new Scanner(new File(this.getAtlasTextPath()));
             int x = 0;
             int y = 0;
@@ -121,7 +121,7 @@ public class Pack extends LongButton {
 
     private ArrayList<Pair<PImage, String>> getPairs() {
         ArrayList<Pair<PImage, String>> list = new ArrayList<>();
-        for (HashSet<Element> elements : main.groups.values()) {
+        for (HashSet<Element> elements : Main.INSTANCE.groups.values()) {
             for (Element element : elements) {
                 if (element.isInPack(this)) {
                     list.addAll(element.getImages());
@@ -140,7 +140,7 @@ public class Pack extends LongButton {
                 if (width == 0 || height == 0) {
                     return; //this could happen if a pack removes elements!
                 }
-                PGraphics graphics = main.createGraphics(width * ElementButton.SIZE, height * ElementButton.SIZE);
+                PGraphics graphics = Main.INSTANCE.createGraphics(width * ElementButton.SIZE, height * ElementButton.SIZE);
                 PrintWriter printWriter = new PrintWriter(this.getAtlasTextPath());
                 graphics.beginDraw();
                 int index = 0;
@@ -177,18 +177,18 @@ public class Pack extends LongButton {
 
     @Override
     protected void drawButton() {
-        main.image(this.icon, this.getX() + 1, this.getY() + 1);
+        Main.INSTANCE.image(this.icon, this.getX() + 1, this.getY() + 1);
 
         super.drawButton(); //drawing this later because I want the outline to be drawn on top of the icon
 
-        main.textSize(20);
-        main.textAlign(PConstants.LEFT, PConstants.CENTER);
-        main.fill(255);
-        main.text(this.getName(), this.getX() + HEIGHT + 10, this.getY() + 16);
+        Main.INSTANCE.textSize(20);
+        Main.INSTANCE.textAlign(PConstants.LEFT, PConstants.CENTER);
+        Main.INSTANCE.fill(255);
+        Main.INSTANCE.text(this.getName(), this.getX() + HEIGHT + 10, this.getY() + 16);
 
-        main.textAlign(PConstants.LEFT, PConstants.CENTER);
-        main.fill(120);
-        main.text(Language.getLanguageSelected().getLocalizedString("packs", "by") + ": " + this.json.getString("author"), this.getX() + HEIGHT + 10, this.getY() + HEIGHT - 26);
+        Main.INSTANCE.textAlign(PConstants.LEFT, PConstants.CENTER);
+        Main.INSTANCE.fill(120);
+        Main.INSTANCE.text(Language.getLanguageSelected().getLocalizedString("packs", "by") + ": " + this.json.getString("author"), this.getX() + HEIGHT + 10, this.getY() + HEIGHT - 26);
     }
 
     @Override
@@ -272,7 +272,7 @@ public class Pack extends LongButton {
             String name = WordUtils.capitalize(element.replace("_"," "));
             this.englishJson.getJSONObject("elements").getJSONObject(this.getNamespace()).put(element, name);
             Objects.requireNonNull(Language.getLanguage("english")).getJson().getJSONObject("elements").getJSONObject(this.getNamespace()).put(element, name);
-            main.saveJSONObject(this.englishJson, this.path + "/languages/english.json", "indent=4");
+            Main.INSTANCE.saveJSONObject(this.englishJson, this.path + "/languages/english.json", "indent=4");
         }
     }
 

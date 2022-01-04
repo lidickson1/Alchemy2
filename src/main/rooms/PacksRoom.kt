@@ -25,7 +25,7 @@ object PacksRoom : Room() {
         done = object : IconButton("resources/images/done_button.png") {
             override fun clicked() {
                 save()
-                main.switchRoom(Loading)
+                Main.switchRoom(Loading)
             }
         }
     }

@@ -1,6 +1,7 @@
 package main.buttons
 
 import main.Element
+import main.Main
 import main.buttons.ElementButton.Companion.hidePagesA
 import main.buttons.ElementButton.Companion.hidePagesB
 import main.buttons.ElementButton.Companion.resetA
@@ -21,6 +22,7 @@ import kotlin.math.min
 import kotlin.math.roundToInt
 
 class Group : Button, Comparable<Group> {
+
     var colour: Int
         private set
     private var alpha = 255
@@ -30,23 +32,26 @@ class Group : Button, Comparable<Group> {
         private set
     var pack: Pack
         private set
+    val localId: String
+        get() = id.split(":")[1]
+    private val isSelected get() = x >= groupSelectedX
 
     private constructor(json: JSONObject, pack: Pack) : super(SIZE, SIZE) {
         this.pack = pack
         id = pack.getNamespacedName(json.getString("name"))
         val colourArray = json.getJSONArray("colour")
-        colour = main.color(colourArray.getInt(0), colourArray.getInt(1), colourArray.getInt(2))
+        colour = Main.color(colourArray.getInt(0), colourArray.getInt(1), colourArray.getInt(2))
 
         //check if a pack has the image, from top to bottom
         for (pack1 in loadedPacks) {
             if (pack1.name == "Alchemy" && this.pack.name == "Alchemy") {
                 //if the element is of the default pack and we are in the default pack right now, load default location
-                image = main.loadImage("resources/groups/alchemy/$localId.png")
+                image = Main.loadImage("resources/groups/alchemy/$localId.png")
                 break
             } else {
-                val packPath = pack1.path + "/groups/" + this.pack.namespace + "/" + localId + ".png"
+                val packPath = "${pack1.path}/groups/${pack.namespace}/$localId.png"
                 if (File(packPath).exists()) {
-                    image = main.loadImage(packPath)
+                    image = Main.loadImage(packPath)
                     break
                 }
             }
@@ -54,12 +59,21 @@ class Group : Button, Comparable<Group> {
         image.resize(SIZE, SIZE)
     }
 
-    val localId: String
-        get() = id.split(":")[1]
+    constructor(other: Group) : super(SIZE, SIZE) {
+        colour = other.colour
+        alpha = other.alpha
+        alphaChange = other.alphaChange
+        done = other.done
+        id = other.id
+        pack = other.pack
+        x = other.x
+        y = other.y
+        image = other.image
+    }
 
     //just added an extra !moving condition
     override fun inBounds(): Boolean {
-        return main.mouseX >= x && main.mouseX <= x + SIZE && main.mouseY >= y && main.mouseY <= y + SIZE && !moving
+        return Main.mouseX >= x && Main.mouseX <= x + SIZE && Main.mouseY >= y && Main.mouseY <= y + SIZE && !moving
     }
 
     override fun compareTo(other: Group): Int {
@@ -74,7 +88,7 @@ class Group : Button, Comparable<Group> {
 
     override fun drawButton() {
         updateAlpha()
-        main.image(image, x, y)
+        Main.image(image, x, y)
     }
 
     private fun updateAlpha() {
@@ -94,32 +108,10 @@ class Group : Button, Comparable<Group> {
                 done = true
             }
         }
-        main.tint(255, alpha.toFloat())
+        Main.tint(255, alpha.toFloat())
     }
 
-    private val isSelected get() = x >= groupSelectedX
-
-    fun exists(): Boolean {
-        for (group in discovered.keys) {
-            if (group.id == id) {
-                return true
-            }
-        }
-        return false
-    }
-
-    constructor(other: Group) : super(SIZE, SIZE) {
-        colour = other.colour
-        alpha = other.alpha
-        alphaChange = other.alphaChange
-        done = other.done
-        id = other.id
-        pack = other.pack
-        x = other.x
-        y = other.y
-        image = other.image
-    }
-
+    fun exists() = discovered.keys.any { it.id == id }
     override fun clicked() {
         if (!moving) {
             if (!isSelected) {
@@ -189,18 +181,18 @@ class Group : Button, Comparable<Group> {
                 if (`object`.hasKey("remove")) {
                     if (`object`.getString("remove") == "all") {
                         removeAllGroups()
-                        main.groups.clear()
+                        Main.groups.clear()
                     } else {
                         val group = getGroup(pack.getNamespacedName(`object`.getString("remove")))
                         if (group == null) {
                             System.err.println(pack.getNamespacedName(`object`.getString("remove")) + " group not found!")
                         } else {
                             removeGroup(group)
-                            main.groups.remove(group)
+                            Main.groups.remove(group)
                         }
                     }
                 } else {
-                    main.groups[Group(`object`, pack)] = HashSet<Element>()
+                    Main.groups[Group(`object`, pack)] = HashSet<Element>()
                 }
                 updateProgress()
             }
@@ -208,7 +200,7 @@ class Group : Button, Comparable<Group> {
 
         @JvmStatic
         fun getGroup(id: String): Group? {
-            for (group in main.groups.keys) {
+            for (group in Main.groups.keys) {
                 if (group.id == id) {
                     return group
                 }
@@ -219,11 +211,11 @@ class Group : Button, Comparable<Group> {
         fun drawGroups() {
             var x: Int = GROUP_X
             var y: Int = GROUP_Y
-            val maxX = (main.screenWidth / 2f * 0.6).roundToInt() //maximum X value to draw the group grid
+            val maxX = (Main.screenWidth / 2f * 0.6).roundToInt() //maximum X value to draw the group grid
             groupSelectedX = maxX + 100
             groupSelectedAY = y
-            groupSelectedBY = (main.screenHeight * 0.44).roundToInt()
-            val maxY: Int = main.screenHeight - 60 //maximum Y value to draw the group grid
+            groupSelectedBY = (Main.screenHeight * 0.44).roundToInt()
+            val maxY: Int = Main.screenHeight - 60 //maximum Y value to draw the group grid
             //determine how many groups to draw horizontally
             groupCountX = Math.floorDiv(maxX - x, SIZE + GAP)
             //determine how many groups to draw vertically
@@ -285,7 +277,7 @@ class Group : Button, Comparable<Group> {
             if (groupSelectedB?.done == true) {
                 groupSelectedB = null
             }
-            main.tint(255, 255f)
+            Main.tint(255, 255f)
         }
 
         fun setHintGroups(a: Group, b: Group) {

@@ -1,5 +1,6 @@
 package main.buttons.iconbuttons;
 
+import main.Main;
 import processing.core.PImage;
 
 public class ToggleButton extends IconButton {
@@ -14,18 +15,18 @@ public class ToggleButton extends IconButton {
         super(path);
 
         //TODO: this is a rough implementation
-        this.onImage = main.loadImage(path);
+        this.onImage = Main.INSTANCE.loadImage(path);
         this.onImage.resize(this.getWidth(), this.getHeight());
         this.onImageOverlay = brightenImage(this.onImage);
 
-        this.offImage = main.loadImage(path.replace(".png", "_off.png"));
+        this.offImage = Main.INSTANCE.loadImage(path.replace(".png", "_off.png"));
         this.offImage.resize(this.getWidth(), this.getHeight());
         this.offImageOverlay = brightenImage(this.offImage);
     }
 
     @Override
-    public PImage getImage() {
-        return this.toggled ? this.onImage : this.offImage;
+    protected void drawButton() {
+        Main.INSTANCE.image(this.toggled ? this.onImage : this.offImage, this.getX(), this.getY());
     }
 
     @Override
