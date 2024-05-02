@@ -13,6 +13,7 @@ class RandomVariation internal constructor(json: JSONObject, element: Element) :
 
     private var appearances: List<Appearance> by lateVal()
     private var random: WeightedRandom<Appearance> by lateVal()
+    private lateinit var current: Appearance
 
     override fun loadImages() {
         val array = json.getJSONArray("textures")
@@ -27,14 +28,19 @@ class RandomVariation internal constructor(json: JSONObject, element: Element) :
         map[ElementTexture(element)] = remainingWeight //chance of getting the original image
         appearances = map.keys.toList()
         random = WeightedRandom(map)
+        current = appearances[0]
     }
 
     override fun getAppearance(): Appearance {
-        return random.get()
+        return current
     }
 
     override fun getPairs(): List<Pair<PImage, String>> {
         return appearances.map { it.getPairs() }.flatten()
+    }
+
+    fun setCurrentImage() {
+        current = random.get()
     }
 
     //this must be used so it doesn't get a random name every time, but the name corresponding the chosen image

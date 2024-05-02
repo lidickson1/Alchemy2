@@ -7,6 +7,7 @@ import main.rooms.ElementRoom.elementButton
 import main.rooms.Game
 import main.rooms.Game.discovered
 import main.rooms.GameMode
+import main.variations.RandomVariation
 import processing.core.PConstants
 import processing.core.PImage
 import java.util.*
@@ -19,6 +20,10 @@ class ElementButton(val element: Element) : Button(SIZE, HEIGHT) {
     private var alphaChange = 0
 
     override val tintedImage: PImage? = null
+
+    init {
+        (element.variation as? RandomVariation)?.setCurrentImage()
+    }
 
     private fun getShortenedDisplayName(): String {
         var displayName = element.getDisplayName()
